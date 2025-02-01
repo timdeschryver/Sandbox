@@ -1,0 +1,36 @@
+# .NET
+bin/
+obj/
+*.user
+*.suo
+*.dll
+*.pdb
+*.cache
+packages/
+.vs/
+TestResults/
+
+# Angular
+node_modules/
+dist/
+.angular/
+coverage/
+npm-debug.log
+yarn-error.log
+.env
+
+# IDE
+# JetBrains
+.idea/
+
+# VS Code
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# Misc
+*.log
+.DS_Store
+Thumbs.db
