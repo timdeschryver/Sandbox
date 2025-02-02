@@ -12,6 +12,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Sandbox.ApiGateway\Sandbox.ApiGateway.csproj" />
     <ProjectReference Include="..\Sandbox.ApiService\Sandbox.ApiService.csproj" />
     <ProjectReference Include="..\Sandbox.Web\Sandbox.Web.csproj" />
   </ItemGroup>
