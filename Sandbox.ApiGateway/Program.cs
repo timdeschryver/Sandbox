@@ -12,11 +12,13 @@ builder.Services
             new RouteConfig {
                 RouteId = "apiservice",
                 ClusterId = "apiservice",
-                Match = new RouteMatch
-                {
-                    Path = "/api/weatherforecast",
-                },
-            }.WithTransformPathRemovePrefix(prefix: "/api")
+                Match = new RouteMatch { Path = "/api/weatherforecast/{**catch-all}" },
+            }.WithTransformPathRemovePrefix(prefix: "/api"),
+            new RouteConfig {
+                RouteId = "angularfrontend",
+                ClusterId = "angularfrontend",
+                Match = new RouteMatch { Path = "/{**catch-all}" },
+            }
         ],
         [
             new ClusterConfig {
@@ -26,6 +28,15 @@ builder.Services
                     ["apiservice"] =  new DestinationConfig {
                         Address = "http://apiservice",
                         Health = "http://apiservice/readiness"
+                    }
+                }
+            },
+            new ClusterConfig {
+                ClusterId = "angularfrontend",
+                Destinations = new Dictionary<string, DestinationConfig>
+                {
+                    ["angularfrontend"] =  new DestinationConfig {
+                        Address = "http://angularfrontend"
                     }
                 }
             }
