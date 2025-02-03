@@ -6,13 +6,13 @@ import { routes } from './app.routes';
 import { DATE_PIPE_DEFAULT_OPTIONS } from '@angular/common';
 
 export const appConfig: ApplicationConfig = {
-  providers: [
-    provideZoneChangeDetection({ eventCoalescing: true }), 
-    provideRouter(routes),
-    provideHttpClient(),
-    {
-        provide: DATE_PIPE_DEFAULT_OPTIONS, 
-        useValue: {dateFormat: 'dd-MMM-yyyy'}
-    }
-  ]
+	providers: [
+		provideZoneChangeDetection({ eventCoalescing: true }),
+		provideRouter(routes),
+		provideHttpClient(),
+		{
+			provide: DATE_PIPE_DEFAULT_OPTIONS,
+			useValue: { dateFormat: 'dd-MMM-yyyy' },
+		},
+	],
 };

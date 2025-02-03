@@ -1,22 +1,22 @@
-import { ChangeDetectionStrategy, Component, inject } from "@angular/core";
-import { WeatherForecastService } from "./weatherforecast.service";
-import { rxResource } from "@angular/core/rxjs-interop";
-import { DatePipe } from "@angular/common";
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { WeatherForecastService } from './weatherforecast.service';
+import { rxResource } from '@angular/core/rxjs-interop';
+import { DatePipe } from '@angular/common';
 
 @Component({
-    selector: 'app-weather-forecast',
-    templateUrl: './weatherforecast.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [DatePipe]
+	selector: 'app-weather-forecast',
+	templateUrl: './weatherforecast.component.html',
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	imports: [DatePipe],
 })
 export class WeatherForecastComponent {
-    private readonly weatherForecastService = inject(WeatherForecastService);
+	private readonly weatherForecastService = inject(WeatherForecastService);
 
-    protected readonly weatherforecast = rxResource({
-        loader: () => this.weatherForecastService.getWeatherForecast(),
-    });
-     
-    protected refresh() {
-        this.weatherforecast.reload();
-    }
+	protected readonly weatherforecast = rxResource({
+		loader: () => this.weatherForecastService.getWeatherForecast(),
+	});
+
+	protected refresh() {
+		this.weatherforecast.reload();
+	}
 }
