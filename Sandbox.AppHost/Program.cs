@@ -7,13 +7,15 @@ var apiService = builder.AddProject<Projects.Sandbox_ApiService>("apiservice")
 
 var angularApplication = builder
     .AddNpmApp("angularfrontend", "../Sandbox.AngularApp")
-    .WithHttpEndpoint(env: "PORT");
+    .WithHttpEndpoint(env: "PORT")
+    .PublishAsDockerFile();
 
 var apiGateway = builder.AddProject<Projects.Sandbox_ApiGateway>("apigateway")
     .WithReference(apiService)
-    .WithReference(angularApplication);
+    .WithReference(angularApplication)
+    .WithExternalHttpEndpoints();
 
-builder.AddProject<Projects.Sandbox_Web>("webfrontend")
+builder.AddProject<Projects.Sandbox_Web>("blazorfrontend")
     .WithExternalHttpEndpoints()
     .WithReference(cache)
     .WaitFor(cache)

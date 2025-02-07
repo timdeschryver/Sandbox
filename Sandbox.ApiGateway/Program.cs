@@ -5,7 +5,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.AddServiceDefaults();
 
-builder.Services
+var reverseProxyBuilder = builder.Services
     .AddReverseProxy()
     .LoadFromMemory(
         [
@@ -26,8 +26,7 @@ builder.Services
                 Destinations = new Dictionary<string, DestinationConfig>
                 {
                     ["apiservice"] =  new DestinationConfig {
-                        Address = "http://apiservice",
-                        Health = "http://apiservice/readiness"
+                        Address = "http://apiservice"
                     }
                 }
             },
@@ -41,8 +40,14 @@ builder.Services
                 }
             }
         ]
-    )
-    .AddServiceDiscoveryDestinationResolver();
+    );
+    // .AddServiceDiscoveryDestinationResolver();
+
+// Temp fix: https://github.com/dotnet/aspire/issues/4605
+if (!builder.Environment.IsProduction())
+{
+    reverseProxyBuilder.AddServiceDiscoveryDestinationResolver();
+}
 
 var app = builder.Build();
 
