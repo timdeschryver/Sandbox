@@ -1,9 +1,9 @@
 import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter } from '@angular/router';
-import { provideHttpClient } from '@angular/common/http';
-
-import { routes } from './app.routes';
 import { DATE_PIPE_DEFAULT_OPTIONS } from '@angular/common';
+import { provideHttpClient } from '@angular/common/http';
+import { routes } from './app.routes';
+import { provideOpenTelemetryInstrumentation } from './otel-instrumentation';
 
 export const appConfig: ApplicationConfig = {
 	providers: [
@@ -14,5 +14,6 @@ export const appConfig: ApplicationConfig = {
 			provide: DATE_PIPE_DEFAULT_OPTIONS,
 			useValue: { dateFormat: 'dd-MMM-yyyy' },
 		},
+		provideOpenTelemetryInstrumentation(),
 	],
 };

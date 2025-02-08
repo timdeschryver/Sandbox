@@ -16,7 +16,7 @@ public static class OpenTelemetryCollectorExtensions
     /// <returns></returns>
     public static IResourceBuilder<CollectorResource> AddOpenTelemetryCollector(this IDistributedApplicationBuilder builder)
     {
-        var collectorResource = new CollectorResource("collector");
+        var collectorResource = new CollectorResource("otelcollector");
         var otel = builder
             .AddResource(collectorResource)
             .WithImage("otel/opentelemetry-collector-contrib", "latest")

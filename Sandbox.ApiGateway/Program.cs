@@ -15,10 +15,15 @@ var reverseProxyBuilder = builder.Services
                 Match = new RouteMatch { Path = "/api/weatherforecast/{**catch-all}" },
             }.WithTransformPathRemovePrefix(prefix: "/api"),
             new RouteConfig {
+                RouteId = "otelcollector",
+                ClusterId = "otelcollector",
+                Match = new RouteMatch { Path = "/v1/traces" },
+            },
+            new RouteConfig {
                 RouteId = "angularfrontend",
                 ClusterId = "angularfrontend",
                 Match = new RouteMatch { Path = "/{**catch-all}" },
-            }
+            },
         ],
         [
             new ClusterConfig {
@@ -27,6 +32,15 @@ var reverseProxyBuilder = builder.Services
                 {
                     ["apiservice"] =  new DestinationConfig {
                         Address = "http://apiservice"
+                    }
+                }
+            },
+            new ClusterConfig {
+                ClusterId = "otelcollector",
+                Destinations = new Dictionary<string, DestinationConfig>
+                {
+                    ["otelcollector"] =  new DestinationConfig {
+                        Address = "http://otelcollector"
                     }
                 }
             },

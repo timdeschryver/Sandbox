@@ -17,6 +17,8 @@ var angularApplication = builder
 var apiGateway = builder.AddProject<Projects.Sandbox_ApiGateway>("apigateway")
     .WithReference(apiService)
     .WithReference(angularApplication)
+    .WithReference(otel.Resource.HTTPEndpoint)
+    .WithReference(otel.Resource.GRPCEndpoint)
     .WithExternalHttpEndpoints();
 
 builder.AddProject<Projects.Sandbox_Web>("blazorfrontend")
