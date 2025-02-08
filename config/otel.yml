@@ -1,0 +1,54 @@
+receivers:
+  otlp:
+    protocols:
+      grpc:
+        endpoint: 0.0.0.0:4317
+      http:
+        endpoint: 0.0.0.0:4318
+
+processors:
+  batch:
+  transform/environment:
+    error_mode: ignore
+    trace_statements:
+      - context: resource
+        statements:
+          - set(attributes["environment"], "development")
+    log_statements:
+      - context: resource
+        statements:
+          - set(attributes["environment"], "development")
+    metric_statements:
+      - context: resource
+        statements:
+          - set(attributes["environment"], "development")
+
+exporters:
+  debug:
+  otlp/aspire:
+    endpoint: ${env:ASPIRE_OTLP_ENDPOINT}
+    headers:
+      x-otlp-api-key: ${env:ASPIRE_API_KEY}
+    tls:
+      insecure: true
+
+service:
+  pipelines:
+    logs:
+      receivers: [otlp]
+      processors:
+        - batch
+        - transform/environment
+      exporters: [otlp/aspire, debug]
+    metrics:
+      receivers: [otlp]
+      processors:
+        - batch
+        - transform/environment
+      exporters: [otlp/aspire]
+    traces:
+      receivers: [otlp]
+      processors:
+        - batch
+        - transform/environment
+      exporters: [otlp/aspire, debug]

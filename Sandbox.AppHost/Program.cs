@@ -1,4 +1,8 @@
+using Sandbox.AppHost.Extensions;
+
 var builder = DistributedApplication.CreateBuilder(args);
+
+var otel = builder.AddOpenTelemetryCollector();
 
 var cache = builder.AddRedis("cache");
 
