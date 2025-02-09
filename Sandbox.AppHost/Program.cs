@@ -11,7 +11,8 @@ var db = sql.AddDatabase("database");
 
 builder.AddProject<Projects.Sandbox_ApiService_Migrations>("migrations")
     .WithReference(db)
-    .WaitFor(db);
+    .WaitFor(db)
+    .WithHttpCommand("/reset-db", "Reset Database", iconName: "DatabaseLightning");
 
 var cache = builder.AddRedis("cache");
 
