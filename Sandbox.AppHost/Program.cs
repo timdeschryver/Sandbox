@@ -4,10 +4,21 @@ var builder = DistributedApplication.CreateBuilder(args);
 
 var otel = builder.AddOpenTelemetryCollector();
 
+var sql = builder.AddSqlServer("sql")
+    .WithDataVolume();
+
+var db = sql.AddDatabase("database");
+
+builder.AddProject<Projects.Sandbox_ApiService_Migrations>("migrations")
+    .WithReference(db)
+    .WaitFor(db);
+
 var cache = builder.AddRedis("cache");
 
 var apiService = builder.AddProject<Projects.Sandbox_ApiService>("apiservice")
-    .WithReplicas(2);
+    .WithReplicas(2)
+    .WithReference(db)
+    .WaitFor(db);
 
 var angularApplication = builder
     .AddNpmApp("angularfrontend", "../Sandbox.AngularApp")

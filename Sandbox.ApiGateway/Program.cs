@@ -12,7 +12,7 @@ var reverseProxyBuilder = builder.Services
             new RouteConfig {
                 RouteId = "apiservice",
                 ClusterId = "apiservice",
-                Match = new RouteMatch { Path = "/api/weatherforecast/{**catch-all}" },
+                Match = new RouteMatch { Path = "/api/{**catch-all}" },
             }.WithTransformPathRemovePrefix(prefix: "/api"),
             new RouteConfig {
                 RouteId = "otelcollector",

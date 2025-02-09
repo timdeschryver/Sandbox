@@ -8,4 +8,11 @@ export const routes: Routes = [
 				(m) => m.WeatherForecastComponent,
 			),
 	},
+	{
+		path: 'people',
+		loadComponent: () =>
+			import('./people/people.component').then(
+				(m) => m.PeopleComponent,
+			),
+	},
 ];

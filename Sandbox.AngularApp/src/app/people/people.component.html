@@ -1,0 +1,29 @@
+<button (click)="refresh()">Refresh</button>
+
+@if (people.error()) {
+	<div>{{ $any(people.error()).message }}</div>
+	<button (click)="refresh()">Retry</button>
+} @else {
+	@if (people.isLoading()) {
+		<div>Loading...</div>
+	}
+
+	@if (people.hasValue()) {
+		<table>
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Date of birth</th>
+				</tr>
+			</thead>
+			<tbody>
+				@for (person of people.value(); track person.id) {
+					<tr>
+						<td>{{ person.firstName }} {{ person.lastName }}</td>
+						<td>{{ person.dateOfBirth | date }}</td>
+					</tr>
+				}
+			</tbody>
+		</table>
+	}
+}

@@ -14,6 +14,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Sandbox.ApiGateway\Sandbox.ApiGateway.csproj" />
+    <ProjectReference Include="..\Sandbox.ApiService.Migrations\Sandbox.ApiService.Migrations.csproj" />
     <ProjectReference Include="..\Sandbox.ApiService\Sandbox.ApiService.csproj" />
     <ProjectReference Include="..\Sandbox.Web\Sandbox.Web.csproj" />
   </ItemGroup>
@@ -22,6 +23,7 @@
     <PackageReference Include="Aspire.Hosting.AppHost" />
     <PackageReference Include="Aspire.Hosting.Redis" />
     <PackageReference Include="Aspire.Hosting.NodeJs" />
+    <PackageReference Include="Aspire.Hosting.SqlServer" />
   </ItemGroup>
 
   <Target Name="RestoreNodeModules" BeforeTargets="Build" Condition=" '$(DesignTimeBuild)' != 'true' ">

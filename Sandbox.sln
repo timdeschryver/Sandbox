@@ -1,6 +1,7 @@
-﻿Microsoft Visual Studio Solution File, Format Version 12.00
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.13.35617.110 d17.13
+VisualStudioVersion = 17.13.35617.110
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sandbox.AppHost", "Sandbox.AppHost\Sandbox.AppHost.csproj", "{214A4041-DC2F-4840-B2DB-C876A17FA028}"
 EndProject
@@ -11,6 +12,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sandbox.Web", "Sandbox.Web\Sandbox.Web.csproj", "{91B1C6F1-1E50-6ED0-2229-A026AC6C13E5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sandbox.ApiGateway", "Sandbox.ApiGateway\Sandbox.ApiGateway.csproj", "{67AF5B7B-A3DF-4C72-ACF9-2E12C71CF06B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sandbox.ApiService.Migrations", "Sandbox.ApiService.Migrations\Sandbox.ApiService.Migrations.csproj", "{F708FA14-2EA4-4455-B5F3-351CA0C4296C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -38,6 +41,10 @@ Global
 		{67AF5B7B-A3DF-4C72-ACF9-2E12C71CF06B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{67AF5B7B-A3DF-4C72-ACF9-2E12C71CF06B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{67AF5B7B-A3DF-4C72-ACF9-2E12C71CF06B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F708FA14-2EA4-4455-B5F3-351CA0C4296C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F708FA14-2EA4-4455-B5F3-351CA0C4296C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F708FA14-2EA4-4455-B5F3-351CA0C4296C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F708FA14-2EA4-4455-B5F3-351CA0C4296C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
