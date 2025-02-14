@@ -19,6 +19,7 @@ RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm run build
 
 FROM nginx:alpine
 
+COPY --from=base /app/default.conf.template /etc/nginx/templates/default.conf.template
 COPY --from=base /app/dist/sandbox.angular-app/browser /usr/share/nginx/html
 
 EXPOSE 80
