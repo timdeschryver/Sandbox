@@ -1,6 +1,9 @@
+using Microsoft.Extensions.DependencyInjection;
 using Sandbox.AppHost.Extensions;
 
 var builder = DistributedApplication.CreateBuilder(args);
+
+builder.Services.AddHttpClient();
 
 var otel = builder.AddOpenTelemetryCollector();
 
