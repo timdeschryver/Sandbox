@@ -12,4 +12,8 @@ export class PeopleService {
 	get(): Observable<Person[]> {
 		return this.http.get<Person[]>('/api/people');
 	}
+
+	create(person: Omit<Person, 'id'>): Observable<Person> {
+		return this.http.post<Person>('/api/people', person);
+	}
 }

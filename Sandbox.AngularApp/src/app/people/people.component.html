@@ -1,29 +1,78 @@
-<button (click)="refresh()">Refresh</button>
+<div style="display: flex; gap: 5em;">
+	<form #personForm="ngForm" (ngSubmit)="onSubmit(personForm)">
+		<div>
+			<label for="firstName">First Name</label>
+			<input
+				id="firstName"
+				name="firstName"
+				[(ngModel)]="newPerson.firstName"
+				required
+				type="text"
+			/>
+		</div>
+		<div>
+			<label for="lastName">Last Name</label>
+			<input
+				id="lastName"
+				name="lastName"
+				[(ngModel)]="newPerson.lastName"
+				required
+				type="text"
+			/>
+		</div>
+		<div>
+			<label for="email">Email</label>
+			<input
+				id="email"
+				name="email"
+				[(ngModel)]="newPerson.email"
+				required
+				email
+				type="email"
+			/>
+		</div>
+		<div>
+			<label for="dateOfBirth">Date of Birth</label>
+			<input
+				id="dateOfBirth"
+				name="dateOfBirth"
+				[(ngModel)]="newPerson.dateOfBirth"
+				required
+				type="date"
+			/>
+		</div>
+		<button type="submit">Create Person</button>
+	</form>
 
-@if (people.error()) {
-	<div>{{ $any(people.error()).message }}</div>
-	<button (click)="refresh()">Retry</button>
-} @else {
-	@if (people.isLoading()) {
-		<div>Loading...</div>
-	}
+	<div>
+		<button (click)="refresh()">Refresh</button>
 
-	@if (people.hasValue()) {
-		<table>
-			<thead>
-				<tr>
-					<th>Name</th>
-					<th>Date of birth</th>
-				</tr>
-			</thead>
-			<tbody>
-				@for (person of people.value(); track person.id) {
-					<tr>
-						<td>{{ person.firstName }} {{ person.lastName }}</td>
-						<td>{{ person.dateOfBirth | date }}</td>
-					</tr>
-				}
-			</tbody>
-		</table>
-	}
-}
+		@if (people.error()) {
+			<div>{{ $any(people.error()).error.title }}</div>
+			<button (click)="refresh()">Retry</button>
+		} @else {
+			@if (people.isLoading()) {
+				<div>Loading...</div>
+			}
+
+			@if (people.hasValue()) {
+				<table>
+					<thead>
+						<tr>
+							<th>Name</th>
+							<th>Date of birth</th>
+						</tr>
+					</thead>
+					<tbody>
+						@for (person of people.value(); track person.id) {
+							<tr>
+								<td>{{ person.firstName }} {{ person.lastName }}</td>
+								<td>{{ person.dateOfBirth | date }}</td>
+							</tr>
+						}
+					</tbody>
+				</table>
+			}
+		}
+	</div>
+</div>

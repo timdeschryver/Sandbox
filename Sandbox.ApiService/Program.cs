@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 using Sandbox.ApiService;
 
@@ -41,11 +42,19 @@ app.MapGet("/weatherforecast", () =>
 .WithName("GetWeatherForecast");
 
 var peopleGroup = app.MapGroup("people");
-peopleGroup.Map("", async (ApiDbContext db, CancellationToken cancellationToken) => {
-    var persons = await db.Set<Person>().ToListAsync(cancellationToken);
+peopleGroup.MapGet("", async Task<Results<Ok<Person[]>, ProblemHttpResult>>(ApiDbContext db, CancellationToken cancellationToken) => {
+    var persons = await db.Set<Person>().ToArrayAsync(cancellationToken);
+    if (Random.Shared.Next(8) == 0)
+    {
+        return TypedResults.Problem(detail: "You got unlucky, please try again");
+    }
     return TypedResults.Ok(persons);
 });
-
+peopleGroup.MapPost("", async (Person person, ApiDbContext db, CancellationToken cancellationToken) => {
+    await db.Set<Person>().AddAsync(person, cancellationToken);
+    await db.SaveChangesAsync(cancellationToken);
+    return TypedResults.Created();
+});
 app.MapDefaultEndpoints();
 
 app.Run();
