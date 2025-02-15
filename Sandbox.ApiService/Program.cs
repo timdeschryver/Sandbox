@@ -17,7 +17,7 @@ builder.AddSqlServerDbContext<ApiDbContext>(connectionName: "database");
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+app.UseStatusCodePages();
 app.UseExceptionHandler();
 
 if (app.Environment.IsDevelopment())
