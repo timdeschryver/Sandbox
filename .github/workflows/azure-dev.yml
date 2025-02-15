@@ -31,7 +31,7 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: 9.x.x
+          global-json-file: global.json
       - name: Install pnpm
         uses: pnpm/action-setup@v4
         with:
@@ -39,6 +39,7 @@ jobs:
       - name: Use Node.js
         uses: actions/setup-node@v4
         with:
+          node-version-file: .node-version
           cache: 'pnpm'
           cache-dependency-path: '**/pnpm-lock.yaml'
 
