@@ -1,7 +1,7 @@
 import { EnvironmentProviders, provideAppInitializer } from '@angular/core';
 import { BatchSpanProcessor } from '@opentelemetry/sdk-trace-base';
 import { WebTracerProvider } from '@opentelemetry/sdk-trace-web';
-import { ZoneContextManager } from '@opentelemetry/context-zone';
+import { ZoneContextManager } from '@opentelemetry/context-zone-peer-dep';
 import { registerInstrumentations } from '@opentelemetry/instrumentation';
 import { OTLPTraceExporter } from '@opentelemetry/exporter-trace-otlp-proto';
 import { Resource } from '@opentelemetry/resources';
