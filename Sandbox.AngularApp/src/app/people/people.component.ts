@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { rxResource } from '@angular/core/rxjs-interop';
 import { DatePipe } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
 import { Person } from './people.model';
 import { PeopleService } from './people.service';
+import { httpResource } from '@angular/common/http';
 
 @Component({
 	selector: 'app-people',
@@ -21,9 +21,7 @@ export class PeopleComponent {
 		dateOfBirth: '',
 	};
 
-	protected readonly people = rxResource({
-		loader: () => this.peopleService.get(),
-	});
+	protected readonly people = httpResource<Person[]>('api/people');
 
 	protected refresh() {
 		this.people.reload();
