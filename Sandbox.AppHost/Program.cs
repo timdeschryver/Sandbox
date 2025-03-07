@@ -17,8 +17,6 @@ builder.AddProject<Projects.Sandbox_ApiService_Migrations>("migrations")
     .WaitFor(db)
     .WithHttpCommand("/reset-db", "Reset Database", iconName: "DatabaseLightning");
 
-var cache = builder.AddRedis("cache");
-
 var apiService = builder.AddProject<Projects.Sandbox_ApiService>("apiservice")
     .WithReplicas(2)
     .WithReference(db)
@@ -35,12 +33,5 @@ var apiGateway = builder.AddProject<Projects.Sandbox_ApiGateway>("apigateway")
     .WithReference(otel.Resource.HTTPEndpoint)
     .WithReference(otel.Resource.GRPCEndpoint)
     .WithExternalHttpEndpoints();
-
-builder.AddProject<Projects.Sandbox_Web>("blazorfrontend")
-    .WithExternalHttpEndpoints()
-    .WithReference(cache)
-    .WaitFor(cache)
-    .WithReference(apiGateway)
-    .WaitFor(apiGateway);
 
 builder.Build().Run();

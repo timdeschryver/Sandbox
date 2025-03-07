@@ -9,8 +9,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sandbox.ServiceDefaults", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sandbox.ApiService", "Sandbox.ApiService\Sandbox.ApiService.csproj", "{1F1469AB-DF69-174E-3991-F44E67585A41}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sandbox.Web", "Sandbox.Web\Sandbox.Web.csproj", "{91B1C6F1-1E50-6ED0-2229-A026AC6C13E5}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sandbox.ApiGateway", "Sandbox.ApiGateway\Sandbox.ApiGateway.csproj", "{67AF5B7B-A3DF-4C72-ACF9-2E12C71CF06B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sandbox.ApiService.Migrations", "Sandbox.ApiService.Migrations\Sandbox.ApiService.Migrations.csproj", "{F708FA14-2EA4-4455-B5F3-351CA0C4296C}"
@@ -33,10 +31,6 @@ Global
 		{1F1469AB-DF69-174E-3991-F44E67585A41}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1F1469AB-DF69-174E-3991-F44E67585A41}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1F1469AB-DF69-174E-3991-F44E67585A41}.Release|Any CPU.Build.0 = Release|Any CPU
-		{91B1C6F1-1E50-6ED0-2229-A026AC6C13E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{91B1C6F1-1E50-6ED0-2229-A026AC6C13E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{91B1C6F1-1E50-6ED0-2229-A026AC6C13E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{91B1C6F1-1E50-6ED0-2229-A026AC6C13E5}.Release|Any CPU.Build.0 = Release|Any CPU
 		{67AF5B7B-A3DF-4C72-ACF9-2E12C71CF06B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{67AF5B7B-A3DF-4C72-ACF9-2E12C71CF06B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{67AF5B7B-A3DF-4C72-ACF9-2E12C71CF06B}.Release|Any CPU.ActiveCfg = Release|Any CPU
