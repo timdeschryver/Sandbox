@@ -8,10 +8,16 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Sandbox.ApiGateway;
 using Microsoft.AspNetCore.Authorization;
+using Azure.Extensions.AspNetCore.Configuration.Secrets;
+using Sandbox.ServiceDefaults;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.AddServiceDefaults();
+
+builder.Configuration.AddAzureKeyVaultSecrets("key-vault", options: new AzureKeyVaultConfigurationOptions {
+    Manager = new PrefixKeyVaultSecretManager("Auth")
+});
 
 builder.Services.AddSingleton<AddBearerTokenToHeadersTransformer>();
 

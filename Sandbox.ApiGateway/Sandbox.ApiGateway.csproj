@@ -5,7 +5,6 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <UserSecretsId>a56f3ccf-c063-4237-a735-950b14b7cd18</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -13,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Aspire.Azure.Security.KeyVault" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" />
     <PackageReference Include="Yarp.ReverseProxy" />
   </ItemGroup>

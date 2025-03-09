@@ -10,7 +10,7 @@ Some buzzwords that are used:
 - YARP
 - Containers
 - Azure Developer CLI (azd)
-- Authentication (TODO)
+- Authentication (WIP)
 
 ## Prerequisites
 
