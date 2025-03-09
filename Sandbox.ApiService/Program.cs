@@ -1,11 +1,25 @@
+using Azure.Extensions.AspNetCore.Configuration.Secrets;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 using Sandbox.ApiService;
+using Sandbox.ServiceDefaults;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add service defaults & Aspire client integrations.
 builder.AddServiceDefaults();
+builder.Configuration.AddAzureKeyVaultSecrets("key-vault", options: new AzureKeyVaultConfigurationOptions {
+    Manager = new PrefixKeyVaultSecretManager("Auth")
+});
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, jwtOptions =>
+    {
+        jwtOptions.Authority = $"https://{builder.Configuration["OpenIDConnectSettings:Domain"]}";
+        jwtOptions.Audience = builder.Configuration["OpenIDConnectSettings:Audience"];
+    });
+builder.Services.AddAuthorization();
 
 // Add services to the container.
 builder.Services.AddProblemDetails();
@@ -19,6 +33,9 @@ var app = builder.Build();
 
 app.UseStatusCodePages();
 app.UseExceptionHandler();
+
+app.UseAuthentication();
+app.UseAuthorization();
 
 if (app.Environment.IsDevelopment())
 {
@@ -41,7 +58,7 @@ app.MapGet("/weatherforecast", () =>
 })
 .WithName("GetWeatherForecast");
 
-var peopleGroup = app.MapGroup("people");
+var peopleGroup = app.MapGroup("people").RequireAuthorization();
 peopleGroup.MapGet("", async Task<Results<Ok<Person[]>, ProblemHttpResult>>(ApiDbContext db, CancellationToken cancellationToken) => {
     var persons = await db.Set<Person>().ToArrayAsync(cancellationToken);
     if (Random.Shared.Next(8) == 0)

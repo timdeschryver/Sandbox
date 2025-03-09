@@ -156,7 +156,12 @@ builder.Services.AddAuthorization(options =>
         .Build();
 });
 
+builder.Services.AddProblemDetails();
+
 var app = builder.Build();
+
+app.UseStatusCodePages();
+app.UseExceptionHandler();
 
 app.UseNoUnauthorizedRedirect("/api");
 app.UseAuthentication();

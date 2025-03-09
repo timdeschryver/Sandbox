@@ -24,6 +24,7 @@ builder.AddProject<Projects.Sandbox_ApiService_Migrations>("migrations")
 
 var apiService = builder.AddProject<Projects.Sandbox_ApiService>("apiservice")
     .WithReplicas(2)
+    .WithReference(secrets)
     .WithReference(db)
     .WaitFor(db);
 
@@ -38,6 +39,8 @@ var apiGateway = builder.AddProject<Projects.Sandbox_ApiGateway>("apigateway")
     .WithReference(otel.Resource.HTTPEndpoint)
     .WithReference(otel.Resource.GRPCEndpoint)
     .WithReference(secrets)
+    .WaitFor(apiService)
+    .WaitFor(angularApplication)
     .WithExternalHttpEndpoints();
 
 builder.Build().Run();
