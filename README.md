@@ -12,6 +12,58 @@ Some buzzwords that are used:
 - Azure Developer CLI (azd)
 - Authentication (WIP)
 
+
+```mermaid
+graph TD
+    User["Browser (User)"] --> ApiGateway
+    
+    subgraph "External Facing Components"
+        ApiGateway["API Gateway (YARP)<br>Sandbox.ApiGateway"]
+        Auth0["Auth0<br>Authentication Provider"]
+    end
+    
+    subgraph "Internal Components"
+        AngularApp["Angular Frontend<br>Sandbox.AngularApp"]
+        ApiService["API Service<br>Sandbox.ApiService<br>[x2 replicas]"]
+        SqlDatabase["SQL Server Database"]
+        DbMigrations["Database Migrations<br>Sandbox.ApiService.Migrations"]
+        KeyVault["Azure KeyVault<br>(Secrets Management)"]
+        
+        ApiGateway --> AngularApp
+        ApiGateway --> ApiService
+        ApiService --> SqlDatabase
+        SqlDatabase -.-o DbMigrations
+        ApiGateway -.-> KeyVault
+        ApiService -.-> KeyVault
+        ApiGateway -.-> Auth0
+    end
+    
+    subgraph "Monitoring"
+        OpenTelemetry["OpenTelemetry Collector<br>Metrics, Traces, Logs"]
+        ApiGateway -.-> OpenTelemetry
+        AngularApp -.-> OpenTelemetry
+        ApiService -.-> OpenTelemetry
+        SqlDatabase -.-> OpenTelemetry
+    end
+    
+    classDef externalFacing fill:#f96,stroke:#333,stroke-width:3px,stroke-dasharray: 5 5;
+    classDef gateway fill:#f9f,stroke:#333,stroke-width:2px;
+    classDef frontend fill:#bbf,stroke:#333,stroke-width:1px;
+    classDef backend fill:#bfb,stroke:#333,stroke-width:1px;
+    classDef database fill:#fbb,stroke:#333,stroke-width:1px;
+    classDef secrets fill:#9cf,stroke:#333,stroke-width:1px;
+    classDef auth fill:#f99,stroke:#333,stroke-width:1px;
+    classDef monitoring fill:#ffd,stroke:#333,stroke-width:1px;
+    
+    class ApiGateway gateway,externalFacing;
+    class Auth0 auth,externalFacing;
+    class AngularApp frontend;
+    class ApiService backend;
+    class SqlDatabase,DbMigrations database;
+    class KeyVault secrets;
+    class OpenTelemetry monitoring;
+```
+
 ## Prerequisites
 
 - [.NET 9](https://dotnet.microsoft.com/en-us/download)
@@ -23,7 +75,7 @@ Some buzzwords that are used:
 Clone the project and run the `dotnet run` command in the root folder to start the project.
 
 ```bash
-dotnet run --project .\Sandbox.AppHost
+dotnet run --project ./Sandbox.AppHost
 ```
 
 ## Result
