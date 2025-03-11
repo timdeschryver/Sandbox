@@ -11,7 +11,6 @@ public static class UserFeature
     {
         builder.Map("/user", (ClaimsPrincipal principal) =>
         {
-            Thread.Sleep(5000);
             if (principal.Identity?.IsAuthenticated == true)
             {
                 return TypedResults.Ok(new User
@@ -31,7 +30,7 @@ public static class UserFeature
         {
             var properties = new AuthenticationProperties
             {
-                RedirectUri = Helpers.BuildRedirectUrl(context, returnUrl),
+                RedirectUri = context.BuildRedirectUrl(returnUrl),
             };
 
             if (claimsChallenge != null)
@@ -46,7 +45,7 @@ public static class UserFeature
         {
             var properties = new AuthenticationProperties
             {
-                RedirectUri = Helpers.BuildRedirectUrl(context, redirectUrl),
+                RedirectUri = context.BuildRedirectUrl(redirectUrl),
             };
 
             return TypedResults.SignOut(properties, [CookieAuthenticationDefaults.AuthenticationScheme, OpenIdConnectDefaults.AuthenticationScheme]);
