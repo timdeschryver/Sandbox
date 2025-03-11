@@ -30,7 +30,15 @@ export default tseslint.config(
 					type: 'element',
 					prefix: 'app',
 					style: 'kebab-case',
-				},
+					},
+			],
+			'@typescript-eslint/no-unused-vars': [
+				'error',
+				{ 
+					argsIgnorePattern: '^_',
+					varsIgnorePattern: '^_',
+					caughtErrorsIgnorePattern: '^_'
+				}
 			],
 		},
 	},

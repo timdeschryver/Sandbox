@@ -1,18 +1,24 @@
 import { Routes } from '@angular/router';
+import { authenticatedGuard } from './core/authenticated.guard';
 
 export const routes: Routes = [
 	{
-		path: 'weatherforecast',
-		loadComponent: () =>
-			import('./weatherforecast/weatherforecast.component').then(
-				(m) => m.WeatherForecastComponent,
-			),
+		path: '',
+		canActivateChild: [authenticatedGuard],
+		children: [
+			{
+				path: 'weatherforecast',
+				loadComponent: () => import('./weatherforecast/weatherforecast.component')
+			},
+			{
+				path: 'people',
+				loadComponent: () => import('./people/people.component')
+			},
+		],
 	},
 	{
-		path: 'people',
-		loadComponent: () =>
-			import('./people/people.component').then(
-				(m) => m.PeopleComponent,
-			),
+		path: '**',
+		loadComponent: () => import('./core/not-found/not-found.component'),
+		title: 'Not Found',
 	},
 ];

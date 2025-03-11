@@ -4,7 +4,6 @@ using Yarp.ReverseProxy.Transforms;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Sandbox.ApiGateway;
 using Microsoft.AspNetCore.Authorization;
@@ -15,7 +14,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.AddServiceDefaults();
 
-builder.Configuration.AddAzureKeyVaultSecrets("key-vault", options: new AzureKeyVaultConfigurationOptions {
+builder.Configuration.AddAzureKeyVaultSecrets("key-vault", options: new AzureKeyVaultConfigurationOptions
+{
     Manager = new PrefixKeyVaultSecretManager("Auth")
 });
 
@@ -167,30 +167,7 @@ app.UseNoUnauthorizedRedirect("/api");
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.Map("/login", (string? returnUrl, string? claimsChallenge, HttpContext context) =>
-{
-    var properties = new AuthenticationProperties
-    {
-        RedirectUri = Helpers.BuildRedirectUrl(context, returnUrl),
-    };
-
-    if (claimsChallenge != null)
-    {
-        string jsonString = claimsChallenge.Replace("\\", "").Trim(['"']);
-        properties.Items["claims"] = jsonString;
-    }
-
-    return TypedResults.Challenge(properties);
-});
-app.Map("/logout", (string? redirectUrl, HttpContext context) =>
-{
-    var properties = new AuthenticationProperties
-    {
-        RedirectUri = Helpers.BuildRedirectUrl(context, redirectUrl),
-    };
-
-    return TypedResults.SignOut(properties, [CookieAuthenticationDefaults.AuthenticationScheme, OpenIdConnectDefaults.AuthenticationScheme]);
-});
+app.MapGroup("bff").MapUserRoutes();
 
 app.MapReverseProxy();
 

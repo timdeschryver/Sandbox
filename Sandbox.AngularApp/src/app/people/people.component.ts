@@ -11,7 +11,7 @@ import { httpResource } from '@angular/common/http';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [DatePipe, FormsModule],
 })
-export class PeopleComponent {
+export default class PeopleComponent {
 	private readonly peopleService = inject(PeopleService);
 
 	protected readonly newPerson: Omit<Person, 'id'> = {

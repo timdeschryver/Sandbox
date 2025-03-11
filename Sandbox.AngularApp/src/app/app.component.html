@@ -1,6 +1,17 @@
-<nav>
-	<a routerLink="/weatherforecast">Weatherforecast</a> |
-	<a routerLink="/people">People</a>
-</nav>
+<div *appAnonymous>
+	<nav><a href="/bff/login">Login</a> | <a routerLink="/people">People</a> |</nav>
+</div>
+<div *appAuthenticated>
+	<div>
+		<h3>👋 Hello, {{ user()?.name }}</h3>
+	</div>
+	<nav>
+		<a routerLink="/weatherforecast">Weatherforecast</a> |
+		<a routerLink="/people">People</a> |
+		<a href="/bff/logout">Logout</a>
+	</nav>
+</div>
 
-<router-outlet />
+<main>
+	<router-outlet />
+</main>

@@ -9,7 +9,7 @@ import { DatePipe } from '@angular/common';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [DatePipe],
 })
-export class WeatherForecastComponent {
+export default class WeatherForecastComponent {
 	private readonly weatherForecastService = inject(WeatherForecastService);
 
 	protected readonly weatherforecast = rxResource({
