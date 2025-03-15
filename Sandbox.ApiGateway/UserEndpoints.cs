@@ -5,28 +5,31 @@ using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 
 namespace Sandbox.ApiGateway;
 
-public static class UserFeature
+public static class UserEndpoints
 {
-    public static void MapUserRoutes(this IEndpointRouteBuilder builder)
+    public static void MapUserEndpoints(this IEndpointRouteBuilder builder)
     {
-        builder.Map("/user", (ClaimsPrincipal principal) =>
+        builder.Map("user", (ClaimsPrincipal principal) =>
         {
-            if (principal.Identity?.IsAuthenticated == true)
+            var user = principal switch
             {
-                return TypedResults.Ok(new User
+                { Identity.IsAuthenticated: true } => new User
                 {
                     IsAuthenticated = true,
                     Name = principal.Claims.SingleOrDefault(c => c.Type == "name")?.Value,
                     Claims = principal.Claims.Select(c => new UserClaim { Type = c.Type, Value = c.Value }),
-                });
-            }
-            return TypedResults.Ok(new User
-            {
-                IsAuthenticated = false,
-                Name = null
-            });
+                },
+                _ => new User
+                {
+                    IsAuthenticated = false,
+                    Name = null
+                }
+            };
+
+            return TypedResults.Ok(user);
         });
-        builder.Map("/login", (string? returnUrl, string? claimsChallenge, HttpContext context) =>
+
+        builder.Map("login", (string? returnUrl, string? claimsChallenge, HttpContext context) =>
         {
             var properties = new AuthenticationProperties
             {
@@ -41,7 +44,8 @@ public static class UserFeature
 
             return TypedResults.Challenge(properties);
         });
-        builder.Map("/logout", (string? redirectUrl, HttpContext context) =>
+
+        builder.Map("logout", (string? redirectUrl, HttpContext context) =>
         {
             var properties = new AuthenticationProperties
             {

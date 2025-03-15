@@ -25,7 +25,8 @@ app.UseNoUnauthorizedRedirect("/api");
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapGroup("bff").MapUserRoutes();
+app.MapGroup("bff")
+    .MapUserEndpoints();
 
 app.MapReverseProxy();
 

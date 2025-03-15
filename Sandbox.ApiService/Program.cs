@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 using Sandbox.ApiService;
+using Sandbox.ApiService.CustomerModule.Endpoints;
 using Sandbox.ServiceDefaults;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -41,6 +42,9 @@ if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
 }
+
+app.MapGroup("customers")
+    .MapCustomerEndpoints();
 
 string[] summaries = ["Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"];
 
