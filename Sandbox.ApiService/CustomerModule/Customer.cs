@@ -11,13 +11,6 @@ public class Customer
     private readonly List<CustomerShippingAddress> _shippingAddresses = [];
     public IReadOnlyCollection<CustomerShippingAddress> ShippingAddresses => _shippingAddresses.AsReadOnly();
 
-    public Customer(Name name)
-    {
-        Name = name;
-    }
-
-    private Customer() { }
-
     public void AddBillingAddress(CustomerBillingAddress address)
     {
         _billingAddresses.Add(address);
@@ -26,5 +19,25 @@ public class Customer
     public void AddShippingAddress(CustomerShippingAddress address)
     {
         _shippingAddresses.Add(address);
+    }
+
+    public static Customer New(Name name, CustomerBillingAddress? customerBillingAddress, CustomerShippingAddress? customerShippingAddress)
+    {
+        var customer = new Customer
+        {
+            Name = name
+        };
+
+        if (customerBillingAddress != null)
+        {
+            customer.AddBillingAddress(customerBillingAddress);
+        }
+
+        if (customerShippingAddress != null)
+        {
+            customer.AddShippingAddress(customerShippingAddress);
+        }
+
+        return customer;
     }
 }

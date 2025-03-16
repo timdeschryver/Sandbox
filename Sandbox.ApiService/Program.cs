@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 using Sandbox.ApiService;
-using Sandbox.ApiService.CustomerModule.Endpoints;
+using Sandbox.ApiService.CustomerModule;
 using Sandbox.ServiceDefaults;
 
 var builder = WebApplication.CreateBuilder(args);
