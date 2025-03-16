@@ -14,6 +14,9 @@ builder.Configuration.AddAzureKeyVaultSecrets("key-vault", options: new AzureKey
 builder.Services.AddReverseProxy(builder.Configuration);
 builder.Services.AddAuthenticationSchemes(builder.Configuration);
 
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddOpenIdConnectAccessTokenManagement();
+
 builder.Services.AddProblemDetails();
 
 var app = builder.Build();
