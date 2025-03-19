@@ -14,6 +14,10 @@ export const routes: Routes = [
 				path: 'people',
 				loadComponent: () => import('./people/people.component'),
 			},
+			{
+				path: 'customers',
+				loadChildren: () => import('./customers/customers.routes'),
+			},
 		],
 	},
 	{

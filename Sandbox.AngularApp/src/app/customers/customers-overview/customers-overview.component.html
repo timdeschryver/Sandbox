@@ -1,0 +1,13 @@
+<app-table [resource]="customers">
+	<ng-template #appTableHeader>
+		<th>Name</th>
+	</ng-template>
+
+	<ng-template [appTableBody]="customers" let-customer>
+		<td>{{ customer.firstName }} {{ customer.lastName }}</td>
+	</ng-template>
+
+	<ng-template #appTableEmpty>
+		<td colspan="100%">No customers found</td>
+	</ng-template>
+</app-table>
