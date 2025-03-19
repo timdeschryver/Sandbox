@@ -1,17 +1,12 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { RouterLink, RouterOutlet } from '@angular/router';
-import { AuthenticationService } from './core/authentication.service';
-import { AuthenticatedDirective } from './core/authenticated.directive';
-import { AnonymousDirective } from './core/anonymous.directive';
+import { AuthenticationService } from './authentication/authentication.service';
+import { AuthenticatedDirective } from './authentication/authenticated.directive';
+import { AnonymousDirective } from './authentication/anonymous.directive';
 
 @Component({
 	selector: 'app-root',
-	imports: [
-		RouterOutlet,
-		RouterLink,
-		AuthenticatedDirective,
-		AnonymousDirective,
-	],
+	imports: [RouterOutlet, RouterLink, AuthenticatedDirective, AnonymousDirective],
 	templateUrl: './app.component.html',
 	styleUrl: './app.component.css',
 	changeDetection: ChangeDetectionStrategy.OnPush,
