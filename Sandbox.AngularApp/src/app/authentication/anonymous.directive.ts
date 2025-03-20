@@ -1,5 +1,5 @@
 import { Directive, effect, inject, TemplateRef, ViewContainerRef } from '@angular/core';
-import { AuthenticationService } from './authentication.service';
+import { AuthenticationService } from '@/authentication/authentication.service';
 
 @Directive({
 	selector: '[appAnonymous]',

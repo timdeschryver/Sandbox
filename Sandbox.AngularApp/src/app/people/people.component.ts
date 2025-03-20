@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
-import { Person } from './people.model';
-import { PeopleService } from './people.service';
+import { Person } from '@/people/people.model';
+import { PeopleService } from '@/people/people.service';
 import { httpResource } from '@angular/common/http';
 
 @Component({

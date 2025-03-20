@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { WeatherForecastService } from './weatherforecast.service';
+import { WeatherForecastService } from '@/weatherforecast/weatherforecast.service';
 import { rxResource } from '@angular/core/rxjs-interop';
 import { DatePipe } from '@angular/common';
 

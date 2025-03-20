@@ -1,9 +1,9 @@
 import { inject } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivateFn, RouterStateSnapshot } from '@angular/router';
-import { AuthenticationService } from './authentication.service';
+import { AuthenticationService } from '@/authentication/authentication.service';
 import { toObservable } from '@angular/core/rxjs-interop';
 import { map } from 'rxjs';
-import { filterNullish } from '../shared/operators';
+import { filterNullish } from '@/shared/operators';
 import { DOCUMENT } from '@angular/common';
 
 export const authenticatedGuard: CanActivateFn = (_next: ActivatedRouteSnapshot, _state: RouterStateSnapshot) => {

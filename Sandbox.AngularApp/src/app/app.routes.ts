@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { authenticatedGuard } from './authentication/authenticated.guard';
+import { authenticatedGuard } from '@/authentication/authenticated.guard';
 
 export const routes: Routes = [
 	{
@@ -8,21 +8,21 @@ export const routes: Routes = [
 		children: [
 			{
 				path: 'weatherforecast',
-				loadComponent: () => import('./weatherforecast/weatherforecast.component'),
+				loadComponent: () => import('@/weatherforecast/weatherforecast.component'),
 			},
 			{
 				path: 'people',
-				loadComponent: () => import('./people/people.component'),
+				loadComponent: () => import('@/people/people.component'),
 			},
 			{
 				path: 'customers',
-				loadChildren: () => import('./customers/customers.routes'),
+				loadChildren: () => import('@/customers/customers.routes'),
 			},
 		],
 	},
 	{
 		path: '**',
-		loadComponent: () => import('./authentication/not-found/not-found.component'),
+		loadComponent: () => import('@/authentication/not-found/not-found.component'),
 		title: 'Not Found',
 	},
 ];

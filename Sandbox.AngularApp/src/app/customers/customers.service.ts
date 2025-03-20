@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CustomerOverview } from './customer.model';
+import { CustomerOverview } from '@/customers/customer.model';
 import { httpResource, HttpResourceRef } from '@angular/common/http';
 
 @Injectable({

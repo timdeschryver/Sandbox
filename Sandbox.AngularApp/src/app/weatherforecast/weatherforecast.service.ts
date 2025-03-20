@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { WeatherForecast } from './weatherforecast.model';
+import { WeatherForecast } from '@/weatherforecast/weatherforecast.model';
 
 @Injectable({
 	providedIn: 'root',

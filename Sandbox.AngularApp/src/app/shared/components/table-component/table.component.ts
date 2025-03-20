@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, contentChild, input, TemplateRef } from '@angular/core';
 import { HttpResourceRef } from '@angular/common/http';
 import { NgTemplateOutlet } from '@angular/common';
-import { TableBodyTemplateDirective } from './table-body-template.directive';
+import { TableBodyTemplateDirective } from '@/shared/components/table-component/table-body-template.directive';
 
 @Component({
 	selector: 'app-table',

@@ -30,25 +30,27 @@ export default tseslint.config(
 					type: 'element',
 					prefix: 'app',
 					style: 'kebab-case',
-					},
+				},
 			],
 			'@typescript-eslint/no-unused-vars': [
 				'error',
-				{ 
+				{
 					argsIgnorePattern: '^_',
 					varsIgnorePattern: '^_',
-					caughtErrorsIgnorePattern: '^_'
-				}
+					caughtErrorsIgnorePattern: '^_',
+				},
+			],
+			'no-restricted-imports': [
+				'error',
+				{
+					patterns: [{ group: ['.*'], message: "Relative imports are not allowed, use the '@' path instead." }],
+				},
 			],
 		},
 	},
 	{
 		files: ['**/*.html'],
-		extends: [
-			...angular.configs.templateRecommended,
-			...angular.configs.templateAccessibility,
-			eslintConfigPrettier,
-		],
+		extends: [...angular.configs.templateRecommended, ...angular.configs.templateAccessibility, eslintConfigPrettier],
 		rules: {},
 	},
 );
