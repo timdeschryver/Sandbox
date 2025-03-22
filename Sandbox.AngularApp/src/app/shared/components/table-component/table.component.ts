@@ -32,22 +32,24 @@ import { TableBodyTemplateDirective } from '@/shared/components/table-component/
 								track row.id;
 								let index = $index, even = $even, odd = $odd, count = $count, first = $first, last = $last
 							) {
-								<td></td>
-								<ng-container
-									*ngTemplateOutlet="
-										bodyTemplate()!;
-										context: {
-											$implicit: row,
-											value: row,
-											index: index,
-											count: count,
-											first: first,
-											last: last,
-											even: even,
-											odd: odd,
-										}
-									"
-								/>
+								<tr>
+									<td></td>
+									<ng-container
+										*ngTemplateOutlet="
+											bodyTemplate()!;
+											context: {
+												$implicit: row,
+												value: row,
+												index: index,
+												count: count,
+												first: first,
+												last: last,
+												even: even,
+												odd: odd,
+											}
+										"
+									/>
+								</tr>
 							} @empty {
 								<tr>
 									<td colspan="100%">No data available.</td>

@@ -1,0 +1,82 @@
+<form #customerForm="ngForm" (ngSubmit)="onSubmit(customerForm)">
+	<h2>Create Customer</h2>
+
+	@if (submitError()) {
+		<div>{{ submitError() }}</div>
+	}
+
+	<fieldset>
+		<legend>Customer Information</legend>
+		<div>
+			<label for="firstName">First Name</label>
+			<input
+				id="firstName"
+				name="firstName"
+				[(ngModel)]="customer.firstName"
+				#firstName="ngModel"
+				required
+				type="text"
+			/>
+			@if (firstName.invalid && (customerForm.submitted || firstName.dirty || firstName.touched)) {
+				<div>First name is required</div>
+			}
+		</div>
+
+		<div>
+			<label for="lastName">Last Name</label>
+			<input id="lastName" name="lastName" [(ngModel)]="customer.lastName" #lastName="ngModel" required type="text" />
+			@if (lastName.invalid && (customerForm.submitted || lastName.dirty || lastName.touched)) {
+				<div>Last name is required</div>
+			}
+		</div>
+	</fieldset>
+
+	<div>
+		<input
+			type="checkbox"
+			id="hasBillingAddress"
+			name="hasBillingAddress"
+			[checked]="!!customer.billingAddress"
+			(change)="toggleBillingAddress()"
+		/>
+		<label for="hasBillingAddress">Add Billing Address</label>
+	</div>
+
+	@if (customer.billingAddress) {
+		<fieldset>
+			<legend>Billing Address</legend>
+			<app-customer-address [address]="customer.billingAddress" [form]="customerForm"></app-customer-address>
+		</fieldset>
+	}
+
+	<div>
+		<input
+			type="checkbox"
+			id="hasShippingAddress"
+			name="hasShippingAddress"
+			[checked]="!!customer.shippingAddress"
+			(change)="toggleShippingAddress()"
+		/>
+		<label for="hasShippingAddress">Add Shipping Address</label>
+	</div>
+
+	@if (customer.shippingAddress) {
+		<fieldset>
+			<legend>Shipping Address</legend>
+			<app-customer-address [address]="customer.shippingAddress" [form]="customerForm">
+				<div>
+					<label for="note">Note</label>
+					<textarea id="note" name="note" [(ngModel)]="customer.shippingAddress.note"></textarea>
+				</div>
+			</app-customer-address>
+		</fieldset>
+	}
+
+	<button type="submit" [disabled]="isSubmitting()">
+		@if (isSubmitting()) {
+			Creating Customer
+		} @else {
+			Create Customer
+		}
+	</button>
+</form>
