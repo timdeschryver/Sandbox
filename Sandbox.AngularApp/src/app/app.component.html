@@ -1,5 +1,5 @@
 <div *sandboxAnonymous>
-	<nav><a href="/bff/login">Login</a> | <a routerLink="/customers">Customers</a></nav>
+	<nav><a href="/bff/login">Login</a> | <a routerLink="/user">Current User</a> | <a routerLink="/customers">Customers</a></nav>
 </div>
 <div *sandboxAuthenticated>
 	<div>
@@ -7,6 +7,7 @@
 	</div>
 	<nav>
 		<a routerLink="/customers">Customers</a> |
+		<a routerLink="/user">Current User</a> |
 		<a href="/bff/logout">Logout</a>
 	</nav>
 </div>

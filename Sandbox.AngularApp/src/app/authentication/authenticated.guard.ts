@@ -9,6 +9,7 @@ import { DOCUMENT } from '@angular/common';
 export const authenticatedGuard: CanActivateFn = (_next: ActivatedRouteSnapshot, state: RouterStateSnapshot) => {
 	const user = inject(AuthenticationService);
 	const document = inject(DOCUMENT);
+
 	return toObservable(user.user).pipe(
 		filterNullish(),
 		map((user) => {

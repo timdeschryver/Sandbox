@@ -9,8 +9,14 @@ export const routes: Routes = [
 			{
 				path: 'customers',
 				loadChildren: () => import('@/customers/customers.routes'),
+				title: 'Customers',
 			},
 		],
+	},
+	{
+		path: 'user',
+		loadComponent: () => import('@/authentication/user/user.component'),
+		title: 'User',
 	},
 	{
 		path: '**',
