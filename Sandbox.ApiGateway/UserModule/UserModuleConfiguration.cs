@@ -3,11 +3,11 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 
-namespace Sandbox.ApiGateway;
+namespace Sandbox.ApiGateway.UserModule;
 
-public static class UserEndpoints
+public static partial class UserModuleConfiguration
 {
-    public static void MapUserEndpoints(this IEndpointRouteBuilder builder)
+    internal static IEndpointRouteBuilder MapUserEndpoints(this IEndpointRouteBuilder builder)
     {
         builder.Map("user", (ClaimsPrincipal principal) =>
         {
@@ -54,18 +54,7 @@ public static class UserEndpoints
 
             return TypedResults.SignOut(properties, [CookieAuthenticationDefaults.AuthenticationScheme, OpenIdConnectDefaults.AuthenticationScheme]);
         });
-    }
 
-    internal class User
-    {
-        public bool IsAuthenticated { get; init; }
-        public string? Name { get; init; }
-        public IEnumerable<UserClaim> Claims { get; init; } = [];
-    }
-
-    internal class UserClaim
-    {
-        public required string Type { get; init; }
-        public required string Value { get; init; }
+        return builder;
     }
 }

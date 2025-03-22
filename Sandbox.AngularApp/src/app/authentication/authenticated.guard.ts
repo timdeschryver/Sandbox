@@ -6,10 +6,9 @@ import { map } from 'rxjs';
 import { filterNullish } from '@/shared/operators';
 import { DOCUMENT } from '@angular/common';
 
-export const authenticatedGuard: CanActivateFn = (_next: ActivatedRouteSnapshot, _state: RouterStateSnapshot) => {
+export const authenticatedGuard: CanActivateFn = (_next: ActivatedRouteSnapshot, state: RouterStateSnapshot) => {
 	const user = inject(AuthenticationService);
 	const document = inject(DOCUMENT);
-
 	return toObservable(user.user).pipe(
 		filterNullish(),
 		map((user) => {
@@ -17,7 +16,7 @@ export const authenticatedGuard: CanActivateFn = (_next: ActivatedRouteSnapshot,
 				return true;
 			}
 			if (document.defaultView) {
-				document.defaultView.location.href = '/bff/login';
+				document.defaultView.location.href = `/bff/login?returnUrl=${state.url}`;
 			}
 			return false;
 		}),

@@ -1,5 +1,6 @@
 using Azure.Extensions.AspNetCore.Configuration.Secrets;
 using Sandbox.ApiGateway;
+using Sandbox.ApiGateway.UserModule;
 using Sandbox.ServiceDefaults;
 
 var builder = WebApplication.CreateBuilder(args);
