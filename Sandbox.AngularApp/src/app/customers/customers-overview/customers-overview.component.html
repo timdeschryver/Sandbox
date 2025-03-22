@@ -1,15 +1,15 @@
-<app-table [resource]="customers">
-	<ng-template #appTableHeader>
+<sandbox-table [resource]="customers">
+	<ng-template #sandboxTableHeader>
 		<th>Name</th>
 	</ng-template>
 
-	<ng-template [appTableBody]="customers" let-customer>
+	<ng-template [sandboxTableBody]="customers" let-customer>
 		<td>{{ customer.firstName }} {{ customer.lastName }}</td>
 	</ng-template>
 
-	<ng-template #appTableEmpty>
+	<ng-template #sandboxTableEmpty>
 		<td colspan="100%">No customers found</td>
 	</ng-template>
-</app-table>
+</sandbox-table>
 
-<app-customer-form (submitted)="onCustomerCreated()" />
+<sandbox-customer-form (submitted)="onCustomerCreated()" />

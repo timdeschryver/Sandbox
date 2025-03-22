@@ -6,7 +6,7 @@ import { CustomersService } from '@/customers/customers.service';
 import { AddressComponent } from '@/customers/shared/customer-address.component';
 
 @Component({
-	selector: 'app-customer-form',
+	selector: 'sandbox-customer-form',
 	templateUrl: './customer-form.component.html',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [CommonModule, FormsModule, AddressComponent],

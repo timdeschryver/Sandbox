@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 @Component({
-	selector: 'app-not-found',
+	selector: 'sandbox-not-found',
 	template: `
 		<h1>Not Found</h1>
 		<p>Sorry, the page you are looking for cannot be found.</p>

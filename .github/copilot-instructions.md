@@ -4,6 +4,5 @@ For Angular:
     - make use of the Control Flow
     - prefer template driven forms over reactive forms
     - use signal inputs and outputs
-    - don't add standalone: true
+    - we're using standalone by default, don't add standalone properties to decorators
     - when adding components set the change detection to ChangeDetectionStrategy.OnPush
-  

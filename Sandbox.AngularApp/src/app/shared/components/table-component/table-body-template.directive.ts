@@ -2,10 +2,10 @@ import { Directive, input } from '@angular/core';
 import { HttpResourceRef } from '@angular/common/http';
 
 @Directive({
-	selector: 'ng-template[appTableBody]',
+	selector: 'ng-template[sandboxTableBody]',
 })
 export class TableBodyTemplateDirective<T> {
-	public appTableBody = input.required<HttpResourceRef<T[] | undefined>>();
+	public sandboxTableBody = input.required<HttpResourceRef<T[] | undefined>>();
 	static ngTemplateContextGuard<TContext>(
 		_dir: TableBodyTemplateDirective<TContext>,
 		ctx: unknown,

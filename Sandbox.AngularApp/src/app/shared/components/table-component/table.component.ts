@@ -4,7 +4,7 @@ import { NgTemplateOutlet } from '@angular/common';
 import { TableBodyTemplateDirective } from '@/shared/components/table-component/table-body-template.directive';
 
 @Component({
-	selector: 'app-table',
+	selector: 'sandbox-table',
 	imports: [NgTemplateOutlet],
 	template: `
 		<div>
@@ -73,8 +73,8 @@ import { TableBodyTemplateDirective } from '@/shared/components/table-component/
 })
 export class TableComponent {
 	public resource = input.required<HttpResourceRef<{ id: string | number }[] | undefined>>();
-	public headerTemplate = contentChild<TemplateRef<unknown>>('appTableHeader');
-	public footerTemplate = contentChild<TemplateRef<unknown>>('appTableFooter');
+	public headerTemplate = contentChild<TemplateRef<unknown>>('sandboxTableHeader');
+	public footerTemplate = contentChild<TemplateRef<unknown>>('sandboxTableFooter');
 	public bodyTemplate = contentChild(TableBodyTemplateDirective, {
 		read: TemplateRef,
 	});

@@ -4,7 +4,7 @@ import { Component, input, ChangeDetectionStrategy } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 
 @Component({
-	selector: 'app-customer-address',
+	selector: 'sandbox-customer-address',
 	templateUrl: './customer-address.component.html',
 	imports: [CommonModule, FormsModule],
 	changeDetection: ChangeDetectionStrategy.OnPush,

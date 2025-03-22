@@ -5,7 +5,7 @@ import { AuthenticatedDirective } from '@/authentication/authenticated.directive
 import { AnonymousDirective } from '@/authentication/anonymous.directive';
 
 @Component({
-	selector: 'app-root',
+	selector: 'sandbox-root',
 	imports: [RouterOutlet, RouterLink, AuthenticatedDirective, AnonymousDirective],
 	templateUrl: './app.component.html',
 	styleUrl: './app.component.css',

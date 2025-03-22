@@ -2,7 +2,7 @@ import { Directive, effect, inject, TemplateRef, ViewContainerRef } from '@angul
 import { AuthenticationService } from '@/authentication/authentication.service';
 
 @Directive({
-	selector: '[appAuthenticated]',
+	selector: '[sandboxAuthenticated]',
 })
 export class AuthenticatedDirective {
 	private viewContainerRef = inject(ViewContainerRef);

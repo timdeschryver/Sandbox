@@ -5,7 +5,7 @@ import { TableBodyTemplateDirective } from '@/shared/components/table-component/
 import { CustomerFormComponent } from '@/customers/customer-form/customer-form.component';
 
 @Component({
-	selector: 'app-customers-overview',
+	selector: 'sandbox-customers-overview',
 	templateUrl: './customers-overview.component.html',
 	styleUrl: './customers-overview.component.css',
 	changeDetection: ChangeDetectionStrategy.OnPush,

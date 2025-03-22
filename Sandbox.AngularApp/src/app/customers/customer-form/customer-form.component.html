@@ -13,19 +13,26 @@
 				id="firstName"
 				name="firstName"
 				[(ngModel)]="customer.firstName"
-				#firstName="ngModel"
+				#firstNameField="ngModel"
 				required
 				type="text"
 			/>
-			@if (firstName.invalid && (customerForm.submitted || firstName.dirty || firstName.touched)) {
+			@if (firstNameField.invalid && (customerForm.submitted || firstNameField.dirty || firstNameField.touched)) {
 				<div>First name is required</div>
 			}
 		</div>
 
 		<div>
 			<label for="lastName">Last Name</label>
-			<input id="lastName" name="lastName" [(ngModel)]="customer.lastName" #lastName="ngModel" required type="text" />
-			@if (lastName.invalid && (customerForm.submitted || lastName.dirty || lastName.touched)) {
+			<input
+				id="lastName"
+				name="lastName"
+				[(ngModel)]="customer.lastName"
+				#lastNameField="ngModel"
+				required
+				type="text"
+			/>
+			@if (lastNameField.invalid && (customerForm.submitted || lastNameField.dirty || lastNameField.touched)) {
 				<div>Last name is required</div>
 			}
 		</div>
@@ -45,7 +52,7 @@
 	@if (customer.billingAddress) {
 		<fieldset>
 			<legend>Billing Address</legend>
-			<app-customer-address [address]="customer.billingAddress" [form]="customerForm"></app-customer-address>
+			<sandbox-customer-address [address]="customer.billingAddress" [form]="customerForm"></sandbox-customer-address>
 		</fieldset>
 	}
 
@@ -63,12 +70,12 @@
 	@if (customer.shippingAddress) {
 		<fieldset>
 			<legend>Shipping Address</legend>
-			<app-customer-address [address]="customer.shippingAddress" [form]="customerForm">
+			<sandbox-customer-address [address]="customer.shippingAddress" [form]="customerForm">
 				<div>
 					<label for="note">Note</label>
 					<textarea id="note" name="note" [(ngModel)]="customer.shippingAddress.note"></textarea>
 				</div>
-			</app-customer-address>
+			</sandbox-customer-address>
 		</fieldset>
 	}
 
