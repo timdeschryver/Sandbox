@@ -13,7 +13,7 @@ export class CustomersService {
 		return httpResource<CustomerOverview[]>('/api/customers');
 	}
 
-	public createCustomer(customer: CreateCustomerRequest): Observable<void> {
-		return this.http.post<void>('/api/customers', customer);
+	public createCustomer(customer: CreateCustomerRequest): Observable<unknown> {
+		return this.http.post<unknown>('/api/customers', customer);
 	}
 }

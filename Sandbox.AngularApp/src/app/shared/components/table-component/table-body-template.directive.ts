@@ -5,7 +5,7 @@ import { HttpResourceRef } from '@angular/common/http';
 	selector: 'ng-template[sandboxTableBody]',
 })
 export class TableBodyTemplateDirective<T> {
-	public sandboxTableBody = input.required<HttpResourceRef<T[] | undefined>>();
+	public readonly sandboxTableBody = input.required<HttpResourceRef<T[] | undefined>>();
 	static ngTemplateContextGuard<TContext>(
 		_dir: TableBodyTemplateDirective<TContext>,
 		ctx: unknown,

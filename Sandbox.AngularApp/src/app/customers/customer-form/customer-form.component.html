@@ -1,8 +1,9 @@
 <form #customerForm="ngForm" (ngSubmit)="onSubmit(customerForm)">
 	<h2>Create Customer</h2>
 
-	@if (submitError()) {
-		<div>{{ submitError() }}</div>
+	@let formState = submitState();
+	@if (formState.state === 'error') {
+		<div>{{ formState.message }}</div>
 	}
 
 	<fieldset>
@@ -10,12 +11,12 @@
 		<div>
 			<label for="firstName">First Name</label>
 			<input
+				#firstNameField="ngModel"
 				id="firstName"
 				name="firstName"
-				[(ngModel)]="customer.firstName"
-				#firstNameField="ngModel"
 				required
 				type="text"
+				[(ngModel)]="customer.firstName"
 			/>
 			@if (firstNameField.invalid && (customerForm.submitted || firstNameField.dirty || firstNameField.touched)) {
 				<div>First name is required</div>
@@ -25,12 +26,12 @@
 		<div>
 			<label for="lastName">Last Name</label>
 			<input
+				#lastNameField="ngModel"
 				id="lastName"
 				name="lastName"
-				[(ngModel)]="customer.lastName"
-				#lastNameField="ngModel"
 				required
 				type="text"
+				[(ngModel)]="customer.lastName"
 			/>
 			@if (lastNameField.invalid && (customerForm.submitted || lastNameField.dirty || lastNameField.touched)) {
 				<div>Last name is required</div>
@@ -52,7 +53,7 @@
 	@if (customer.billingAddress) {
 		<fieldset>
 			<legend>Billing Address</legend>
-			<sandbox-customer-address [address]="customer.billingAddress" [form]="customerForm"></sandbox-customer-address>
+			<sandbox-customer-address [address]="customer.billingAddress" [form]="customerForm" />
 		</fieldset>
 	}
 
@@ -79,8 +80,8 @@
 		</fieldset>
 	}
 
-	<button type="submit" [disabled]="isSubmitting()">
-		@if (isSubmitting()) {
+	<button type="submit" [disabled]="formState.state === 'pending'">
+		@if (formState.state === 'pending') {
 			Creating Customer
 		} @else {
 			Create Customer

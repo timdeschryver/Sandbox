@@ -9,9 +9,9 @@ export default tseslint.config(
 		files: ['**/*.ts'],
 		extends: [
 			eslint.configs.recommended,
-			...tseslint.configs.recommended,
+			...tseslint.configs.strict,
 			...tseslint.configs.stylistic,
-			...angular.configs.tsRecommended,
+			...angular.configs.tsAll,
 			eslintConfigPrettier,
 		],
 		processor: angular.processInlineTemplates,
@@ -50,7 +50,12 @@ export default tseslint.config(
 	},
 	{
 		files: ['**/*.html'],
-		extends: [...angular.configs.templateRecommended, ...angular.configs.templateAccessibility, eslintConfigPrettier],
-		rules: {},
+		extends: [...angular.configs.templateAll, ...angular.configs.templateAccessibility, eslintConfigPrettier],
+		rules: {
+			// we don't use i18n in this project
+			'@angular-eslint/template/i18n': 'off',
+			// signals need to be called in the template
+			'@angular-eslint/template/no-call-expression': 'off',
+		},
 	},
 );

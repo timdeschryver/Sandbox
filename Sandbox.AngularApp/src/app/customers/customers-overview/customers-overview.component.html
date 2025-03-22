@@ -3,7 +3,7 @@
 		<th>Name</th>
 	</ng-template>
 
-	<ng-template [sandboxTableBody]="customers" let-customer>
+	<ng-template let-customer [sandboxTableBody]="customers">
 		<td>{{ customer.firstName }} {{ customer.lastName }}</td>
 	</ng-template>
 

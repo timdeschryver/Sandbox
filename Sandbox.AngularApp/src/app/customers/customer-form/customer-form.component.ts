@@ -4,6 +4,7 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { CreateCustomerRequest } from '@/customers/customer.model';
 import { CustomersService } from '@/customers/customers.service';
 import { AddressComponent } from '@/customers/shared/customer-address.component';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
 	selector: 'sandbox-customer-form',
@@ -13,9 +14,14 @@ import { AddressComponent } from '@/customers/shared/customer-address.component'
 })
 export class CustomerFormComponent {
 	private readonly customersService = inject(CustomersService);
-	protected readonly isSubmitting = signal(false);
-	protected readonly submitError = signal<string | null>(null);
-	
+	protected readonly submitState = signal<
+		| {
+				state: 'idle';
+		  }
+		| { state: 'pending' }
+		| { state: 'error'; message: string }
+	>({ state: 'idle' });
+
 	protected customer: CreateCustomerRequest = {
 		firstName: '',
 		lastName: '',
@@ -23,7 +29,7 @@ export class CustomerFormComponent {
 		shippingAddress: null,
 	};
 
-	public readonly submitted = output<void>();
+	public readonly submitted = output();
 
 	protected toggleBillingAddress(): void {
 		this.customer.billingAddress = this.customer.billingAddress
@@ -32,7 +38,7 @@ export class CustomerFormComponent {
 					street: '',
 					city: '',
 					zipCode: '',
-				}
+				};
 	}
 
 	protected toggleShippingAddress(): void {
@@ -51,20 +57,17 @@ export class CustomerFormComponent {
 			return;
 		}
 
-		this.isSubmitting.set(true);
-		this.submitError.set(null);
+		this.submitState.set({ state: 'pending' });
 
 		this.customersService.createCustomer(this.customer).subscribe({
 			next: () => {
-				this.isSubmitting.set(false);
+				this.submitState.set({ state: 'idle' });
 				form.reset();
 				this.initializeCustomerModel();
 				this.submitted.emit();
 			},
-			error: (error) => {
-				this.isSubmitting.set(false);
-				this.submitError.set('Failed to create customer. Please try again.');
-				console.error('Error creating customer:', error);
+			error: (error: unknown) => {
+				this.submitState.set({ state: 'error', message: error instanceof HttpErrorResponse ? error.error.title : 'An unexpected error occurred, please try again.' });
 			},
 		});
 	}
