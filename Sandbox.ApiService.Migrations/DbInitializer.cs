@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using Microsoft.EntityFrameworkCore;
+using Sandbox.ApiService.CustomerModule;
 
 namespace Sandbox.ApiService.Migrations;
 
@@ -34,15 +35,28 @@ internal class DbInitializer(IServiceProvider serviceProvider, ILogger<DbInitial
     {
         logger.LogInformation("Seeding database");
 
-        if (!dbContext.Set<Person>().Any())
+        await SeedCustomers(dbContext, cancellationToken);
+    }
+
+    private static async Task SeedCustomers(ApiDbContext dbContext, CancellationToken cancellationToken)
+    {
+        if (!dbContext.Set<Customer>().Any())
         {
-            var people = new[]
+            var customers = new[]
             {
-                new Person ("Alice", "Smith", "alicesmith@example.com", new DateTime(1996, 5, 10)),
-                new Person ("Bob", "Johnson", "bobjohnson@example.com", new DateTime(1988, 8, 11)),
-                new Person ("Charlie", "Williams", "charliewilliams@example.com", new DateTime(1992, 11, 3)),
+                Customer.New(new Name("Alice", "Smith")),
+                Customer.New(
+                    new Name("Bob", "Johnson"),
+                    new CustomerBillingAddress(Address.From("123 Main Street", "Seattle", "WA 98101"))
+                ),
+                Customer.New(
+                    new Name("Charlie", "Brown"),
+                    new CustomerBillingAddress(Address.From("456 Oak Avenue", "Portland", "OR 97201")),
+                    new CustomerShippingAddress(Address.From("789 Pine Road", "Portland", "OR 97202"), "Leave at front door")
+                )
             };
-            await dbContext.Set<Person>().AddRangeAsync(people, cancellationToken);
+
+            await dbContext.Set<Customer>().AddRangeAsync(customers, cancellationToken);
             await dbContext.SaveChangesAsync(cancellationToken);
         }
     }

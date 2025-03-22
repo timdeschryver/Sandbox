@@ -7,14 +7,6 @@ export const routes: Routes = [
 		canActivateChild: [authenticatedGuard],
 		children: [
 			{
-				path: 'weatherforecast',
-				loadComponent: () => import('@/weatherforecast/weatherforecast.component'),
-			},
-			{
-				path: 'people',
-				loadComponent: () => import('@/people/people.component'),
-			},
-			{
 				path: 'customers',
 				loadChildren: () => import('@/customers/customers.routes'),
 			},

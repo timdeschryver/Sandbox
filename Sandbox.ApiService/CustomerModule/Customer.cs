@@ -21,7 +21,7 @@ public class Customer
         _shippingAddresses.Add(address);
     }
 
-    public static Customer New(Name name, CustomerBillingAddress? customerBillingAddress, CustomerShippingAddress? customerShippingAddress)
+    public static Customer New(Name name, CustomerBillingAddress? customerBillingAddress = null, CustomerShippingAddress? customerShippingAddress = null)
     {
         var customer = new Customer
         {
