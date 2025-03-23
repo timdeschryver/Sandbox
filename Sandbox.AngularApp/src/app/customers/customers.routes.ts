@@ -5,12 +5,16 @@ export const customersRoutes: Routes = [
 		path: '',
 		children: [
 			{
-				path: 'overview',
+				path: '',
 				loadComponent: () => import('./customers-overview/customers-overview.component'),
 			},
 			{
+				path: ':customerId',
+				loadComponent: () => import('./customer-details/customer-details.component'),
+			},
+			{
 				path: '**',
-				redirectTo: 'overview',
+				redirectTo: '',
 			},
 		],
 	},

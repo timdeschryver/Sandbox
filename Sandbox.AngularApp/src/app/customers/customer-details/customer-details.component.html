@@ -1,0 +1,76 @@
+<div>
+	@if (customer.hasValue() && customer.value(); as customer) {
+		<div>
+			<h2>Customer Details</h2>
+			<a routerLink="..">Back to Overview</a>
+			
+
+			<fieldset>
+				<legend>Personal Information</legend>
+				<div>
+					<span>Name:</span>
+					<span>{{ customer.firstName }} {{ customer.lastName }}</span>
+				</div>
+			</fieldset>
+
+			@if (customer.billingAddress.length > 0) {
+				<fieldset>
+					<legend>Billing Addresses</legend>
+
+					@for (billingAddress of customer.billingAddress; track billingAddress.id) {
+						<div>
+							<div>
+								<span>Street:</span>
+								<span>{{ billingAddress.street }}</span>
+							</div>
+							<div>
+								<span>City:</span>
+								<span>{{ billingAddress.city }}</span>
+							</div>
+							<div>
+								<span>Zip Code:</span>
+								<span>{{ billingAddress.zipCode }}</span>
+							</div>
+						</div>
+					}
+				</fieldset>
+			}
+
+			@if (customer.shippingAddress.length > 0) {
+				<fieldset>
+					<legend>Shipping Addresses</legend>
+
+					@for (shippingAddress of customer.shippingAddress; track shippingAddress.id; let i = $index) {
+						<div>
+							<div>
+								<span>Street:</span>
+								<span>{{ shippingAddress.street }}</span>
+							</div>
+							<div>
+								<span>City:</span>
+								<span>{{ shippingAddress.city }}</span>
+							</div>
+							<div>
+								<span>Zip Code:</span>
+								<span>{{ shippingAddress.zipCode }}</span>
+							</div>
+							@if (shippingAddress.note) {
+								<div>
+									<span>Note:</span>
+									<span>{{ shippingAddress.note }}</span>
+								</div>
+							}
+						</div>
+					}
+				</fieldset>
+			}
+		</div>
+	} @else if (customer.error()) {
+		<div>
+			{{ $any(customer.error())?.error?.title || 'An unexpected error occurred, please try again.' }}
+			<button type="button" (click)="customer.reload()">Retry</button>
+		</div>
+	} @else {
+		<div>Loading customer...</div>
+	}
+</div>

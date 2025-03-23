@@ -46,15 +46,17 @@ export default tseslint.config(
 					patterns: [{ group: ['.*'], message: "Relative imports are not allowed, use the '@' path instead." }],
 				},
 			],
+			// It can be nice to spcifically name an interface
+			'@typescript-eslint/no-empty-object-type': 'off',
 		},
 	},
 	{
 		files: ['**/*.html'],
 		extends: [...angular.configs.templateAll, ...angular.configs.templateAccessibility, eslintConfigPrettier],
 		rules: {
-			// we don't use i18n in this project
+			// i18n is not used in this project
 			'@angular-eslint/template/i18n': 'off',
-			// signals need to be called in the template
+			// Signals need to be called in the template
 			'@angular-eslint/template/no-call-expression': 'off',
 		},
 	},

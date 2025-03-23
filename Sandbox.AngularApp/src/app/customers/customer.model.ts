@@ -23,3 +23,24 @@ export interface CreateCustomerRequest {
 	billingAddress: BillingAddressRequest | null;
 	shippingAddress: ShippingAddressRequest | null;
 }
+
+export interface Address {
+	id: number;
+	street: string;
+	city: string;
+	zipCode: string;
+}
+
+export interface ShippingAddress extends Address {
+	note?: string;
+}
+
+export interface BillingAddress extends Address {}
+
+export interface CustomerDetails {
+	id: number;
+	firstName: string;
+	lastName: string;
+	billingAddress: BillingAddress[];
+	shippingAddress: ShippingAddress[];
+}

@@ -6,3 +6,4 @@ For Angular:
     - use signal inputs and outputs
     - we're using standalone by default, don't add standalone properties to decorators
     - when adding components set the change detection to ChangeDetectionStrategy.OnPush
+    - always add a type to buttons

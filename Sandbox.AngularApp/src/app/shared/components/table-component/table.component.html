@@ -3,59 +3,61 @@
 		<div>Refreshing data...</div>
 	}
 
-	@if (resource().hasValue()) {
-		<table>
-			@if (headerTemplate()) {
-				<thead>
+	<table>
+		@if (headerTemplate()) {
+			<thead>
+				<tr>
+					<th><button type="button" (click)="refresh()">🔃</button></th>
+					<ng-container *ngTemplateOutlet="headerTemplate()!" />
+				</tr>
+			</thead>
+		}
+		<tbody>
+			@if (resource().hasValue()) {
+				@for (
+					row of resource().value();
+					track row.id;
+					let index = $index, even = $even, odd = $odd, count = $count, first = $first, last = $last
+				) {
 					<tr>
-						<th><button type="button" (click)="refresh()">🔃</button></th>
-						<ng-container *ngTemplateOutlet="headerTemplate()!" />
+						<td></td>
+						<ng-container
+							*ngTemplateOutlet="
+								bodyTemplate()!;
+								context: {
+									$implicit: row,
+									value: row,
+									index: index,
+									count: count,
+									first: first,
+									last: last,
+									even: even,
+									odd: odd,
+								}
+							"
+						/>
 					</tr>
-				</thead>
-			}
-			<tbody>
-				@if (resource().error()) {
-					<div>{{ $any(resource().error()).error?.title ?? 'An unexpected error occurred, please try again.' }}</div>
-					<button type="button" (click)="refresh()">Retry</button>
-				} @else if (resource().hasValue()) {
-					@for (
-						row of resource().value();
-						track row.id;
-						let index = $index, even = $even, odd = $odd, count = $count, first = $first, last = $last
-					) {
-						<tr>
-							<td></td>
-							<ng-container
-								*ngTemplateOutlet="
-									bodyTemplate()!;
-									context: {
-										$implicit: row,
-										value: row,
-										index: index,
-										count: count,
-										first: first,
-										last: last,
-										even: even,
-										odd: odd,
-									}
-								"
-							/>
-						</tr>
-					} @empty {
-						<tr>
-							<td colspan="100%">No data available.</td>
-						</tr>
-					}
+				} @empty {
+					<tr>
+						<td colspan="100%">No data available.</td>
+					</tr>
 				}
-			</tbody>
-
-			@if (footerTemplate()) {
-				<tfoot>
-					<tr>
-						<ng-container *ngTemplateOutlet="footerTemplate()!" />
-					</tr>
-				</tfoot>
+			} @else if (resource().isLoading()) {
+				<tr>
+					<td colspan="100%">Loading...</td>
+				</tr>
+			} @else if (resource().error()) {
+				<div>{{ $any(resource().error()).error?.title ?? 'An unexpected error occurred, please try again.' }}</div>
+				<button type="button" (click)="refresh()">Retry</button>
 			}
-		</table>
-	}
+		</tbody>
+
+		@if (footerTemplate()) {
+			<tfoot>
+				<tr>
+					<ng-container *ngTemplateOutlet="footerTemplate()!" />
+				</tr>
+			</tfoot>
+		}
+	</table>
 </div>

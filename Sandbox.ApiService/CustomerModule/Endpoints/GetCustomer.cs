@@ -19,8 +19,8 @@ internal static class GetCustomer
                         c.Id,
                         c.Name.FirstName,
                         c.Name.LastName,
-                        c.BillingAddresses.Select(b => new GetCustomerResponseBillingAddressResponse(b.Address.Street, b.Address.City, b.Address.ZipCode)),
-                        c.ShippingAddresses.Select(s => new GetCustomerResponseShippingAddressResponse(s.Address.Street, s.Address.City, s.Address.ZipCode, s.Note))
+                        c.BillingAddresses.Select(b => new GetCustomerResponseBillingAddressResponse(b.Id, b.Address.Street, b.Address.City, b.Address.ZipCode)),
+                        c.ShippingAddresses.Select(s => new GetCustomerResponseShippingAddressResponse(s.Id, s.Address.Street, s.Address.City, s.Address.ZipCode, s.Note))
                     )
                     {
                         Id = c.Id,
@@ -39,5 +39,5 @@ internal static class GetCustomer
 }
 
 public record GetCustomerResponse(int Id, string FirstName, string LastName, IEnumerable<GetCustomerResponseBillingAddressResponse> BillingAddress, IEnumerable<GetCustomerResponseShippingAddressResponse> ShippingAddress);
-public record GetCustomerResponseBillingAddressResponse(string Street, string City, string ZipCode);
-public record GetCustomerResponseShippingAddressResponse(string Street, string City, string ZipCode, string? Note);
+public record GetCustomerResponseBillingAddressResponse(int Id, string Street, string City, string ZipCode);
+public record GetCustomerResponseShippingAddressResponse(int Id, string Street, string City, string ZipCode, string? Note);
