@@ -62,7 +62,7 @@ export class CustomerFormComponent {
 		this.customersService.createCustomer(this.customer).subscribe({
 			next: () => {
 				this.submitState.set({ state: 'idle' });
-				form.reset();
+				form.resetForm();
 				this.initializeCustomerModel();
 				this.submitted.emit();
 			},

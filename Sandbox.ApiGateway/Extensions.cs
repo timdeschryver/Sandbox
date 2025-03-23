@@ -6,6 +6,7 @@ using System.Security.Claims;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Net.Http.Headers;
+using Sandbox.ApiGateway.Transformers;
 
 namespace Sandbox.ApiGateway;
 
@@ -13,16 +14,21 @@ internal static class Extensions
 {
     public static IServiceCollection AddReverseProxy(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddSingleton<AddBearerTokenToHeadersTransformer>();
+        services.AddSingleton<AddBearerTokenToHeadersTransform>();
+        services.AddSingleton<AddAntiforgeryTokenResponseTransform>();
+        services.AddSingleton<ValidateAntiforgeryTokenRequestTransform>();
 
         services
             .AddReverseProxy()
             .LoadFromConfig(configuration.GetSection("ReverseProxy"))
             .AddTransforms(builderContext =>
             {
+                builderContext.ResponseTransforms.Add(builderContext.Services.GetRequiredService<AddAntiforgeryTokenResponseTransform>());
+                builderContext.RequestTransforms.Add(builderContext.Services.GetRequiredService<ValidateAntiforgeryTokenRequestTransform>());
+            
                 if (!string.IsNullOrEmpty(builderContext.Route.AuthorizationPolicy))
                 {
-                    builderContext.RequestTransforms.Add(builderContext.Services.GetRequiredService<AddBearerTokenToHeadersTransformer>());
+                    builderContext.RequestTransforms.Add(builderContext.Services.GetRequiredService<AddBearerTokenToHeadersTransform>());
                 }
                 builderContext.RequestTransforms.Add(new RequestHeaderRemoveTransform("Cookie"));
             })
@@ -47,6 +53,7 @@ internal static class Extensions
         {
             options.Cookie.Name = "__Sandbox";
             options.Cookie.SameSite = Microsoft.AspNetCore.Http.SameSiteMode.Strict;
+            options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
         })
         .AddOpenIdConnect(OpenIdConnectDefaults.AuthenticationScheme, options =>
         {
