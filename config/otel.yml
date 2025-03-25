@@ -30,7 +30,8 @@ exporters:
     headers:
       x-otlp-api-key: ${env:ASPIRE_API_KEY}
     tls:
-      insecure: true
+      insecure: ${env:ASPIRE_INSECURE}
+      insecure_skip_verify: true # Required in local development because cert is localhost and the endpoint is host.docker.internal
 
 service:
   pipelines:

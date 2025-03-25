@@ -1,42 +1,39 @@
 using Aspire.Hosting.Lifecycle;
-using Microsoft.Extensions.Configuration;
 
 namespace Sandbox.AppHost.Extensions;
 
 public static class OpenTelemetryCollectorExtensions
 {
     private const string DashboardOtlpUrlVariableName = "DOTNET_DASHBOARD_OTLP_ENDPOINT_URL";
+    private const string DashboardOtlpKeyVariableName = "AppHost:OtlpApiKey";
 
     /// <summary>
     /// Adds the OpenTelemetry Collector to the application.
     /// Inspired by Glenn Versweyveld https://github.com/Depechie/OpenTelemetryGrafana/tree/aspire
     /// Inspired by Martin Thwaites https://github.com/practical-otel/opentelemetry-aspire-collector/tree/main
+    /// Inspired by Aspire Samples https://github.com/dotnet/aspire-samples/blob/main/samples/Metrics/MetricsApp.AppHost/OpenTelemetryCollector/OpenTelemetryCollectorResourceBuilderExtensions.cs
     /// </summary>
     /// <param name="builder"></param>
     /// <returns></returns>
-    public static IResourceBuilder<CollectorResource> AddOpenTelemetryCollector(this IDistributedApplicationBuilder builder)
+    public static IResourceBuilder<OpenTelemetryCollectorResource> AddOpenTelemetryCollector(this IDistributedApplicationBuilder builder, string otelConfig)
     {
-        var collectorResource = new CollectorResource("otelcollector");
+        var collectorResource = new OpenTelemetryCollectorResource("otelcollector");
+        var dashboardUrl = builder.Configuration[DashboardOtlpUrlVariableName] ?? "";
+        var isHttps = dashboardUrl.StartsWith("https", StringComparison.OrdinalIgnoreCase);
+        var dashboardOtlpEndpoint = new HostUrl(dashboardUrl);
+
         var otel = builder
             .AddResource(collectorResource)
-            .WithImage("otel/opentelemetry-collector-contrib", "latest")
-            .WithEndpoint(port: 4317, targetPort: 4317, name: "grpc", scheme: "http")
-            .WithEndpoint(port: 4318, targetPort: 4318, name: "http", scheme: "http")
-            .WithBindMount("../config/otel.yml", "/etc/otelcol-contrib/config.yaml")
-            .WithEnvironment("ASPIRE_OTLP_ENDPOINT", ReplaceLocalhostWithContainerHost(builder.Configuration[DashboardOtlpUrlVariableName], builder.Configuration))
-            .WithEnvironment("ASPIRE_API_KEY", builder.Configuration["AppHost:OtlpApiKey"]);
+            .WithImage("ghcr.io/open-telemetry/opentelemetry-collector-releases/opentelemetry-collector-contrib", "latest")
+            .WithEndpoint(port: 4317, targetPort: 4317, name: OpenTelemetryCollectorResource.GRPCEndpointName, scheme: isHttps ? "https" : "http")
+            .WithEndpoint(port: 4318, targetPort: 4318, name: OpenTelemetryCollectorResource.HTTPEndpointName, scheme: isHttps ? "https" : "http")
+            .WithBindMount(otelConfig, "/etc/otelcol-contrib/config.yaml")
+            .WithEnvironment("ASPIRE_OTLP_ENDPOINT", $"{dashboardOtlpEndpoint}")
+            .WithEnvironment("ASPIRE_API_KEY", builder.Configuration[DashboardOtlpKeyVariableName])
+            .WithEnvironment("ASPIRE_INSECURE", isHttps ? "false" : "true");
 
         otel.ApplicationBuilder.Services.TryAddLifecycleHook<OltpEndpointVariableHook>();
 
         return otel;
-    }
-
-    private static string ReplaceLocalhostWithContainerHost(string? value, IConfiguration configuration)
-    {
-        ArgumentNullException.ThrowIfNull(value, nameof(value));
-        var hostName = configuration["AppHost:ContainerHostname"] ?? "host.docker.internal";
-        return value.Replace("localhost", hostName, StringComparison.OrdinalIgnoreCase)
-            .Replace("127.0.0.1", hostName)
-            .Replace("[::1]", hostName);
     }
 }

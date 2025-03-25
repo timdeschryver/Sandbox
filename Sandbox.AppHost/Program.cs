@@ -10,23 +10,25 @@ var secrets =
         ? builder.AddAzureKeyVault("key-vault")
         : builder.AddConnectionString("key-vault");
 
-var otel = builder.AddOpenTelemetryCollector();
+var openTelemetryCollector = builder.AddOpenTelemetryCollector("../config/otel.yml");
 
 var sql = builder.AddSqlServer("sql")
     .WithDataVolume();
 
 var db = sql.AddDatabase("database");
 
-builder.AddProject<Projects.Sandbox_ApiService_Migrations>("migrations")
+var migrations = builder.AddProject<Projects.Sandbox_ApiService_Migrations>("migrations")
     .WithReference(db)
     .WaitFor(db)
+    .WaitFor(sql)
     .WithHttpCommand("/reset-db", "Reset Database", iconName: "DatabaseLightning");
 
 var apiService = builder.AddProject<Projects.Sandbox_ApiService>("apiservice")
     .WithReplicas(2)
     .WithReference(secrets)
     .WithReference(db)
-    .WaitFor(db);
+    .WaitFor(db)
+    .WaitFor(migrations);
 
 var angularApplication = builder
     .AddNpmApp("angularfrontend", "../Sandbox.AngularApp")
@@ -36,11 +38,11 @@ var angularApplication = builder
 var apiGateway = builder.AddProject<Projects.Sandbox_ApiGateway>("apigateway")
     .WithReference(apiService)
     .WithReference(angularApplication)
-    .WithReference(otel.Resource.HTTPEndpoint)
-    .WithReference(otel.Resource.GRPCEndpoint)
+    .WithReference(openTelemetryCollector.Resource.HTTPEndpoint)
     .WithReference(secrets)
     .WaitFor(apiService)
     .WaitFor(angularApplication)
+    .WaitFor(openTelemetryCollector)
     .WithExternalHttpEndpoints();
 
 builder.Build().Run();

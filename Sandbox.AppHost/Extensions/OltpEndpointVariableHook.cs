@@ -5,25 +5,34 @@ namespace Sandbox.AppHost.Extensions;
 
 public class OltpEndpointVariableHook(ILogger<OltpEndpointVariableHook> logger) : IDistributedApplicationLifecycleHook
 {
+    private const string OtelExporterOtlpEndpoint = "OTEL_EXPORTER_OTLP_ENDPOINT";
+
     public Task AfterEndpointsAllocatedAsync(DistributedApplicationModel appModel, CancellationToken cancellationToken)
     {
-        var collectorResource = appModel.Resources.OfType<CollectorResource>().FirstOrDefault();
+        var collectorResource = appModel.Resources.OfType<OpenTelemetryCollectorResource>().FirstOrDefault();
         if (collectorResource == null)
         {
-            logger.LogWarning("No collector resource found");
+            logger.LogWarning($"No {nameof(OpenTelemetryCollectorResource)} resource found.");
             return Task.CompletedTask;
         }
 
-        var grpcEndpoint = collectorResource.GRPCEndpoint;
-
-        foreach (var resourceItem in appModel.GetProjectResources())
+        var endpoint = collectorResource.GetEndpoint(OpenTelemetryCollectorResource.GRPCEndpointName);
+        if (!endpoint.Exists)
         {
-            logger.LogDebug($"Forwarding Telemetry for {resourceItem.Name} to the collector");
-            resourceItem.Annotations.Add(new EnvironmentCallbackAnnotation((context) =>
+            logger.LogWarning($"No {OpenTelemetryCollectorResource.GRPCEndpointName} endpoint for the collector.");
+            return Task.CompletedTask;
+        }
+
+        foreach (var resource in appModel.GetProjectResources())
+        {
+            resource.Annotations.Add(new EnvironmentCallbackAnnotation(context =>
             {
-                context.EnvironmentVariables["OTEL_EXPORTER_OTLP_ENDPOINT"] = grpcEndpoint;
+                if (context.EnvironmentVariables.ContainsKey(OtelExporterOtlpEndpoint))
+                {
+                    logger.LogDebug("Forwarding telemetry for {ResourceName} to the collector.", resource.Name);
+                    context.EnvironmentVariables[OtelExporterOtlpEndpoint] = endpoint;
+                }
             }));
-            logger.LogDebug($"Forwarding Telemetry for {resourceItem.Name} to the collector");
         }
 
         return Task.CompletedTask;
