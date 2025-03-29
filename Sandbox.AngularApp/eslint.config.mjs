@@ -43,7 +43,7 @@ export default tseslint.config(
 			'no-restricted-imports': [
 				'error',
 				{
-					patterns: [{ group: ['.*'], message: "Relative imports are not allowed, use the '@' path instead." }],
+					patterns: [{ group: ['..*'], message: "Relative imports are not allowed, use the '@' path instead." }],
 				},
 			],
 			// It can be nice to spcifically name an interface

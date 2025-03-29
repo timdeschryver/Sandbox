@@ -78,7 +78,8 @@
 							}
 						],
 						"styles": ["src/styles.css"],
-						"scripts": []
+						"scripts": [],
+						"main": "src/test-setup.ts"
 					}
 				},
 				"lint": {
