@@ -2,6 +2,7 @@ import { createUuid } from '@/shared/functions/generation';
 import { CommonModule } from '@angular/common';
 import { Component, input, ChangeDetectionStrategy } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
+import { Address } from '@/customers/customer.model';
 
 @Component({
 	selector: 'sandbox-customer-address',
@@ -11,6 +12,6 @@ import { FormsModule, NgForm } from '@angular/forms';
 })
 export class AddressComponent {
 	public readonly form = input.required<NgForm>();
-	public readonly address = input.required<{ street: string; city: string; zipCode: string }>();
+	public readonly address = input.required<Address>();
 	protected readonly id = createUuid();
 }
