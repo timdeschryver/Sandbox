@@ -31,8 +31,9 @@ var apiService = builder.AddProject<Projects.Sandbox_ApiService>("apiservice")
     .WaitFor(migrations);
 
 var angularApplication = builder
-    .AddNpmApp("angularfrontend", "../Sandbox.AngularApp")
+    .AddNpmApp("angularfrontend", "../Sandbox.AngularWorkspace")
     .WithHttpEndpoint(env: "PORT")
+    .WithEnvironment("APPLICATION", "sandbox-app")
     .PublishAsDockerFile();
 
 var apiGateway = builder.AddProject<Projects.Sandbox_ApiGateway>("apigateway")
