@@ -1,11 +1,9 @@
-import 'zone.js';
-import 'zone.js/testing';
-import { getTestBed } from '@angular/core/testing';
+// Uncomment to run tests in the browser
+// import '@angular/compiler';
+import '@analogjs/vitest-angular/setup-zone';
+import '@testing-library/jest-dom/vitest';
+
 import { BrowserDynamicTestingModule, platformBrowserDynamicTesting } from '@angular/platform-browser-dynamic/testing';
-import JasmineDOM from '@testing-library/jasmine-dom';
+import { getTestBed } from '@angular/core/testing';
 
-beforeEach(() => {
-	jasmine.addMatchers(JasmineDOM);
-});
-
-getTestBed().initTestEnvironment(BrowserDynamicTestingModule, platformBrowserDynamicTesting(), {});
+getTestBed().initTestEnvironment(BrowserDynamicTestingModule, platformBrowserDynamicTesting());

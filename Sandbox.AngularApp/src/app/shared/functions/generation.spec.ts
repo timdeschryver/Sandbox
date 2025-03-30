@@ -1,3 +1,4 @@
+import { it, expect } from 'vitest';
 import { generateUuid } from './generation';
 
 it('generates a valid uuid', () => {

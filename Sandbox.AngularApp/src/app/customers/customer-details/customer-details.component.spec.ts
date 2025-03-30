@@ -1,3 +1,4 @@
+import { it, expect } from 'vitest';
 import { provideHttpClient } from '@angular/common/http';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
@@ -24,22 +25,114 @@ it('renders customer details when data is loaded', async () => {
 		name: /billing addresses/i,
 	});
 	expect(billingAddresses).toBeInTheDocument();
-	expect(billingAddresses).toHaveTextContent(/123 Billing St/i);
-	expect(billingAddresses).toHaveTextContent(/Bill City/i);
-	expect(billingAddresses).toHaveTextContent(/12345/i);
+    expect(billingAddresses).toMatchInlineSnapshot(`
+      <fieldset>
+        <legend>
+          Billing Addresses
+        </legend>
+        <div>
+          <div>
+            <span>
+              Street:
+            </span>
+            <span>
+              123 Billing St
+            </span>
+          </div>
+          <div>
+            <span>
+              City:
+            </span>
+            <span>
+              Bill City
+            </span>
+          </div>
+          <div>
+            <span>
+              Zip Code:
+            </span>
+            <span>
+              12345
+            </span>
+          </div>
+        </div>
+        <!--container-->
+      </fieldset>
+    `)
 
 	const shippingAddresses = screen.getByRole('group', {
 		name: /shipping addresses/i,
 	});
-	expect(shippingAddresses).toBeInTheDocument();
-	expect(shippingAddresses).toHaveTextContent(/456 Shipping Ave/i);
-	expect(shippingAddresses).toHaveTextContent(/Ship City/i);
-	expect(shippingAddresses).toHaveTextContent(/67890/i);
-	expect(shippingAddresses).toHaveTextContent(/Leave at door/i);
-
-	expect(shippingAddresses).toHaveTextContent(/789 Delivery Rd/i);
-	expect(shippingAddresses).toHaveTextContent(/Deliver Town/i);
-	expect(shippingAddresses).toHaveTextContent(/54321/i);
+    expect(shippingAddresses).toMatchInlineSnapshot(`
+      <fieldset>
+        <legend>
+          Shipping Addresses
+        </legend>
+        <div>
+          <div>
+            <span>
+              Street:
+            </span>
+            <span>
+              456 Shipping Ave
+            </span>
+          </div>
+          <div>
+            <span>
+              City:
+            </span>
+            <span>
+              Ship City
+            </span>
+          </div>
+          <div>
+            <span>
+              Zip Code:
+            </span>
+            <span>
+              67890
+            </span>
+          </div>
+          <div>
+            <span>
+              Note:
+            </span>
+            <span>
+              Leave at door
+            </span>
+          </div>
+          <!--container-->
+        </div>
+        <div>
+          <div>
+            <span>
+              Street:
+            </span>
+            <span>
+              789 Delivery Rd
+            </span>
+          </div>
+          <div>
+            <span>
+              City:
+            </span>
+            <span>
+              Deliver Town
+            </span>
+          </div>
+          <div>
+            <span>
+              Zip Code:
+            </span>
+            <span>
+              54321
+            </span>
+          </div>
+          <!--container-->
+        </div>
+        <!--container-->
+      </fieldset>
+    `)
 });
 
 it('does not display address info when no addresses are present', async () => {
