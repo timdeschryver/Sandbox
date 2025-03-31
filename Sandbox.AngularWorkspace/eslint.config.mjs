@@ -30,8 +30,12 @@ export default tseslint.config(
 					patterns: [{ group: ['..*'], message: "Relative imports are not allowed, use the '@' path instead." }],
 				},
 			],
-			// It can be nice to spcifically name an interface
-			'@typescript-eslint/no-empty-object-type': 'off',
+			'sort-imports': [
+				'error',
+				{
+					ignoreDeclarationSort: true,
+				},
+			],
 		},
 	},
 	{

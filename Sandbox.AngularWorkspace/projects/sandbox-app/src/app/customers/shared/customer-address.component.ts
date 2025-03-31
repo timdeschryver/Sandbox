@@ -1,6 +1,6 @@
 import { generateUuid } from '@sandbox-app/shared/functions/generation';
 import { CommonModule } from '@angular/common';
-import { Component, input, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { Address } from '@sandbox-app/customers/customer.model';
 

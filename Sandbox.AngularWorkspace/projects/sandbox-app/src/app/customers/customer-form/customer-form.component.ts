@@ -67,7 +67,11 @@ export class CustomerFormComponent {
 				this.submitted.emit();
 			},
 			error: (error: unknown) => {
-				this.submitState.set({ state: 'error', message: error instanceof HttpErrorResponse ? error.error.title : 'An unexpected error occurred, please try again.' });
+				this.submitState.set({
+					state: 'error',
+					message:
+						error instanceof HttpErrorResponse ? error.error.title : 'An unexpected error occurred, please try again.',
+				});
 			},
 		});
 	}

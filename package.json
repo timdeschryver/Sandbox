@@ -1,14 +1,14 @@
 {
-  "private": true,
-  "name": "sandbox",
-  "packageManager": "pnpm@10.7.0",
-  "module": "true",
-  "license": "MIT",
-  "engines": {
-    "node": ">=22",
-    "pnpm": ">=10"
-  },
-  "devDependencies": {
-    "prettier": "3.4.2"
-  }
+	"private": true,
+	"name": "sandbox",
+	"packageManager": "pnpm@10.7.0",
+	"module": "true",
+	"license": "MIT",
+	"engines": {
+		"node": ">=22",
+		"pnpm": ">=10"
+	},
+	"devDependencies": {
+		"prettier": "3.4.2"
+	}
 }

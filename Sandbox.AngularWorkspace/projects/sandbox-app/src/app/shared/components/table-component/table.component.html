@@ -14,10 +14,7 @@
 		}
 		<tbody>
 			@if (resource().hasValue()) {
-				@for (
-					row of resource().value();
-					track row.id;
-				) {
+				@for (row of resource().value(); track row.id) {
 					<tr>
 						<td></td>
 						<ng-container

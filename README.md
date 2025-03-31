@@ -12,23 +12,22 @@ Some buzzwords that are used:
 - Azure Developer CLI (azd)
 - Authentication (WIP)
 
-
 ```mermaid
 graph TD
     User["Browser (User)"] --> ApiGateway
-    
+
     subgraph "External Facing Components"
         ApiGateway["API Gateway (YARP)<br>Sandbox.ApiGateway"]
         Auth0["Auth0<br>Authentication Provider"]
     end
-    
+
     subgraph "Internal Components"
         AngularApp["Angular Frontend<br>Sandbox.AngularWorkspace"]
         ApiService["API Service<br>Sandbox.ApiService<br>[x2 replicas]"]
         SqlDatabase["SQL Server Database"]
         DbMigrations["Database Migrations<br>Sandbox.ApiService.Migrations"]
         KeyVault["Azure KeyVault<br>(Secrets Management)"]
-        
+
         ApiGateway --> AngularApp
         ApiGateway --> ApiService
         ApiService --> SqlDatabase
@@ -37,7 +36,7 @@ graph TD
         ApiService -.-> KeyVault
         ApiGateway -.-> Auth0
     end
-    
+
     subgraph "Monitoring"
         OpenTelemetry["OpenTelemetry Collector<br>Metrics, Traces, Logs"]
         ApiGateway -.-> OpenTelemetry
@@ -45,7 +44,7 @@ graph TD
         ApiService -.-> OpenTelemetry
         SqlDatabase -.-> OpenTelemetry
     end
-    
+
     classDef externalFacing fill:#f96,stroke:#333,stroke-width:3px,stroke-dasharray: 5 5;
     classDef gateway fill:#f9f,stroke:#333,stroke-width:2px;
     classDef frontend fill:#bbf,stroke:#333,stroke-width:1px;
@@ -54,7 +53,7 @@ graph TD
     classDef secrets fill:#9cf,stroke:#333,stroke-width:1px;
     classDef auth fill:#f99,stroke:#333,stroke-width:1px;
     classDef monitoring fill:#ffd,stroke:#333,stroke-width:1px;
-    
+
     class ApiGateway gateway,externalFacing;
     class Auth0 auth,externalFacing;
     class AngularApp frontend;

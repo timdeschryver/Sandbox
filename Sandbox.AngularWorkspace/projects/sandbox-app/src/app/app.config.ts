@@ -13,7 +13,7 @@ export const appConfig: ApplicationConfig = {
 			withXsrfConfiguration({
 				cookieName: '__Sandbox-X-XSRF-TOKEN',
 				headerName: 'X-XSRF-TOKEN',
-			})
+			}),
 		),
 		{
 			provide: DATE_PIPE_DEFAULT_OPTIONS,

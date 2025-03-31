@@ -1,7 +1,10 @@
 {
 	"name": "sandbox.angular-workspace",
 	"version": "0.0.0",
-	"files": [".", "dist"],
+	"files": [
+		".",
+		"dist"
+	],
 	"scripts": {
 		"ng": "ng",
 		"start": "run-script-os",

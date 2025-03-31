@@ -1,8 +1,12 @@
 {
-    "dotnet.defaultSolution": "Sandbox.slnx",
-    "github.copilot.chat.commitMessageGeneration.instructions": [
-        {
-            "file": ".github/commit-instructions.md"
-        }
-    ]
+	"dotnet.defaultSolution": "Sandbox.slnx",
+	"github.copilot.chat.commitMessageGeneration.instructions": [
+		{
+			"file": ".github/commit-instructions.md"
+		}
+	],
+	"eslint.workingDirectories": ["./Sandbox.AngularWorkspace"],
+	"editor.codeActionsOnSave": {
+		"source.fixAll.eslint": "always"
+	}
 }

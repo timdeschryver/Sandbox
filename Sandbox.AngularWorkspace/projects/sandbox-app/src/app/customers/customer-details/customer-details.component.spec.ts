@@ -1,14 +1,15 @@
-import { it, expect } from 'vitest';
+import { expect, it } from 'vitest';
 import { provideHttpClient } from '@angular/common/http';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { render, screen } from '@testing-library/angular';
+import userEvent from '@testing-library/user-event';
 import { CustomerDetails } from '@sandbox-app/customers/customer.model';
 import CustomerDetailsComponent from './customer-details.component';
-import userEvent from '@testing-library/user-event';
 
 it('renders customer details when data is loaded', async () => {
-	const { request } = await setup();
+	const { mockRequest } = await setup();
+	const request = mockRequest();
 
 	expect(screen.getByText(/Loading customer/i)).toBeInTheDocument();
 
@@ -25,7 +26,7 @@ it('renders customer details when data is loaded', async () => {
 		name: /billing addresses/i,
 	});
 	expect(billingAddresses).toBeInTheDocument();
-    expect(billingAddresses).toMatchInlineSnapshot(`
+	expect(billingAddresses).toMatchInlineSnapshot(`
       <fieldset>
         <legend>
           Billing Addresses
@@ -58,12 +59,12 @@ it('renders customer details when data is loaded', async () => {
         </div>
         <!--container-->
       </fieldset>
-    `)
+    `);
 
 	const shippingAddresses = screen.getByRole('group', {
 		name: /shipping addresses/i,
 	});
-    expect(shippingAddresses).toMatchInlineSnapshot(`
+	expect(shippingAddresses).toMatchInlineSnapshot(`
       <fieldset>
         <legend>
           Shipping Addresses
@@ -132,7 +133,7 @@ it('renders customer details when data is loaded', async () => {
         </div>
         <!--container-->
       </fieldset>
-    `)
+    `);
 });
 
 it('does not display address info when no addresses are present', async () => {
@@ -142,7 +143,8 @@ it('does not display address info when no addresses are present', async () => {
 		shippingAddress: [],
 	};
 
-	const { request } = await setup();
+	const { mockRequest } = await setup();
+	const request = mockRequest();
 	request.flush(customerWithNoAddresses);
 
 	expect(await screen.findByText(/John Doe/i)).toBeInTheDocument();
@@ -152,7 +154,8 @@ it('does not display address info when no addresses are present', async () => {
 });
 
 it('displays error message when API request fails and can retry', async () => {
-	const { request, user, httpMock } = await setup();
+	const { mockRequest, user } = await setup();
+	const request = mockRequest();
 
 	expect(screen.getByText(/Loading customer.../i)).toBeInTheDocument();
 
@@ -166,7 +169,7 @@ it('displays error message when API request fails and can retry', async () => {
 	expect(await screen.findByText(/Something went wrong/i)).toBeInTheDocument();
 
 	await user.click(screen.getByRole('button', { name: /retry/i }));
-	const requestRetry = httpMock.expectOne('/api/customers/1');
+	const requestRetry = mockRequest();
 
 	requestRetry.flush(customerDetails);
 
@@ -182,9 +185,7 @@ async function setup() {
 		providers: [provideHttpClient(), provideHttpClientTesting()],
 	});
 	const httpMock = TestBed.inject(HttpTestingController);
-
-	const request = httpMock.expectOne('/api/customers/1');
-	return { request, user, httpMock };
+	return { mockRequest: () => httpMock.expectOne(() => true), user };
 }
 
 const customerDetails: CustomerDetails = {

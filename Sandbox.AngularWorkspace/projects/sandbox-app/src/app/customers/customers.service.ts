@@ -1,7 +1,7 @@
 import { Injectable, Signal, inject } from '@angular/core';
-import { HttpClient, httpResource, HttpResourceRef } from '@angular/common/http';
+import { HttpClient, HttpResourceRef, httpResource } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { parseCollection, parse } from '@sandbox-app/shared/functions/parse';
+import { parse, parseCollection } from '@sandbox-app/shared/functions/parse';
 import { CreateCustomerRequest, CustomerDetails, CustomerOverview } from '@sandbox-app/customers/customer.model';
 
 @Injectable({

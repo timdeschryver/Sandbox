@@ -1,4 +1,4 @@
-import { Directive, effect, inject, TemplateRef, ViewContainerRef } from '@angular/core';
+import { Directive, TemplateRef, ViewContainerRef, effect, inject } from '@angular/core';
 import { AuthenticationService } from '@sandbox-app/authentication/authentication.service';
 
 @Directive({

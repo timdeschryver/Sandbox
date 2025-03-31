@@ -3,7 +3,6 @@
 		<div>
 			<h2>Customer Details</h2>
 			<a routerLink="..">Back to Overview</a>
-			
 
 			<fieldset>
 				<legend>Personal Information</legend>
@@ -40,7 +39,7 @@
 				<fieldset>
 					<legend>Shipping Addresses</legend>
 
-					@for (shippingAddress of customer.shippingAddress; track shippingAddress.id;) {
+					@for (shippingAddress of customer.shippingAddress; track shippingAddress.id) {
 						<div>
 							<div>
 								<span>Street:</span>
