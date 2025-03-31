@@ -17,7 +17,6 @@
 				@for (
 					row of resource().value();
 					track row.id;
-					let index = $index, even = $even, odd = $odd, count = $count, first = $first, last = $last
 				) {
 					<tr>
 						<td></td>
@@ -27,12 +26,12 @@
 								context: {
 									$implicit: row,
 									value: row,
-									index: index,
-									count: count,
-									first: first,
-									last: last,
-									even: even,
-									odd: odd,
+									index: $index,
+									count: $count,
+									first: $first,
+									last: $last,
+									even: $even,
+									odd: $odd,
 								}
 							"
 						/>

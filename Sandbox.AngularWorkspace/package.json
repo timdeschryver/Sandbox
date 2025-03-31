@@ -1,13 +1,13 @@
 {
 	"name": "sandbox.angular-workspace",
 	"version": "0.0.0",
-	"packageManager": "pnpm@10.7.0",
+	"files": [".", "dist"],
 	"scripts": {
 		"ng": "ng",
 		"start": "run-script-os",
 		"start:win32": "ng serve %APPLICATION% --port %PORT%",
 		"start:default": "ng serve $APPLICATION --port $PORT",
-		"build": "ng build",
+		"build": "ng build sandbox-app",
 		"watch": "ng build --watch --configuration development",
 		"test": "ng test",
 		"lint": "ng lint"
@@ -49,8 +49,8 @@
 		"angular-eslint": "19.3.0",
 		"eslint": "^9.16.0",
 		"eslint-config-prettier": "^10.0.1",
-    "jsdom": "^22.0.0",
-    "ng-packagr": "^19.2.0",
+		"jsdom": "^22.0.0",
+		"ng-packagr": "^19.2.0",
 		"prettier": "3.4.2",
 		"run-script-os": "^1.1.6",
 		"typescript": "~5.7.2",

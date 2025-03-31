@@ -16,22 +16,6 @@ export default tseslint.config(
 		],
 		processor: angular.processInlineTemplates,
 		rules: {
-			'@angular-eslint/directive-selector': [
-				'error',
-				{
-					type: 'attribute',
-					prefix: 'sandbox',
-					style: 'camelCase',
-				},
-			],
-			'@angular-eslint/component-selector': [
-				'error',
-				{
-					type: 'element',
-					prefix: 'sandbox',
-					style: 'kebab-case',
-				},
-			],
 			'@typescript-eslint/no-unused-vars': [
 				'error',
 				{

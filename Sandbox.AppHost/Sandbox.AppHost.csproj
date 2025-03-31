@@ -21,12 +21,8 @@
     <PackageReference Include="Aspire.Hosting.SqlServer" />
   </ItemGroup>
 
-  <Target Name="RestoreNodeModules" BeforeTargets="Build" Condition=" '$(DesignTimeBuild)' != 'true' ">
-    <ItemGroup>
-      <PackageJsons Include="..\*\package.json" />
-    </ItemGroup>
-
-    <Message Importance="Normal" Text="Installing npm packages for %(PackageJsons.RelativeDir)" Condition="!Exists('%(PackageJsons.RootDir)%(PackageJsons.Directory)/node_modules')" />
-    <Exec Command="pnpm install --frozen-lockfile --prefer-offline" WorkingDirectory="%(PackageJsons.RootDir)%(PackageJsons.Directory)" Condition="!Exists('%(PackageJsons.RootDir)%(PackageJsons.Directory)/node_modules')" />
+  <Target Name="RestoreNodeModules" BeforeTargets="Build" Condition="'$(DesignTimeBuild)' != 'true'">
+    <Message Importance="Normal" Text="Installing npm packages" />
+    <Exec Command="pnpm install --frozen-lockfile --prefer-offline" WorkingDirectory="." />
   </Target>
 </Project>

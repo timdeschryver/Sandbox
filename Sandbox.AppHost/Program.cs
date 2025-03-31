@@ -34,7 +34,10 @@ var angularApplication = builder
     .AddNpmApp("angularfrontend", "../Sandbox.AngularWorkspace")
     .WithHttpEndpoint(env: "PORT")
     .WithEnvironment("APPLICATION", "sandbox-app")
-    .PublishAsDockerFile();
+    .PublishAsDockerFile(configure: resource =>
+    {
+        resource.WithDockerfile("../", stage: "sandbox-app");
+    });
 
 var apiGateway = builder.AddProject<Projects.Sandbox_ApiGateway>("apigateway")
     .WithReference(apiService)

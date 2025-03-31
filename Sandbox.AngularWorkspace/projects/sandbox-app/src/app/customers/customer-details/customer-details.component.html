@@ -40,7 +40,7 @@
 				<fieldset>
 					<legend>Shipping Addresses</legend>
 
-					@for (shippingAddress of customer.shippingAddress; track shippingAddress.id; let i = $index) {
+					@for (shippingAddress of customer.shippingAddress; track shippingAddress.id;) {
 						<div>
 							<div>
 								<span>Street:</span>

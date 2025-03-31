@@ -23,7 +23,7 @@ graph TD
     end
     
     subgraph "Internal Components"
-        AngularApp["Angular Frontend<br>Sandbox.AngularApp"]
+        AngularApp["Angular Frontend<br>Sandbox.AngularWorkspace"]
         ApiService["API Service<br>Sandbox.ApiService<br>[x2 replicas]"]
         SqlDatabase["SQL Server Database"]
         DbMigrations["Database Migrations<br>Sandbox.ApiService.Migrations"]
@@ -67,7 +67,7 @@ graph TD
 ## Prerequisites
 
 - [.NET 9](https://dotnet.microsoft.com/en-us/download)
-- [`pnpm`](https://pnpm.io/) - `npnm` is also fine but you need to install the dependencies manually (go to the `Sandbox.AngularApp` folder and run `npm install`)
+- [`pnpm`](https://pnpm.io/) - `npnm` is also fine but you need to install the dependencies manually (go to the `Sandbox.AngularWorkspace` folder and run `npm install`)
 - Containerization tool ([podman](https://podman.io/), [docker](https://www.docker.com/products/docker-desktop/), etc)
 
 ## Run the project locally

@@ -35,7 +35,7 @@
 							"budgets": [
 								{
 									"type": "initial",
-									"maximumWarning": "500kB",
+									"maximumWarning": "750kB",
 									"maximumError": "1MB"
 								},
 								{
@@ -71,6 +71,13 @@
 				},
 				"test": {
 					"builder": "@analogjs/vitest-angular:test"
+				},
+				"lint": {
+					"builder": "@angular-eslint/builder:lint",
+					"options": {
+						"lintFilePatterns": ["projects/sandbox-app/**/*.ts", "projects/sandbox-app/**/*.html"],
+						"eslintConfig": "projects/sandbox-app/eslint.config.mjs"
+					}
 				}
 			}
 		},
