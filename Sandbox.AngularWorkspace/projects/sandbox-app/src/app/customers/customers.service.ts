@@ -19,7 +19,7 @@ export class CustomersService {
 	public getCustomerDetails(id: Signal<number>): HttpResourceRef<CustomerDetails | undefined> {
 		return httpResource(
 			() => ({
-				url: `/api/customers/${id()}`,
+				url: `/api/customers/${id().toString()}`,
 			}),
 			{
 				parse: parse(CustomerDetails),

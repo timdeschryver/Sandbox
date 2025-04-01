@@ -70,10 +70,16 @@ export class CustomerFormComponent {
 				this.submitState.set({
 					state: 'error',
 					message:
-						error instanceof HttpErrorResponse ? error.error.title : 'An unexpected error occurred, please try again.',
+						error instanceof HttpErrorResponse && this.isErrorWithTitle(error.error)
+							? error.error.title
+							: 'An unexpected error occurred, please try again.',
 				});
 			},
 		});
+	}
+
+	private isErrorWithTitle(error: unknown): error is { title: string } {
+		return typeof error === 'object' && error !== null && typeof (error as { title: unknown }).title === 'string';
 	}
 
 	private initializeCustomerModel(): void {

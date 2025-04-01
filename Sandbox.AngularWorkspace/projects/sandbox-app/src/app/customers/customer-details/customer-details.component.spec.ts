@@ -179,7 +179,7 @@ it('displays error message when API request fails and can retry', async () => {
 async function setup() {
 	const user = userEvent.setup();
 	await render(CustomerDetailsComponent, {
-		componentInputs: {
+		inputs: {
 			customerId: 1,
 		},
 		providers: [provideHttpClient(), provideHttpClientTesting()],

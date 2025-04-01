@@ -9,12 +9,18 @@ export default tseslint.config(
 		files: ['**/*.ts'],
 		extends: [
 			eslint.configs.recommended,
-			...tseslint.configs.strict,
+			...tseslint.configs.strictTypeChecked,
 			...tseslint.configs.stylistic,
 			...angular.configs.tsAll,
 			eslintConfigPrettier,
 		],
 		processor: angular.processInlineTemplates,
+		languageOptions: {
+			parserOptions: {
+				projectService: true,
+				tsconfigRootDir: import.meta.dirname,
+			},
+		},
 		rules: {
 			'@typescript-eslint/no-unused-vars': [
 				'error',
@@ -36,6 +42,7 @@ export default tseslint.config(
 					ignoreDeclarationSort: true,
 				},
 			],
+			'@typescript-eslint/no-deprecated': 'error',
 		},
 	},
 	{

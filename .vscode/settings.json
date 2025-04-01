@@ -6,6 +6,7 @@
 		}
 	],
 	"eslint.workingDirectories": ["./Sandbox.AngularWorkspace"],
+	"editor.formatOnSave": true,
 	"editor.codeActionsOnSave": {
 		"source.fixAll.eslint": "always"
 	}
