@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject, output, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
-import { CreateCustomerRequest } from '@sandbox-app/customers/customer.model';
+import { CreateCustomerCommand } from '@sandbox-app/customers/customer.model';
 import { CustomersService } from '@sandbox-app/customers/customers.service';
 import { AddressComponent } from '@sandbox-app/customers/shared/customer-address.component';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -22,7 +22,7 @@ export class CustomerFormComponent {
 		| { state: 'error'; message: string }
 	>({ state: 'idle' });
 
-	protected customer: CreateCustomerRequest = {
+	protected customer: CreateCustomerCommand = {
 		firstName: '',
 		lastName: '',
 		billingAddress: null,

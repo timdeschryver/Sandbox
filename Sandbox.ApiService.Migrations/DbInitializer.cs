@@ -44,16 +44,7 @@ internal class DbInitializer(IServiceProvider serviceProvider, ILogger<DbInitial
         {
             var customers = new[]
             {
-                Customer.New(new Name("Alice", "Smith")),
-                Customer.New(
-                    new Name("Bob", "Johnson"),
-                    new CustomerBillingAddress(Address.From("123 Main Street", "Seattle", "WA 98101"))
-                ),
-                Customer.New(
-                    new Name("Charlie", "Brown"),
-                    new CustomerBillingAddress(Address.From("456 Oak Avenue", "Portland", "OR 97201")),
-                    new CustomerShippingAddress(Address.From("789 Pine Road", "Portland", "OR 97202"), "Leave at front door")
-                )
+                new Customer(new FullName("Alice", "Smith"))
             };
 
             await dbContext.Set<Customer>().AddRangeAsync(customers, cancellationToken);

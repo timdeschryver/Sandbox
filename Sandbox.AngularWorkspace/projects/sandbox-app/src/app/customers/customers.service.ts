@@ -2,7 +2,7 @@ import { Injectable, Signal, inject } from '@angular/core';
 import { HttpClient, HttpResourceRef, httpResource } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { parse, parseCollection } from '@sandbox-app/shared/functions/parse';
-import { CreateCustomerRequest, CustomerDetails, CustomerOverview } from '@sandbox-app/customers/customer.model';
+import { CreateCustomerCommand, CustomerDetails, CustomerOverview } from '@sandbox-app/customers/customer.model';
 
 @Injectable({
 	providedIn: 'root',
@@ -27,7 +27,7 @@ export class CustomersService {
 		);
 	}
 
-	public createCustomer(customer: CreateCustomerRequest): Observable<unknown> {
+	public createCustomer(customer: CreateCustomerCommand): Observable<unknown> {
 		return this.http.post<unknown>('/api/customers', customer);
 	}
 }

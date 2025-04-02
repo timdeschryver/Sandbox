@@ -7,28 +7,26 @@ export const CustomerOverview = v.strictObject({
 });
 export type CustomerOverview = v.InferOutput<typeof CustomerOverview>;
 
-export const BillingAddressRequest = v.strictObject({
-	street: v.string(),
-	city: v.string(),
-	zipCode: v.string(),
-});
-export type BillingAddressRequest = v.InferOutput<typeof BillingAddressRequest>;
-
-export const ShippingAddressRequest = v.strictObject({
-	street: v.string(),
-	city: v.string(),
-	zipCode: v.string(),
-	note: v.optional(v.string()),
-});
-export type ShippingAddressRequest = v.InferOutput<typeof ShippingAddressRequest>;
-
-export const CreateCustomerRequest = v.strictObject({
+export const CreateCustomerCommand = v.strictObject({
 	firstName: v.string(),
 	lastName: v.string(),
-	billingAddress: v.nullable(BillingAddressRequest),
-	shippingAddress: v.nullable(ShippingAddressRequest),
+	billingAddress: v.nullable(
+		v.strictObject({
+			street: v.string(),
+			city: v.string(),
+			zipCode: v.string(),
+		}),
+	),
+	shippingAddress: v.nullable(
+		v.strictObject({
+			street: v.string(),
+			city: v.string(),
+			zipCode: v.string(),
+			note: v.optional(v.string()),
+		}),
+	),
 });
-export type CreateCustomerRequest = v.InferOutput<typeof CreateCustomerRequest>;
+export type CreateCustomerCommand = v.InferOutput<typeof CreateCustomerCommand>;
 
 export const Address = v.strictObject({
 	street: v.string(),
@@ -40,7 +38,7 @@ export type Address = v.InferOutput<typeof Address>;
 export const ShippingAddress = v.strictObject({
 	...Address.entries,
 	id: v.number(),
-	note: v.optional(v.string()),
+	note: v.string(),
 });
 export type ShippingAddress = v.InferOutput<typeof ShippingAddress>;
 
@@ -54,7 +52,7 @@ export const CustomerDetails = v.strictObject({
 	id: v.number(),
 	firstName: v.string(),
 	lastName: v.string(),
-	billingAddress: v.array(BillingAddress),
-	shippingAddress: v.array(ShippingAddress),
+	billingAddresses: v.array(BillingAddress),
+	shippingAddresses: v.array(ShippingAddress),
 });
 export type CustomerDetails = v.InferOutput<typeof CustomerDetails>;

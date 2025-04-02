@@ -4,6 +4,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Sandbox.ApiService.CustomerModule.Endpoints;
 
+public record GetCustomerResponse(int Id, string FirstName, string LastName, IEnumerable<GetCustomerResponseBillingAddress> BillingAddresses, IEnumerable<GetCustomerResponseShippingAddress> ShippingAddresses);
+public record GetCustomerResponseBillingAddress(int Id, string Street, string City, string ZipCode);
+public record GetCustomerResponseShippingAddress(int Id, string Street, string City, string ZipCode, string Note);
+
 internal static class GetCustomer
 {
     internal static IEndpointRouteBuilder MapGetCustomer(this IEndpointRouteBuilder endpoints)
@@ -19,8 +23,8 @@ internal static class GetCustomer
                         c.Id,
                         c.Name.FirstName,
                         c.Name.LastName,
-                        c.BillingAddresses.Select(b => new GetCustomerResponseBillingAddressResponse(b.Id, b.Address.Street, b.Address.City, b.Address.ZipCode)),
-                        c.ShippingAddresses.Select(s => new GetCustomerResponseShippingAddressResponse(s.Id, s.Address.Street, s.Address.City, s.Address.ZipCode, s.Note))
+                        c.BillingAddresses.Select(b => new GetCustomerResponseBillingAddress(b.Id, b.Address.Street, b.Address.City, b.Address.ZipCode)),
+                        c.ShippingAddresses.Select(s => new GetCustomerResponseShippingAddress(s.Id, s.Address.Street, s.Address.City, s.Address.ZipCode, s.Note))
                     )
                     {
                         Id = c.Id,
@@ -37,7 +41,3 @@ internal static class GetCustomer
         return endpoints;
     }
 }
-
-public record GetCustomerResponse(int Id, string FirstName, string LastName, IEnumerable<GetCustomerResponseBillingAddressResponse> BillingAddress, IEnumerable<GetCustomerResponseShippingAddressResponse> ShippingAddress);
-public record GetCustomerResponseBillingAddressResponse(int Id, string Street, string City, string ZipCode);
-public record GetCustomerResponseShippingAddressResponse(int Id, string Street, string City, string ZipCode, string? Note);

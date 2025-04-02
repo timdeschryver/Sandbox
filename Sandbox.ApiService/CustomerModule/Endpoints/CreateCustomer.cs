@@ -2,22 +2,32 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Sandbox.ApiService.CustomerModule.Endpoints;
 
+public record CreateCustomerCommand(string? FirstName, string? LastName, CreateCustomerCommandBillingAddress? BillingAddress, CreateCustomerCommandShippingAddress? ShippingAddress);
+public record CreateCustomerCommandBillingAddress(string? Street, string? City, string? ZipCode);
+public record CreateCustomerCommandShippingAddress(string? Street, string? City, string? ZipCode, string? Note);
+
 internal static class CreateCustomer
 {
     internal static IEndpointRouteBuilder MapCreateCustomer(this IEndpointRouteBuilder endpoints)
     {
         endpoints.MapPost("",
             async (
-                [FromBody] CreateCustomerRequest request,
+                [FromBody] CreateCustomerCommand request,
                 [FromServices] ApiDbContext dbContext,
                 CancellationToken cancellationToken
             ) =>
             {
-                var customer = Customer.New(
-                    Name.From(request.FirstName, request.LastName),
-                    request.BillingAddress == null ? null : new CustomerBillingAddress(Address.From(request.BillingAddress.Street, request.BillingAddress.City, request.BillingAddress.ZipCode)),
-                    request.ShippingAddress == null ? null : new CustomerShippingAddress(Address.From(request.ShippingAddress.Street, request.ShippingAddress.City, request.ShippingAddress.ZipCode), request.ShippingAddress.Note)
-                );
+                var customer = new Customer(FullName.From(request.FirstName, request.LastName));
+                if (request.BillingAddress != null)
+                {
+                    var billingAddress = Address.From(request.BillingAddress.Street, request.BillingAddress.City, request.BillingAddress.ZipCode);
+                    customer.AddBillingAddress(new CustomerBillingAddress(billingAddress));
+                }
+                if (request.ShippingAddress != null)
+                {
+                    var shippingAddress = Address.From(request.ShippingAddress.Street, request.ShippingAddress.City, request.ShippingAddress.ZipCode);
+                    customer.AddShippingAddress(new CustomerShippingAddress(shippingAddress, request.ShippingAddress.Note ?? string.Empty));
+                }
 
                 await dbContext.AddAsync(customer, cancellationToken);
                 await dbContext.SaveChangesAsync(cancellationToken);
@@ -29,6 +39,3 @@ internal static class CreateCustomer
     }
 }
 
-public record CreateCustomerRequest(string? FirstName, string? LastName, BillingAddressRequest? BillingAddress, ShippingAddressRequest? ShippingAddress);
-public record BillingAddressRequest(string? Street, string? City, string? ZipCode);
-public record ShippingAddressRequest(string? Street, string? City, string? ZipCode, string? Note);

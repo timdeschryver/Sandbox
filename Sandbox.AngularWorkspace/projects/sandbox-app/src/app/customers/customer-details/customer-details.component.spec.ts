@@ -139,8 +139,8 @@ it('renders customer details when data is loaded', async () => {
 it('does not display address info when no addresses are present', async () => {
 	const customerWithNoAddresses: CustomerDetails = {
 		...customerDetails,
-		billingAddress: [],
-		shippingAddress: [],
+		billingAddresses: [],
+		shippingAddresses: [],
 	};
 
 	const { mockRequest } = await setup();
@@ -192,9 +192,9 @@ const customerDetails: CustomerDetails = {
 	id: 1,
 	firstName: 'John',
 	lastName: 'Doe',
-	billingAddress: [{ id: 1, street: '123 Billing St', city: 'Bill City', zipCode: '12345' }],
-	shippingAddress: [
+	billingAddresses: [{ id: 1, street: '123 Billing St', city: 'Bill City', zipCode: '12345' }],
+	shippingAddresses: [
 		{ id: 2, street: '456 Shipping Ave', city: 'Ship City', zipCode: '67890', note: 'Leave at door' },
-		{ id: 3, street: '789 Delivery Rd', city: 'Deliver Town', zipCode: '54321' },
+		{ id: 3, street: '789 Delivery Rd', city: 'Deliver Town', zipCode: '54321', note: '' },
 	],
 };

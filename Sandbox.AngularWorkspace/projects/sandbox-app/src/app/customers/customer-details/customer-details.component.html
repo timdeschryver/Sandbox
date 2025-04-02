@@ -12,11 +12,11 @@
 				</div>
 			</fieldset>
 
-			@if (customer.billingAddress.length > 0) {
+			@if (customer.billingAddresses.length > 0) {
 				<fieldset>
 					<legend>Billing Addresses</legend>
 
-					@for (billingAddress of customer.billingAddress; track billingAddress.id) {
+					@for (billingAddress of customer.billingAddresses; track billingAddress.id) {
 						<div>
 							<div>
 								<span>Street:</span>
@@ -35,11 +35,11 @@
 				</fieldset>
 			}
 
-			@if (customer.shippingAddress.length > 0) {
+			@if (customer.shippingAddresses.length > 0) {
 				<fieldset>
 					<legend>Shipping Addresses</legend>
 
-					@for (shippingAddress of customer.shippingAddress; track shippingAddress.id) {
+					@for (shippingAddress of customer.shippingAddresses; track shippingAddress.id) {
 						<div>
 							<div>
 								<span>Street:</span>

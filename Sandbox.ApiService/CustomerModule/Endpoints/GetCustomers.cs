@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Sandbox.ApiService.CustomerModule.Endpoints;
 
+public record GetCustomersResponse(int Id, string FirstName, string LastName);
+
 internal static class GetCustomers
 {
     internal static IEndpointRouteBuilder MapGetCustomers(this IEndpointRouteBuilder endpoints)
@@ -22,5 +24,3 @@ internal static class GetCustomers
         return endpoints;
     }
 }
-
-public record GetCustomersResponse(int Id, string FirstName, string LastName);

@@ -3,5 +3,6 @@
   <Project Path="Sandbox.ApiService.Migrations/Sandbox.ApiService.Migrations.csproj" />
   <Project Path="Sandbox.ApiService/Sandbox.ApiService.csproj" />
   <Project Path="Sandbox.AppHost/Sandbox.AppHost.csproj" />
+  <Project Path="Sandbox.Customer.Tests\Sandbox.Customer.Tests.csproj" />
   <Project Path="Sandbox.ServiceDefaults/Sandbox.ServiceDefaults.csproj" />
 </Solution>
