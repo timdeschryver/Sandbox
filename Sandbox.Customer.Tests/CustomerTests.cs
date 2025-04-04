@@ -46,7 +46,6 @@ public class CustomerTests
         var customer = new ApiService.CustomerModule.Customer(FullName.From("John", "Doe"));
         customer.AddShippingAddress(new CustomerShippingAddress(Address.From("456 Elm St", "Los Angeles", "90001"), "Leave at front door"));
         customer.AddShippingAddress(new CustomerShippingAddress(Address.From("456 Elm St", "Los Angeles", "90001"), "Other note"));
-
         await Assert.That(customer.ShippingAddresses.Count).IsEqualTo(1);
     }
 }

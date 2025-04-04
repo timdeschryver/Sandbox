@@ -9,5 +9,6 @@
 	"editor.formatOnSave": true,
 	"editor.codeActionsOnSave": {
 		"source.fixAll.eslint": "always"
-	}
+	},
+	"dotnet.unitTests.runSettingsPath": ".runsettings"
 }
