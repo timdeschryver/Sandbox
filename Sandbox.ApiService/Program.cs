@@ -1,8 +1,7 @@
 using Azure.Extensions.AspNetCore.Configuration.Secrets;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Sandbox.ApiService;
-using Sandbox.ApiService.CustomerModule;
 using Sandbox.ServiceDefaults;
+using Sandbox.SharedKernel.Modules;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,28 +19,23 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         jwtOptions.Audience = builder.Configuration["OpenIDConnectSettings:Audience"];
     });
 builder.Services.AddAuthorization();
-
 builder.Services.AddProblemDetails();
-
 builder.Services.AddOpenApi();
 
-builder.AddSqlServerDbContext<ApiDbContext>(connectionName: "database");
+builder.AddModules();
 
 var app = builder.Build();
 
 app.UseStatusCodePages();
 app.UseExceptionHandler();
-
 app.UseAuthentication();
 app.UseAuthorization();
+app.UseModules();
 
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
 }
-
-app.MapGroup("customers")
-    .MapCustomerEndpoints();
 
 app.MapDefaultEndpoints();
 

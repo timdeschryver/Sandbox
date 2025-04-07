@@ -14,10 +14,10 @@ Some buzzwords that are used:
 
 ```mermaid
 graph TD
-    User["Browser (User)"] --> ApiGateway
+    User["Browser (User)"] --> Gateway
 
     subgraph "External Facing Components"
-        ApiGateway["API Gateway (YARP)<br>Sandbox.ApiGateway"]
+        Gateway["API Gateway (YARP)<br>Sandbox.Gateway"]
         Auth0["Auth0<br>Authentication Provider"]
     end
 
@@ -28,18 +28,18 @@ graph TD
         DbMigrations["Database Migrations<br>Sandbox.ApiService.Migrations"]
         KeyVault["Azure KeyVault<br>(Secrets Management)"]
 
-        ApiGateway --> AngularApp
-        ApiGateway --> ApiService
+        Gateway --> AngularApp
+        Gateway --> ApiService
         ApiService --> SqlDatabase
         SqlDatabase -.-o DbMigrations
-        ApiGateway -.-> KeyVault
+        Gateway -.-> KeyVault
         ApiService -.-> KeyVault
-        ApiGateway -.-> Auth0
+        Gateway -.-> Auth0
     end
 
     subgraph "Monitoring"
         OpenTelemetry["OpenTelemetry Collector<br>Metrics, Traces, Logs"]
-        ApiGateway -.-> OpenTelemetry
+        Gateway -.-> OpenTelemetry
         AngularApp -.-> OpenTelemetry
         ApiService -.-> OpenTelemetry
         SqlDatabase -.-> OpenTelemetry
@@ -54,7 +54,7 @@ graph TD
     classDef auth fill:#f99,stroke:#333,stroke-width:1px;
     classDef monitoring fill:#ffd,stroke:#333,stroke-width:1px;
 
-    class ApiGateway gateway,externalFacing;
+    class Gateway gateway,externalFacing;
     class Auth0 auth,externalFacing;
     class AngularApp frontend;
     class ApiService backend;

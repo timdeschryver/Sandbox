@@ -2,7 +2,7 @@ using Aspire.Hosting.Lifecycle;
 
 namespace Sandbox.AppHost.Extensions;
 
-public static class OpenTelemetryCollectorExtensions
+internal static class OpenTelemetryCollectorExtensions
 {
     private const string DashboardOtlpUrlVariableName = "DOTNET_DASHBOARD_OTLP_ENDPOINT_URL";
     private const string DashboardOtlpKeyVariableName = "AppHost:OtlpApiKey";

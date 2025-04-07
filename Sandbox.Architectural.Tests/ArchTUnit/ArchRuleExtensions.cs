@@ -1,9 +1,9 @@
 using ArchUnitNET.Domain;
 using ArchUnitNET.Fluent;
 
-namespace Sandbox.Architectural.Tests;
+namespace Sandbox.Architectural.Tests.ArchTUnit;
 
-public static class ArchRuleExtensions
+internal static class ArchRuleExtensions
 {
     /// <summary>
     /// Verifies that the architecture meets the criteria of the archrule.

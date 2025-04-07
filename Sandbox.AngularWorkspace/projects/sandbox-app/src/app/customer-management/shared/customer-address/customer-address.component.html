@@ -1,0 +1,46 @@
+<div>
+	<label [for]="'street-' + id">Street</label>
+	<input
+		#streetField="ngModel"
+		required
+		type="text"
+		[id]="'street-' + id"
+		[name]="'street-' + id"
+		[(ngModel)]="address().street"
+	/>
+	@if (streetField.invalid && (form().submitted || streetField.touched)) {
+		<div>Street is required</div>
+	}
+</div>
+
+<div>
+	<label [for]="'city-' + id">City</label>
+	<input
+		#cityField="ngModel"
+		required
+		type="text"
+		[id]="'city-' + id"
+		[name]="'city-' + id"
+		[(ngModel)]="address().city"
+	/>
+	@if (cityField.invalid && (form().submitted || cityField.touched)) {
+		<div>City is required</div>
+	}
+</div>
+
+<div>
+	<label [for]="'zipCode-' + id">Zip Code</label>
+	<input
+		#zipCodeField="ngModel"
+		required
+		type="text"
+		[id]="'zipCode-' + id"
+		[name]="'zipCode-' + id"
+		[(ngModel)]="address().zipCode"
+	/>
+	@if (zipCodeField.invalid && (form().submitted || zipCodeField.touched)) {
+		<div>Zip code is required</div>
+	}
+</div>
+
+<ng-content />

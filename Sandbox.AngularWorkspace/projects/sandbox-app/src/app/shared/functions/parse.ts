@@ -7,7 +7,9 @@ export function parse<const TSchema extends v.BaseSchema<unknown, unknown, v.Bas
 		try {
 			return v.parse(schema, raw);
 		} catch (error) {
-			console.error('Validation error:', error);
+			if (ngDevMode) {
+				console.error('Validation error:', error);
+			}
 			throw error;
 		}
 	};
@@ -20,7 +22,9 @@ export function parseCollection<const TSchema extends v.BaseSchema<unknown, unkn
 		try {
 			return v.parse(v.array(schema), raw);
 		} catch (error) {
-			console.error('Validation error:', error);
+			if (ngDevMode) {
+				console.error('Validation error:', error);
+			}
 			throw error;
 		}
 	};

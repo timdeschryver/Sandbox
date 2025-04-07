@@ -16,9 +16,7 @@ export const authenticatedGuard: CanActivateFn = (_next: ActivatedRouteSnapshot,
 			if (user.isAuthenticated) {
 				return true;
 			}
-			if (document.defaultView) {
-				document.defaultView.location.href = `/bff/login?returnUrl=${state.url}`;
-			}
+			document.location.href = `/bff/login?returnUrl=${state.url}`;
 			return false;
 		}),
 	);

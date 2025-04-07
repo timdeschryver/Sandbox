@@ -70,7 +70,10 @@
 					"builder": "@angular-devkit/build-angular:extract-i18n"
 				},
 				"test": {
-					"builder": "@analogjs/vitest-angular:test"
+					"builder": "@analogjs/vitest-angular:test",
+					"options": {
+						"silent": true
+					}
 				},
 				"lint": {
 					"builder": "@angular-eslint/builder:lint",

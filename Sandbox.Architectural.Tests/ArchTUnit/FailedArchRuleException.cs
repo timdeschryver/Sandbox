@@ -3,9 +3,11 @@ using ArchUnitNET.Fluent;
 using ArchUnitNET.Fluent.Extensions;
 using TUnit.Core.Exceptions;
 
-namespace Sandbox.Architectural.Tests;
+namespace Sandbox.Architectural.Tests.ArchTUnit;
 
-public class FailedArchRuleException : TUnitException
+#pragma warning disable CA1032 // Implement standard exception constructors
+internal sealed class FailedArchRuleException : TUnitException
+#pragma warning restore CA1032 // Implement standard exception constructors
 {
     /// <summary>
     /// Creates a new instance of the <see href="FailedArchRuleException" /> class.

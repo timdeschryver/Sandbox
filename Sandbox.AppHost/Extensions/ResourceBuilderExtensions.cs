@@ -43,7 +43,7 @@ internal static class ResourceBuilderExtensions
         var endpoint = endpoints.FirstOrDefault(e => string.Equals(e.EndpointName, endpointName, StringComparison.OrdinalIgnoreCase))
             ?? throw new DistributedApplicationException($"Could not create HTTP command for resource '{builder.Resource.Name}' as no endpoint named '{endpointName}' was found.");
 
-        var commandName = $"http-{method.Method.ToLowerInvariant()}-request";
+        var commandName = $"http-{method.Method}-request";
 
         builder.WithCommand(commandName, displayName, async context =>
         {
@@ -65,7 +65,9 @@ internal static class ResourceBuilderExtensions
                 var response = await httpClient.SendAsync(request, context.CancellationToken);
                 response.EnsureSuccessStatusCode();
             }
+#pragma warning disable CA1031 // Modify 'WithHttpCommandImpl' to catch a more specific allowed exception type, or rethrow the exception
             catch (Exception ex)
+#pragma warning restore CA1031 // Modify 'WithHttpCommandImpl' to catch a more specific allowed exception type, or rethrow the exception
             {
                 return new ExecuteCommandResult { Success = false, ErrorMessage = ex.Message };
             }

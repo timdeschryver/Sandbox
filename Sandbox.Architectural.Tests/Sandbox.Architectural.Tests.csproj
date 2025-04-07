@@ -1,4 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <NoWarn>CA1707;</NoWarn>
+  </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="TngTech.ArchUnitNET" />
@@ -7,10 +10,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Sandbox.ApiService\Sandbox.ApiService.csproj" />
-    <ProjectReference Include="..\Sandbox.Customer.Tests\Sandbox.Customer.Tests.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="ArchTUnit\" />
+    <ProjectReference Include="..\Sandbox.Modules.CustomerManagement\Sandbox.Modules.CustomerManagement.csproj" />
+    <ProjectReference Include="..\Sandbox.Modules.CustomerManagement.Tests\Sandbox.Modules.CustomerManagement.Tests.csproj" />
   </ItemGroup>
 </Project>

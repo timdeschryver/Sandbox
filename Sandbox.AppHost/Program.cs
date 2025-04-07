@@ -17,14 +17,14 @@ var sql = builder.AddSqlServer("sql")
 
 var db = sql.AddDatabase("database");
 
-var migrations = builder.AddProject<Projects.Sandbox_ApiService_Migrations>("migrations")
+var migrations = builder.AddProject<Projects.Sandbox_Migrations>("migrations")
     .WithReference(db)
     .WaitFor(db)
     .WaitFor(sql)
     .WithHttpCommand("/reset-db", "Reset Database", iconName: "DatabaseLightning");
 
 var apiService = builder.AddProject<Projects.Sandbox_ApiService>("apiservice")
-    .WithReplicas(2)
+    // .WithReplicas(2)
     .WithReference(secrets)
     .WithReference(db)
     .WaitFor(db)
@@ -39,7 +39,7 @@ var angularApplication = builder
         resource.WithDockerfile("../", stage: "sandbox-app");
     });
 
-var apiGateway = builder.AddProject<Projects.Sandbox_ApiGateway>("apigateway")
+var gateway = builder.AddProject<Projects.Sandbox_Gateway>("gateway")
     .WithReference(apiService)
     .WithReference(angularApplication)
     .WithReference(openTelemetryCollector.Resource.HTTPEndpoint)

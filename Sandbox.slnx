@@ -1,9 +1,11 @@
 <Solution>
-  <Project Path="Sandbox.ApiGateway/Sandbox.ApiGateway.csproj" />
-  <Project Path="Sandbox.ApiService.Migrations/Sandbox.ApiService.Migrations.csproj" />
   <Project Path="Sandbox.ApiService/Sandbox.ApiService.csproj" />
   <Project Path="Sandbox.AppHost/Sandbox.AppHost.csproj" />
   <Project Path="Sandbox.Architectural.Tests/Sandbox.Architectural.Tests.csproj" />
-  <Project Path="Sandbox.Customer.Tests/Sandbox.Customer.Tests.csproj" />
+  <Project Path="Sandbox.Gateway/Sandbox.Gateway.csproj" />
+  <Project Path="Sandbox.Migrations/Sandbox.Migrations.csproj" />
+  <Project Path="Sandbox.Modules.CustomerManagement/Sandbox.Modules.CustomerManagement.csproj" />
+  <Project Path="Sandbox.Modules.CustomerManagement.Tests/Sandbox.Modules.CustomerManagement.Tests.csproj" />
   <Project Path="Sandbox.ServiceDefaults/Sandbox.ServiceDefaults.csproj" />
+  <Project Path="Sandbox.SharedKernel/Sandbox.SharedKernel.csproj" />
 </Solution>

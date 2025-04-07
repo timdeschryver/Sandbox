@@ -17,7 +17,7 @@ export default defineConfig(({ mode }) => {
 			// 	headless: false, // set to true in CI
 			// 	provider: 'playwright',
 			// },
-			setupFiles: ['src/test-setup.ts'],
+			setupFiles: ['./src/test-setup.ts'],
 			include: ['**/*.spec.ts'],
 			reporters: ['default'],
 		},

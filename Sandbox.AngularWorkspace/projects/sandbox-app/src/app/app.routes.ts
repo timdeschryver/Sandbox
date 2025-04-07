@@ -8,7 +8,7 @@ export const routes: Routes = [
 		children: [
 			{
 				path: 'customers',
-				loadChildren: () => import('@sandbox-app/customers/customers.routes'),
+				loadChildren: () => import('@sandbox-app/customer-management/customers.routes'),
 				title: 'Customers',
 			},
 		],

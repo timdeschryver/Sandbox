@@ -1,6 +1,6 @@
 ﻿namespace Sandbox.AppHost.Extensions;
 
-public class OpenTelemetryCollectorResource(string name) : ContainerResource(name)
+internal sealed class OpenTelemetryCollectorResource(string name) : ContainerResource(name)
 {
     internal const string GRPCEndpointName = "grpc";
     internal const string HTTPEndpointName = "http";

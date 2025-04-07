@@ -1,5 +1,9 @@
 # Copilot instructions
 
+## General
+
+- don't add comments to explain the code
+
 ## For Angulars
 
 - use the inject method instead of a constructor
@@ -15,3 +19,4 @@
 
 - don't use the "should" form
 - don't nest tests
+- use test SIFERs

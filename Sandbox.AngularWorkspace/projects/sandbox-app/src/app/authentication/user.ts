@@ -2,7 +2,7 @@ import * as v from 'valibot';
 
 export const User = v.strictObject({
 	isAuthenticated: v.boolean(),
-	name: v.string(),
+	name: v.nullable(v.string()),
 	claims: v.array(
 		v.strictObject({
 			type: v.string(),
