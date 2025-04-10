@@ -19,8 +19,6 @@ public static class ModuleExtensions
 
     public static WebApplication UseModules(this WebApplication app)
     {
-        //var route = app.MapGroup("/api");
-
         foreach (var module in Modules)
         {
             module.UseModule(app);

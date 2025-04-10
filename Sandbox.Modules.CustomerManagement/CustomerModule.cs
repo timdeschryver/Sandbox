@@ -24,7 +24,7 @@ public class CustomerManagementModule : IModule
     {
         ArgumentNullException.ThrowIfNull(app);
 
-        var endpoints = app.MapGroup("/customers");
+        var endpoints = app.MapGroup("/customers").RequireAuthorization();
         endpoints.MapPost("", CreateCustomer.Handle);
         endpoints.MapGet("", GetCustomers.Get);
         endpoints.MapGet("{id}", GetCustomer.Get);

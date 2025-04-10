@@ -3,15 +3,16 @@ using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Sandbox.Modules.CustomerManagement.Domain;
+using Sandbox.SharedKernel.StronglyTypedIds;
 
 namespace Sandbox.Modules.CustomerManagement.Application;
 
 internal static class GetCustomer
 {
-    internal sealed record Query(int Id);
-    internal sealed record Response(int Id, string FirstName, string LastName, IEnumerable<BillingAddress> BillingAddresses, IEnumerable<ShippingAddress> ShippingAddresses);
-    internal sealed record BillingAddress(int Id, string Street, string City, string ZipCode);
-    internal sealed record ShippingAddress(int Id, string Street, string City, string ZipCode, string Note);
+    internal sealed record Query(CustomerId Id);
+    internal sealed record Response(CustomerId Id, string FirstName, string LastName, IEnumerable<BillingAddress> BillingAddresses, IEnumerable<ShippingAddress> ShippingAddresses);
+    internal sealed record BillingAddress(CustomerAddressId Id, string Street, string City, string ZipCode);
+    internal sealed record ShippingAddress(CustomerAddressId Id, string Street, string City, string ZipCode, string Note);
 
     internal static async Task<Results<Ok<Response>, NotFound>> Get(
         [AsParameters] Query query,

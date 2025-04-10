@@ -1,8 +1,10 @@
+using Sandbox.SharedKernel.StronglyTypedIds;
+
 namespace Sandbox.Modules.CustomerManagement.Domain;
 
 public class Customer
 {
-    public int Id { get; init; }
+    public CustomerId Id { get; init; }
     public FullName Name { get; private set; }
 
     private readonly List<CustomerBillingAddress> _billingAddresses = [];

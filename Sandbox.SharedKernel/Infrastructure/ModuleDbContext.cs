@@ -11,4 +11,10 @@ public abstract class ModuleDbContext(DbContextOptions options) : DbContext(opti
         modelBuilder.HasDefaultSchema(Schema);
         base.OnModelCreating(modelBuilder);
     }
+
+    protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)
+    {
+        configurationBuilder.ApplyStronglyTypedIdEfConvertersFromAssembly(typeof(ModuleDbContext).Assembly);
+        base.ConfigureConventions(configurationBuilder);
+    }
 }

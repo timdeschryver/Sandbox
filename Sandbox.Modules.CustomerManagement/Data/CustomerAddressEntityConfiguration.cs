@@ -1,16 +1,19 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Sandbox.Modules.CustomerManagement.Domain;
+using Sandbox.SharedKernel.StronglyTypedIds;
 
 namespace Sandbox.Modules.CustomerManagement.Data;
 
-internal class CustomerAddressConfiguration : IEntityTypeConfiguration<CustomerAddress>
+internal class CustomerAddressEntityConfiguration : IEntityTypeConfiguration<CustomerAddress>
 {
     public void Configure(EntityTypeBuilder<CustomerAddress> builder)
     {
         builder.ToTable("CustomerAddresses");
         builder.HasKey(p => p.Id);
-        builder.Property<int>("CustomerId").IsRequired();
+        builder.Property(p => p.Id).ValueGeneratedOnAdd();
+
+        builder.Property<CustomerId>("CustomerId").IsRequired();
 
         builder.ComplexProperty(p => p.Address, o =>
         {

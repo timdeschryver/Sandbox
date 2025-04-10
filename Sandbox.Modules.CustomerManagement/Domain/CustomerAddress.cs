@@ -1,8 +1,10 @@
+using Sandbox.SharedKernel.StronglyTypedIds;
+
 namespace Sandbox.Modules.CustomerManagement.Domain;
 
 public abstract class CustomerAddress
 {
-    public int Id { get; init; }
+    public CustomerAddressId Id { get; init; }
     public abstract string Type { get; }
     public Address Address { get; private set; }
 

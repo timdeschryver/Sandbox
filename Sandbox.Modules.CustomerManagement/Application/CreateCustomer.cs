@@ -32,6 +32,6 @@ internal static class CreateCustomer
         await dbContext.AddAsync(customer, cancellationToken);
         await dbContext.SaveChangesAsync(cancellationToken);
 
-        return TypedResults.Created("/api/customers", customer.Id);
+        return TypedResults.Created("/api/customers", customer.Id.Value);
     }
 }
