@@ -1,4 +1,5 @@
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Sandbox.AppHost.Extensions;
 
 var builder = DistributedApplication.CreateBuilder(args);
@@ -20,11 +21,18 @@ var db = sql.AddDatabase("database");
 var migrations = builder.AddProject<Projects.Sandbox_Migrations>("migrations")
     .WithReference(db)
     .WaitFor(db)
-    .WaitFor(sql)
-    .WithHttpCommand("/reset-db", "Reset Database", iconName: "DatabaseLightning");
+    .WaitFor(sql);
+
+if (builder.Environment.IsDevelopment())
+{
+    migrations.WithHttpCommand(path: "/reset-db", displayName: "Reset Database", commandOptions: new HttpCommandOptions
+    {
+        IconName = "DatabaseLightning",
+    });
+}
 
 var apiService = builder.AddProject<Projects.Sandbox_ApiService>("apiservice")
-    // .WithReplicas(2)
+    .WithReplicas(2)
     .WithReference(secrets)
     .WithReference(db)
     .WaitFor(db)

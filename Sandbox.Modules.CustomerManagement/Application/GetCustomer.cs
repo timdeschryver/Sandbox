@@ -30,6 +30,7 @@ internal static class GetCustomer
             {
                 Id = c.Id,
             })
+            .AsSplitQuery()
             .SingleOrDefaultAsync(c => c.Id == query.Id, cancellationToken);
 
         return customer switch

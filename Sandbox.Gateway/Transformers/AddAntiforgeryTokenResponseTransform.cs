@@ -14,6 +14,11 @@ internal sealed class AddAntiforgeryTokenResponseTransform(IAntiforgery antiforg
             return ValueTask.CompletedTask;
         }
 
+        if (context.HttpContext.Response.ContentType?.Contains("text/html", StringComparison.Ordinal) != true)
+        {
+            return ValueTask.CompletedTask;
+        }
+
         var tokenSet = antiforgery.GetAndStoreTokens(context.HttpContext);
         ArgumentNullException.ThrowIfNull(tokenSet.RequestToken);
         context.HttpContext.Response.Cookies.Append("__Sandbox-X-XSRF-TOKEN", tokenSet.RequestToken, new CookieOptions
