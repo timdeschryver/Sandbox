@@ -5,7 +5,9 @@
   <ItemGroup>
     <PackageVersion Include="Aspire.Azure.Security.KeyVault" Version="9.2.0" />
     <PackageVersion Include="Aspire.Hosting.AppHost" Version="9.2.0" />
+    <PackageVersion Include="Aspire.Hosting.Azure" Version="9.2.0" />
     <PackageVersion Include="Aspire.Hosting.Azure.KeyVault" Version="9.2.0" />
+    <PackageVersion Include="Aspire.Hosting.Docker" Version="9.2.0-preview.1.25209.2" />
     <PackageVersion Include="Aspire.Hosting.NodeJs" Version="9.2.0" />
     <PackageVersion Include="Aspire.Hosting.SqlServer" Version="9.2.0" />
     <PackageVersion Include="Aspire.Microsoft.EntityFrameworkCore.SqlServer" Version="9.2.0" />
