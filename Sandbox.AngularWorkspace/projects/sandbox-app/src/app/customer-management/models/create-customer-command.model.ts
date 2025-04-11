@@ -1,22 +1,22 @@
-import * as v from 'valibot';
+import * as z from '@zod/mini';
 
-export const CreateCustomerCommand = v.strictObject({
-	firstName: v.string(),
-	lastName: v.string(),
-	billingAddress: v.nullable(
-		v.strictObject({
-			street: v.string(),
-			city: v.string(),
-			zipCode: v.string(),
+export const CreateCustomerCommand = z.strictObject({
+	firstName: z.string(),
+	lastName: z.string(),
+	billingAddress: z.nullable(
+		z.strictObject({
+			street: z.string(),
+			city: z.string(),
+			zipCode: z.string(),
 		}),
 	),
-	shippingAddress: v.nullable(
-		v.strictObject({
-			street: v.string(),
-			city: v.string(),
-			zipCode: v.string(),
-			note: v.optional(v.string()),
+	shippingAddress: z.nullable(
+		z.strictObject({
+			street: z.string(),
+			city: z.string(),
+			zipCode: z.string(),
+			note: z.optional(z.string()),
 		}),
 	),
 });
-export type CreateCustomerCommand = v.InferOutput<typeof CreateCustomerCommand>;
+export type CreateCustomerCommand = z.infer<typeof CreateCustomerCommand>;

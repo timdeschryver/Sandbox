@@ -1,21 +1,22 @@
-import * as v from 'valibot';
+import * as z from '@zod/mini';
 import { Address } from './address.model';
+import { CustomerAddressId, CustomerId } from './strongly-typed-ids.model';
 
-const ShippingAddress = v.strictObject({
-	...Address.entries,
-	id: v.number(),
-	note: v.string(),
+const ShippingAddress = z.strictObject({
+	...Address.def.shape,
+	id: CustomerAddressId,
+	note: z.string(),
 });
-const BillingAddress = v.strictObject({
-	...Address.entries,
-	id: v.number(),
+const BillingAddress = z.strictObject({
+	...Address.def.shape,
+	id: CustomerAddressId,
 });
 
-export const CustomerDetailsResponse = v.strictObject({
-	id: v.number(),
-	firstName: v.string(),
-	lastName: v.string(),
-	billingAddresses: v.array(BillingAddress),
-	shippingAddresses: v.array(ShippingAddress),
+export const CustomerDetailsResponse = z.strictObject({
+	id: CustomerId,
+	firstName: z.string(),
+	lastName: z.string(),
+	billingAddresses: z.array(BillingAddress),
+	shippingAddresses: z.array(ShippingAddress),
 });
-export type CustomerDetailsResponse = v.InferOutput<typeof CustomerDetailsResponse>;
+export type CustomerDetailsResponse = z.infer<typeof CustomerDetailsResponse>;

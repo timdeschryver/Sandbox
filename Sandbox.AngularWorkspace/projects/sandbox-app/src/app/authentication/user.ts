@@ -1,13 +1,13 @@
-import * as v from 'valibot';
+import * as z from '@zod/mini';
 
-export const User = v.strictObject({
-	isAuthenticated: v.boolean(),
-	name: v.nullable(v.string()),
-	claims: v.array(
-		v.strictObject({
-			type: v.string(),
-			value: v.string(),
+export const User = z.strictObject({
+	isAuthenticated: z.boolean(),
+	name: z.nullable(z.string()),
+	claims: z.array(
+		z.strictObject({
+			type: z.string(),
+			value: z.string(),
 		}),
 	),
 });
-export type User = v.InferOutput<typeof User>;
+export type User = z.infer<typeof User>;

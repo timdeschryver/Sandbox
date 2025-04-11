@@ -1,7 +1,7 @@
 import { httpResource } from '@angular/common/http';
 import { Injectable, computed } from '@angular/core';
 import { User } from '@sandbox-app/authentication/user';
-import { parse } from '@sandbox-app/shared/functions/parse';
+import { parse } from '@sandbox-app/shared/functions';
 
 @Injectable({
 	providedIn: 'root',

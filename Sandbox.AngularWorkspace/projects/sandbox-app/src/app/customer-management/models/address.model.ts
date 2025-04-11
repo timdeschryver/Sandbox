@@ -1,8 +1,8 @@
-import * as v from 'valibot';
+import * as z from '@zod/mini';
 
-export const Address = v.strictObject({
-	street: v.string(),
-	city: v.string(),
-	zipCode: v.string(),
+export const Address = z.strictObject({
+	street: z.string(),
+	city: z.string(),
+	zipCode: z.string(),
 });
-export type Address = v.InferOutput<typeof Address>;
+export type Address = z.infer<typeof Address>;

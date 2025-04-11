@@ -1,8 +1,9 @@
-import * as v from 'valibot';
+import * as z from '@zod/mini';
+import { CustomerId } from './strongly-typed-ids.model';
 
-export const CustomerOverviewResponse = v.strictObject({
-	id: v.number(),
-	firstName: v.string(),
-	lastName: v.string(),
+export const CustomerOverviewResponse = z.strictObject({
+	id: CustomerId,
+	firstName: z.string(),
+	lastName: z.string(),
 });
-export type CustomerOverviewResponse = v.InferOutput<typeof CustomerOverviewResponse>;
+export type CustomerOverviewResponse = z.infer<typeof CustomerOverviewResponse>;

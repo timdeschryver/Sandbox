@@ -1,11 +1,9 @@
-import * as v from 'valibot';
+import * as z from '@zod/mini';
 
-export function parse<const TSchema extends v.BaseSchema<unknown, unknown, v.BaseIssue<unknown>>>(
-	schema: TSchema,
-): (raw: unknown) => v.InferOutput<TSchema> {
-	return (raw: unknown): v.InferOutput<TSchema> => {
+export function parse<TSchema extends z.z.core.$ZodType>(schema: TSchema): (raw: unknown) => z.z.core.output<TSchema> {
+	return (raw: unknown): z.z.core.output<TSchema> => {
 		try {
-			return v.parse(schema, raw);
+			return z.parse(schema, raw);
 		} catch (error) {
 			if (ngDevMode) {
 				console.error('Validation error:', error);
@@ -15,12 +13,12 @@ export function parse<const TSchema extends v.BaseSchema<unknown, unknown, v.Bas
 	};
 }
 
-export function parseCollection<const TSchema extends v.BaseSchema<unknown, unknown, v.BaseIssue<unknown>>>(
+export function parseCollection<TSchema extends z.z.core.$ZodType>(
 	schema: TSchema,
-): (raw: unknown) => v.InferOutput<TSchema>[] {
-	return (raw: unknown): v.InferOutput<TSchema>[] => {
+): (raw: unknown) => z.z.core.output<TSchema>[] {
+	return (raw: unknown): z.z.core.output<TSchema>[] => {
 		try {
-			return v.parse(v.array(schema), raw);
+			return z.parse(z.array(schema), raw);
 		} catch (error) {
 			if (ngDevMode) {
 				console.error('Validation error:', error);

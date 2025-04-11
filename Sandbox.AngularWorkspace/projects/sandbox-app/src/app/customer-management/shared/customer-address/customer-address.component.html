@@ -1,11 +1,11 @@
 <div>
-	<label [for]="'street-' + id">Street</label>
+	<label [for]="'street-' + componentId">Street</label>
 	<input
 		#streetField="ngModel"
 		required
 		type="text"
-		[id]="'street-' + id"
-		[name]="'street-' + id"
+		[id]="'street-' + componentId"
+		[name]="'street-' + componentId"
 		[(ngModel)]="address().street"
 	/>
 	@if (streetField.invalid && (form().submitted || streetField.touched)) {
@@ -14,13 +14,13 @@
 </div>
 
 <div>
-	<label [for]="'city-' + id">City</label>
+	<label [for]="'city-' + componentId">City</label>
 	<input
 		#cityField="ngModel"
 		required
 		type="text"
-		[id]="'city-' + id"
-		[name]="'city-' + id"
+		[id]="'city-' + componentId"
+		[name]="'city-' + componentId"
 		[(ngModel)]="address().city"
 	/>
 	@if (cityField.invalid && (form().submitted || cityField.touched)) {
@@ -29,13 +29,13 @@
 </div>
 
 <div>
-	<label [for]="'zipCode-' + id">Zip Code</label>
+	<label [for]="'zipCode-' + componentId">Zip Code</label>
 	<input
 		#zipCodeField="ngModel"
 		required
 		type="text"
-		[id]="'zipCode-' + id"
-		[name]="'zipCode-' + id"
+		[id]="'zipCode-' + componentId"
+		[name]="'zipCode-' + componentId"
 		[(ngModel)]="address().zipCode"
 	/>
 	@if (zipCodeField.invalid && (form().submitted || zipCodeField.touched)) {

@@ -1,10 +1,11 @@
 import { Injectable, Signal, inject } from '@angular/core';
 import { HttpClient, HttpResourceRef, httpResource } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { parse, parseCollection } from '@sandbox-app/shared/functions/parse';
+import { parse, parseCollection } from '@sandbox-app/shared/functions';
 import {
 	CreateCustomerCommand,
 	CustomerDetailsResponse,
+	CustomerId,
 	CustomerOverviewResponse,
 } from '@sandbox-app/customer-management/models';
 
@@ -20,7 +21,7 @@ export class CustomersService {
 		});
 	}
 
-	public getCustomerDetails(id: Signal<number>): HttpResourceRef<CustomerDetailsResponse | undefined> {
+	public getCustomerDetails(id: Signal<CustomerId>): HttpResourceRef<CustomerDetailsResponse | undefined> {
 		return httpResource(
 			() => ({
 				url: `/api/customers/${id().toString()}`,
@@ -31,7 +32,7 @@ export class CustomersService {
 		);
 	}
 
-	public createCustomer(customer: CreateCustomerCommand): Observable<number> {
-		return this.http.post<number>('/api/customers', customer);
+	public createCustomer(customer: CreateCustomerCommand): Observable<CustomerId> {
+		return this.http.post<CustomerId>('/api/customers', customer);
 	}
 }

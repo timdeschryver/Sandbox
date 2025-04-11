@@ -1,6 +1,8 @@
 import { ChangeDetectionStrategy, Component, inject, input, numberAttribute } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { CustomersService } from '@sandbox-app/customer-management/customers.service';
+import { stronglyTypedIdAttribute } from '@sandbox-app/shared/functions';
+import { CustomerId } from '@sandbox-app/customer-management/models';
 
 @Component({
 	selector: 'sandbox-customer-details',
@@ -12,6 +14,6 @@ import { CustomersService } from '@sandbox-app/customer-management/customers.ser
 export default class CustomerDetailsComponent {
 	private readonly customersService = inject(CustomersService);
 
-	protected readonly customerId = input.required({ transform: numberAttribute });
+	protected readonly customerId = input.required({ transform: stronglyTypedIdAttribute(CustomerId, numberAttribute) });
 	protected readonly customer = this.customersService.getCustomerDetails(this.customerId);
 }
