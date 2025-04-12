@@ -10,8 +10,9 @@ This project is a monorepo containing an Angular workspace and a .NET monolith d
   - pnpm is used as the package manager
 - .NET latest
   - Entity Framework
+  - Wolverine endpoints and handlers
   - TUnit is used for writing tests
-  - PostregSQL is used as database
+  - PostgreSQL is used as database
 
 ## General
 

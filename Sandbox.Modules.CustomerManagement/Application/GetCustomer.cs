@@ -1,23 +1,23 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Sandbox.Modules.CustomerManagement.Domain;
 using Sandbox.SharedKernel.StronglyTypedIds;
+using Wolverine.Http;
 
 namespace Sandbox.Modules.CustomerManagement.Application;
 
-internal static class GetCustomer
+public static class GetCustomer
 {
-    internal sealed record Query(CustomerId Id);
-    internal sealed record Response(CustomerId Id, string FirstName, string LastName, IEnumerable<BillingAddress> BillingAddresses, IEnumerable<ShippingAddress> ShippingAddresses);
-    internal sealed record BillingAddress(CustomerAddressId Id, string Street, string City, string ZipCode);
-    internal sealed record ShippingAddress(CustomerAddressId Id, string Street, string City, string ZipCode, string Note);
+    public sealed record Response(CustomerId Id, string FirstName, string LastName, IEnumerable<BillingAddress> BillingAddresses, IEnumerable<ShippingAddress> ShippingAddresses);
+    public sealed record BillingAddress(CustomerAddressId Id, string Street, string City, string ZipCode);
+    public sealed record ShippingAddress(CustomerAddressId Id, string Street, string City, string ZipCode, string Note);
 
-    internal static async Task<Results<Ok<Response>, NotFound>> Get(
-        [AsParameters] Query query,
-        [FromServices] IQueryable<Customer> customers,
-        CancellationToken cancellationToken)
+    [WolverineGet("/customers/{customerId}")]
+    public static async Task<Results<Ok<Response>, NotFound>> Get(
+       int customerId,
+       IQueryable<Customer> customers,
+       CancellationToken cancellationToken)
     {
         var customer = await customers
             .Select(c => new Response(
@@ -31,7 +31,7 @@ internal static class GetCustomer
                 Id = c.Id,
             })
             .AsSplitQuery()
-            .SingleOrDefaultAsync(c => c.Id == query.Id, cancellationToken);
+            .SingleOrDefaultAsync(c => c.Id == new CustomerId(customerId), cancellationToken);
 
         return customer switch
         {

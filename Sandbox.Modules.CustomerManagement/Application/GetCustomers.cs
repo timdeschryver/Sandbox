@@ -1,20 +1,19 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Sandbox.Modules.CustomerManagement.Domain;
 using Sandbox.SharedKernel.StronglyTypedIds;
+using Wolverine.Http;
 
 namespace Sandbox.Modules.CustomerManagement.Application;
 
-internal static class GetCustomers
+public static class GetCustomers
 {
-    internal sealed record Query();
-    internal sealed record Response(CustomerId Id, string FirstName, string LastName);
+    public sealed record Response(CustomerId Id, string FirstName, string LastName);
 
-    internal static async Task<Ok<List<Response>>> Get(
-        [AsParameters] Query query,
-        [FromServices] IQueryable<Customer> customers,
+    [WolverineGet("/customers")]
+    public static async Task<Ok<List<Response>>> Get(
+        IQueryable<Customer> customers,
         CancellationToken cancellationToken)
     {
         var result = await customers
