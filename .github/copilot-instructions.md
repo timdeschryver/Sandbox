@@ -11,6 +11,7 @@ This project is a monorepo containing an Angular workspace and a .NET monolith d
 - .NET latest
   - Entity Framework
   - TUnit is used for writing tests
+  - PostregSQL is used as database
 
 ## General
 
@@ -36,3 +37,9 @@ This project is a monorepo containing an Angular workspace and a .NET monolith d
 - use test SIFERs (don't use beforeEach, afterEach, beforeAll, afterAll)
 - write minimally passing tests
 - avoid magic values e.g. strings and numbers
+
+## SQL
+
+- columns, tables and schemas are case sensitive
+- always use the full name of the table, including the schema
+- surround columns, tables and schemas with double quotes

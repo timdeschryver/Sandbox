@@ -2,46 +2,49 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Sandbox.Modules.CustomerManagement.Data;
 
 #nullable disable
 
-namespace Sandbox.ApiService.Migrations.Migrations
+namespace Sandbox.Migrations.Migrations
 {
     [DbContext(typeof(CustomerDbContext))]
-    partial class ApiDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250412084553_Postgres")]
+    partial class Postgres
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasDefaultSchema("CustomerManagement")
-                .HasAnnotation("ProductVersion", "9.0.3")
-                .HasAnnotation("Relational:MaxIdentifierLength", 128);
+                .HasAnnotation("ProductVersion", "9.0.4")
+                .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
-            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+            NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
             modelBuilder.Entity("Sandbox.Modules.CustomerManagement.Domain.Customer", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.ComplexProperty<Dictionary<string, object>>("Name", "Sandbox.Modules.CustomerManagement.Domain.Customer.Name#FullName", b1 =>
                         {
                             b1.Property<string>("FirstName")
                                 .IsRequired()
                                 .HasMaxLength(255)
-                                .HasColumnType("nvarchar(255)");
+                                .HasColumnType("character varying(255)");
 
                             b1.Property<string>("LastName")
                                 .IsRequired()
                                 .HasMaxLength(255)
-                                .HasColumnType("nvarchar(255)");
+                                .HasColumnType("character varying(255)");
                         });
 
                     b.HasKey("Id");
@@ -53,34 +56,34 @@ namespace Sandbox.ApiService.Migrations.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("AddressType")
                         .IsRequired()
                         .HasMaxLength(21)
-                        .HasColumnType("nvarchar(21)");
+                        .HasColumnType("character varying(21)");
 
                     b.Property<int>("CustomerId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.ComplexProperty<Dictionary<string, object>>("Address", "Sandbox.Modules.CustomerManagement.Domain.CustomerAddress.Address#Address", b1 =>
                         {
                             b1.Property<string>("City")
                                 .IsRequired()
                                 .HasMaxLength(100)
-                                .HasColumnType("nvarchar(100)");
+                                .HasColumnType("character varying(100)");
 
                             b1.Property<string>("Street")
                                 .IsRequired()
                                 .HasMaxLength(255)
-                                .HasColumnType("nvarchar(255)");
+                                .HasColumnType("character varying(255)");
 
                             b1.Property<string>("ZipCode")
                                 .IsRequired()
                                 .HasMaxLength(20)
-                                .HasColumnType("nvarchar(20)");
+                                .HasColumnType("character varying(20)");
                         });
 
                     b.HasKey("Id");
@@ -107,7 +110,7 @@ namespace Sandbox.ApiService.Migrations.Migrations
 
                     b.Property<string>("Note")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.HasIndex("CustomerId");
 

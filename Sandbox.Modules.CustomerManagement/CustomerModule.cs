@@ -15,7 +15,10 @@ public class CustomerManagementModule : IModule
     {
         ArgumentNullException.ThrowIfNull(builder);
 
-        builder.AddSqlServerDbContext<CustomerDbContext>(connectionName: "database");
+        // Uncomment to use SQL Server instead of PostgreSQL
+        // builder.AddSqlServerDbContext<CustomerDbContext>(connectionName: "sandbox-db");
+        builder.AddNpgsqlDbContext<CustomerDbContext>(connectionName: "sandbox-db");
+
         builder.Services.AddTransient(sp => sp.GetRequiredService<CustomerDbContext>().Set<Customer>().AsNoTracking());
         return builder;
     }

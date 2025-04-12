@@ -13,9 +13,17 @@ builder.AddServiceDefaults();
 builder.Services.AddOpenTelemetry()
     .WithTracing(tracing => tracing.AddSource(DbInitializer.ActivitySourceName));
 
-builder.AddSqlServerDbContext<CustomerDbContext>(connectionName: "database", configureDbContextOptions: options =>
+// Uncomment to use SQL Server instead of PostgreSQL
+// builder.AddSqlServerDbContext<CustomerDbContext>(connectionName: "sandbox-db", configureDbContextOptions: options =>
+// {
+//     options.UseSqlServer(optionsBuilder =>
+//     {
+//         optionsBuilder.MigrationsAssembly(typeof(Program).Assembly.GetName().Name);
+//     });
+// });
+builder.AddNpgsqlDbContext<CustomerDbContext>(connectionName: "sandbox-db", configureDbContextOptions: options =>
 {
-    options.UseSqlServer(optionsBuilder =>
+    options.UseNpgsql(optionsBuilder =>
     {
         optionsBuilder.MigrationsAssembly(typeof(Program).Assembly.GetName().Name);
     });

@@ -4,8 +4,6 @@ using Sandbox.AppHost.Extensions;
 
 var builder = DistributedApplication.CreateBuilder(args);
 
-builder.Services.AddHttpClient();
-
 var secrets =
     builder.ExecutionContext.IsPublishMode
         ? builder.AddAzureKeyVault("key-vault")
@@ -13,15 +11,21 @@ var secrets =
 
 var openTelemetryCollector = builder.AddOpenTelemetryCollector("../config/otel.yml");
 
-var sql = builder.AddSqlServer("sql")
-    .WithDataVolume();
+// Uncomment to use SQL Server instead of PostgreSQL
+// var sql = builder.AddSqlServer("sql")
+//     .WithDataVolume();
+// var db = sql.AddDatabase("sandbox-db");
 
-var db = sql.AddDatabase("database");
+var postgres = builder.AddPostgres("postgres")
+    .WithDataVolume()
+    .WithPgAdmin()
+    .WithPgWeb();
+var db = postgres.AddDatabase("sandbox-db");
 
 var migrations = builder.AddProject<Projects.Sandbox_Migrations>("migrations")
     .WithReference(db)
-    .WaitFor(db)
-    .WaitFor(sql);
+    .WaitFor(postgres)
+    .WaitFor(db);
 
 if (builder.Environment.IsDevelopment())
 {
