@@ -10,37 +10,41 @@ This project is a monorepo containing an Angular workspace and a .NET monolith d
   - pnpm is used as the package manager
 - .NET latest
   - Entity Framework
+  - Using Domain Driven Design (DDD) principles
+  - Using the Vertical Slice Architecture
   - Wolverine endpoints and handlers
   - TUnit is used for writing tests
   - PostgreSQL is used as database
 
 ## General
 
-- don't add comments to explain the code
-- write tests for the generated code
-- keep a flat folder structure, keep everything close to where it's used
+- Don't add comments to explain the code
+- Write tests for the generated code
+- Keep a flat folder structure, keep everything close to where it's used
 
 ## For Angular
 
-- use the inject method instead of a constructor
-- make use of signals where possible
-- always use the Control Flow
-- prefer template driven forms over reactive forms
-- use signal inputs and outputs
-- standalone is used by default, don't add standalone properties to decorators
-- when adding components, set the change detection to ChangeDetectionStrategy.OnPush
-- always add a type to buttons
+- Use the inject method instead of a constructor
+- Make use of signals where possible
+- Always use the Control Flow
+- Prefer template driven forms over reactive forms
+- Use signal inputs and outputs
+- Standalone is used by default, don't add standalone properties to decorators
+- When adding components, set the change detection to ChangeDetectionStrategy.OnPush
+- Always add a type to buttons
+- Use Angular Testing Library for testing
 
 ## When writing tests
 
-- don't use the "should" form
-- don't nest tests
-- use test SIFERs (don't use beforeEach, afterEach, beforeAll, afterAll)
-- write minimally passing tests
-- avoid magic values e.g. strings and numbers
+- Don't use the "should" form
+- Don't nest tests (don't use describe blocks)
+- Use test SIFERs (don't use beforeEach, afterEach, beforeAll, afterAll)
+- Write minimally passing tests
+- Avoid magic values e.g. strings and numbers
+- Mock as latest as possible
 
 ## SQL
 
-- columns, tables and schemas are case sensitive
-- always use the full name of the table, including the schema
-- surround columns, tables and schemas with double quotes
+- Columns, tables and schemas are case sensitive
+- Always use the full name of the table, including the schema
+- Surround columns, tables and schemas with double quotes

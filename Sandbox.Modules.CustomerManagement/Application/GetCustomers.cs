@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Sandbox.Modules.CustomerManagement.Domain;
 using Sandbox.SharedKernel.StronglyTypedIds;
@@ -13,7 +14,7 @@ public static class GetCustomers
 
     [WolverineGet("/customers")]
     public static async Task<Ok<List<Response>>> Get(
-        IQueryable<Customer> customers,
+        [FromServices] IQueryable<Customer> customers,
         CancellationToken cancellationToken)
     {
         var result = await customers

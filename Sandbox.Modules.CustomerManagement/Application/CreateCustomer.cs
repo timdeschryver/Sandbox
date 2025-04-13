@@ -4,6 +4,7 @@ using Sandbox.Modules.CustomerManagement.Domain;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Sandbox.SharedKernel.Messages;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Sandbox.Modules.CustomerManagement.Application;
 
@@ -14,7 +15,9 @@ public static class CreateCustomer
     public sealed record ShippingAddress(string? Street, string? City, string? ZipCode, string? Note);
 
     [WolverinePost("/customers")]
-    public static (Created<int>, CustomerCreated) Handle(Command command, CustomerDbContext dbContext)
+    public static (Created<int>, CustomerCreated) Handle(
+        Command command,
+        [FromServices] CustomerDbContext dbContext)
     {
         ArgumentNullException.ThrowIfNull(command);
         ArgumentNullException.ThrowIfNull(dbContext);
