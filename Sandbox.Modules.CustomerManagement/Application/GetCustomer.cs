@@ -16,7 +16,7 @@ public static class GetCustomer
 
     [WolverineGet("/customers/{customerId}")]
     public static async Task<Results<Ok<Response>, NotFound>> Get(
-       int customerId,
+       Guid customerId, // Vogen (or StronglyTypedId) does not work with Wolverine handlers.
        [FromServices] IQueryable<Customer> customers,
        CancellationToken cancellationToken)
     {
@@ -32,7 +32,7 @@ public static class GetCustomer
                 Id = c.Id,
             })
             .AsSplitQuery()
-            .SingleOrDefaultAsync(c => c.Id == new CustomerId(customerId), cancellationToken);
+            .SingleOrDefaultAsync(c => c.Id == CustomerId.From(customerId), cancellationToken);
 
         return customer switch
         {

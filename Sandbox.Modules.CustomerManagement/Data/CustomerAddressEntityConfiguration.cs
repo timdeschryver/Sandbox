@@ -11,7 +11,6 @@ internal class CustomerAddressEntityConfiguration : IEntityTypeConfiguration<Cus
     {
         builder.ToTable("CustomerAddresses");
         builder.HasKey(p => p.Id);
-        builder.Property(p => p.Id).ValueGeneratedOnAdd();
 
         builder.Property<CustomerId>("CustomerId").IsRequired();
 

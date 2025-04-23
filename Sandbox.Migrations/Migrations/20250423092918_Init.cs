@@ -1,12 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
-using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
 namespace Sandbox.Migrations.Migrations
 {
     /// <inheritdoc />
-    public partial class Postgres : Migration
+    public partial class Init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -19,8 +19,7 @@ namespace Sandbox.Migrations.Migrations
                 schema: "CustomerManagement",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
                     Name_FirstName = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
                     Name_LastName = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false)
                 },
@@ -34,10 +33,9 @@ namespace Sandbox.Migrations.Migrations
                 schema: "CustomerManagement",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
                     AddressType = table.Column<string>(type: "character varying(21)", maxLength: 21, nullable: false),
-                    CustomerId = table.Column<int>(type: "integer", nullable: false),
+                    CustomerId = table.Column<Guid>(type: "uuid", nullable: false),
                     Address_City = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
                     Address_Street = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
                     Address_ZipCode = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: false),

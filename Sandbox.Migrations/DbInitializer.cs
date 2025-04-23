@@ -2,6 +2,7 @@ using System.Diagnostics;
 using Microsoft.EntityFrameworkCore;
 using Sandbox.Modules.CustomerManagement.Data;
 using Sandbox.Modules.CustomerManagement.Domain;
+using Sandbox.SharedKernel.StronglyTypedIds;
 
 namespace Sandbox.Migrations;
 
@@ -45,9 +46,9 @@ internal class DbInitializer(IServiceProvider serviceProvider, ILogger<DbInitial
         {
             var customers = new[]
             {
-                new Customer(new FullName("Alice", "Smith")),
-                new Customer(new FullName("Bob", "Johnson")),
-                new Customer(new FullName("Charlie", "Brown")),
+                Customer.Create(CustomerId.New(), new FullName("Alice", "Smith")),
+                Customer.Create(CustomerId.New(), new FullName("Bob", "Johnson")),
+                Customer.Create(CustomerId.New(), new FullName("Charlie", "Brown")),
             };
 
             await dbContext.Set<Customer>().AddRangeAsync(customers, cancellationToken);

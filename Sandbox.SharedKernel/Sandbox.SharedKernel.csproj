@@ -2,7 +2,6 @@
   <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Aspire.Microsoft.EntityFrameworkCore.SqlServer" />
-    <PackageReference Include="StronglyTypedId" />
-    <PackageReference Include="StronglyTypedId.Templates" />
+    <PackageReference Include="Vogen" />
   </ItemGroup>
 </Project>

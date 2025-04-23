@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject, output, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
-import { CreateCustomerCommand } from '@sandbox-app/customer-management/models';
+import { CreateCustomerCommand, CustomerId } from '@sandbox-app/customer-management/models';
 import { CustomersService } from '@sandbox-app/customer-management/customers.service';
 import { AddressComponent } from '@sandbox-app/customer-management/shared/customer-address/customer-address.component';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -29,7 +29,7 @@ export class CustomerFormComponent {
 		shippingAddress: null,
 	};
 
-	public readonly submitted = output<number>();
+	public readonly submitted = output<CustomerId>();
 
 	protected toggleBillingAddress(): void {
 		this.customer.billingAddress = this.customer.billingAddress

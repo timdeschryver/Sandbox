@@ -13,10 +13,13 @@ public class Customer
     private readonly List<CustomerShippingAddress> _shippingAddresses = [];
     public IReadOnlyCollection<CustomerShippingAddress> ShippingAddresses => _shippingAddresses.AsReadOnly();
 
-    private Customer() { }
-    public Customer(FullName name)
+    public static Customer Create(CustomerId id, FullName name)
     {
-        Name = name;
+        return new Customer
+        {
+            Id = id,
+            Name = name
+        };
     }
 
     public void AddBillingAddress(CustomerBillingAddress address)

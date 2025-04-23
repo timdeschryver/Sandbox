@@ -1,3 +1,5 @@
+using Sandbox.SharedKernel.StronglyTypedIds;
+
 namespace Sandbox.Modules.CustomerManagement.Domain;
 
 public class CustomerShippingAddress : CustomerAddress
@@ -5,10 +7,8 @@ public class CustomerShippingAddress : CustomerAddress
     public override string Type => "Shipping";
     public string Note { get; private set; } = default!;
 
-    public CustomerShippingAddress(Address address, string note) : base(address)
+    public static CustomerShippingAddress Create(CustomerAddressId customerAddressId, Address address, string note)
     {
-        Note = note;
+        return new CustomerShippingAddress { Id = customerAddressId, Address = address, Note = note };
     }
-
-    private CustomerShippingAddress() : base() { }
 }

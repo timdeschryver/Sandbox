@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Sandbox.SharedKernel.Messages;
 using Microsoft.AspNetCore.Mvc;
+using Sandbox.SharedKernel.StronglyTypedIds;
 
 namespace Sandbox.Modules.CustomerManagement.Application;
 
@@ -15,29 +16,29 @@ public static class CreateCustomer
     public sealed record ShippingAddress(string? Street, string? City, string? ZipCode, string? Note);
 
     [WolverinePost("/customers")]
-    public static (Created<int>, CustomerCreated) Handle(
+    public static (Created<CustomerId>, CustomerCreated) Handle(
         Command command,
         [FromServices] CustomerDbContext dbContext)
     {
         ArgumentNullException.ThrowIfNull(command);
         ArgumentNullException.ThrowIfNull(dbContext);
 
-        var customer = new Customer(FullName.From(command.FirstName, command.LastName));
+        var customer = Customer.Create(CustomerId.New(), FullName.From(command.FirstName, command.LastName));
         if (command.BillingAddress != null)
         {
             var billingAddress = Address.From(command.BillingAddress.Street, command.BillingAddress.City, command.BillingAddress.ZipCode);
-            customer.AddBillingAddress(new CustomerBillingAddress(billingAddress));
+            customer.AddBillingAddress(CustomerBillingAddress.Create(CustomerAddressId.New(), billingAddress));
         }
         if (command.ShippingAddress != null)
         {
             var shippingAddress = Address.From(command.ShippingAddress.Street, command.ShippingAddress.City, command.ShippingAddress.ZipCode);
-            customer.AddShippingAddress(new CustomerShippingAddress(shippingAddress, command.ShippingAddress.Note ?? string.Empty));
+            customer.AddShippingAddress(CustomerShippingAddress.Create(CustomerAddressId.New(), shippingAddress, command.ShippingAddress.Note ?? string.Empty));
         }
 
         dbContext.Add(customer);
 
         return (
-            TypedResults.Created("/api/customers", customer.Id.Value),
+            TypedResults.Created("/api/customers", customer.Id),
             new CustomerCreated(customer.Id, customer.Name.FirstName, customer.Name.LastName)
         );
     }

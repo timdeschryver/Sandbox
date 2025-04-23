@@ -10,7 +10,6 @@ internal class CustomerEntityConfiguration : IEntityTypeConfiguration<Customer>
     {
         builder.ToTable("Customers");
         builder.HasKey(p => p.Id);
-        builder.Property(p => p.Id).ValueGeneratedOnAdd();
 
         builder.ComplexProperty(p => p.Name, o =>
         {

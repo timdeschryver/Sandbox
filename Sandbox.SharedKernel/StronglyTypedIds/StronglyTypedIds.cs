@@ -1,9 +1,15 @@
-using StronglyTypedIds;
+using Vogen;
 
 namespace Sandbox.SharedKernel.StronglyTypedIds;
 
-[StronglyTypedId(Template.Int, "int-efcore")]
-public readonly partial struct CustomerId { }
+[ValueObject<Guid>(conversions: Conversions.SystemTextJson | Conversions.EfCoreValueConverter)]
+public partial struct CustomerId
+{
+    public static CustomerId New() => From(Guid.NewGuid());
+};
 
-[StronglyTypedId(Template.Int, "int-efcore")]
-public readonly partial struct CustomerAddressId { }
+[ValueObject<Guid>(conversions: Conversions.SystemTextJson | Conversions.EfCoreValueConverter)]
+public partial struct CustomerAddressId
+{
+    public static CustomerAddressId New() => From(Guid.NewGuid());
+}

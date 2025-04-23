@@ -11,13 +11,11 @@ internal static class Extensions
     public static void ApplyStronglyTypedIdEfConvertersFromAssembly(this ModelConfigurationBuilder configurationBuilder, Assembly assembly)
     {
         ArgumentNullException.ThrowIfNull(assembly);
-        ArgumentNullException.ThrowIfNull(configurationBuilder);
-
-        var types = assembly.GetTypes();
+        ArgumentNullException.ThrowIfNull(configurationBuilder); var types = assembly.GetTypes();
 
         foreach (var type in types)
         {
-            if (IsStronglyTypedId(type) && TryGetEfValueConverter(type, out var efCoreConverterType))
+            if (IsVogenValueObject(type) && TryGetEfValueConverter(type, out var efCoreConverterType))
             {
                 configurationBuilder
                     .Properties(type)
@@ -45,9 +43,9 @@ internal static class Extensions
         return false;
     }
 
-    private static bool IsStronglyTypedId(MemberInfo targetType)
+    private static bool IsVogenValueObject(MemberInfo targetType)
     {
         var generatedCodeAttribute = targetType.GetCustomAttribute<GeneratedCodeAttribute>();
-        return "StronglyTypedId".Equals(generatedCodeAttribute?.Tool, StringComparison.Ordinal);
+        return "Vogen".Equals(generatedCodeAttribute?.Tool, StringComparison.Ordinal);
     }
 }
