@@ -1,7 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <ItemGroup>
-    <ProjectReference Include="..\Sandbox.Modules.CustomerManagement\Sandbox.Modules.CustomerManagement.csproj" />
+    <ProjectReference
+      Include="..\Sandbox.Modules.CustomerManagement\Sandbox.Modules.CustomerManagement.csproj" />
+    <ProjectReference Include="..\Sandbox.Modules.Billing\Sandbox.Modules.Billing.csproj" />
     <ProjectReference Include="..\Sandbox.ServiceDefaults\Sandbox.ServiceDefaults.csproj" />
     <ProjectReference Include="..\Sandbox.SharedKernel\Sandbox.SharedKernel.csproj" />
   </ItemGroup>
