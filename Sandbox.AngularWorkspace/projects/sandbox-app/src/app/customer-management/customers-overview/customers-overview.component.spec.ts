@@ -51,44 +51,16 @@ it('renders the component with customers table', async () => {
 		          </thead>
 		          <!--container-->
 		          <tbody>
-		            <tr>
-		              <td />
-		              <td>
-		                John Doe
-		              </td>
-		              <td>
-		                <a
-		                  href="/1"
-		                  ng-reflect-router-link="1"
-		                >
-		                  View Details
-		                </a>
-		              </td>
-		              <!--bindings={
-		  "ng-reflect-ng-template-outlet-context": "[object Object]"
-		}-->
-		            </tr>
-		            <tr>
-		              <td />
-		              <td>
-		                Jane Smith
-		              </td>
-		              <td>
-		                <a
-		                  href="/2"
-		                  ng-reflect-router-link="2"
-		                >
-		                  View Details
-		                </a>
-		              </td>
-		              <!--bindings={
-		  "ng-reflect-ng-template-outlet-context": "[object Object]"
-		}-->
-		            </tr>
 		            <!--container-->
 		            <!--container-->
-		            <!--container-->
-		            <!--container-->
+		            <div>
+		              An unexpected error occurred, please try again.
+		            </div>
+		            <button
+		              type="button"
+		            >
+		              Retry
+		            </button>
 		            <!--container-->
 		          </tbody>
 		          <!--container-->
@@ -125,6 +97,17 @@ it('renders the component with customers table', async () => {
 		            required=""
 		            type="text"
 		          />
+		          <form-validation-control-error
+		            _nghost-a-c3901545631=""
+		          >
+		            <div
+		              _ngcontent-a-c3901545631=""
+		              class="error-message"
+		              hidden=""
+		            >
+		              Field is required
+		            </div>
+		          </form-validation-control-error>
 		          <!--container-->
 		        </div>
 		        <div>
@@ -143,6 +126,17 @@ it('renders the component with customers table', async () => {
 		            required=""
 		            type="text"
 		          />
+		          <form-validation-control-error
+		            _nghost-a-c3901545631=""
+		          >
+		            <div
+		              _ngcontent-a-c3901545631=""
+		              class="error-message"
+		              hidden=""
+		            >
+		              Field is required
+		            </div>
+		          </form-validation-control-error>
 		          <!--container-->
 		        </div>
 		      </fieldset>

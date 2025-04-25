@@ -6,6 +6,7 @@ import { render, screen } from '@testing-library/angular';
 import userEvent from '@testing-library/user-event';
 import { CustomerDetailsResponse } from '@sandbox-app/customer-management/models';
 import CustomerDetailsComponent from './customer-details.component';
+import { generateUuid } from '@sandbox-app/shared/functions';
 
 it('renders customer details when data is loaded', async () => {
 	const { mockRequest } = await setup();
@@ -175,16 +176,17 @@ it('displays error message when API request fails and can retry', async () => {
 
 async function setup() {
 	const user = userEvent.setup();
+	const customerId = generateUuid();
 	const { fixture } = await render(CustomerDetailsComponent, {
 		inputs: {
-			customerId: 1,
+			customerId,
 		},
 		providers: [provideHttpClient(), provideHttpClientTesting()],
 	});
 	const httpMock = TestBed.inject(HttpTestingController);
 	return {
 		mockRequest: async (response: object, opts?: object) => {
-			const request = httpMock.expectOne('/api/customers/1');
+			const request = httpMock.expectOne(`/api/customers/${customerId}`);
 			request.flush(response, opts);
 
 			await fixture.whenStable();
@@ -197,12 +199,12 @@ async function setup() {
 }
 
 const customerDetails: CustomerDetailsResponse = {
-	id: 1,
+	id: generateUuid(),
 	firstName: 'John',
 	lastName: 'Doe',
-	billingAddresses: [{ id: 1, street: '123 Billing St', city: 'Bill City', zipCode: '12345' }],
+	billingAddresses: [{ id: generateUuid(), street: '123 Billing St', city: 'Bill City', zipCode: '12345' }],
 	shippingAddresses: [
-		{ id: 2, street: '456 Shipping Ave', city: 'Ship City', zipCode: '67890', note: 'Leave at door' },
-		{ id: 3, street: '789 Delivery Rd', city: 'Deliver Town', zipCode: '54321', note: '' },
+		{ id: generateUuid(), street: '456 Shipping Ave', city: 'Ship City', zipCode: '67890', note: 'Leave at door' },
+		{ id: generateUuid(), street: '789 Delivery Rd', city: 'Deliver Town', zipCode: '54321', note: '' },
 	],
 };

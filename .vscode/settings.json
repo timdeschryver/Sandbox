@@ -1,14 +1,14 @@
 {
 	"dotnet.defaultSolution": "Sandbox.slnx",
-	"github.copilot.chat.commitMessageGeneration.instructions": [
-		{
-			"file": ".github/commit-instructions.md"
-		}
-	],
-	"eslint.workingDirectories": ["./Sandbox.AngularWorkspace"],
+	"dotnet.unitTests.runSettingsPath": ".runsettings",
 	"editor.formatOnSave": true,
 	"editor.codeActionsOnSave": {
 		"source.fixAll.eslint": "always"
 	},
-	"dotnet.unitTests.runSettingsPath": ".runsettings"
+	"eslint.workingDirectories": [{ "mode": "auto" }],
+	"github.copilot.chat.commitMessageGeneration.instructions": [
+		{
+			"file": ".github/commit-instructions.md"
+		}
+	]
 }

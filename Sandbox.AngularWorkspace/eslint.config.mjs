@@ -5,6 +5,7 @@ import angular from 'angular-eslint';
 import eslintConfigPrettier from 'eslint-config-prettier';
 
 export default tseslint.config(
+	{ ignores: ['dist', '**/coverage'] },
 	{
 		files: ['**/*.ts'],
 		extends: [

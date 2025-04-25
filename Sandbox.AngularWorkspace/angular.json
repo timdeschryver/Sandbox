@@ -90,20 +90,27 @@
 			"sourceRoot": "projects/opentelemetry-lib/src",
 			"prefix": "lib",
 			"architect": {
-				"build": {
-					"builder": "@angular-devkit/build-angular:ng-packagr",
+				"lint": {
+					"builder": "@angular-eslint/builder:lint",
 					"options": {
-						"project": "projects/opentelemetry-lib/ng-package.json"
-					},
-					"configurations": {
-						"production": {
-							"tsConfig": "projects/opentelemetry-lib/tsconfig.lib.prod.json"
-						},
-						"development": {
-							"tsConfig": "projects/opentelemetry-lib/tsconfig.lib.json"
-						}
-					},
-					"defaultConfiguration": "production"
+						"lintFilePatterns": ["projects/opentelemetry-lib/**/*.ts", "projects/opentelemetry-lib/**/*.html"],
+						"eslintConfig": "projects/opentelemetry-lib/eslint.config.mjs"
+					}
+				}
+			}
+		},
+		"form-validation-lib": {
+			"projectType": "library",
+			"root": "projects/form-validation-lib",
+			"sourceRoot": "projects/form-validation-lib/src",
+			"prefix": "formValidation",
+			"architect": {
+				"lint": {
+					"builder": "@angular-eslint/builder:lint",
+					"options": {
+						"lintFilePatterns": ["projects/form-validation-lib/**/*.ts", "projects/form-validation-lib/**/*.html"],
+						"eslintConfig": "projects/form-validation-lib/eslint.config.mjs"
+					}
 				}
 			}
 		}

@@ -18,9 +18,6 @@
 				type="text"
 				[(ngModel)]="customer.firstName"
 			/>
-			@if (firstNameField.invalid && (customerForm.submitted || firstNameField.touched)) {
-				<div>First name is required</div>
-			}
 		</div>
 
 		<div>
@@ -33,9 +30,6 @@
 				type="text"
 				[(ngModel)]="customer.lastName"
 			/>
-			@if (lastNameField.invalid && (customerForm.submitted || lastNameField.touched)) {
-				<div>Last name is required</div>
-			}
 		</div>
 	</fieldset>
 

@@ -18,7 +18,8 @@
 		"baseUrl": "./",
 		"paths": {
 			"@sandbox-app/*": ["projects/sandbox-app/src/app/*"],
-			"@opentelemetry-lib": ["projects/opentelemetry-lib/src/public-api"]
+			"@opentelemetry": ["projects/opentelemetry-lib/src/public-api"],
+			"@form-validation": ["projects/form-validation-lib/src/public-api"]
 		}
 	},
 	"angularCompilerOptions": {

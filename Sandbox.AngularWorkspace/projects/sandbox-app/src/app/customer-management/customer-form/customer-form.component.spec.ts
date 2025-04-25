@@ -4,7 +4,7 @@ import { HttpTestingController, provideHttpClientTesting } from '@angular/common
 import { TestBed } from '@angular/core/testing';
 import { render, screen } from '@testing-library/angular';
 import userEvent from '@testing-library/user-event';
-import { CreateCustomerCommand } from '@sandbox-app/customer-management/models';
+import { CreateCustomerCommand, CustomerId } from '@sandbox-app/customer-management/models';
 import { CustomerFormComponent } from './customer-form.component';
 import { AddressComponent } from '@sandbox-app/customer-management/shared/customer-address/customer-address.component';
 import { OutputEmitterRef } from '@angular/core';
@@ -47,8 +47,7 @@ it('submits form with complete data when valid', async () => {
 	const { user, mockRequest, onSubmittedSpy } = await setup();
 
 	await user.click(screen.getByRole('button', { name: /create customer/i }));
-	expect(screen.queryByText('First name is required')).toBeInTheDocument();
-	expect(screen.queryByText('Last name is required')).toBeInTheDocument();
+	expect(screen.queryAllByText('Field is required')).toHaveLength(2);
 	expect(onSubmittedSpy).not.toHaveBeenCalled();
 
 	await user.type(screen.getByLabelText(/first name/i), 'John');
@@ -104,7 +103,7 @@ async function setup() {
 		componentOutputs: {
 			submitted: {
 				emit: onSubmittedSpy,
-			} as unknown as OutputEmitterRef<number>,
+			} as unknown as OutputEmitterRef<CustomerId>,
 		},
 		providers: [provideHttpClient(), provideHttpClientTesting()],
 	});

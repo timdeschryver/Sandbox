@@ -3,11 +3,12 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { Address } from '@sandbox-app/customer-management/models';
+import { formValidation } from '@form-validation';
 
 @Component({
 	selector: 'sandbox-customer-address',
 	templateUrl: './customer-address.component.html',
-	imports: [CommonModule, FormsModule],
+	imports: [CommonModule, FormsModule, formValidation],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AddressComponent {

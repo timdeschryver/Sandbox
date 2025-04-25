@@ -5,12 +5,13 @@ import { CreateCustomerCommand, CustomerId } from '@sandbox-app/customer-managem
 import { CustomersService } from '@sandbox-app/customer-management/customers.service';
 import { AddressComponent } from '@sandbox-app/customer-management/shared/customer-address/customer-address.component';
 import { HttpErrorResponse } from '@angular/common/http';
+import { formValidation } from '@form-validation';
 
 @Component({
 	selector: 'sandbox-customer-form',
 	templateUrl: './customer-form.component.html',
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	imports: [CommonModule, FormsModule, AddressComponent],
+	imports: [CommonModule, FormsModule, AddressComponent, formValidation],
 })
 export class CustomerFormComponent {
 	private readonly customersService = inject(CustomersService);

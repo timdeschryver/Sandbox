@@ -8,9 +8,6 @@
 		[name]="'street-' + componentId"
 		[(ngModel)]="address().street"
 	/>
-	@if (streetField.invalid && (form().submitted || streetField.touched)) {
-		<div>Street is required</div>
-	}
 </div>
 
 <div>
@@ -23,9 +20,6 @@
 		[name]="'city-' + componentId"
 		[(ngModel)]="address().city"
 	/>
-	@if (cityField.invalid && (form().submitted || cityField.touched)) {
-		<div>City is required</div>
-	}
 </div>
 
 <div>
@@ -38,9 +32,6 @@
 		[name]="'zipCode-' + componentId"
 		[(ngModel)]="address().zipCode"
 	/>
-	@if (zipCodeField.invalid && (form().submitted || zipCodeField.touched)) {
-		<div>Zip code is required</div>
-	}
 </div>
 
 <ng-content />
