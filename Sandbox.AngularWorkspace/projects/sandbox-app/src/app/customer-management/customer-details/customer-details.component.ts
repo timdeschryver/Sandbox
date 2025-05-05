@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject, input } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { CustomersService } from '@sandbox-app/customer-management/customers.service';
+import { CustomersService } from '@sandbox-app/customer-management/customer-management.service';
 import { stronglyTypedIdAttribute } from '@sandbox-app/shared/functions';
 import { CustomerId } from '@sandbox-app/customer-management/models';
 

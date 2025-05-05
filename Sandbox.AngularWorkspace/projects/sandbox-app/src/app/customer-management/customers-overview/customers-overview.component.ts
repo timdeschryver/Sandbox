@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { CustomersService } from '@sandbox-app/customer-management/customers.service';
+import { CustomersService } from '@sandbox-app/customer-management/customer-management.service';
 import { TableComponent } from '@sandbox-app/shared/components/table-component/table.component';
 import { TableBodyTemplateDirective } from '@sandbox-app/shared/components/table-component/table-body-template.directive';
 import { CustomerFormComponent } from '@sandbox-app/customer-management/customer-form/customer-form.component';
