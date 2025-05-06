@@ -3,16 +3,16 @@
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
   </PropertyGroup>
   <ItemGroup>
-    <PackageVersion Include="Aspire.Azure.Security.KeyVault" Version="9.2.0" />
-    <PackageVersion Include="Aspire.Hosting.AppHost" Version="9.2.0" />
-    <PackageVersion Include="Aspire.Hosting.Azure" Version="9.2.0" />
-    <PackageVersion Include="Aspire.Hosting.Azure.KeyVault" Version="9.2.0" />
+    <PackageVersion Include="Aspire.Azure.Security.KeyVault" Version="9.2.1" />
+    <PackageVersion Include="Aspire.Hosting.AppHost" Version="9.2.1" />
+    <PackageVersion Include="Aspire.Hosting.Azure" Version="9.2.1" />
+    <PackageVersion Include="Aspire.Hosting.Azure.KeyVault" Version="9.2.1" />
     <PackageVersion Include="Aspire.Hosting.Docker" Version="9.2.0-preview.1.25209.2" />
-    <PackageVersion Include="Aspire.Hosting.NodeJs" Version="9.2.0" />
-    <PackageVersion Include="Aspire.Hosting.PostgreSQL" Version="9.2.0" />
-    <PackageVersion Include="Aspire.Hosting.SqlServer" Version="9.2.0" />
-    <PackageVersion Include="Aspire.Microsoft.EntityFrameworkCore.SqlServer" Version="9.2.0" />
-    <PackageVersion Include="Aspire.Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.2.0" />
+    <PackageVersion Include="Aspire.Hosting.NodeJs" Version="9.2.1" />
+    <PackageVersion Include="Aspire.Hosting.PostgreSQL" Version="9.2.1" />
+    <PackageVersion Include="Aspire.Hosting.SqlServer" Version="9.2.1" />
+    <PackageVersion Include="Aspire.Microsoft.EntityFrameworkCore.SqlServer" Version="9.2.1" />
+    <PackageVersion Include="Aspire.Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.2.1" />
     <PackageVersion Include="Duende.AccessTokenManagement.OpenIdConnect" Version="3.2.0" />
     <PackageVersion Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="9.0.4" />
     <PackageVersion Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="9.0.4" />
@@ -20,22 +20,22 @@
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.4" />
     <PackageVersion Include="Microsoft.Extensions.Hosting" Version="9.0.4" />
     <PackageVersion Include="Microsoft.Extensions.Http.Resilience" Version="9.4.0" />
-    <PackageVersion Include="Microsoft.Extensions.ServiceDiscovery" Version="9.2.0" />
-    <PackageVersion Include="Microsoft.Extensions.ServiceDiscovery.Yarp" Version="9.2.0" />
+    <PackageVersion Include="Microsoft.Extensions.ServiceDiscovery" Version="9.2.1" />
+    <PackageVersion Include="Microsoft.Extensions.ServiceDiscovery.Yarp" Version="9.2.1" />
     <PackageVersion Include="Microsoft.Testing.Extensions.CodeCoverage" Version="17.14.2" />
     <PackageVersion Include="Microsoft.Testing.Extensions.TrxReport" Version="1.6.3" />
-    <PackageVersion Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="1.11.2" />
-    <PackageVersion Include="OpenTelemetry.Extensions.Hosting" Version="1.11.2" />
-    <PackageVersion Include="OpenTelemetry.Instrumentation.AspNetCore" Version="1.11.1" />
-    <PackageVersion Include="OpenTelemetry.Instrumentation.Http" Version="1.11.1" />
+    <PackageVersion Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="1.12.0" />
+    <PackageVersion Include="OpenTelemetry.Extensions.Hosting" Version="1.12.0" />
+    <PackageVersion Include="OpenTelemetry.Instrumentation.AspNetCore" Version="1.12.0" />
+    <PackageVersion Include="OpenTelemetry.Instrumentation.Http" Version="1.12.0" />
     <PackageVersion Include="OpenTelemetry.Instrumentation.Runtime" Version="1.11.1" />
     <PackageVersion Include="Vogen" Version="7.0.3" />
-    <PackageVersion Include="TngTech.ArchUnitNET" Version="0.11.3" />
-    <PackageVersion Include="TUnit" Version="0.19.64" />
-    <PackageVersion Include="WolverineFx" Version="3.12.1" />
-    <PackageVersion Include="WolverineFx.EntityFrameworkCore" Version="3.12.1" />
-    <PackageVersion Include="WolverineFx.Http" Version="3.12.1" />
-    <PackageVersion Include="WolverineFx.Postgresql" Version="3.12.1" />
+    <PackageVersion Include="TngTech.ArchUnitNET" Version="0.11.4" />
+    <PackageVersion Include="TUnit" Version="0.19.116" />
+    <PackageVersion Include="WolverineFx" Version="3.13.0" />
+    <PackageVersion Include="WolverineFx.EntityFrameworkCore" Version="3.13.0" />
+    <PackageVersion Include="WolverineFx.Http" Version="3.13.0" />
+    <PackageVersion Include="WolverineFx.Postgresql" Version="3.13.0" />
     <PackageVersion Include="Yarp.ReverseProxy" Version="2.3.0" />
   </ItemGroup>
 </Project>
