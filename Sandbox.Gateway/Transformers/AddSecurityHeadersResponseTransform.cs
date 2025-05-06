@@ -2,9 +2,7 @@ using Yarp.ReverseProxy.Transforms;
 
 namespace Sandbox.Gateway.Transformers;
 
-#pragma warning disable CA1812
 internal sealed class AddSecurityHeadersResponseTransform(IConfiguration configuration, ILogger<AddSecurityHeadersResponseTransform> logger) : ResponseTransform
-#pragma warning restore CA1812
 {
     private readonly ILogger<AddSecurityHeadersResponseTransform> _logger = logger;
     private readonly string _cspPolicy = configuration["ContentSecurityPolicy:Policy"]!;

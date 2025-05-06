@@ -4,9 +4,7 @@ using System.Net.Http.Headers;
 
 namespace Sandbox.Gateway.Transformers;
 
-#pragma warning disable CA1812
 internal sealed class AddBearerTokenToHeadersTransform(ILogger<AddBearerTokenToHeadersTransform> logger) : RequestTransform
-#pragma warning restore CA1812
 {
     public override async ValueTask ApplyAsync(RequestTransformContext context)
     {

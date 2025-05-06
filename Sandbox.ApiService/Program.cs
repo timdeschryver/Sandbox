@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Oakton.Resources;
 using Sandbox.ServiceDefaults;
 using Sandbox.SharedKernel.Modules;
+using Scalar.AspNetCore;
 using Wolverine;
 using Wolverine.EntityFrameworkCore;
 using Wolverine.Http;
@@ -26,7 +27,28 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 builder.Services.AddAuthorization();
 builder.Services.AddProblemDetails();
-builder.Services.AddOpenApi();
+builder.Services.AddOpenApi(options =>
+{
+    options.AddDocumentTransformer((document, context, _) =>
+    {
+        document.Info = new()
+        {
+            Title = "Sandbox API Reference",
+            Version = "v1",
+            Description = """
+                          This is a sample API for the Sandbox project.
+                          """,
+            Contact = new()
+            {
+                Name = "Support",
+                Email = "doesnotexist@timdeschryver.dev",
+                Url = new Uri("https://github.com/timdeschryver/sandbox")
+            }
+        };
+        return Task.CompletedTask;
+    });
+    options.AddDocumentTransformer<BearerSecuritySchemeTransformer>();
+});
 
 builder.Services.AddResourceSetupOnStartup();
 builder.Host.UseWolverine(opts =>
@@ -59,6 +81,11 @@ app.MapWolverineEndpoints(opts =>
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
+    app.MapScalarApiReference(options =>
+    {
+        options
+            .WithTitle("Sandbox API");
+    });
 }
 
 app.MapDefaultEndpoints();

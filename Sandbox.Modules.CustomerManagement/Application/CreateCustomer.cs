@@ -15,9 +15,14 @@ public static class CreateCustomer
     public sealed record BillingAddress(string? Street, string? City, string? ZipCode);
     public sealed record ShippingAddress(string? Street, string? City, string? ZipCode, string? Note);
 
+    /// <summary>
+    /// Create a new customer.
+    /// Optionally, you can provide a billing address and a shipping address.
+    /// </summary>
+    /// <returns>The created customer ID.</returns>
     [WolverinePost("/customers")]
     public static (Created<CustomerId>, CustomerCreated) Handle(
-        Command command,
+        [FromBody] Command command,
         [FromServices] CustomerDbContext dbContext)
     {
         ArgumentNullException.ThrowIfNull(command);

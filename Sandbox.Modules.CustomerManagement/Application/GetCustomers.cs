@@ -10,10 +10,16 @@ namespace Sandbox.Modules.CustomerManagement.Application;
 
 public static class GetCustomers
 {
+    public sealed record Query();
     public sealed record Response(CustomerId Id, string FirstName, string LastName);
 
+    /// <summary>
+    /// Get all customers.
+    /// </summary>
+    /// <returns>A collection with all customers.</returns>
     [WolverineGet("/customers")]
     public static async Task<Ok<List<Response>>> Get(
+        [AsParameters] Query query,
         [FromServices] IQueryable<Customer> customers,
         CancellationToken cancellationToken)
     {

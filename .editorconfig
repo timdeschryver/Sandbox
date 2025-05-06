@@ -5,3 +5,11 @@ dotnet_diagnostic.CA2007.severity = none
 dotnet_diagnostic.CA1848.severity = none
 # CA1034: Nested types should not be visible
 dotnet_diagnostic.CA1034.severity = none
+# CA1724: Type names should not match namespaces
+dotnet_diagnostic.CA1724.severity = none
+# CA1812: Avoid uninstantiated internal classes
+dotnet_diagnostic.CA1812.severity = none
+# CA1822: Mark members as static
+dotnet_diagnostic.CA1822.severity = none
+# CS1591: Missing XML comment for publicly visible type or member 'Type_or_Member'
+dotnet_diagnostic.CS1591.severity = none

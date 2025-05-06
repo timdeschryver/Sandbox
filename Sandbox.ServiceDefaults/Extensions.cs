@@ -13,9 +13,7 @@ namespace Sandbox.ServiceDefaults;
 // Adds common .NET Aspire services: service discovery, resilience, health checks, and OpenTelemetry.
 // This project should be referenced by each service project in your solution.
 // To learn more about using this project, see https://aka.ms/dotnet/aspire/service-defaults
-#pragma warning disable CA1724
 public static class Extensions
-#pragma warning restore CA1724
 {
     public static TBuilder AddServiceDefaults<TBuilder>(this TBuilder builder) where TBuilder : IHostApplicationBuilder
     {

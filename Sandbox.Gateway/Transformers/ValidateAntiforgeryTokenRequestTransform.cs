@@ -3,9 +3,7 @@ using Yarp.ReverseProxy.Transforms;
 
 namespace Sandbox.Gateway.Transformers;
 
-#pragma warning disable CA1812
 internal sealed class ValidateAntiforgeryTokenRequestTransform(IAntiforgery antiforgery, ILogger<ValidateAntiforgeryTokenRequestTransform> logger) : RequestTransform
-#pragma warning restore CA1812
 {
     public override async ValueTask ApplyAsync(RequestTransformContext context)
     {

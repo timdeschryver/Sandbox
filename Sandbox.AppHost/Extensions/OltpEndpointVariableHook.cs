@@ -3,9 +3,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Sandbox.AppHost.Extensions;
 
-#pragma warning disable CA1812
 internal sealed class OltpEndpointVariableHook(ILogger<OltpEndpointVariableHook> logger) : IDistributedApplicationLifecycleHook
-#pragma warning restore CA1812
 {
     private const string OtelExporterOtlpEndpoint = "OTEL_EXPORTER_OTLP_ENDPOINT";
 

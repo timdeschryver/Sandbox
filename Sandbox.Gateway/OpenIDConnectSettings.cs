@@ -2,9 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Sandbox.Gateway;
 
-#pragma warning disable CA1812
 internal sealed class OpenIDConnectSettings
-#pragma warning restore CA1812
 {
     public const string Position = "OpenIDConnectSettings";
 
