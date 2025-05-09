@@ -4,13 +4,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Sandbox.Modules.CustomerManagement.Domain;
 using Sandbox.SharedKernel.StronglyTypedIds;
-using Wolverine.Http;
 
 namespace Sandbox.Modules.CustomerManagement.Application;
 
 public static class GetCustomer
 {
-    public sealed record Query([FromRoute] Guid CustomerId);
+    public sealed record Parameters([FromRoute] CustomerId CustomerId);
     public sealed record Response(CustomerId Id, string FirstName, string LastName, IEnumerable<BillingAddress> BillingAddresses, IEnumerable<ShippingAddress> ShippingAddresses);
     public sealed record BillingAddress(CustomerAddressId Id, string Street, string City, string ZipCode);
     public sealed record ShippingAddress(CustomerAddressId Id, string Street, string City, string ZipCode, string Note);
@@ -19,9 +18,8 @@ public static class GetCustomer
     /// Get a customer by id.
     /// </summary>
     /// <returns>The requested customer.</returns>
-    [WolverineGet("/customers/{customerId}")]
-    public static async Task<Results<Ok<Response>, NotFound>> Get(
-       [AsParameters] Query query,
+    public static async Task<Results<Ok<Response>, NotFound>> Query(
+       [AsParameters] Parameters parameters,
        [FromServices] IQueryable<Customer> customers,
        CancellationToken cancellationToken)
     {
@@ -37,7 +35,7 @@ public static class GetCustomer
                 Id = c.Id,
             })
             .AsSplitQuery()
-            .SingleOrDefaultAsync(c => c.Id == CustomerId.From(query.CustomerId), cancellationToken);
+            .SingleOrDefaultAsync(c => c.Id == parameters.CustomerId, cancellationToken);
 
         return customer switch
         {

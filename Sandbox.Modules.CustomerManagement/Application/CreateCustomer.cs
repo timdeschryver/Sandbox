@@ -1,4 +1,3 @@
-using Wolverine.Http;
 using Sandbox.Modules.CustomerManagement.Data;
 using Sandbox.Modules.CustomerManagement.Domain;
 using Microsoft.AspNetCore.Http;
@@ -6,6 +5,7 @@ using Microsoft.AspNetCore.Http.HttpResults;
 using Sandbox.SharedKernel.Messages;
 using Microsoft.AspNetCore.Mvc;
 using Sandbox.SharedKernel.StronglyTypedIds;
+using Wolverine.EntityFrameworkCore;
 
 namespace Sandbox.Modules.CustomerManagement.Application;
 
@@ -20,13 +20,13 @@ public static class CreateCustomer
     /// Optionally, you can provide a billing address and a shipping address.
     /// </summary>
     /// <returns>The created customer ID.</returns>
-    [WolverinePost("/customers")]
-    public static (Created<CustomerId>, CustomerCreated) Handle(
+    public static async Task<Created<CustomerId>> Handle(
         [FromBody] Command command,
-        [FromServices] CustomerDbContext dbContext)
+        [FromServices] IDbContextOutbox<CustomerDbContext> outbox,
+        CancellationToken cancellationToken)
     {
         ArgumentNullException.ThrowIfNull(command);
-        ArgumentNullException.ThrowIfNull(dbContext);
+        ArgumentNullException.ThrowIfNull(outbox);
 
         var customer = Customer.Create(CustomerId.New(), FullName.From(command.FirstName, command.LastName));
         if (command.BillingAddress != null)
@@ -40,11 +40,10 @@ public static class CreateCustomer
             customer.AddShippingAddress(CustomerShippingAddress.Create(CustomerAddressId.New(), shippingAddress, command.ShippingAddress.Note ?? string.Empty));
         }
 
-        dbContext.Add(customer);
+        await outbox.DbContext.AddAsync(customer, cancellationToken);
+        await outbox.PublishAsync(new CustomerCreated(customer.Id, customer.Name.FirstName, customer.Name.LastName));
+        await outbox.SaveChangesAndFlushMessagesAsync(cancellationToken);
 
-        return (
-            TypedResults.Created("/api/customers", customer.Id),
-            new CustomerCreated(customer.Id, customer.Name.FirstName, customer.Name.LastName)
-        );
+        return TypedResults.Created("/api/customers", customer.Id);
     }
 }

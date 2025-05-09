@@ -1,7 +1,9 @@
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Sandbox.Modules.CustomerManagement.Application;
 using Sandbox.Modules.CustomerManagement.Data;
 using Sandbox.Modules.CustomerManagement.Domain;
 using Sandbox.SharedKernel.Modules;
@@ -31,8 +33,12 @@ public class CustomerManagementModule : IModule
     public WebApplication UseModule(WebApplication app)
     {
         ArgumentNullException.ThrowIfNull(app);
-
-
+        var group = app.MapGroup("customers")
+            .RequireAuthorization()
+            .WithTags("Customer Management");
+        group.MapGet("", GetCustomers.Query);
+        group.MapGet("{customerId}", GetCustomer.Query);
+        group.MapPost("", CreateCustomer.Handle);
         return app;
     }
 }

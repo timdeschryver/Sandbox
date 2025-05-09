@@ -5,7 +5,6 @@
     <PackageReference Include="Aspire.Npgsql.EntityFrameworkCore.PostgreSQL" />
     <PackageReference Include="WolverineFx" />
     <PackageReference Include="WolverineFx.EntityFrameworkCore" />
-    <PackageReference Include="WolverineFx.Http" />
     <PackageReference Include="WolverineFx.Postgresql" />
   </ItemGroup>
   <ItemGroup>

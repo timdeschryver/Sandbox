@@ -35,7 +35,6 @@
     <PackageVersion Include="TUnit" Version="0.19.116" />
     <PackageVersion Include="WolverineFx" Version="3.13.0" />
     <PackageVersion Include="WolverineFx.EntityFrameworkCore" Version="3.13.0" />
-    <PackageVersion Include="WolverineFx.Http" Version="3.13.0" />
     <PackageVersion Include="WolverineFx.Postgresql" Version="3.13.0" />
     <PackageVersion Include="Yarp.ReverseProxy" Version="2.3.0" />
   </ItemGroup>

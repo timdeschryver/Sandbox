@@ -6,7 +6,6 @@ using Sandbox.SharedKernel.Modules;
 using Scalar.AspNetCore;
 using Wolverine;
 using Wolverine.EntityFrameworkCore;
-using Wolverine.Http;
 using Wolverine.Postgresql;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -63,7 +62,6 @@ builder.Host.UseWolverine(opts =>
 });
 
 builder.AddModules();
-builder.Services.AddWolverineHttp();
 
 var app = builder.Build();
 
@@ -73,10 +71,6 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.UseModules();
-app.MapWolverineEndpoints(opts =>
-{
-    opts.RequireAuthorizeOnAll();
-});
 
 if (app.Environment.IsDevelopment())
 {
