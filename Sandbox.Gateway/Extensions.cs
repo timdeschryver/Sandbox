@@ -17,7 +17,6 @@ internal static class Extensions
         services.AddSingleton<AddBearerTokenToHeadersTransform>();
         services.AddSingleton<AddAntiforgeryTokenResponseTransform>();
         services.AddSingleton<ValidateAntiforgeryTokenRequestTransform>();
-        services.AddSingleton<AddSecurityHeadersResponseTransform>();
 
         services
             .AddReverseProxy()
@@ -25,7 +24,6 @@ internal static class Extensions
             .AddTransforms(builderContext =>
             {
                 builderContext.ResponseTransforms.Add(builderContext.Services.GetRequiredService<AddAntiforgeryTokenResponseTransform>());
-                builderContext.ResponseTransforms.Add(builderContext.Services.GetRequiredService<AddSecurityHeadersResponseTransform>());
                 builderContext.RequestTransforms.Add(builderContext.Services.GetRequiredService<ValidateAntiforgeryTokenRequestTransform>());
 
                 if (!string.IsNullOrEmpty(builderContext.Route.AuthorizationPolicy))
