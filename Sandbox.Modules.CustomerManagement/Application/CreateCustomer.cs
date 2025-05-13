@@ -19,7 +19,6 @@ public static class CreateCustomer
 
     /// <summary>
     /// Create a new customer.
-    /// Optionally, you can provide a billing address and a shipping address.
     /// </summary>
     /// <returns>The created customer ID.</returns>
     public static async Task<Created<CustomerId>> Handle(
