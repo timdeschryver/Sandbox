@@ -18,6 +18,8 @@ public class CustomerManagementModule : IModule
     {
         ArgumentNullException.ThrowIfNull(builder);
 
+        builder.Services.AddValidation();
+
         // Uncomment to use SQL Server instead of PostgreSQL
         // builder.AddSqlServerDbContext<CustomerDbContext>(connectionName: "sandbox-db");
         builder.AddNpgsqlDbContext<CustomerDbContext>(connectionName: "sandbox-db", options =>

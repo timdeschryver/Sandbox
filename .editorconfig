@@ -13,3 +13,5 @@ dotnet_diagnostic.CA1812.severity = none
 dotnet_diagnostic.CA1822.severity = none
 # CS1591: Missing XML comment for publicly visible type or member 'Type_or_Member'
 dotnet_diagnostic.CS1591.severity = none
+# CA1515: Consider making public types internal
+dotnet_diagnostic.CA1515.severity = none

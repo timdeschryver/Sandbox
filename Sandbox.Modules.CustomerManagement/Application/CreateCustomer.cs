@@ -6,14 +6,16 @@ using Sandbox.SharedKernel.Messages;
 using Microsoft.AspNetCore.Mvc;
 using Sandbox.SharedKernel.StronglyTypedIds;
 using Wolverine.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Sandbox.Modules.CustomerManagement.Application;
 
 public static class CreateCustomer
 {
-    public sealed record Command(string? FirstName, string? LastName, BillingAddress? BillingAddress, ShippingAddress? ShippingAddress);
-    public sealed record BillingAddress(string? Street, string? City, string? ZipCode);
-    public sealed record ShippingAddress(string? Street, string? City, string? ZipCode, string? Note);
+    public sealed record Command([Required, MinLength(2)] string FirstName, [Required, MinLength(2)] string LastName, BillingAddress? BillingAddress, ShippingAddress? ShippingAddress);
+    public sealed record BillingAddress([Required, MinLength(2)] string Street, [Required, MinLength(2)] string City, [Required, Length(2, 10)] string ZipCode);
+    public sealed record ShippingAddress([Required, MinLength(2)] string Street, [Required, MinLength(2)] string City, [Required, Length(2, 10)] string ZipCode, string? Note);
 
     /// <summary>
     /// Create a new customer.
@@ -22,10 +24,15 @@ public static class CreateCustomer
     /// <returns>The created customer ID.</returns>
     public static async Task<Created<CustomerId>> Handle(
         [FromBody] Command command,
-        [FromServices] IDbContextOutbox<CustomerDbContext> outbox,
+        // [FromServices] IDbContextOutbox<CustomerDbContext> outbox,
+        HttpContext httpContext,
         CancellationToken cancellationToken)
     {
         ArgumentNullException.ThrowIfNull(command);
+        ArgumentNullException.ThrowIfNull(httpContext);
+
+        // TODO: Should be injected, but this is a workaround for https://github.com/dotnet/aspnetcore/issues/61388
+        var outbox = httpContext.RequestServices.GetRequiredService<IDbContextOutbox<CustomerDbContext>>();
         ArgumentNullException.ThrowIfNull(outbox);
 
         var customer = Customer.Create(CustomerId.New(), FullName.From(command.FirstName, command.LastName));
