@@ -38,8 +38,8 @@ public class CustomerManagementModule : IModule
         var group = app.MapGroup("customers")
             .RequireAuthorization()
             .WithTags("Customer Management");
-        group.MapGet("", GetCustomers.Query);
-        group.MapGet("{customerId}", GetCustomer.Query);
+        group.MapGet("", GetCustomers.Query).DisableValidation();
+        group.MapGet("{customerId}", GetCustomer.Query).DisableValidation();
         group.MapPost("", CreateCustomer.Handle);
         return app;
     }
