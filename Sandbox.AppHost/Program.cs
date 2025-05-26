@@ -1,4 +1,4 @@
-using Microsoft.Extensions.DependencyInjection;
+using Aspire.Hosting.Azure;
 using Microsoft.Extensions.Hosting;
 using Sandbox.AppHost.Extensions;
 
@@ -61,9 +61,9 @@ var gateway = builder.AddProject<Projects.Sandbox_Gateway>("gateway")
     .WaitFor(openTelemetryCollector)
     .WithExternalHttpEndpoints();
 
-builder.AddDockerComposePublisher();
+builder.AddDockerComposeEnvironment("Sandbox");
 #pragma warning disable ASPIREAZURE001 // Type is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
-builder.AddAzurePublisher();
+builder.AddAzureEnvironment();
 #pragma warning restore ASPIREAZURE001 // Type is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
 
 builder.Build().Run();
