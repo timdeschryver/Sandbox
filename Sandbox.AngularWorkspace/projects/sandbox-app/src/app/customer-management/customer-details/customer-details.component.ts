@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, inject, input, signal } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { CustomersService } from '@sandbox-app/customer-management/customer-management.service';
 import { stronglyTypedIdAttribute } from '@sandbox-app/shared/functions';
 import { CustomerId } from '@sandbox-app/customer-management/models';
@@ -14,6 +14,7 @@ import { CustomerId } from '@sandbox-app/customer-management/models';
 export default class CustomerDetailsComponent {
 	private readonly customersService = inject(CustomersService);
 	private readonly router = inject(Router);
+	private readonly route = inject(ActivatedRoute);
 
 	protected readonly customerId = input.required({ transform: stronglyTypedIdAttribute(CustomerId) });
 	protected readonly customer = this.customersService.getCustomerDetails(this.customerId);
@@ -33,7 +34,7 @@ export default class CustomerDetailsComponent {
 		this.customersService.deleteCustomer(this.customerId()).subscribe({
 			next: () => {
 				this.isDeleting.set(false);
-				this.router.navigate(['/customers']);
+				this.router.navigate(['../'], { relativeTo: this.route });
 			},
 			error: (error) => {
 				this.isDeleting.set(false);

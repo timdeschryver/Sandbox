@@ -7,7 +7,7 @@ import userEvent from '@testing-library/user-event';
 import { CustomerDetailsResponse } from '@sandbox-app/customer-management/models';
 import CustomerDetailsComponent from './customer-details.component';
 import { generateUuid } from '@sandbox-app/shared/functions';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 it('renders customer details when data is loaded', async () => {
 	const { mockRequest } = await setup();
@@ -215,7 +215,7 @@ it('deletes customer and navigates to overview when confirmed', async () => {
 	deleteRequest.flush({});
 	
 	await waitFor(() => {
-		expect(router.navigate).toHaveBeenCalledWith(['/customers']);
+		expect(router.navigate).toHaveBeenCalledWith(['../'], { relativeTo: expect.anything() });
 	});
 });
 
@@ -239,6 +239,7 @@ async function setup() {
 	const user = userEvent.setup();
 	const customerId = generateUuid();
 	const routerMock = { navigate: vi.fn() };
+	const activatedRouteMock = {};
 	
 	const { fixture } = await render(CustomerDetailsComponent, {
 		inputs: {
@@ -247,7 +248,8 @@ async function setup() {
 		providers: [
 			provideHttpClient(), 
 			provideHttpClientTesting(),
-			{ provide: Router, useValue: routerMock }
+			{ provide: Router, useValue: routerMock },
+			{ provide: ActivatedRoute, useValue: activatedRouteMock }
 		],
 	});
 	const httpMock = TestBed.inject(HttpTestingController);
