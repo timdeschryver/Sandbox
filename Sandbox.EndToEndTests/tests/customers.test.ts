@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { generateRandomString } from '../utils';
 
-test('creates a new customer and can open details', { tag: '@customer-management' }, async ({ page }) => {
+test('creates a new customer and can open details and delete it', { tag: '@customer-management' }, async ({ page }) => {
 	await page.goto('/customers');
 
 	const firstName = generateRandomString(8);
@@ -39,5 +39,22 @@ test('creates a new customer and can open details', { tag: '@customer-management
 - group "Billing Addresses": Billing Addresses Street:billing street City:billing city Zip Code:billing zip
 `);
 		expect(page.url()).toMatch(/\/customers\/[\w-]+/);
+	});
+	
+	await test.step(`delete customer`, async () => {
+		// Click the delete button
+		await page.getByRole('button', { name: 'Delete Customer' }).click();
+		
+		// Verify confirmation dialog appears
+		await expect(page.getByText('Are you sure you want to delete this customer?')).toBeVisible();
+		
+		// Confirm deletion
+		await page.getByRole('button', { name: 'Confirm Delete' }).click();
+		
+		// Verify we're redirected back to customers list
+		await expect(page).toHaveURL('/customers');
+		
+		// Verify the customer no longer appears in the list
+		await expect(page.getByRole('cell', { name: `${firstName} ${lastName}` })).not.toBeVisible();
 	});
 });
