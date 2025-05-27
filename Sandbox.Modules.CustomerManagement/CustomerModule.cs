@@ -41,6 +41,7 @@ public class CustomerManagementModule : IModule
         group.MapGet("", GetCustomers.Query).DisableValidation();
         group.MapGet("{customerId}", GetCustomer.Query).DisableValidation();
         group.MapPost("", CreateCustomer.Handle);
+        group.MapDelete("{customerId}", DeleteCustomer.Handle).DisableValidation();
         return app;
     }
 }

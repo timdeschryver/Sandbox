@@ -35,4 +35,8 @@ export class CustomersService {
 	public createCustomer(customer: CreateCustomerCommand): Observable<CustomerId> {
 		return this.http.post<CustomerId>('/api/customers', customer);
 	}
+
+	public deleteCustomer(id: CustomerId): Observable<void> {
+		return this.http.delete<void>(`/api/customers/${id.toString()}`);
+	}
 }

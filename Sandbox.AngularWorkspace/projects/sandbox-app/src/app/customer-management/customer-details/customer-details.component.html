@@ -2,7 +2,29 @@
 	@if (customer.hasValue() && customer.value(); as customer) {
 		<div>
 			<h2>Customer Details</h2>
-			<a routerLink="..">Back to Overview</a>
+			<div class="actions">
+				<a routerLink="..">Back to Overview</a>
+				<button type="button" (click)="toggleDeleteConfirmation()" [disabled]="isDeleting()">Delete Customer</button>
+			</div>
+
+			@if (showDeleteConfirmation()) {
+				<div class="confirmation-dialog">
+					<p>Are you sure you want to delete this customer?</p>
+					<div class="confirmation-actions">
+						<button type="button" (click)="deleteCustomer()" [disabled]="isDeleting()">
+							@if (isDeleting()) {
+								Deleting...
+							} @else {
+								Confirm Delete
+							}
+						</button>
+						<button type="button" (click)="toggleDeleteConfirmation()" [disabled]="isDeleting()">Cancel</button>
+					</div>
+					@if (deleteError()) {
+						<div class="error">{{ deleteError() }}</div>
+					}
+				</div>
+			}
 
 			<fieldset>
 				<legend>Personal Information</legend>
