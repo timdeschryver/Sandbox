@@ -33,7 +33,7 @@ export default class CustomerDetailsComponent {
 		this.customersService.deleteCustomer(this.customerId()).subscribe({
 			next: () => {
 				this.isDeleting.set(false);
-				this.router.navigate(['../'], { relativeTo: null });
+				this.router.navigate(['/customers']);
 			},
 			error: (error) => {
 				this.isDeleting.set(false);

@@ -215,7 +215,7 @@ it('deletes customer and navigates to overview when confirmed', async () => {
 	deleteRequest.flush({});
 	
 	await waitFor(() => {
-		expect(router.navigate).toHaveBeenCalledWith(['../'], { relativeTo: null });
+		expect(router.navigate).toHaveBeenCalledWith(['/customers']);
 	});
 });
 
