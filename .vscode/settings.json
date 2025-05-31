@@ -8,7 +8,7 @@
 	"eslint.workingDirectories": [{ "mode": "auto" }],
 	"github.copilot.chat.commitMessageGeneration.instructions": [
 		{
-			"file": ".github/commit-instructions.md"
+			"file": ".github/instructions/commit.instructions.md"
 		}
 	]
 }

@@ -29,7 +29,6 @@ internal sealed class DomainLayerReferencesTests
             .Check(Architecture);
     }
 
-
     [Test]
     public async Task Domain_classes_have_empty_ctor()
     {
