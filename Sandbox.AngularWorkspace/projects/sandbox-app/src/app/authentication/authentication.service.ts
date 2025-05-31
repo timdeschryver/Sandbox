@@ -7,7 +7,7 @@ import { parse } from '@sandbox-app/shared/functions';
 	providedIn: 'root',
 })
 export class AuthenticationService {
-	private _user = httpResource('/bff/user', {
+	private _user = httpResource(() => '/bff/user', {
 		parse: parse(User),
 	}).asReadonly();
 

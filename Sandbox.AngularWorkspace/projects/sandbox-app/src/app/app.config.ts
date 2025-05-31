@@ -1,4 +1,4 @@
-import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
+import { ApplicationConfig, provideBrowserGlobalErrorListeners, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter, withComponentInputBinding } from '@angular/router';
 import { DATE_PIPE_DEFAULT_OPTIONS } from '@angular/common';
 import { provideHttpClient, withXsrfConfiguration } from '@angular/common/http';
@@ -7,6 +7,7 @@ import { provideOpenTelemetryInstrumentation } from '@opentelemetry';
 
 export const appConfig: ApplicationConfig = {
 	providers: [
+		provideBrowserGlobalErrorListeners(),
 		provideZoneChangeDetection({ eventCoalescing: true }),
 		provideRouter(routes, withComponentInputBinding()),
 		provideHttpClient(
