@@ -1,3 +1,4 @@
+import '@testing-library/jest-dom/vitest';
 import { expect, it } from 'vitest';
 import { provideHttpClient } from '@angular/common/http';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';

@@ -1,3 +1,4 @@
+import '@testing-library/jest-dom/vitest';
 import { expect, it } from 'vitest';
 import { of } from 'rxjs';
 import { filterNullish } from './filter-nullish.operator';

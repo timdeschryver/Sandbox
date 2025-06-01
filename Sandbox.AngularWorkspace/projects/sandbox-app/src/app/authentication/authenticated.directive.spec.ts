@@ -1,3 +1,4 @@
+import '@testing-library/jest-dom/vitest';
 import { expect, it } from 'vitest';
 import { AuthenticatedDirective } from './authenticated.directive';
 import { render, screen } from '@testing-library/angular';
