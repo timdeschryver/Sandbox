@@ -8,7 +8,7 @@ import userEvent from '@testing-library/user-event';
 import { CreateCustomerCommand, CustomerId } from '@sandbox-app/customer-management/models';
 import { CustomerFormComponent } from './customer-form.component';
 import { AddressComponent } from '@sandbox-app/customer-management/shared/customer-address/customer-address.component';
-import { OutputEmitterRef } from '@angular/core';
+import { OutputEmitterRef, provideZonelessChangeDetection } from '@angular/core';
 
 it('renders form with initial empty values', async () => {
 	await setup();
@@ -106,7 +106,7 @@ async function setup() {
 				emit: onSubmittedSpy,
 			} as unknown as OutputEmitterRef<CustomerId>,
 		},
-		providers: [provideHttpClient(), provideHttpClientTesting()],
+		providers: [provideHttpClient(), provideHttpClientTesting(), provideZonelessChangeDetection()],
 	});
 
 	const httpMock = TestBed.inject(HttpTestingController);

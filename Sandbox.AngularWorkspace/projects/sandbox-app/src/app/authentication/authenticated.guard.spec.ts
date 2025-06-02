@@ -1,6 +1,6 @@
 import '@testing-library/jest-dom/vitest';
 import { expect, it } from 'vitest';
-import { signal } from '@angular/core';
+import { provideZonelessChangeDetection, signal } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { TestBed } from '@angular/core/testing';
 import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
@@ -29,6 +29,7 @@ it('navigates to login when user is unauthenticated', async () => {
 async function setup(isAuthenticated: boolean) {
 	TestBed.configureTestingModule({
 		providers: [
+			provideZonelessChangeDetection(),
 			{
 				provide: AuthenticationService,
 				useValue: {

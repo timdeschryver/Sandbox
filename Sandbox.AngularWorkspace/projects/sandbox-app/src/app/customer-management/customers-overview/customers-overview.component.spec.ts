@@ -7,6 +7,7 @@ import { CustomerOverviewResponse } from '@sandbox-app/customer-management/model
 import CustomersOverviewComponent from './customers-overview.component';
 import { TestBed } from '@angular/core/testing';
 import { generateUuid } from '@sandbox-app/shared/functions';
+import { provideZonelessChangeDetection } from '@angular/core';
 
 it('renders the component with customers table', async () => {
 	const mockCustomers: CustomerOverviewResponse[] = [
@@ -23,7 +24,7 @@ it('renders the component with customers table', async () => {
 });
 async function setup() {
 	const { fixture, container } = await render(CustomersOverviewComponent, {
-		providers: [provideHttpClient(), provideHttpClientTesting()],
+		providers: [provideHttpClient(), provideHttpClientTesting(), provideZonelessChangeDetection()],
 	});
 
 	const httpMock = TestBed.inject(HttpTestingController);

@@ -19,7 +19,6 @@
 						"outputPath": "dist/sandbox-app",
 						"index": "projects/sandbox-app/src/index.html",
 						"browser": "projects/sandbox-app/src/main.ts",
-						"polyfills": ["zone.js"],
 						"tsConfig": "projects/sandbox-app/tsconfig.app.json",
 						"assets": [
 							{

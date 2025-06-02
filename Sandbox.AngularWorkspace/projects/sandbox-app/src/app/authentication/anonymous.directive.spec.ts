@@ -5,6 +5,7 @@ import { provideHttpClient } from '@angular/common/http';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { AnonymousDirective } from './anonymous.directive';
+import { provideZonelessChangeDetection } from '@angular/core';
 
 it('displays content when the user is unauthenticated', async () => {
 	const { mockRequest } = await setup();
@@ -23,7 +24,7 @@ it('does not display content when the user is authenticated', async () => {
 async function setup() {
 	const { fixture } = await render('<div *sandboxAnonymous>I am anonymous</div>', {
 		imports: [AnonymousDirective],
-		providers: [provideHttpClient(), provideHttpClientTesting()],
+		providers: [provideHttpClient(), provideHttpClientTesting(), provideZonelessChangeDetection()],
 	});
 	const mock = TestBed.inject(HttpTestingController);
 

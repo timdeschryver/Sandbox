@@ -8,6 +8,7 @@ import userEvent from '@testing-library/user-event';
 import { CustomerDetailsResponse } from '@sandbox-app/customer-management/models';
 import CustomerDetailsComponent from './customer-details.component';
 import { generateUuid } from '@sandbox-app/shared/functions';
+import { provideZonelessChangeDetection } from '@angular/core';
 
 it('renders customer details when data is loaded', async () => {
 	const { mockRequest } = await setup();
@@ -182,7 +183,7 @@ async function setup() {
 		inputs: {
 			customerId,
 		},
-		providers: [provideHttpClient(), provideHttpClientTesting()],
+		providers: [provideHttpClient(), provideHttpClientTesting(), provideZonelessChangeDetection()],
 	});
 	const httpMock = TestBed.inject(HttpTestingController);
 	return {
