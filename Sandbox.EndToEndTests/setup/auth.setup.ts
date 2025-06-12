@@ -4,15 +4,11 @@ import * as fs from 'node:fs';
 const storageState = '.state/auth-state.json';
 
 test('authenticate user', async ({ page }) => {
-	console.log(`\x1b[2m\tSign in started'\x1b[0m`);
-
-	const isAuthenticated = fs.existsSync(storageState);
-	// eslint-disable-next-line playwright/no-conditional-in-test
-	if (isAuthenticated) {
-		console.log(`\x1b[2m\tSign in skipped because user is already authenticated\x1b[0m`);
-		return;
-	}
-	console.log(`\x1b[2mSigning in'\x1b[0m`);
+	// eslint-disable-next-line playwright/no-skipped-test
+	test.skip(
+		isRecentlyAuthenticated(storageState),
+		'Skipping authentication test because user is already authenticated',
+	);
 
 	await page.goto('/bff/login');
 
@@ -31,3 +27,19 @@ test('authenticate user', async ({ page }) => {
 	).toBeVisible();
 	await page.context().storageState({ path: storageState });
 });
+
+function isRecentlyAuthenticated(filePath: string): boolean {
+	try {
+		if (!fs.existsSync(filePath)) {
+			return false;
+		}
+
+		const stats = fs.statSync(filePath);
+		const fileAge = Date.now() - stats.mtime.getTime();
+		const maxAge = 3600000; // 1 hour in milliseconds
+
+		return fileAge < maxAge;
+	} catch {
+		return false;
+	}
+}
