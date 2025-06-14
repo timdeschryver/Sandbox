@@ -1,6 +1,7 @@
 {
 	"scripts": {
 		"test": "playwright test",
+		"test:ui": "playwright test --ui",
 		"lint": "eslint . --max-warnings 0"
 	},
 	"type": "module",

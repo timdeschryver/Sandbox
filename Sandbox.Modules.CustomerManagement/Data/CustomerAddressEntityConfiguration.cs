@@ -12,7 +12,9 @@ internal class CustomerAddressEntityConfiguration : IEntityTypeConfiguration<Cus
         builder.ToTable("CustomerAddresses");
         builder.HasKey(p => p.Id);
 
-        builder.Property<CustomerId>("CustomerId").IsRequired();
+        builder.Property<CustomerId>("CustomerId")
+            .HasVogenConversion()
+            .IsRequired();
 
         builder.ComplexProperty(p => p.Address, o =>
         {

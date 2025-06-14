@@ -7,36 +7,40 @@ test('creates a new customer and can open details', { tag: '@customer-management
 	const firstName = generateRandomString(8);
 	const lastName = generateRandomString(10);
 
-	await test.step(`create customer`, async () => {
-		await page.getByRole('textbox', { name: 'First Name' }).click();
-		await page.getByRole('textbox', { name: 'First Name' }).fill(firstName);
-		await page.getByRole('textbox', { name: 'First Name' }).press('Tab');
-		await page.getByRole('textbox', { name: 'Last Name' }).fill(lastName);
-		await page.getByRole('textbox', { name: 'Last Name' }).press('Tab');
-		await page.getByRole('checkbox', { name: 'Add Billing Address' }).check();
-		await page.getByRole('checkbox', { name: 'Add Billing Address' }).press('Tab');
-		await page.getByRole('textbox', { name: 'Street' }).fill('billing street');
-		await page.getByRole('textbox', { name: 'Street' }).press('Tab');
-		await page.getByRole('textbox', { name: 'City' }).fill('billing city');
-		await page.getByRole('textbox', { name: 'City' }).press('Tab');
-		await page.getByRole('textbox', { name: 'Zip Code' }).fill('billing zip');
-		await page.getByRole('textbox', { name: 'Zip Code' }).press('Enter');
+	const firstNameTextbox = page.getByRole('textbox', { name: 'First Name' });
+	const lastNameTextbox = page.getByRole('textbox', { name: 'Last Name' });
+	const addBillingAddressCheckbox = page.getByRole('checkbox', { name: 'Add Billing Address' });
+	const streetTextbox = page.getByRole('textbox', { name: 'Street' });
+	const cityTextbox = page.getByRole('textbox', { name: 'City' });
+	const zipCodeTextbox = page.getByRole('textbox', { name: 'Zip Code' });
 
-		await expect(page.getByRole('cell', { name: `${firstName} ${lastName}` })).toBeVisible();
+	await test.step(`create customer`, async () => {
+		await firstNameTextbox.fill(firstName);
+		await lastNameTextbox.fill(lastName);
+		await addBillingAddressCheckbox.check();
+		await streetTextbox.fill('b street');
+		await cityTextbox.fill('b city');
+		await zipCodeTextbox.fill('b zip');
+		await zipCodeTextbox.press('Enter');
+	});
+
+	await test.step(`verify customer is created`, async () => {
+		const customerCell = page.getByRole('cell', { name: `${firstName} ${lastName}` });
+		await expect(customerCell).toBeVisible();
 	});
 
 	await test.step(`open customer details`, async () => {
-		await page
-			.getByRole('row', { name: `${firstName} ${lastName}` })
-			.getByRole('link')
-			.click();
+		const customerRow = page.getByRole('row', { name: `${firstName} ${lastName}` });
+		const customerDetailsLink = customerRow.getByRole('link');
+
+		await customerDetailsLink.click();
 
 		await expect(page.locator('sandbox-customer-details')).toMatchAriaSnapshot(`
 - heading "Customer Details" [level=2]
 - link "Back to Overview":
   - /url: /customers
 - group "Personal Information": Personal Information Name:${firstName} ${lastName}
-- group "Billing Addresses": Billing Addresses Street:billing street City:billing city Zip Code:billing zip
+- group "Billing Addresses": Billing Addresses Street:b street City:b city Zip Code:b zip
 `);
 		expect(page.url()).toMatch(/\/customers\/[\w-]+/);
 	});
