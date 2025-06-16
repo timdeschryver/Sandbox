@@ -1,0 +1,7 @@
+creation_rules: 
+  - path_regex: appsettings
+    encrypted_regex: '^(.*[Ss]ecret.*|.*[Pp]assword.*|.*[Kk]ey.*|.*[Tt]oken.*|ConnectionStrings)$'
+    azure_keyvault: >-
+      https://keyvault-ydv765mduoiws.vault.azure.net/keys/sops-key/78115f33e44a4e04a1e38cdb77044d04
+    age: >-
+      age12l4esl03pawr8kexm5n5d3zgzwkt4gxclhrk4av975fskt9p9ycsl7g7qg

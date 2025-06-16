@@ -1,12 +1,12 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Yarp.ReverseProxy.Transforms;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
-using Microsoft.IdentityModel.Tokens;
-using System.Security.Claims;
-using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.IdentityModel.Protocols.OpenIdConnect;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.Net.Http.Headers;
 using Sandbox.Gateway.Transformers;
+using System.Security.Claims;
+using Yarp.ReverseProxy.Transforms;
 
 namespace Sandbox.Gateway;
 
@@ -39,11 +39,6 @@ internal static class Extensions
 
     public static IServiceCollection AddAuthenticationSchemes(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddOptions<OpenIDConnectSettings>()
-            .Bind(configuration.GetRequiredSection(OpenIDConnectSettings.Position))
-            .ValidateDataAnnotations()
-            .ValidateOnStart();
-
         services.AddAuthentication(options =>
         {
             options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
@@ -57,12 +52,9 @@ internal static class Extensions
         })
         .AddOpenIdConnect(OpenIdConnectDefaults.AuthenticationScheme, options =>
         {
-            var openIdConnectSettings = configuration.GetRequiredSection(OpenIDConnectSettings.Position).Get<OpenIDConnectSettings>()
-                ?? throw new InvalidOperationException("OpenID Connect Settings are required.");
-
-            options.Authority = $"https://{openIdConnectSettings.Domain}";
-            options.ClientId = openIdConnectSettings.ClientId;
-            options.ClientSecret = openIdConnectSettings.ClientSecret;
+            options.Authority = $"https://{configuration.GetValue<string>("OpenIDConnectSettings:Domain")}";
+            options.ClientId = configuration.GetValue<string>("OpenIDConnectSettings:ClientId");
+            options.ClientSecret = configuration.GetValue<string>("OpenIDConnectSettings:ClientSecret");
 
             options.ResponseType = OpenIdConnectResponseType.Code;
             options.ResponseMode = OpenIdConnectResponseMode.Query;
@@ -86,7 +78,7 @@ internal static class Extensions
             {
                 OnRedirectToIdentityProviderForSignOut = (context) =>
                 {
-                    var logoutUri = $"https://{openIdConnectSettings.Domain}/oidc/logout?client_id={openIdConnectSettings.ClientId}";
+                    var logoutUri = $"https://{configuration.GetValue<string>("OpenIDConnectSettings:Domain")}/oidc/logout?client_id={configuration.GetValue<string>("OpenIDConnectSettings:ClientId")}";
                     var redirectUrl = context.HttpContext.BuildRedirectUrl(context.Properties.RedirectUri);
                     logoutUri += $"&post_logout_redirect_uri={redirectUrl}";
 
@@ -96,7 +88,7 @@ internal static class Extensions
                 },
                 OnRedirectToIdentityProvider = (context) =>
                 {
-                    context.ProtocolMessage.SetParameter("audience", openIdConnectSettings.Audience);
+                    context.ProtocolMessage.SetParameter("audience", configuration.GetValue<string>("OpenIDConnectSettings:Audience"));
                     return Task.CompletedTask;
                 },
             };

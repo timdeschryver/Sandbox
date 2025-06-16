@@ -4,10 +4,11 @@ using Sandbox.AppHost.Extensions;
 
 var builder = DistributedApplication.CreateBuilder(args);
 
-var secrets =
-    builder.ExecutionContext.IsPublishMode
-        ? builder.AddAzureKeyVault("key-vault")
-        : builder.AddConnectionString("key-vault");
+var authDomain = builder.AddParameter("OpenIDConnectSettingsDomain", secret: false);
+var authClientId = builder.AddParameter("OpenIDConnectSettingsClientId", secret: false);
+var authClientSecret = builder.AddParameter("OpenIDConnectSettingsClientSecret", secret: true);
+var authAudience = builder.AddParameter("OpenIDConnectSettingsAudience", secret: false);
+
 
 var openTelemetryCollector = builder.AddOpenTelemetryCollector("../config/otel.yml");
 
@@ -37,8 +38,9 @@ if (builder.Environment.IsDevelopment())
 
 var apiService = builder.AddProject<Projects.Sandbox_ApiService>("apiservice")
     .WithReplicas(2)
-    .WithReference(secrets)
     .WithReference(db)
+    .WithEnvironment("OpenIDConnectSettings__Domain", authDomain)
+    .WithEnvironment("OpenIDConnectSettings__Audience", authAudience)
     .WaitFor(db)
     .WaitFor(migrations);
 
@@ -55,7 +57,10 @@ var gateway = builder.AddProject<Projects.Sandbox_Gateway>("gateway")
     .WithReference(apiService)
     .WithReference(angularApplication)
     .WithReference(openTelemetryCollector.Resource.HTTPEndpoint)
-    .WithReference(secrets)
+    .WithEnvironment("OpenIDConnectSettings__Domain", authDomain)
+    .WithEnvironment("OpenIDConnectSettings__ClientId", authClientId)
+    .WithEnvironment("OpenIDConnectSettings__ClientSecret", authClientSecret)
+    .WithEnvironment("OpenIDConnectSettings__Audience", authAudience)
     .WaitFor(apiService)
     .WaitFor(angularApplication)
     .WaitFor(openTelemetryCollector)

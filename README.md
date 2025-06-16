@@ -26,14 +26,11 @@ graph TD
         ApiService["API Service<br>Sandbox.ApiService<br>[x2 replicas]"]
         SqlDatabase["SQL Server Database"]
         DbMigrations["Database Migrations<br>Sandbox.ApiService.Migrations"]
-        KeyVault["Azure KeyVault<br>(Secrets Management)"]
 
         Gateway --> AngularApp
         Gateway --> ApiService
         ApiService --> SqlDatabase
         SqlDatabase -.-o DbMigrations
-        Gateway -.-> KeyVault
-        ApiService -.-> KeyVault
         Gateway -.-> Auth0
     end
 
@@ -59,7 +56,6 @@ graph TD
     class AngularApp frontend;
     class ApiService backend;
     class SqlDatabase,DbMigrations database;
-    class KeyVault secrets;
     class OpenTelemetry monitoring;
 ```
 
@@ -68,6 +64,21 @@ graph TD
 - [.NET 9](https://dotnet.microsoft.com/en-us/download)
 - [`pnpm`](https://pnpm.io/) - `npnm` is also fine but you need to install the dependencies manually (go to the `Sandbox.AngularWorkspace` folder and run `npm install`)
 - Containerization tool ([podman](https://podman.io/), [docker](https://www.docker.com/products/docker-desktop/), etc)
+
+## Secret Management with SOPS
+
+The project uses [SOPS (Secrets Operations)](https://github.com/getsops/sops) to encrypt sensitive configuration values:
+
+- **Encrypted Configuration**: `appsettings.encrypted.json` files contain encrypted secrets
+- **Selective Encryption**: Only fields matching secret patterns (Secret, Password, Key, Token) are encrypted
+- **Development Friendly**: Non-sensitive configuration remains in plain text for easy reading
+
+### SOPS Quick Start
+
+```powershell
+sops --decrypt "config/appsettings.encrypted.json" > "Sandbox.AppHost/appsettings.json"
+sops --encrypt "Sandbox.AppHost/appsettings.json" > "config/appsettings.encrypted.json"
+```
 
 ## Run the project locally
 

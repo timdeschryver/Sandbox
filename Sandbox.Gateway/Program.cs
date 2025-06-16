@@ -1,4 +1,3 @@
-using Azure.Extensions.AspNetCore.Configuration.Secrets;
 using Sandbox.Gateway;
 using Sandbox.Gateway.UserModule;
 using Sandbox.ServiceDefaults;
@@ -6,11 +5,6 @@ using Sandbox.ServiceDefaults;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.AddServiceDefaults();
-
-builder.Configuration.AddAzureKeyVaultSecrets("key-vault", options: new AzureKeyVaultConfigurationOptions
-{
-    Manager = new PrefixKeyVaultSecretManager("Auth")
-});
 
 builder.Services.AddReverseProxy(builder.Configuration);
 builder.Services.AddAuthenticationSchemes(builder.Configuration);

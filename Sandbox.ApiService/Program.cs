@@ -1,4 +1,3 @@
-using Azure.Extensions.AspNetCore.Configuration.Secrets;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Oakton.Resources;
 using Sandbox.ServiceDefaults;
@@ -11,12 +10,6 @@ using Wolverine.Postgresql;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.AddServiceDefaults();
-
-builder.Configuration.AddAzureKeyVaultSecrets("key-vault", options: new AzureKeyVaultConfigurationOptions
-{
-    Manager = new PrefixKeyVaultSecretManager("Auth")
-});
-
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, jwtOptions =>
     {
