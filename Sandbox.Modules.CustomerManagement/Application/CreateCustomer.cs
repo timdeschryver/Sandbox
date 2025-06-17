@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Mvc;
 using Sandbox.SharedKernel.StronglyTypedIds;
 using Wolverine.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace Sandbox.Modules.CustomerManagement.Application;
 
@@ -23,15 +22,10 @@ public static class CreateCustomer
     /// <returns>The created customer ID.</returns>
     public static async Task<Created<CustomerId>> Handle(
         [FromBody] Command command,
-        // [FromServices] IDbContextOutbox<CustomerDbContext> outbox,
-        HttpContext httpContext,
+        [FromServices] IDbContextOutbox<CustomerDbContext> outbox,
         CancellationToken cancellationToken)
     {
         ArgumentNullException.ThrowIfNull(command);
-        ArgumentNullException.ThrowIfNull(httpContext);
-
-        // TODO: Should be injected, but this is a workaround for https://github.com/dotnet/aspnetcore/issues/61388
-        var outbox = httpContext.RequestServices.GetRequiredService<IDbContextOutbox<CustomerDbContext>>();
         ArgumentNullException.ThrowIfNull(outbox);
 
         var customer = Customer.Create(CustomerId.New(), FullName.From(command.FirstName, command.LastName));
