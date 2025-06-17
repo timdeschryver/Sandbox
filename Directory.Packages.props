@@ -20,24 +20,24 @@
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Tools"
       Version="10.0.0-preview.5.25277.114" />
     <PackageVersion Include="Microsoft.Extensions.Hosting" Version="10.0.0-preview.5.25277.114" />
-    <PackageVersion Include="Microsoft.Extensions.Http.Resilience" Version="9.5.0" />
+    <PackageVersion Include="Microsoft.Extensions.Http.Resilience" Version="9.6.0" />
     <PackageVersion Include="Microsoft.Extensions.ServiceDiscovery" Version="9.3.1" />
     <PackageVersion Include="Microsoft.Extensions.ServiceDiscovery.Yarp" Version="9.3.1" />
     <PackageVersion Include="Microsoft.Testing.Extensions.CodeCoverage" Version="17.14.2" />
     <PackageVersion Include="Microsoft.Testing.Extensions.TrxReport"
-      Version="1.7.0" />
+      Version="1.7.3" />
     <PackageVersion Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="1.12.0" />
     <PackageVersion Include="OpenTelemetry.Extensions.Hosting" Version="1.12.0" />
     <PackageVersion Include="OpenTelemetry.Instrumentation.AspNetCore" Version="1.12.0" />
     <PackageVersion Include="OpenTelemetry.Instrumentation.Http" Version="1.12.0" />
     <PackageVersion Include="OpenTelemetry.Instrumentation.Runtime" Version="1.12.0" />
-    <PackageVersion Include="Scalar.AspNetCore" Version="2.4.3" />
-    <PackageVersion Include="Vogen" Version="7.0.3" />
+    <PackageVersion Include="Scalar.AspNetCore" Version="2.4.18" />
+    <PackageVersion Include="Vogen" Version="7.0.4" />
     <PackageVersion Include="TngTech.ArchUnitNET" Version="0.11.4" />
-    <PackageVersion Include="TUnit" Version="0.22.12" />
-    <PackageVersion Include="WolverineFx" Version="3.13.3" />
-    <PackageVersion Include="WolverineFx.EntityFrameworkCore" Version="3.13.3" />
-    <PackageVersion Include="WolverineFx.Postgresql" Version="3.13.3" />
+    <PackageVersion Include="TUnit" Version="0.25.21" />
+    <PackageVersion Include="WolverineFx" Version="4.3.0" />
+    <PackageVersion Include="WolverineFx.EntityFrameworkCore" Version="4.3.0" />
+    <PackageVersion Include="WolverineFx.Postgresql" Version="4.3.0" />
     <PackageVersion Include="Yarp.ReverseProxy" Version="2.3.0" />
   </ItemGroup>
 </Project>
