@@ -39,5 +39,12 @@
     <PackageVersion Include="WolverineFx.EntityFrameworkCore" Version="4.3.0" />
     <PackageVersion Include="WolverineFx.Postgresql" Version="4.3.0" />
     <PackageVersion Include="Yarp.ReverseProxy" Version="2.3.0" />
+
+    <PackageVersion Include="Microsoft.CodeAnalysis.Workspaces.Common" Version="4.14.0" />
+    <PackageVersion Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="4.14.0" />
+    <PackageVersion Include="Microsoft.CodeAnalysis.Common" Version="4.14.0" />
+    <PackageVersion Include="Microsoft.CodeAnalysis.CSharp" Version="4.14.0" />
+    <PackageVersion Include="Microsoft.CodeAnalysis.Workspaces.MSBuild" Version="4.14.0" />
+    <PackageVersion Include="Microsoft.Build.Tasks.Core" Version="17.15.0-preview-25277-114" />
   </ItemGroup>
 </Project>
