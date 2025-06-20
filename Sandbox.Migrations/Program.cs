@@ -21,6 +21,7 @@ builder.Services.AddOpenTelemetry()
 //         optionsBuilder.MigrationsAssembly(typeof(Program).Assembly.GetName().Name);
 //     });
 // });
+
 builder.AddNpgsqlDbContext<CustomerDbContext>(connectionName: "sandbox-db", configureDbContextOptions: options =>
 {
     options.UseNpgsql(optionsBuilder =>

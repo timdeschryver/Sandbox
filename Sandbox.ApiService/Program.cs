@@ -1,5 +1,6 @@
 using JasperFx.Resources;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Sandbox.ApiService;
 using Sandbox.ServiceDefaults;
 using Sandbox.SharedKernel.Modules;
 using Scalar.AspNetCore;

@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+    <PropertyGroup>
+        <NoWarn>CA1707;</NoWarn>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" />
+        <PackageReference Include="Microsoft.Testing.Extensions.CodeCoverage" />
+        <PackageReference Include="Microsoft.Testing.Extensions.TrxReport" />
+        <PackageReference Include="Testcontainers.PostgreSql" />
+        <PackageReference Include="TUnit" />
+    </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\Sandbox.ApiService\Sandbox.ApiService.csproj" />
+        <ProjectReference Include="..\Sandbox.Migrations\Sandbox.Migrations.csproj">
+            <Aliases>migrations</Aliases>
+        </ProjectReference>
+        <ProjectReference
+            Include="..\Sandbox.Modules.CustomerManagement\Sandbox.Modules.CustomerManagement.csproj" />
+    </ItemGroup>
+</Project>
