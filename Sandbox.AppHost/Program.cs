@@ -9,7 +9,6 @@ var authClientId = builder.AddParameter("OpenIDConnectSettingsClientId", secret:
 var authClientSecret = builder.AddParameter("OpenIDConnectSettingsClientSecret", secret: true);
 var authAudience = builder.AddParameter("OpenIDConnectSettingsAudience", secret: false);
 
-
 var openTelemetryCollector = builder.AddOpenTelemetryCollector("../config/otel.yml");
 
 // Uncomment to use SQL Server instead of PostgreSQL
