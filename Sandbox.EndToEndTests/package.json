@@ -1,4 +1,6 @@
 {
+	"name": "sandbox.e2e",
+	"version": "0.0.0",
 	"scripts": {
 		"test": "playwright test",
 		"test:ui": "playwright test --ui",
@@ -6,13 +8,13 @@
 	},
 	"type": "module",
 	"devDependencies": {
-		"@eslint/js": "^9.19.0",
-		"@playwright/test": "^1.52.0",
-		"@types/node": "^22.15.2",
-		"eslint": "^9.16.0",
-		"eslint-config-prettier": "^10.0.1",
+		"@eslint/js": "^9.30.0",
+		"@playwright/test": "^1.53.1",
+		"@types/node": "^22.15.34",
+		"eslint": "^9.30.0",
+		"eslint-config-prettier": "^10.1.5",
 		"eslint-plugin-playwright": "^2.2.0",
-		"typescript": "~5.7.2",
+		"typescript": "~5.7.3",
 		"typescript-eslint": "8.18.0"
 	}
 }
