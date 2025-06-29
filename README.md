@@ -61,8 +61,8 @@ graph TD
 
 ## Prerequisites
 
-- [.NET 9](https://dotnet.microsoft.com/en-us/download)
-- [`pnpm`](https://pnpm.io/) - `npnm` is also fine but you need to install the dependencies manually (go to the `Sandbox.AngularWorkspace` folder and run `npm install`)
+- [.NET 10](https://dotnet.microsoft.com/en-us/download)
+- [`pnpm`](https://pnpm.io/)
 - Containerization tool ([podman](https://podman.io/), [docker](https://www.docker.com/products/docker-desktop/), etc)
 
 ## Secret Management with SOPS
@@ -96,7 +96,7 @@ The first time this can take a while to spin up the containers and download the 
 [![Aspire dashboard](./other/dashboard.png)](./other/dashboard.png)
 
 Navigating to the gateway opens the Angular app, which invokes the .NET API.
-Interacting with the application will generate traces that are sent to the Aspire dashboard, which can be looked at in real-time through the "Traces" tab in the dashboard.
+Interacting with the application generates traces that are sent to the Aspire dashboard, which can be looked at in real-time through the "Traces" tab in the dashboard.
 
 [![Trace](./other/trace.png)](./other/trace.png)
 
