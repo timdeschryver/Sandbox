@@ -14,19 +14,17 @@ export class FormFieldDirective implements AfterViewInit {
 	private readonly ngModelGroupChild = contentChild(NgModelGroup);
 
 	public ngAfterViewInit() {
-		setTimeout(() => {
-			const control = this.ngModelGroup?.control ?? this.ngModelChild()?.control ?? this.ngModelGroupChild()?.control;
-			if (control) {
-				this.viewContainerRef.clear();
+		const control = this.ngModelGroup?.control ?? this.ngModelChild()?.control ?? this.ngModelGroupChild()?.control;
+		if (control) {
+			this.viewContainerRef.clear();
 
-				const errorContainer = this.viewContainerRef.createComponent(ControlErrorComponent);
+			const errorContainer = this.viewContainerRef.createComponent(ControlErrorComponent);
 
-				const host = this.element.nativeElement as HTMLElement;
-				host.style.flexWrap = 'wrap';
-				host.appendChild(errorContainer.location.nativeElement);
+			const host = this.element.nativeElement as HTMLElement;
+			host.style.flexWrap = 'wrap';
+			host.appendChild(errorContainer.location.nativeElement);
 
-				errorContainer.setInput('control', control);
-			}
-		});
+			errorContainer.setInput('control', control);
+		}
 	}
 }

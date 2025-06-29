@@ -14,12 +14,10 @@ export class ErrorDirective implements AfterViewInit {
 	private readonly formFieldDirective = inject(FormFieldDirective, { optional: true });
 
 	public ngAfterViewInit() {
-		setTimeout(() => {
-			const control = this.ngModel?.control ?? this.ngModelGroup?.control;
-			if (control && !this.formFieldDirective) {
-				const errorContainer = this.viewContainerRef.createComponent(ControlErrorComponent);
-				errorContainer.setInput('control', control);
-			}
-		});
+		const control = this.ngModel?.control ?? this.ngModelGroup?.control;
+		if (control && !this.formFieldDirective) {
+			const errorContainer = this.viewContainerRef.createComponent(ControlErrorComponent);
+			errorContainer.setInput('control', control);
+		}
 	}
 }
