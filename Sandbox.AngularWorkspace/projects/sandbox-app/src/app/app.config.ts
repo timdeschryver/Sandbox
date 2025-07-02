@@ -1,5 +1,5 @@
 import { ApplicationConfig, provideBrowserGlobalErrorListeners, provideZonelessChangeDetection } from '@angular/core';
-import { provideRouter, withComponentInputBinding } from '@angular/router';
+import { provideRouter, withComponentInputBinding, withInMemoryScrolling } from '@angular/router';
 import { DATE_PIPE_DEFAULT_OPTIONS } from '@angular/common';
 import { provideHttpClient, withXsrfConfiguration } from '@angular/common/http';
 import { routes } from '@sandbox-app/app.routes';
@@ -9,7 +9,13 @@ export const appConfig: ApplicationConfig = {
 	providers: [
 		provideBrowserGlobalErrorListeners(),
 		provideZonelessChangeDetection(),
-		provideRouter(routes, withComponentInputBinding()),
+		provideRouter(
+			routes,
+			withComponentInputBinding(),
+			withInMemoryScrolling({
+				scrollPositionRestoration: 'enabled',
+			}),
+		),
 		provideHttpClient(
 			withXsrfConfiguration({
 				cookieName: '__Sandbox-X-XSRF-TOKEN',
