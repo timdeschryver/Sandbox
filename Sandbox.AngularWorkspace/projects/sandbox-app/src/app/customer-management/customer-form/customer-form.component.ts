@@ -9,9 +9,9 @@ import { formValidation } from '@form-validation';
 
 @Component({
 	selector: 'sandbox-customer-form',
-	templateUrl: './customer-form.component.html',
-	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [CommonModule, FormsModule, AddressComponent, formValidation],
+	templateUrl: './customer-form.component.html',
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CustomerFormComponent {
 	private readonly customersService = inject(CustomersService);

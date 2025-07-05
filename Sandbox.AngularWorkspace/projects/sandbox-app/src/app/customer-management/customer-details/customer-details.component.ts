@@ -6,10 +6,10 @@ import { CustomerId } from '@sandbox-app/customer-management/models';
 
 @Component({
 	selector: 'sandbox-customer-details',
+	imports: [RouterLink],
 	templateUrl: './customer-details.component.html',
 	styleUrl: './customer-details.component.css',
-	changeDetection: ChangeDetectionStrategy.OnPush,
-	imports: [RouterLink],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export default class CustomerDetailsComponent {
 	private readonly customersService = inject(CustomersService);

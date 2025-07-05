@@ -1,35 +1,35 @@
 <div>
-	<label [for]="'street-' + componentId">Street</label>
+	<label [for]="`street-${componentId}`">Street</label>
 	<input
 		#streetField="ngModel"
 		required
 		type="text"
-		[id]="'street-' + componentId"
-		[name]="'street-' + componentId"
+		[id]="`street-${componentId}`"
+		[name]="`street-${componentId}`"
 		[(ngModel)]="address().street"
 	/>
 </div>
 
 <div>
-	<label [for]="'city-' + componentId">City</label>
+	<label [for]="`city-${componentId}`">City</label>
 	<input
 		#cityField="ngModel"
 		required
 		type="text"
-		[id]="'city-' + componentId"
-		[name]="'city-' + componentId"
+		[id]="`city-${componentId}`"
+		[name]="`city-${componentId}`"
 		[(ngModel)]="address().city"
 	/>
 </div>
 
 <div>
-	<label [for]="'zipCode-' + componentId">Zip Code</label>
+	<label [for]="`zipCode-${componentId}`">Zip Code</label>
 	<input
 		#zipCodeField="ngModel"
 		required
 		type="text"
-		[id]="'zipCode-' + componentId"
-		[name]="'zipCode-' + componentId"
+		[id]="`zipCode-${componentId}`"
+		[name]="`zipCode-${componentId}`"
 		[(ngModel)]="address().zipCode"
 	/>
 </div>

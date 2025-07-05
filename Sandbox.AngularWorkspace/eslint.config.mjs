@@ -44,6 +44,8 @@ export default tseslint.config(
 				},
 			],
 			'@typescript-eslint/no-deprecated': 'error',
+			'@angular-eslint/no-experimental': 'off',
+			'@angular-eslint/no-developer-preview': 'off',
 		},
 	},
 	{
@@ -54,6 +56,7 @@ export default tseslint.config(
 			'@angular-eslint/template/i18n': 'off',
 			// Signals need to be called in the template
 			'@angular-eslint/template/no-call-expression': 'off',
+			' @angular-eslint/template/cyclomatic-complexity': 'off',
 		},
 	},
 );

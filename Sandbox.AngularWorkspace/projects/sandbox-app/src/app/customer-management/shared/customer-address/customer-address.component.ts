@@ -7,9 +7,9 @@ import { formValidation } from '@form-validation';
 
 @Component({
 	selector: 'sandbox-customer-address',
-	templateUrl: './customer-address.component.html',
 	imports: [CommonModule, FormsModule, formValidation],
-	changeDetection: ChangeDetectionStrategy.OnPush,
+	templateUrl: './customer-address.component.html',
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AddressComponent {
 	public readonly form = input.required<NgForm>();
