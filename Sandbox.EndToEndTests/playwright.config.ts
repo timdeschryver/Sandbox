@@ -73,7 +73,8 @@ export default defineConfig({
 	webServer: {
 		cwd: '..',
 		command: 'dotnet run --project ./Sandbox.AppHost',
-		url: config.applicationUrl,
+		// url: config.applicationUrl,
+		port: 5165,
 		reuseExistingServer: !process.env.CI,
 	},
 });
