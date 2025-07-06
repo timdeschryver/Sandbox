@@ -64,6 +64,9 @@ jobs:
 
       - name: Test all frontend projects
         run: pnpm run -r test
+        env:
+          PLAYWRIGHT_USERNAME: ${{ secrets.PLAYWRIGHT_USERNAME }}
+          PLAYWRIGHT_PASSWORD: ${{ secrets.PLAYWRIGHT_PASSWORD }}
 
   release:
     runs-on: ubuntu-latest
