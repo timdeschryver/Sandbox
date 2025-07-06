@@ -64,12 +64,9 @@ jobs:
 
       - name: Unit test all frontend projects
         run: pnpm --filter="!sandbox.e2e" test
-        env:
-          PLAYWRIGHT_USERNAME: ${{ secrets.PLAYWRIGHT_USERNAME }}
-          PLAYWRIGHT_PASSWORD: ${{ secrets.PLAYWRIGHT_PASSWORD }}
 
       - name: E2E test frontend projects
-        run: pnpm --filter="sandbox.e2e" test
+        run: DEBUG=pw:webserver pnpm --filter="sandbox.e2e" test
         env:
           PLAYWRIGHT_USERNAME: ${{ secrets.PLAYWRIGHT_USERNAME }}
           PLAYWRIGHT_PASSWORD: ${{ secrets.PLAYWRIGHT_PASSWORD }}
