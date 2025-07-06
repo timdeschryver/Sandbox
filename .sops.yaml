@@ -1,4 +1,4 @@
-creation_rules: 
+creation_rules:
   - path_regex: appsettings
     encrypted_regex: '^(.*[Ss]ecret.*|.*[Pp]assword.*|.*[Kk]ey.*|.*[Tt]oken.*|ConnectionStrings)$'
     azure_keyvault: >-

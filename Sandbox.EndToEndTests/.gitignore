@@ -7,3 +7,6 @@ node_modules/
 /playwright/.cache/
 .state
 **/**-snapshots
+
+# Environment variables (contains secrets)
+.env

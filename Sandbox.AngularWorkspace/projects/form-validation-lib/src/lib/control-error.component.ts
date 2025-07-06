@@ -9,7 +9,7 @@ import { ValidationMessagesPipe } from './validation-messages.pipe';
 		<div class="error-message" [hidden]="!showError()">{{ this.control()?.errors | validationMessages }}</div>
 	`,
 	styles: '.error-message { color: var(--error-color) }',
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ControlErrorComponent {
 	private readonly form = inject(NgForm, { optional: true });

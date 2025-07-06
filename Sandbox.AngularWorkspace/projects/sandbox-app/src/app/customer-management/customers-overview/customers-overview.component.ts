@@ -10,7 +10,7 @@ import { CustomerFormComponent } from '@sandbox-app/customer-management/customer
 	imports: [TableComponent, TableBodyTemplateDirective, CustomerFormComponent, RouterLink],
 	templateUrl: './customers-overview.component.html',
 	styleUrl: './customers-overview.component.css',
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export default class CustomersOverviewComponent {
 	private readonly customersService = inject(CustomersService);
