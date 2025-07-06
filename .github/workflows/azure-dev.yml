@@ -1,6 +1,10 @@
 # Run when commits are pushed to main
 on:
   workflow_dispatch:
+  pull_request:
+    types: [opened, synchronize, reopened, closed]
+    branches:
+      - main
   push:
     branches:
       - main
