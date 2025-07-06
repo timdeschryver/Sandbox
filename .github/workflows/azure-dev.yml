@@ -30,10 +30,12 @@ jobs:
         uses: actions/setup-dotnet@v4
         with:
           global-json-file: global.json
+
       - name: Install pnpm
         uses: pnpm/action-setup@v4
         with:
           package_json_file: './package.json'
+
       - name: Use Node.js
         uses: actions/setup-node@v4
         with:
@@ -46,6 +48,17 @@ jobs:
 
       - name: Install Playwright Browsers
         run: pnpx playwright install --with-deps
+
+      - name: Install SOPS
+        run: |
+          curl -Lo sops "https://github.com/getsops/sops/releases/download/v3.9.1/sops-v3.9.1.linux.amd64"
+          chmod +x sops
+          sudo mv sops /usr/local/bin/
+
+      - name: Decrypt appsettings
+        run: sops --decrypt "config/appsettings.encrypted.json" > "Sandbox.AppHost/appsettings.json"
+        env:
+          SOPS_AGE_KEY: ${{ secrets.SOPS_AGE_KEY }}
 
       - name: Format check
         run: pnpm prettier --check .
@@ -116,6 +129,20 @@ jobs:
             --federated-credential-provider "github" `
             --tenant-id "$Env:AZURE_TENANT_ID"
         shell: pwsh
+
+      - name: Install SOPS
+        run: |
+          curl -Lo sops "https://github.com/getsops/sops/releases/download/v3.9.1/sops-v3.9.1.linux.amd64"
+          chmod +x sops
+          sudo mv sops /usr/local/bin/
+
+      - name: Install pnpm dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Decrypt appsettings
+        run: sops --decrypt "config/appsettings.encrypted.json" > "Sandbox.AppHost/appsettings.json"
+        env:
+          SOPS_AGE_KEY: ${{ secrets.SOPS_AGE_KEY }}
 
       - name: Provision Infrastructure
         run: azd provision --no-prompt
