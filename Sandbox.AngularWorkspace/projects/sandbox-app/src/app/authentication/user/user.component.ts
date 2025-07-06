@@ -6,7 +6,7 @@ import { AuthenticationService } from '@sandbox-app/authentication/authenticatio
 	selector: 'sandbox-user',
 	imports: [JsonPipe],
 	template: ` <pre>{{ user() | json }}</pre> `,
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export default class UserComponent {
 	private readonly userService = inject(AuthenticationService);

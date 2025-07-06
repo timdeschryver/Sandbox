@@ -56,7 +56,7 @@ export default tseslint.config(
 			'@angular-eslint/template/i18n': 'off',
 			// Signals need to be called in the template
 			'@angular-eslint/template/no-call-expression': 'off',
-			' @angular-eslint/template/cyclomatic-complexity': 'off',
+			'@angular-eslint/template/cyclomatic-complexity': 'off',
 		},
 	},
 );
