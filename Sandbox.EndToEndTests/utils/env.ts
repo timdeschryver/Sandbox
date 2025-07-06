@@ -22,7 +22,7 @@ export function getConfig(): Config {
 
 	// Create configuration object
 	const config: Config = {
-		applicationUrl: process.env.GATEWAY_URL || 'http://localhost:5165',
+		applicationUrl: process.env.APPLICATION_URL || 'http://localhost:5165',
 		username: process.env.PLAYWRIGHT_USERNAME || '',
 		password: process.env.PLAYWRIGHT_PASSWORD || '',
 	};
