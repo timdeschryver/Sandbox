@@ -62,11 +62,24 @@ jobs:
       - name: Lint all frontend projects
         run: pnpm run -r lint
 
-      - name: Test all frontend projects
-        run: pnpm run -r test
+      - name: Unit test all frontend projects
+        run: pnpm --filter="!sandbox.e2e" test
         env:
           PLAYWRIGHT_USERNAME: ${{ secrets.PLAYWRIGHT_USERNAME }}
           PLAYWRIGHT_PASSWORD: ${{ secrets.PLAYWRIGHT_PASSWORD }}
+
+      - name: E2E test frontend projects
+        run: pnpm --filter="sandbox.e2e" test
+        env:
+          PLAYWRIGHT_USERNAME: ${{ secrets.PLAYWRIGHT_USERNAME }}
+          PLAYWRIGHT_PASSWORD: ${{ secrets.PLAYWRIGHT_PASSWORD }}
+
+      - name: 📦 Upload Test Results Artifact
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: playwright-test-results
+          path: playwright-report
 
   release:
     runs-on: ubuntu-latest

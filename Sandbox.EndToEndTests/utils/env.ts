@@ -6,7 +6,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 export interface Config {
-	gatewayUrl: string;
+	applicationUrl: string;
 	username: string;
 	password: string;
 }
@@ -22,7 +22,7 @@ export function getConfig(): Config {
 
 	// Create configuration object
 	const config: Config = {
-		gatewayUrl: process.env.GATEWAY_URL || '',
+		applicationUrl: process.env.GATEWAY_URL || 'http://localhost:5165',
 		username: process.env.PLAYWRIGHT_USERNAME || '',
 		password: process.env.PLAYWRIGHT_PASSWORD || '',
 	};
@@ -32,6 +32,7 @@ export function getConfig(): Config {
 
 	if (!config.username) missing.push('PLAYWRIGHT_USERNAME');
 	if (!config.password) missing.push('PLAYWRIGHT_PASSWORD');
+	if (!config.applicationUrl) missing.push('applicationUrl');
 
 	if (missing.length > 0) {
 		throw new Error(
