@@ -65,6 +65,16 @@ var gateway = builder.AddProject<Projects.Sandbox_Gateway>("gateway")
     .WaitFor(openTelemetryCollector)
     .WithExternalHttpEndpoints();
 
+if (builder.Environment.IsDevelopment())
+{
+    var playwright = builder
+        .AddNpmApp("playwright", "../Sandbox.EndToEndTests", "test")
+        .WithExplicitStart()
+        .ExcludeFromManifest()
+        .WithEnvironment("ASPIRE", "true")
+        .WithReference(gateway);
+}
+
 builder.AddDockerComposeEnvironment("Sandbox");
 #pragma warning disable ASPIREAZURE001 // Type is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
 builder.AddAzureEnvironment();
