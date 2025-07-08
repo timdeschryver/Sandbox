@@ -48,6 +48,13 @@ export default defineConfig({
 			dependencies: ['setup'],
 		},
 
+		{
+			name: 'teardown',
+			testDir: './setup',
+			testMatch: '**/*.teardown.ts',
+			dependencies: ['chromium', 'firefox'],
+		},
+
 		/* Test against mobile viewports. */
 		// {
 		//   name: 'Mobile Chrome',
