@@ -16,7 +16,7 @@ internal sealed class TestNamesDontIncludeShouldTests
     {
         var testMethods = Members().That().HaveAnyAttributes([typeof(TestAttribute)]);
         await testMethods
-            .Should().NotHaveName("(?i)should", true)
+            .Should().NotHaveNameMatching("(?i)should")
             .Check(Architecture);
     }
 }

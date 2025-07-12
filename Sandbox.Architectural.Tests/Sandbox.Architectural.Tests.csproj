@@ -10,7 +10,9 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Sandbox.ApiService\Sandbox.ApiService.csproj" />
-    <ProjectReference Include="..\Sandbox.Modules.CustomerManagement\Sandbox.Modules.CustomerManagement.csproj" />
-    <ProjectReference Include="..\Sandbox.Modules.CustomerManagement.Tests\Sandbox.Modules.CustomerManagement.Tests.csproj" />
+    <ProjectReference
+      Include="..\Sandbox.Modules.CustomerManagement\Sandbox.Modules.CustomerManagement.csproj" />
+    <ProjectReference
+      Include="..\Sandbox.Modules.CustomerManagement.Tests\Sandbox.Modules.CustomerManagement.Tests.csproj" />
   </ItemGroup>
 </Project>

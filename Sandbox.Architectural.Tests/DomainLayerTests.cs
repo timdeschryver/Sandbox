@@ -14,7 +14,7 @@ internal sealed class DomainLayerReferencesTests
 
     private readonly IObjectProvider<IType> Domain = Types()
         .That()
-        .ResideInNamespace(".Domain", true)
+        .HaveFullNameContaining(".Domain")
         .As("Domain");
 
     [Test]
@@ -24,7 +24,7 @@ internal sealed class DomainLayerReferencesTests
             .That()
             .Are(Domain)
             .Should()
-            .OnlyDependOn("(Domain|System|StronglyTypedIds)", true)
+            .OnlyDependOn(Types().That().HaveFullNameMatching("(Domain|StronglyTypedIds|System)"))
             .Because("Domain layer must only depend on itself")
             .Check(Architecture);
     }
