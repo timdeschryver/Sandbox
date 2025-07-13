@@ -11,6 +11,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Sandbox.ApiService\Sandbox.ApiService.csproj" />
-    <ProjectReference Include="..\Sandbox.Modules.CustomerManagement\Sandbox.Modules.CustomerManagement.csproj" />
+    <ProjectReference
+      Include="..\Sandbox.Modules.CustomerManagement\Sandbox.Modules.CustomerManagement.csproj" />
   </ItemGroup>
 </Project>
