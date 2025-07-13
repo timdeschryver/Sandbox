@@ -9,6 +9,7 @@ obj/
 packages/
 .vs/
 TestResults/
+CoverageReport/
 
 # Angular
 node_modules/

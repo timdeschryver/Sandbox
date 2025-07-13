@@ -24,7 +24,7 @@ internal sealed class DomainLayerReferencesTests
             .That()
             .Are(Domain)
             .Should()
-            .OnlyDependOn(Types().That().HaveFullNameMatching("(Domain|StronglyTypedIds|System)"))
+            .OnlyDependOn(Types().That().HaveFullNameMatching("(Domain|StronglyTypedIds|System|Microsoft\\.CodeCoverage)"))
             .Because("Domain layer must only depend on itself")
             .Check(Architecture);
     }
