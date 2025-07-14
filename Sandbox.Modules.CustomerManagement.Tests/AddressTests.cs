@@ -3,7 +3,7 @@ using TUnit.Assertions.AssertConditions.Throws;
 
 namespace Sandbox.Modules.CustomerManagement.Tests;
 
-internal sealed class AddressTests
+public sealed class AddressTests
 {
     [Test]
     [Arguments("")]

@@ -3,7 +3,7 @@ using Sandbox.SharedKernel.StronglyTypedIds;
 
 namespace Sandbox.Modules.CustomerManagement.Tests;
 
-internal sealed class CustomerTests
+public sealed class CustomerTests
 {
     [Test]
     public async Task Customer_is_created_with_billing_and_shipping_address()

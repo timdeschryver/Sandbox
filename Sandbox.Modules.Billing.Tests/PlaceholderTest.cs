@@ -1,9 +1,8 @@
-using System;
 using Microsoft.Extensions.Time.Testing;
 
 namespace Sandbox.Modules.Billing.Tests;
 
-public class PlaceholderTest
+public sealed class PlaceholderTest
 {
     [Test]
     public async Task Placeholder_Test()

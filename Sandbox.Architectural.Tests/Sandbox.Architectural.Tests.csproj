@@ -12,7 +12,13 @@
     <ProjectReference Include="..\Sandbox.ApiService\Sandbox.ApiService.csproj" />
     <ProjectReference
       Include="..\Sandbox.Modules.CustomerManagement\Sandbox.Modules.CustomerManagement.csproj" />
+    <ProjectReference Include="..\Sandbox.Modules.Billing\Sandbox.Modules.Billing.csproj" />
     <ProjectReference
       Include="..\Sandbox.Modules.CustomerManagement.Tests\Sandbox.Modules.CustomerManagement.Tests.csproj" />
+    <ProjectReference
+      Include="..\Sandbox.Modules.Billing.Tests\Sandbox.Modules.Billing.Tests.csproj" />
+    <ProjectReference Include="..\Sandbox.SharedKernel\Sandbox.SharedKernel.csproj" />
+    <ProjectReference
+      Include="..\Sandbox.Modules.CustomerManagement.IntegrationTests\Sandbox.Modules.CustomerManagement.IntegrationTests.csproj" />
   </ItemGroup>
 </Project>

@@ -1,20 +1,14 @@
-using ArchUnitNET.Domain;
-using ArchUnitNET.Loader;
 using Sandbox.Architectural.Tests.ArchTUnit;
 using static ArchUnitNET.Fluent.ArchRuleDefinition;
 
 namespace Sandbox.Architectural.Tests;
 
-internal sealed class TestNamesDontIncludeShouldTests
+internal sealed class TestNamesDontIncludeShouldTests : ArchitecturalBaseTest
 {
-    private static readonly Architecture Architecture = new ArchLoader().LoadAssemblies(
-        System.Reflection.Assembly.Load("Sandbox.Modules.CustomerManagement.Tests")
-    ).Build();
-
     [Test]
     public async Task Test_cases_dont_include_should_in_their_name()
     {
-        var testMethods = Members().That().HaveAnyAttributes([typeof(TestAttribute)]);
+        var testMethods = Members().That().AreDeclaredIn(TestLayers).And().HaveAnyAttributes([typeof(TestAttribute)]);
         await testMethods
             .Should().NotHaveNameMatching("(?i)should")
             .Check(Architecture);

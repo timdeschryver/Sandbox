@@ -5,7 +5,7 @@ using Sandbox.SharedKernel.Modules;
 using Wolverine.Attributes;
 
 [assembly: WolverineModule]
-namespace Sandbox.Modules.BillingManagement;
+namespace Sandbox.Modules.Billing;
 
 public class BillingModule : IModule
 {
