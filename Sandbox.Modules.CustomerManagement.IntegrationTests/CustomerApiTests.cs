@@ -47,7 +47,6 @@ public class CustomerApiTests(CustomerApiWebApplicationFactory WebAppFactory)
         );
 
         var response = await client.PostAsJsonAsync("/customers", createCustomerCommand);
-
         await Assert.That(response.StatusCode).IsEqualTo(HttpStatusCode.Created);
     }
 
@@ -68,7 +67,6 @@ public class CustomerApiTests(CustomerApiWebApplicationFactory WebAppFactory)
         await Assert.That(response.StatusCode).IsEqualTo(HttpStatusCode.BadRequest);
 
         var problemDetails = await response.Content.ReadFromJsonAsync<ProblemDetails>();
-        Console.WriteLine(problemDetails?.Detail);
         await Assert.That(problemDetails).IsNotNull();
     }
 
@@ -131,7 +129,6 @@ public class CustomerApiTests(CustomerApiWebApplicationFactory WebAppFactory)
         var nonExistentId = CustomerId.New();
 
         var response = await client.GetAsync(new Uri($"/customers/{nonExistentId}", UriKind.Relative));
-
         await Assert.That(response.StatusCode).IsEqualTo(HttpStatusCode.NotFound);
     }
 }

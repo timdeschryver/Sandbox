@@ -92,8 +92,8 @@ importers:
         specifier: ^9.30.0
         version: 9.30.0
       '@testing-library/angular':
-        specifier: ^18.0.0-beta.4
-        version: 18.0.0-beta.4(698299ba6dac9371140dd17575bb8a0b)
+        specifier: ^18.0.0-beta.5
+        version: 18.0.0-beta.5(698299ba6dac9371140dd17575bb8a0b)
       '@testing-library/jest-dom':
         specifier: ^6.6.3
         version: 6.6.3
@@ -1481,8 +1481,8 @@ packages:
     resolution: {integrity: sha512-kAAM06ca4CzhvjIZdONAL9+MLppW3K48wOFy1TbuaWFW/OMfl8JuTgW0Bm02JB1WJGT/ET2eqav0KTEKmxqkIA==}
     engines: {node: ^18.17.0 || >=20.5.0}
 
-  '@testing-library/angular@18.0.0-beta.4':
-    resolution: {integrity: sha512-Pt4F0s8Ubk7K7cXbu6T0FStVNhSRTZdMNxscOhzvWPPKpspua4kKCq96WSpcB57tXeekjtF/QiiF/zqjdA7r6w==}
+  '@testing-library/angular@18.0.0-beta.5':
+    resolution: {integrity: sha512-5AWx+liQu9DOuZxDST5YxlcBNtKgqxkSpLsrBCukwQNmk/0+PXTVe1sZaSCK2EtCrtIVGb07PGAh82lsHF5wTA==}
     peerDependencies:
       '@angular/common': '>= 20.0.0'
       '@angular/core': '>= 20.0.0'
@@ -4775,7 +4775,7 @@ snapshots:
       '@sigstore/core': 2.0.0
       '@sigstore/protobuf-specs': 0.4.0
 
-  '@testing-library/angular@18.0.0-beta.4(698299ba6dac9371140dd17575bb8a0b)':
+  '@testing-library/angular@18.0.0-beta.5(698299ba6dac9371140dd17575bb8a0b)':
     dependencies:
       '@angular/common': 20.0.5(@angular/core@20.0.5(@angular/compiler@20.0.5)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2)
       '@angular/core': 20.0.5(@angular/compiler@20.0.5)(rxjs@7.8.2)(zone.js@0.15.1)
