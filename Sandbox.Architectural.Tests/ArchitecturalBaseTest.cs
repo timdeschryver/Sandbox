@@ -23,7 +23,7 @@ public abstract class ArchitecturalBaseTest
     protected static readonly IObjectProvider<IType> SharedKernelLayer =
         ArchRuleDefinition.Types().That().ResideInAssembly("Sandbox.SharedKernel").As("Shared Kernel Layer");
     protected static readonly IObjectProvider<IType> TestLayers =
-        ArchRuleDefinition.Types().That().HaveFullNameContaining(".Tests").As("Test Layers");
+        ArchRuleDefinition.Types().That().HaveFullNameContaining(".Tests").Or().HaveFullNameContaining(".IntegrationTests").As("Test Layers");
 
     protected static readonly Architecture Architecture = new ArchLoader()
         .LoadAssemblies(

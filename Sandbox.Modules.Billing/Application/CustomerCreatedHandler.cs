@@ -5,9 +5,7 @@ namespace Sandbox.Modules.Billing.Application;
 
 public class CustomerCreatedHandler
 {
-#pragma warning disable CA1822 // Mark members as static
     public void Handle(CustomerCreated message, ILogger<CustomerCreatedHandler> logger)
-#pragma warning restore CA1822 // Mark members as static
     {
         ArgumentNullException.ThrowIfNull(message);
         ArgumentNullException.ThrowIfNull(logger);
