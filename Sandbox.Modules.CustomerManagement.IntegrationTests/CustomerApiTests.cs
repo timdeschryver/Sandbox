@@ -71,6 +71,27 @@ public class CustomerApiTests(CustomerApiWebApplicationFactory WebAppFactory)
     }
 
     [Test]
+    public async Task CreateCustomer_WithUnknownProperty_Returns_BadRequestProblemDetails()
+    {
+        using var client = WebAppFactory.CreateClient();
+
+        var request = new
+        {
+            FirstName = "Firstname",
+            LastName = "Lastname",
+            UnknownProperty = "This should not be here"
+        };
+
+        var response = await client.PostAsJsonAsync("/customers", request);
+
+        await Assert.That(response.StatusCode).IsEqualTo(HttpStatusCode.BadRequest);
+
+        var problemDetails = await response.Content.ReadFromJsonAsync<ProblemDetails>();
+        await Assert.That(problemDetails).IsNotNull();
+    }
+
+
+    [Test]
     public async Task GetCustomers_Returns_OkWithCustomersList()
     {
         using var client = WebAppFactory.CreateClient();

@@ -26,8 +26,8 @@ public class CustomerApiWebApplicationFactory : WebApplicationFactory<Program>, 
 
     public override async ValueTask DisposeAsync()
     {
-        await _postgreSqlContainer.DisposeAsync();
         await base.DisposeAsync();
+        await _postgreSqlContainer.DisposeAsync();
         GC.SuppressFinalize(this);
     }
 

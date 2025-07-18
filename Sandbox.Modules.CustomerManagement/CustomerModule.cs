@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
@@ -19,6 +20,10 @@ public class CustomerManagementModule : IModule
         ArgumentNullException.ThrowIfNull(builder);
 
         builder.Services.AddValidation();
+        builder.Services.ConfigureHttpJsonOptions(options =>
+        {
+            options.SerializerOptions.UnmappedMemberHandling = JsonUnmappedMemberHandling.Disallow;
+        });
 
         // Uncomment to use SQL Server instead of PostgreSQL
         // builder.AddSqlServerDbContext<CustomerDbContext>(connectionName: "sandbox-db");
