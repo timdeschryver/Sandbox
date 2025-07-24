@@ -37,9 +37,9 @@
     <PackageVersion Include="Vogen" Version="7.0.4" />
     <PackageVersion Include="TngTech.ArchUnitNET" Version="0.12.0" />
     <PackageVersion Include="TUnit" Version="0.25.21" />
-    <PackageVersion Include="WolverineFx" Version="4.5.3" />
-    <PackageVersion Include="WolverineFx.EntityFrameworkCore" Version="4.5.3" />
-    <PackageVersion Include="WolverineFx.Postgresql" Version="4.5.3" />
+    <PackageVersion Include="WolverineFx" Version="4.7.0" />
+    <PackageVersion Include="WolverineFx.EntityFrameworkCore" Version="4.7.0" />
+    <PackageVersion Include="WolverineFx.Postgresql" Version="4.7.0" />
     <PackageVersion Include="Yarp.ReverseProxy" Version="2.3.0" />
     <PackageVersion Include="Microsoft.CodeAnalysis.Workspaces.Common" Version="4.14.0" />
     <PackageVersion Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="4.14.0" />
