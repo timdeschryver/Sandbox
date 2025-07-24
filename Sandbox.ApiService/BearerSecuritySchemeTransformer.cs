@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.OpenApi;
-using Microsoft.OpenApi.Models;
-using Microsoft.OpenApi.Models.Interfaces;
+using Microsoft.OpenApi;
 
 namespace Sandbox.ApiService;
 
@@ -17,7 +16,7 @@ internal sealed class BearerSecuritySchemeTransformer(IAuthenticationSchemeProvi
                 ["Bearer"] = new OpenApiSecurityScheme
                 {
                     Type = SecuritySchemeType.Http,
-                    Scheme = "bearer", // "bearer" refers to the header name here
+                    Scheme = "bearer",
                     In = ParameterLocation.Header,
                     BearerFormat = "Json Web Token"
                 }

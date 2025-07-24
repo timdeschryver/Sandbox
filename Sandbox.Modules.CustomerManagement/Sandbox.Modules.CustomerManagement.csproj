@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <InterceptorsNamespaces>$(InterceptorsNamespaces);Microsoft.AspNetCore.Http.Validation.Generated</InterceptorsNamespaces>
+    <InterceptorsNamespaces>$(InterceptorsNamespaces);Microsoft.Extensions.Validation.Generated</InterceptorsNamespaces>
   </PropertyGroup>
 
   <ItemGroup>
