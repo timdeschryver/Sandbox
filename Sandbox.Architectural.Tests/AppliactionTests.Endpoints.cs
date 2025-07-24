@@ -36,7 +36,7 @@ internal sealed partial class AppliactionTests : ArchitecturalBaseTest
     {
         await Endpoints
             .Should()
-            .FollowCustomCondition(clazz => clazz.Members.Any(m => m.NameStartsWith("Query") || m.NameStartsWith("Handle")), "endpoint must have a Query or Handle method", "The endpoint needs to implement a Query or Handle method to process requests.")
+            .FollowCustomCondition(clazz => clazz.Members.Any(m => m.NameEquals("Query") || m.NameEquals("Handle")), "endpoint must have a Query or Handle method", "The endpoint needs to implement a Query or Handle method to process requests.")
             .Check(Architecture);
     }
 
@@ -53,7 +53,7 @@ internal sealed partial class AppliactionTests : ArchitecturalBaseTest
             .Should()
             .FollowCustomCondition(method =>
             {
-                return method.FullNameContains("Handler") || method.Parameters.Any(p => p.FullNameContains("System.Threading.CancellationToken"));
+                return method.FullNameContains("Handler") || method.Parameters.Any(p => p.FullNameContains(typeof(CancellationToken).FullName));
             }, "Query or Handle method must accept a CancellationToken", "The Query or Handle method needs to accept a CancellationToken parameter for cancellation support.")
             .Check(Architecture);
     }
@@ -67,7 +67,7 @@ internal sealed partial class AppliactionTests : ArchitecturalBaseTest
             {
                 if (clazz.Members.Any(m => m.NameStartsWith("Query")))
                 {
-                    return clazz.GetFieldMembers().Any(m => m.Name == "Parameters");
+                    return clazz.GetFieldMembers().Any(m => m.NameEquals("Parameters"));
                 }
                 return true;
             }, "Query endpoint must have parameters input", "The Query endpoint needs to have parameters as an input.")
@@ -83,7 +83,7 @@ internal sealed partial class AppliactionTests : ArchitecturalBaseTest
             {
                 if (clazz.Members.Any(m => m.NameStartsWith("Handle")))
                 {
-                    return clazz.GetFieldMembers().Any(m => m.Name == "Command");
+                    return clazz.GetFieldMembers().Any(m => m.NameEquals("Command"));
                 }
                 return true;
             }, "Command endpoint must have a Command input", "The Command endpoint needs to have a Command input.")
