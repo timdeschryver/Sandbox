@@ -1,0 +1,58 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/dotnet
+{
+	"name": "C# (.NET) and Node.js (TypeScript)",
+	"build": {
+		// Path is relative to the devcontainer.json file.
+		"dockerfile": "Dockerfile"
+	},
+	"containerEnv": {
+		"DOTNET_CLI_TELEMETRY_OPTOUT": "true",
+		"DOTNET_SKIP_FIRST_TIME_EXPERIENCE": "true",
+		"DOTNET_USE_POLLING_FILE_WATCHER": "true"
+	},
+	// Features to add to the dev container. More info: https://containers.dev/features.
+	"features": {
+		"ghcr.io/devcontainers/features/dotnet:2": {
+			"version": "latest"
+		},
+		"ghcr.io/devcontainers-extra/features/sops:1": {
+			"version": "latest"
+		},
+		"ghcr.io/dotnet/aspire-devcontainer-feature/dotnetaspire:1": {
+			"version": "latest"
+		},
+		"ghcr.io/devcontainers-extra/features/pnpm:2": {},
+		"ghcr.io/devcontainers/features/docker-in-docker:2": {
+			"moby": true
+		}
+	},
+	// Use 'forwardPorts' to make a list of ports inside the container available locally.
+	// "forwardPorts": [5000, 5001],
+	// "portsAttributes": {
+	//		"5001": {
+	//			"protocol": "https"
+	//		}
+	// }
+	// Use 'postCreateCommand' to run commands after the container is created.
+	"postCreateCommand": {
+		"dotnet": "dotnet restore",
+		"pnpm": "pnpm install --frozen-lockfile --prefer-offline && pnpm --filter='sandbox.e2e' exec playwright install --with-deps"
+	},
+	// Configure tool-specific properties.
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"angular.ng-template",
+				"ms-dotnettools.csdevkit",
+				"vitest.explorer",
+				"ms-playwright.playwright",
+				"esbenp.prettier-vscode",
+				"dbaeumer.vscode-eslint",
+				"EditorConfig.EditorConfig"
+			]
+		}
+	},
+	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
+	"remoteUser": "root"
+}

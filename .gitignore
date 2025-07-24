@@ -38,6 +38,7 @@ yarn-error.log
 Thumbs.db
 .azure
 .history
+.pnpm-store
 
 # SOPS encryption keys
 .age-key.txt

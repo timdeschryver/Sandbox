@@ -51,8 +51,7 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Install Playwright Browsers
-        run: pnpm exec playwright install --with-deps
-        working-directory: Sandbox.EndToEndTests
+        run: pnpm --filter='sandbox.e2e' exec playwright install --with-deps
 
       - name: Install SOPS
         run: |
