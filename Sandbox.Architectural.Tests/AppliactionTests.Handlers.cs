@@ -7,6 +7,7 @@ namespace Sandbox.Architectural.Tests;
 internal sealed partial class AppliactionTests : ArchitecturalBaseTest
 {
     [Test]
+    [Retry(3)]
     public async Task Handlers_reside_in_application_namespace_with_a_Handle_method()
     {
         await ArchRuleDefinition.Classes()

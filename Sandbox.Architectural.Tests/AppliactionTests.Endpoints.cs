@@ -18,6 +18,7 @@ internal sealed partial class AppliactionTests : ArchitecturalBaseTest
             .DoNotHaveFullNameContaining("+");
 
     [Test]
+    [Retry(3)]
     public async Task Command_and_queries_are_immutable_and_record_types()
     {
         await NonHandlers

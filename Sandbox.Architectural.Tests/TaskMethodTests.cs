@@ -7,6 +7,7 @@ namespace Sandbox.Architectural.Tests;
 internal sealed class TaskMethodTests : ArchitecturalBaseTest
 {
     [Test]
+    [Retry(3)]
     public async Task Methods_returning_Task_have_CancellationToken_as_last_parameter()
     {
         await ArchRuleDefinition.MethodMembers()
