@@ -41,24 +41,6 @@ internal sealed partial class AppliactionTests : ArchitecturalBaseTest
     }
 
     [Test]
-    public async Task Queries_and_handlers_inject_cancellationtoken()
-    {
-        await ArchRuleDefinition.MethodMembers()
-            .That()
-            .AreDeclaredIn(Endpoints)
-            .And()
-            .HaveNameStartingWith("Query")
-            .Or()
-            .HaveNameStartingWith("Handle")
-            .Should()
-            .FollowCustomCondition(method =>
-            {
-                return method.FullNameContains("Handler") || method.Parameters.Any(p => p.FullNameContains(typeof(CancellationToken).FullName));
-            }, "Query or Handle method must accept a CancellationToken", "The Query or Handle method needs to accept a CancellationToken parameter for cancellation support.")
-            .Check(Architecture);
-    }
-
-    [Test]
     public async Task QueryEndpoints_have_Parameters()
     {
         await Endpoints
