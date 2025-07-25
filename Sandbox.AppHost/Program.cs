@@ -9,7 +9,19 @@ var authClientId = builder.AddParameter("OpenIDConnectSettingsClientId", secret:
 var authClientSecret = builder.AddParameter("OpenIDConnectSettingsClientSecret", secret: true);
 var authAudience = builder.AddParameter("OpenIDConnectSettingsAudience", secret: false);
 
-var openTelemetryCollector = builder.AddOpenTelemetryCollector("../config/otel.yml");
+var prometheus = builder.AddContainer("prometheus", "prom/prometheus")
+    .WithBindMount("../config/prometheus", "/etc/prometheus", isReadOnly: true)
+    .WithArgs("--web.enable-otlp-receiver", "--config.file=/etc/prometheus/prometheus.yml")
+    .WithHttpEndpoint(targetPort: 9090, name: "http");
+
+var grafana = builder.AddContainer("grafana", "grafana/grafana")
+    .WithBindMount("../config/grafana/config", "/etc/grafana", isReadOnly: true)
+    .WithBindMount("../config/grafana/dashboards", "/var/lib/grafana/dashboards", isReadOnly: true)
+    .WithEnvironment("PROMETHEUS_ENDPOINT", prometheus.GetEndpoint("http"))
+    .WithHttpEndpoint(targetPort: 3000, name: "http");
+
+var openTelemetryCollector = builder.AddOpenTelemetryCollector("../config/otel.yml")
+    .WithEnvironment("PROMETHEUS_ENDPOINT", $"{prometheus.GetEndpoint("http")}/api/v1/otlp"); ;
 
 // Uncomment to use SQL Server instead of PostgreSQL
 // var sql = builder.AddSqlServer("sql")
