@@ -16,17 +16,30 @@ var minio = builder.AddMinioContainer("minio", minioUser, minioPassword)
     .WithEnvironment("MINIO_PROMETHEUS_AUTH_TYPE", "public")
     .WithDataVolume();
 
-var prometheus = builder.AddContainer("prometheus", "prom/prometheus")
-    .WithBindMount("../config/prometheus", "/etc/prometheus", isReadOnly: true)
-    .WithArgs("--web.enable-otlp-receiver", "--config.file=/etc/prometheus/prometheus.yml")
-    .WithHttpEndpoint(targetPort: 9090, name: "http");
-
 var loki = builder.AddContainer("loki", "grafana/loki")
     .WithBindMount("../config/loki", "/etc/loki", isReadOnly: true)
+    .WithVolume("loki-data", "/loki")
     .WithArgs("--config.file=/etc/loki/config.yml", "--config.expand-env=true")
     .WithEnvironment("MINIO_USER", minioUser)
     .WithEnvironment("MINIO_PASSWORD", minioPassword)
-    .WithHttpEndpoint(targetPort: 3100, name: "http");
+    .WithHttpEndpoint(targetPort: 3100, name: "http")
+    .WaitFor(minio);
+
+var tempo = builder
+    .AddContainer("tempo", "grafana/tempo")
+    .WithBindMount("../config/tempo/config.yml", "/etc/tempo.yaml", isReadOnly: true)
+    .WithVolume("tempo-data", "/var/tempo")
+    .WithArgs("--config.file=/etc/tempo.yaml", "--config.expand-env=true", "chown 10001:10001 /var/tempo")
+    .WithEnvironment("MINIO_USER", minioUser)
+    .WithEnvironment("MINIO_PASSWORD", minioPassword)
+    .WithEndpoint(targetPort: 3200, port: 3200, name: "http", scheme: "http")
+    .WithEndpoint(targetPort: 4317, port: 4007, name: "otlp", scheme: "http")
+    .WaitFor(minio);
+
+var prometheus = builder.AddContainer("prometheus", "prom/prometheus")
+    .WithBindMount("../config/prometheus", "/etc/prometheus", isReadOnly: true)
+    .WithArgs("--web.enable-otlp-receiver", "--web.enable-remote-write-receiver", "--enable-feature=native-histograms", "--config.file=/etc/prometheus/prometheus.yml")
+    .WithHttpEndpoint(targetPort: 9090, name: "http");
 
 var grafanaContainer = builder.AddContainer("grafana", "grafana/grafana");
 var grafana = grafanaContainer
@@ -34,12 +47,17 @@ var grafana = grafanaContainer
     .WithBindMount("../config/grafana/dashboards", "/var/lib/grafana/dashboards", isReadOnly: true)
     .WithEnvironment("PROMETHEUS_ENDPOINT", prometheus.GetEndpoint("http"))
     .WithEnvironment("LOKI_ENDPOINT", loki.GetEndpoint("http"))
-    .WithHttpEndpoint(targetPort: 3000, name: "http")
-    .WithVolume(VolumeNameGenerator.Generate(grafanaContainer, "data"), "/var/lib/grafana");
+    .WithEnvironment("TEMPO_URL", tempo.GetEndpoint("http"))
+    .WithEnvironment("GF_AUTH_ANONYMOUS_ENABLED", "true")
+    .WithEnvironment("GF_AUTH_ANONYMOUS_ORG_ROLE", "Admin")
+    .WithEnvironment("GF_AUTH_DISABLE_LOGIN_FORM", "true")
+    .WithVolume(VolumeNameGenerator.Generate(grafanaContainer, "data"), "/var/lib/grafana")
+    .WithHttpEndpoint(targetPort: 3000, name: "http");
 
 var openTelemetryCollector = builder.AddOpenTelemetryCollector("../config/otel.yml")
     .WithEnvironment("PROMETHEUS_ENDPOINT", $"{prometheus.GetEndpoint("http")}/api/v1/otlp")
-    .WithEnvironment("LOKI_ENDPOINT", $"{loki.GetEndpoint("http")}/otlp");
+    .WithEnvironment("LOKI_ENDPOINT", $"{loki.GetEndpoint("http")}/otlp")
+    .WithEnvironment("TEMPO_URL", $"{tempo.GetEndpoint("otlp")}");
 
 // Uncomment to use SQL Server instead of PostgreSQL
 // var sql = builder.AddSqlServer("sql")

@@ -40,6 +40,10 @@ exporters:
     endpoint: ${env:LOKI_ENDPOINT}
     tls:
         insecure: true
+  otlp/tempo:
+    endpoint: ${env:TEMPO_URL}
+    tls:
+      insecure: true
 service:
   pipelines:
     logs:
@@ -59,4 +63,4 @@ service:
       processors:
         - batch
         - transform/environment
-      exporters: [otlp/aspire]
+      exporters: [otlp/aspire, otlp/tempo]

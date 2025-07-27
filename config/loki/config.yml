@@ -12,6 +12,9 @@ common:
   path_prefix: /tmp/loki
 
 ingester:
+  chunk_idle_period: 10s # for demo purposes
+  chunk_retain_period: 20s # for demo purposes
+  max_chunk_age: 30s # for demo purposes
   wal:
     enabled: true
   lifecycler:

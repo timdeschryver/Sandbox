@@ -10,3 +10,22 @@ datasources:
     type: loki
     uid: loki
     url: $LOKI_ENDPOINT
+    jsonData:
+      derivedFields:
+        - name: 'trace_id'
+          matcherType: 'label'
+          matcherRegex: 'trace_id'
+          url: '$${__value.raw}'
+          datasourceUid: 'tempo'
+          urlDisplayLabel: 'Tempo'
+
+  - name: Tempo
+    type: tempo
+    uid: tempo
+    url: $TEMPO_URL
+    jsonData:
+      httpMethod: GET
+      serviceMap:
+        datasourceUid: prometheus
+      streamingEnabled:
+        search: true
