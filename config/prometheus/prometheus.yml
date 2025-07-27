@@ -1,6 +1,31 @@
 storage:
   tsdb:
     out_of_order_time_window: 15m
+  # Remote storage configuration - https://thanos.io/tip/thanos/storage.md/
+
+global:
+  scrape_interval: 2s
+  evaluation_interval: 2s
+
+scrape_configs:
+  - job_name: minio-job-cluster
+    metrics_path: /minio/v2/metrics/cluster
+    scheme: http
+    static_configs:
+      - targets:
+        - minio:9000
+  - job_name: minio-job-bucket
+    metrics_path: /minio/v2/metrics/bucket
+    scheme: http
+    static_configs:
+      - targets:
+        - minio:9000
+  - job_name: minio-job-resource
+    metrics_path: /minio/v2/metrics/resource
+    scheme: http
+    static_configs:
+      - targets: 
+        - minio:9000
 
 otlp:
   promote_resource_attributes:
@@ -8,4 +33,3 @@ otlp:
     - service.name
     - service.namespace
     - service.version
-

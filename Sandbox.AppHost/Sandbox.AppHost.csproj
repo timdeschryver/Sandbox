@@ -20,6 +20,7 @@
     <PackageReference Include="Aspire.Hosting.NodeJs" />
     <PackageReference Include="Aspire.Hosting.PostgreSQL" />
     <PackageReference Include="Aspire.Hosting.SqlServer" />
+    <PackageReference Include="CommunityToolkit.Aspire.Hosting.Minio" />
   </ItemGroup>
 
   <Target Name="RestoreNodeModules" BeforeTargets="Build" Condition="'$(DesignTimeBuild)' != 'true'">

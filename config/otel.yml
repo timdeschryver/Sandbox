@@ -36,6 +36,10 @@ exporters:
     endpoint: ${env:PROMETHEUS_ENDPOINT}
     tls:
         insecure: true
+  otlphttp/loki:
+    endpoint: ${env:LOKI_ENDPOINT}
+    tls:
+        insecure: true
 service:
   pipelines:
     logs:
@@ -43,7 +47,7 @@ service:
       processors:
         - batch
         - transform/environment
-      exporters: [otlp/aspire]
+      exporters: [otlp/aspire, otlphttp/loki]
     metrics:
       receivers: [otlp]
       processors:

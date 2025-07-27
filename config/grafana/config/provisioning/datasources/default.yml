@@ -5,3 +5,8 @@ datasources:
     type: prometheus
     uid: prometheus
     url: $PROMETHEUS_ENDPOINT
+
+  - name: Loki
+    type: loki
+    uid: loki
+    url: $LOKI_ENDPOINT

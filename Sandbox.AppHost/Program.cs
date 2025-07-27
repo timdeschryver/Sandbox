@@ -9,19 +9,37 @@ var authClientId = builder.AddParameter("OpenIDConnectSettingsClientId", secret:
 var authClientSecret = builder.AddParameter("OpenIDConnectSettingsClientSecret", secret: true);
 var authAudience = builder.AddParameter("OpenIDConnectSettingsAudience", secret: false);
 
+var minioUser = builder.AddParameter("MinioUser", secret: false);
+var minioPassword = builder.AddParameter("MinioPassword", secret: true);
+
+var minio = builder.AddMinioContainer("minio", minioUser, minioPassword)
+    .WithEnvironment("MINIO_PROMETHEUS_AUTH_TYPE", "public")
+    .WithDataVolume();
+
 var prometheus = builder.AddContainer("prometheus", "prom/prometheus")
     .WithBindMount("../config/prometheus", "/etc/prometheus", isReadOnly: true)
     .WithArgs("--web.enable-otlp-receiver", "--config.file=/etc/prometheus/prometheus.yml")
     .WithHttpEndpoint(targetPort: 9090, name: "http");
 
-var grafana = builder.AddContainer("grafana", "grafana/grafana")
+var loki = builder.AddContainer("loki", "grafana/loki")
+    .WithBindMount("../config/loki", "/etc/loki", isReadOnly: true)
+    .WithArgs("--config.file=/etc/loki/config.yml", "--config.expand-env=true")
+    .WithEnvironment("MINIO_USER", minioUser)
+    .WithEnvironment("MINIO_PASSWORD", minioPassword)
+    .WithHttpEndpoint(targetPort: 3100, name: "http");
+
+var grafanaContainer = builder.AddContainer("grafana", "grafana/grafana");
+var grafana = grafanaContainer
     .WithBindMount("../config/grafana/config", "/etc/grafana", isReadOnly: true)
     .WithBindMount("../config/grafana/dashboards", "/var/lib/grafana/dashboards", isReadOnly: true)
     .WithEnvironment("PROMETHEUS_ENDPOINT", prometheus.GetEndpoint("http"))
-    .WithHttpEndpoint(targetPort: 3000, name: "http");
+    .WithEnvironment("LOKI_ENDPOINT", loki.GetEndpoint("http"))
+    .WithHttpEndpoint(targetPort: 3000, name: "http")
+    .WithVolume(VolumeNameGenerator.Generate(grafanaContainer, "data"), "/var/lib/grafana");
 
 var openTelemetryCollector = builder.AddOpenTelemetryCollector("../config/otel.yml")
-    .WithEnvironment("PROMETHEUS_ENDPOINT", $"{prometheus.GetEndpoint("http")}/api/v1/otlp"); ;
+    .WithEnvironment("PROMETHEUS_ENDPOINT", $"{prometheus.GetEndpoint("http")}/api/v1/otlp")
+    .WithEnvironment("LOKI_ENDPOINT", $"{loki.GetEndpoint("http")}/otlp");
 
 // Uncomment to use SQL Server instead of PostgreSQL
 // var sql = builder.AddSqlServer("sql")
