@@ -52,7 +52,15 @@ var grafana = grafanaContainer
     .WithEnvironment("GF_AUTH_ANONYMOUS_ORG_ROLE", "Admin")
     .WithEnvironment("GF_AUTH_DISABLE_LOGIN_FORM", "true")
     .WithVolume(VolumeNameGenerator.Generate(grafanaContainer, "data"), "/var/lib/grafana")
-    .WithHttpEndpoint(targetPort: 3000, name: "http");
+    .WithHttpEndpoint(targetPort: 3000, name: "http")
+    .WithUrlForEndpoint("http", url =>
+    {
+        url.DisplayText = "Open Grafana Dashboard";
+    });
+
+loki.WithParentRelationship(grafana);
+tempo.WithParentRelationship(grafana);
+prometheus.WithParentRelationship(grafana);
 
 var openTelemetryCollector = builder.AddOpenTelemetryCollector("../config/otel.yml")
     .WithEnvironment("PROMETHEUS_ENDPOINT", $"{prometheus.GetEndpoint("http")}/api/v1/otlp")
@@ -73,13 +81,15 @@ var db = postgres.AddDatabase("sandbox-db");
 var migrations = builder.AddProject<Projects.Sandbox_Migrations>("migrations")
     .WithReference(db)
     .WaitFor(postgres)
-    .WaitFor(db);
+    .WaitFor(db)
+    .WithParentRelationship(db);
 
 if (builder.Environment.IsDevelopment())
 {
     migrations.WithHttpCommand(path: "/reset-db", displayName: "Reset Database", commandOptions: new HttpCommandOptions
     {
         IconName = "DatabaseLightning",
+        ConfirmationMessage = "Are you sure you want to reset the database?",
     });
 }
 
@@ -89,7 +99,12 @@ var apiService = builder.AddProject<Projects.Sandbox_ApiService>("apiservice")
     .WithEnvironment("OpenIDConnectSettings__Domain", authDomain)
     .WithEnvironment("OpenIDConnectSettings__Audience", authAudience)
     .WaitFor(db)
-    .WaitFor(migrations);
+    .WaitFor(migrations)
+    .WithUrlForEndpoint("http", url =>
+    {
+        url.DisplayText = "Browse OpenAPI Specification";
+        url.Url = "/scalar";
+    });
 
 var angularApplication = builder
     .AddNpmApp("angularfrontend", "../Sandbox.AngularWorkspace")
@@ -111,17 +126,27 @@ var gateway = builder.AddProject<Projects.Sandbox_Gateway>("gateway")
     .WaitFor(apiService)
     .WaitFor(angularApplication)
     .WaitFor(openTelemetryCollector)
+    .WithUrlForEndpoint("http", url =>
+    {
+        url.DisplayText = "Open application";
+    })
     .WithExternalHttpEndpoints();
+
+apiService.WithParentRelationship(gateway);
+angularApplication.WithParentRelationship(gateway);
 
 if (builder.Environment.IsDevelopment())
 {
     var playwright = builder
         .AddNpmApp("playwright", "../Sandbox.EndToEndTests", "test")
         .WithExplicitStart()
+        .WithPlaywrightRepeatCommand()
         .ExcludeFromManifest()
         .WithEnvironment("ASPIRE", "true")
-        .WithReference(gateway);
+        .WithReference(gateway)
+        .WithParentRelationship(angularApplication);
 }
+
 
 builder.AddDockerComposeEnvironment("Sandbox");
 #pragma warning disable ASPIREAZURE001 // Type is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
