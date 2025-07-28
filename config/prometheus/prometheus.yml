@@ -12,21 +12,21 @@ scrape_configs:
     metrics_path: /minio/v2/metrics/cluster
     static_configs:
       - targets:
-        - minio:9000
+          - minio:9000
   - job_name: minio-job-bucket
     metrics_path: /minio/v2/metrics/bucket
     static_configs:
       - targets:
-        - minio:9000
+          - minio:9000
   - job_name: minio-job-resource
     metrics_path: /minio/v2/metrics/resource
     static_configs:
-      - targets: 
-        - minio:9000
+      - targets:
+          - minio:9000
   - job_name: 'tempo'
     static_configs:
       - targets:
-        - tempo:3200
+          - tempo:3200
 
 otlp:
   promote_resource_attributes:

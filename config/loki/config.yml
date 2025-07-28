@@ -33,13 +33,13 @@ compactor:
 
 schema_config:
   configs:
-  - from: 2025-01-01
-    store: tsdb
-    object_store: s3
-    schema: v13
-    index:
-      prefix: index_
-      period: 24h
+    - from: 2025-01-01
+      store: tsdb
+      object_store: s3
+      schema: v13
+      index:
+        prefix: index_
+        period: 24h
 
 storage_config:
   aws:

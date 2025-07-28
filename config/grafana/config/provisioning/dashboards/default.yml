@@ -5,5 +5,4 @@ providers:
     folder: Example Dashboards
     type: file
     options:
-      path:
-        /var/lib/grafana/dashboards
+      path: /var/lib/grafana/dashboards

@@ -35,11 +35,11 @@ exporters:
   otlphttp/prometheus:
     endpoint: ${env:PROMETHEUS_ENDPOINT}
     tls:
-        insecure: true
+      insecure: true
   otlphttp/loki:
     endpoint: ${env:LOKI_ENDPOINT}
     tls:
-        insecure: true
+      insecure: true
   otlp/tempo:
     endpoint: ${env:TEMPO_URL}
     tls:
