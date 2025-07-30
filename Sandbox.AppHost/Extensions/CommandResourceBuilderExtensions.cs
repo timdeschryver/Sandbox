@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Aspire.Hosting;
 
 namespace Sandbox.AppHost.Extensions;
 
@@ -17,7 +18,22 @@ internal static class CommandResourceBuilderExtensions
         builder.WithCommand(
             name: "repeat-playwright-tests",
             displayName: "Repeat Playwright Tests",
-            executeCommand: context => OnRunCommand(builder, context, $"pnpm run test --repeat-each={repeatCount}"),
+            executeCommand: async (context) =>
+            {
+#pragma warning disable ASPIREINTERACTION001 // Type is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
+                var interactionService = context.ServiceProvider.GetRequiredService<IInteractionService>();
+                var prompt = await interactionService.PromptInputAsync("Repetition", "How many times do you want to repeat the Playwright tests?", new InteractionInput
+                {
+                    Label = "Repetition Count",
+                    Description = "Enter the number of times to repeat the Playwright tests.",
+                    InputType = InputType.Number,
+                    Required = true,
+                    Placeholder = "25",
+                });
+#pragma warning restore ASPIREINTERACTION001 // Type is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
+
+                return await OnRunCommand(builder, context, $"pnpm run test --repeat-each={prompt.Data?.Value}");
+            },
             commandOptions: commandOptions);
 
         return builder;
