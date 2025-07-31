@@ -31,7 +31,10 @@ internal static class CommandResourceBuilderExtensions
                     Placeholder = "25",
                 });
 #pragma warning restore ASPIREINTERACTION001 // Type is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
-
+                if (prompt.Canceled)
+                {
+                    return CommandResults.Success();
+                }
                 return await OnRunCommand(builder, context, $"pnpm run test --repeat-each={prompt.Data?.Value}");
             },
             commandOptions: commandOptions);
