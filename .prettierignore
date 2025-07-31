@@ -4,3 +4,4 @@ build
 coverage
 *-lock.yaml
 .github/prompts
+test-results

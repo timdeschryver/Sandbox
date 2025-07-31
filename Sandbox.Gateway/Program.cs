@@ -34,5 +34,6 @@ app.MapGroup("bff")
     .MapUserEndpoints();
 
 app.MapReverseProxy();
+app.MapDefaultEndpoints();
 
 app.Run();

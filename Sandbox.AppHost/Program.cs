@@ -19,7 +19,7 @@ var minio = builder.AddMinioContainer("minio", minioUser, minioPassword)
 var loki = builder.AddContainer("loki", "grafana/loki")
     .WithBindMount("../config/loki", "/etc/loki", isReadOnly: true)
     .WithVolume("loki-data", "/loki")
-    .WithArgs("--config.file=/etc/loki/config.yml", "--config.expand-env=true")
+    .WithArgs("--config.file=/etc/loki/loki.yml", "--config.expand-env=true")
     .WithEnvironment("MINIO_USER", minioUser)
     .WithEnvironment("MINIO_PASSWORD", minioPassword)
     .WithHttpEndpoint(targetPort: 3100, name: "http")
@@ -27,9 +27,9 @@ var loki = builder.AddContainer("loki", "grafana/loki")
 
 var tempo = builder
     .AddContainer("tempo", "grafana/tempo")
-    .WithBindMount("../config/tempo/config.yml", "/etc/tempo.yaml", isReadOnly: true)
+    .WithBindMount("../config/tempo", "/etc/tempo", isReadOnly: true)
     .WithVolume("tempo-data", "/var/tempo")
-    .WithArgs("--config.file=/etc/tempo.yaml", "--config.expand-env=true", "chown 10001:10001 /var/tempo")
+    .WithArgs("--config.file=/etc/tempo/tempo.yml", "--config.expand-env=true", "chown 10001:10001 /var/tempo")
     .WithEnvironment("MINIO_USER", minioUser)
     .WithEnvironment("MINIO_PASSWORD", minioPassword)
     .WithEndpoint(targetPort: 3200, port: 3200, name: "http", scheme: "http")
@@ -40,6 +40,12 @@ var prometheus = builder.AddContainer("prometheus", "prom/prometheus")
     .WithBindMount("../config/prometheus", "/etc/prometheus", isReadOnly: true)
     .WithArgs("--web.enable-otlp-receiver", "--web.enable-remote-write-receiver", "--enable-feature=native-histograms", "--config.file=/etc/prometheus/prometheus.yml")
     .WithHttpEndpoint(targetPort: 9090, name: "http");
+
+var blackbox = builder
+    .AddContainer("blackbox", "prom/blackbox-exporter")
+    .WithBindMount("../config/blackbox", "/etc/blackbox/")
+    .WithArgs("--config.file=/etc/blackbox/blackbox.yml")
+    .WithEndpoint(targetPort: 9115, port: 9115, name: "http", scheme: "http");
 
 var grafanaContainer = builder.AddContainer("grafana", "grafana/grafana");
 var grafana = grafanaContainer
@@ -61,6 +67,7 @@ var grafana = grafanaContainer
 loki.WithParentRelationship(grafana);
 tempo.WithParentRelationship(grafana);
 prometheus.WithParentRelationship(grafana);
+blackbox.WithParentRelationship(grafana);
 
 var openTelemetryCollector = builder.AddOpenTelemetryCollector("../config/otel.yml")
     .WithEnvironment("PROMETHEUS_ENDPOINT", $"{prometheus.GetEndpoint("http")}/api/v1/otlp")
@@ -94,7 +101,6 @@ if (builder.Environment.IsDevelopment())
 }
 
 var apiService = builder.AddProject<Projects.Sandbox_ApiService>("apiservice")
-    .WithReplicas(2)
     .WithReference(db)
     .WithEnvironment("OpenIDConnectSettings__Domain", authDomain)
     .WithEnvironment("OpenIDConnectSettings__Audience", authAudience)
