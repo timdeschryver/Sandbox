@@ -1,11 +1,8 @@
-import '@testing-library/jest-dom/vitest';
 import { expect, it } from 'vitest';
 import { render, screen } from '@testing-library/angular';
-import { provideHttpClient } from '@angular/common/http';
-import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { AnonymousDirective } from './anonymous.directive';
-import { provideZonelessChangeDetection } from '@angular/core';
+import { HttpTestingController } from '@angular/common/http/testing';
 
 it('displays content when the user is unauthenticated', async () => {
 	const { mockRequest } = await setup();
@@ -24,7 +21,6 @@ it('does not display content when the user is authenticated', async () => {
 async function setup() {
 	const { fixture } = await render('<div *sandboxAnonymous>I am anonymous</div>', {
 		imports: [AnonymousDirective],
-		providers: [provideHttpClient(), provideHttpClientTesting(), provideZonelessChangeDetection()],
 	});
 	const mock = TestBed.inject(HttpTestingController);
 

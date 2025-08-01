@@ -1,13 +1,10 @@
-import '@testing-library/jest-dom/vitest';
 import { it } from 'vitest';
-import { provideHttpClient } from '@angular/common/http';
-import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
+import { HttpTestingController } from '@angular/common/http/testing';
 import { render } from '@testing-library/angular';
 import { CustomerOverviewResponse } from '@sandbox-app/customer-management/models';
 import CustomersOverviewComponent from './customers-overview.component';
 import { TestBed } from '@angular/core/testing';
 import { generateUuid } from '@sandbox-app/shared/functions';
-import { provideZonelessChangeDetection } from '@angular/core';
 
 it('renders the component with customers table', async () => {
 	const mockCustomers: CustomerOverviewResponse[] = [
@@ -23,9 +20,7 @@ it('renders the component with customers table', async () => {
 	// expect(container).toMatchInlineSnapshot();
 });
 async function setup() {
-	const { fixture, container } = await render(CustomersOverviewComponent, {
-		providers: [provideHttpClient(), provideHttpClientTesting(), provideZonelessChangeDetection()],
-	});
+	const { fixture, container } = await render(CustomersOverviewComponent);
 
 	const httpMock = TestBed.inject(HttpTestingController);
 	return {

@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-empty-function */
-import '@testing-library/jest-dom/vitest';
 import { expect, it, vi } from 'vitest';
 import * as z from '@zod/mini';
 import { parse, parseCollection } from './parse';

@@ -1,14 +1,12 @@
-import '@testing-library/jest-dom/vitest';
 import { expect, it, vi } from 'vitest';
-import { provideHttpClient } from '@angular/common/http';
-import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
+import { HttpTestingController } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { render, screen } from '@testing-library/angular';
 import userEvent from '@testing-library/user-event';
 import { CreateCustomerCommand, CustomerId } from '@sandbox-app/customer-management/models';
 import { CustomerFormComponent } from './customer-form.component';
 import { AddressComponent } from '@sandbox-app/customer-management/shared/customer-address/customer-address.component';
-import { OutputEmitterRef, provideZonelessChangeDetection } from '@angular/core';
+import { OutputEmitterRef } from '@angular/core';
 
 it('renders form with initial empty values', async () => {
 	await setup();
@@ -106,7 +104,6 @@ async function setup() {
 				emit: onSubmittedSpy,
 			} as unknown as OutputEmitterRef<CustomerId>,
 		},
-		providers: [provideHttpClient(), provideHttpClientTesting(), provideZonelessChangeDetection()],
 	});
 
 	const httpMock = TestBed.inject(HttpTestingController);

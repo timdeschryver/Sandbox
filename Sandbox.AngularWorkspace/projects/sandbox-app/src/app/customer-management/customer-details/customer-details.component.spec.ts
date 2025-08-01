@@ -1,14 +1,11 @@
-import '@testing-library/jest-dom/vitest';
 import { expect, it } from 'vitest';
-import { provideHttpClient } from '@angular/common/http';
-import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
+import { HttpTestingController } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { render, screen } from '@testing-library/angular';
 import userEvent from '@testing-library/user-event';
 import { CustomerDetailsResponse } from '@sandbox-app/customer-management/models';
 import CustomerDetailsComponent from './customer-details.component';
 import { generateUuid } from '@sandbox-app/shared/functions';
-import { provideZonelessChangeDetection } from '@angular/core';
 
 it('renders customer details when data is loaded', async () => {
 	const { mockRequest } = await setup();
@@ -183,7 +180,6 @@ async function setup() {
 		inputs: {
 			customerId,
 		},
-		providers: [provideHttpClient(), provideHttpClientTesting(), provideZonelessChangeDetection()],
 	});
 	const httpMock = TestBed.inject(HttpTestingController);
 	return {

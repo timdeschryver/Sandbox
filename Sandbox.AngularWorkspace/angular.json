@@ -69,12 +69,13 @@
 					"builder": "@angular/build:extract-i18n"
 				},
 				"test": {
-					// TODO: set vitest config and setup file to import ATL
 					"builder": "@angular/build:unit-test",
 					"options": {
 						"tsConfig": "tsconfig.json",
 						"buildTarget": "::development",
-						"runner": "vitest"
+						"runner": "vitest",
+						"providersFile": "projects/sandbox-app/src/test-providers.ts",
+						"setupFiles": ["projects/sandbox-app/src/test-setup.ts"]
 					}
 				},
 				"lint": {
