@@ -1,4 +1,4 @@
-\*\*\*\*# .NET and Angular Sandbox
+# .NET and Angular Sandbox
 
 Some buzzwords that are used:
 

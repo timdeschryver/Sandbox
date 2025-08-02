@@ -11,6 +11,10 @@
 		{
 			"matchUpdateTypes": ["major"],
 			"automerge": false
+		},
+		{
+			"matchDepTypes": ["action"],
+			"pinDigests": false
 		}
 	]
 }
