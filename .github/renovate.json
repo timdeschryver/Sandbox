@@ -15,6 +15,10 @@
 		{
 			"matchDepTypes": ["action"],
 			"pinDigests": false
+		},
+		{
+			"matchPackageNames": ["typescript"],
+			"enabled": false
 		}
 	]
 }
