@@ -4,18 +4,16 @@ import { WebTracerProvider } from '@opentelemetry/sdk-trace-web';
 import { ZoneContextManager } from '@opentelemetry/context-zone';
 import { registerInstrumentations } from '@opentelemetry/instrumentation';
 import { OTLPTraceExporter } from '@opentelemetry/exporter-trace-otlp-proto';
-import { Resource } from '@opentelemetry/resources';
+import { resourceFromAttributes } from '@opentelemetry/resources';
 import { ATTR_SERVICE_NAME, ATTR_SERVICE_VERSION } from '@opentelemetry/semantic-conventions';
 import { getWebAutoInstrumentations } from '@opentelemetry/auto-instrumentations-web';
 
 export function provideOpenTelemetryInstrumentation(): EnvironmentProviders {
 	return provideAppInitializer(() => {
-		const resource = Resource.default().merge(
-			new Resource({
-				[ATTR_SERVICE_NAME]: 'Angular App',
-				[ATTR_SERVICE_VERSION]: '1.0.0',
-			}),
-		);
+		const resource = resourceFromAttributes({
+			[ATTR_SERVICE_NAME]: 'Angular Application',
+			[ATTR_SERVICE_VERSION]: '1.0.0',
+		});
 
 		const provider = new WebTracerProvider({
 			resource,
