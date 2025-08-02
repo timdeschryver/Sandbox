@@ -15,6 +15,8 @@ var minioPassword = builder.AddParameter("MinioPassword", secret: true);
 var minio = builder.AddMinioContainer("minio", minioUser, minioPassword)
     .WithEnvironment("MINIO_PROMETHEUS_AUTH_TYPE", "public")
     .WithDataVolume();
+minioUser.WithParentRelationship(minio);
+minioPassword.WithParentRelationship(minio);
 
 var loki = builder.AddContainer("loki", "grafana/loki")
     .WithBindMount("../config/loki", "/etc/loki", isReadOnly: true)
@@ -140,6 +142,10 @@ var gateway = builder.AddProject<Projects.Sandbox_Gateway>("gateway")
 
 apiService.WithParentRelationship(gateway);
 angularApplication.WithParentRelationship(gateway);
+authDomain.WithParentRelationship(gateway);
+authClientId.WithParentRelationship(gateway);
+authClientSecret.WithParentRelationship(gateway);
+authAudience.WithParentRelationship(gateway);
 
 if (builder.Environment.IsDevelopment())
 {

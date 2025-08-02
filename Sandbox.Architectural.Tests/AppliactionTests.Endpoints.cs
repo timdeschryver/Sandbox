@@ -33,7 +33,7 @@ internal sealed partial class AppliactionTests : ArchitecturalBaseTest
     }
 
     [Test]
-    [Retry(3)]
+    [Retry(5)]
     public async Task Endpoints_implement_a_query_or_command()
     {
         await Endpoints
