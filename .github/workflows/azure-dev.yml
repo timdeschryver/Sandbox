@@ -28,20 +28,20 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+        uses: actions/checkout@v4
 
       - name: Setup .NET
-        uses: actions/setup-dotnet@67a3573c9a986a3f9c594539f4ab511d57bb3ce9 # v4
+        uses: actions/setup-dotnet@v4
         with:
           global-json-file: global.json
 
       - name: Install pnpm
-        uses: pnpm/action-setup@a7487c7e89a18df4991f7f222e4898a00d66ddda # v4
+        uses: pnpm/action-setup@v4
         with:
           package_json_file: './package.json'
 
       - name: Use Node.js
-        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        uses: actions/setup-node@v4
         with:
           node-version-file: .node-version
           cache: 'pnpm'
@@ -74,7 +74,7 @@ jobs:
         run: dotnet test --no-build -- --coverage --coverage-output coverage.xml --coverage-output-format cobertura --coverage-settings "../coverage.config"
 
       - name: ReportGenerator
-        uses: danielpalme/ReportGenerator-GitHub-Action@c1dd332d00304c5aa5d506aab698a5224a8fa24e # 5.4.11
+        uses: danielpalme/ReportGenerator-GitHub-Action@5.4.8
         with:
           reports: '**/coverage.xml'
           targetdir: 'coveragereport'
@@ -83,7 +83,7 @@ jobs:
           customSettings: 'minimumCoverageThresholds:lineCoverage=70'
 
       - name: Upload .NET coverage report artifact
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}
         with:
           name: CoverageReport
@@ -117,7 +117,7 @@ jobs:
           APPLICATION_URL: ${{ secrets.APPLICATION_URL }}
 
       - name: Upload E2E Results Artifact
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}
         with:
           name: playwright-report
@@ -135,20 +135,20 @@ jobs:
       AZURE_LOCATION: ${{ vars.AZURE_LOCATION }}
     steps:
       - name: Checkout
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+        uses: actions/checkout@v4
 
       - name: Install azd
-        uses: Azure/setup-azd@ae0f8b5482eeac61e940f447327d84c73beb8b1e # v2
+        uses: Azure/setup-azd@v2
       - name: Setup .NET
-        uses: actions/setup-dotnet@67a3573c9a986a3f9c594539f4ab511d57bb3ce9 # v4
+        uses: actions/setup-dotnet@v4
         with:
           global-json-file: global.json
       - name: Install pnpm
-        uses: pnpm/action-setup@a7487c7e89a18df4991f7f222e4898a00d66ddda # v4
+        uses: pnpm/action-setup@v4
         with:
           package_json_file: './package.json'
       - name: Use Node.js
-        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        uses: actions/setup-node@v4
         with:
           node-version-file: .node-version
           cache: 'pnpm'
