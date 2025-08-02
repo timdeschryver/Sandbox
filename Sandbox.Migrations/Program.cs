@@ -18,7 +18,7 @@ builder.Services.AddOpenTelemetry()
 // {
 //     options.UseSqlServer(optionsBuilder =>
 //     {
-//         optionsBuilder.MigrationsAssembly(typeof(Program).Assembly.GetName().Name);
+//         optionsBuilder.MigrationsAssembly(typeof(DbInitializer).Assembly.GetName().Name);
 //     });
 // });
 
@@ -26,7 +26,7 @@ builder.AddNpgsqlDbContext<CustomerDbContext>(connectionName: "sandbox-db", conf
 {
     options.UseNpgsql(optionsBuilder =>
     {
-        optionsBuilder.MigrationsAssembly(typeof(Program).Assembly.GetName().Name);
+        optionsBuilder.MigrationsAssembly(typeof(DbInitializer).Assembly.GetName().Name);
     });
 });
 builder.Services.AddSingleton<DbInitializer>();

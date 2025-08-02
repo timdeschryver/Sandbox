@@ -4,7 +4,7 @@ using Sandbox.Architectural.Tests.ArchTUnit;
 
 namespace Sandbox.Architectural.Tests;
 
-internal sealed partial class AppliactionTests : ArchitecturalBaseTest
+internal sealed partial class ApplicationTests : ArchitecturalBaseTest
 {
     [Test]
     [Retry(3)]
