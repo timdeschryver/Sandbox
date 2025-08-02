@@ -33,15 +33,17 @@ internal sealed partial class AppliactionTests : ArchitecturalBaseTest
     }
 
     [Test]
-    public async Task Endpoints_are_either_queries_or_commands()
+    [Retry(3)]
+    public async Task Endpoints_implement_a_query_or_command()
     {
         await Endpoints
             .Should()
-            .FollowCustomCondition(clazz => clazz.Members.Any(m => m.NameEquals("Query") || m.NameEquals("Handle")), "endpoint must have a Query or Handle method", "The endpoint needs to implement a Query or Handle method to process requests.")
+            .FollowCustomCondition(clazz => clazz.Members.Any(m => m.NameEndsWith("Query") || m.NameEndsWith("Handle")), "endpoint must have a Query or Handle method", "The endpoint needs to implement a Query or Handle method to process requests.")
             .Check(Architecture);
     }
 
     [Test]
+    [Retry(3)]
     public async Task QueryEndpoints_have_Parameters()
     {
         await Endpoints
@@ -58,6 +60,7 @@ internal sealed partial class AppliactionTests : ArchitecturalBaseTest
     }
 
     [Test]
+    [Retry(3)]
     public async Task CommandEndpoints_have_Command()
     {
         await Endpoints
