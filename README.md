@@ -1,16 +1,27 @@
 # .NET and Angular Sandbox
 
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://github.com/codespaces/new?hide_repo_select=true&ref=main&repo=925777950)
+
 Some buzzwords that are used:
 
-- Aspire
-- .NET (Minimal) API
-  - EF Core Migrations
-- Angular
-- OpenTelemetry
-- YARP
+- [.NET Aspire](https://learn.microsoft.com/en-us/dotnet/aspire/get-started/aspire-overview)
+- [.NET (Minimal) API](https://learn.microsoft.com/en-us/aspnet/core/fundamentals/minimal-apis/overview)
+  - [EF Core](https://learn.microsoft.com/en-us/ef/core/) (with Migrations)
+- [Angular](https://angular.dev/)
+- [OpenTelemetry](https://opentelemetry.io/)
+  - [Grafana](https://grafana.com/) Stack ([Tempo](https://grafana.com/docs/tempo/latest/), [Loki](https://grafana.com/docs/loki/latest/))
+  - [Prometheus](https://prometheus.io/) (and [Blackbox](https://github.com/prometheus/blackbox_exporter))
+- [YARP](https://learn.microsoft.com/en-us/aspnet/core/fundamentals/servers/yarp/getting-started)
 - Containers
-- Azure Developer CLI (azd)
-- Authentication (WIP)
+- [Azure Developer CLI](https://learn.microsoft.com/en-us/azure/developer/azure-developer-cli/) (azd)
+- Authentication
+- Secrets OPerationS ([SOPS](https://github.com/getsops/sops))
+- [Renovate](https://docs.renovatebot.com/) for automatic dependency updates
+- Testing
+  - Angular tests with [Vitest](https://vitest.dev/)
+  - .NET unit tests with [TUnit](https://tunit.dev/)
+  - .NET integration tests with [Testcontainers](https://testcontainers.com/)
+  - End-to-End Testing with [Playwright](https://playwright.dev/)
 
 ```mermaid
 graph TD
@@ -23,7 +34,7 @@ graph TD
 
     subgraph "Internal Components"
         AngularApp["Angular Frontend<br>Sandbox.AngularWorkspace"]
-        ApiService["API Service<br>Sandbox.ApiService<br>[x2 replicas]"]
+        ApiService["API Service<br>Sandbox.ApiService<br>"]
         SqlDatabase["SQL Server Database"]
         DbMigrations["Database Migrations<br>Sandbox.ApiService.Migrations"]
 
