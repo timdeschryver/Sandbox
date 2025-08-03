@@ -66,9 +66,6 @@ importers:
       '@vitest/browser':
         specifier: ^3.2.4
         version: 3.2.4(playwright@1.54.2)(vite@7.0.6(@types/node@22.17.0)(jiti@1.21.7)(less@4.3.0)(sass@1.89.2)(terser@5.39.1))(vitest@3.2.4)
-      '@zod/mini':
-        specifier: 4.0.0-beta.0
-        version: 4.0.0-beta.0
       playwright:
         specifier: ^1.53.1
         version: 1.54.2
@@ -78,6 +75,9 @@ importers:
       tslib:
         specifier: ^2.8.1
         version: 2.8.1
+      zod:
+        specifier: ^4.0.14
+        version: 4.0.14
     devDependencies:
       '@angular/build':
         specifier: 20.1.4
@@ -1713,13 +1713,6 @@ packages:
 
   '@yarnpkg/lockfile@1.1.0':
     resolution: {integrity: sha512-GpSwvyXOcOOlV70vbnzjj4fW5xW/FdUF6nQEt1ENy7m4ZCczi1+/buVUPAqmGfqznsORNFzUMjctTIp8a9tuCQ==}
-
-  '@zod/core@0.1.0':
-    resolution: {integrity: sha512-hSXsufqjH7u8DiJPT0KY1rFWIhjkdXGM8MhMLwzaeOMhxMA4bzjWLQwSoAToJunUTVrpmfdo4dUFzNaU219+VQ==}
-
-  '@zod/mini@4.0.0-beta.0':
-    resolution: {integrity: sha512-ux1pJYQJO0S/uAldc0KGKiBFvqPpQqfC8vXbBJ3tDrcWCCa6/QBQPexZFn/cHscTxA/SnEJEAxa7qGTwPQC5Tg==}
-    deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
 
   abbrev@3.0.0:
     resolution: {integrity: sha512-+/kfrslGQ7TNV2ecmQwMJj/B65g5KVq1/L3SGVZ3tCYGqlzFuFCGBZJtMP99wH3NpEUyAjn0zPdPUg0D+DwrOA==}
@@ -3706,6 +3699,9 @@ packages:
   zod@3.25.75:
     resolution: {integrity: sha512-OhpzAmVzabPOL6C3A3gpAifqr9MqihV/Msx3gor2b2kviCgcb+HM9SEOpMWwwNp9MRunWnhtAKUoo0AHhjyPPg==}
 
+  zod@4.0.14:
+    resolution: {integrity: sha512-nGFJTnJN6cM2v9kXL+SOBq3AtjQby3Mv5ySGFof5UGRHrRioSJ5iG680cYNjE/yWk671nROcpPj4hAS8nyLhSw==}
+
   zone.js@0.15.1:
     resolution: {integrity: sha512-XE96n56IQpJM7NAoXswY3XRLcWFW83xe0BiAOeMD7K5k5xecOeul3Qcpx6GqEeeHNkW5DWL5zOyTbEfB4eti8w==}
 
@@ -5333,12 +5329,6 @@ snapshots:
       tinyrainbow: 2.0.0
 
   '@yarnpkg/lockfile@1.1.0': {}
-
-  '@zod/core@0.1.0': {}
-
-  '@zod/mini@4.0.0-beta.0':
-    dependencies:
-      '@zod/core': 0.1.0
 
   abbrev@3.0.0: {}
 
@@ -7446,5 +7436,7 @@ snapshots:
       zod: 3.25.75
 
   zod@3.25.75: {}
+
+  zod@4.0.14: {}
 
   zone.js@0.15.1: {}

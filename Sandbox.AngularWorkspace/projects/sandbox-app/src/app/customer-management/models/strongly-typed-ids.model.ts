@@ -1,4 +1,4 @@
-import * as z from '@zod/mini';
+import * as z from 'zod/mini';
 
 export const CustomerId = z.uuid();
 export type CustomerId = z.infer<typeof CustomerId>;

@@ -1,4 +1,4 @@
-import * as z from '@zod/mini';
+import * as z from 'zod/mini';
 
 export function stronglyTypedIdAttribute<const TSchema extends z.z.core.$ZodType>(
 	schema: TSchema,
