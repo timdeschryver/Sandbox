@@ -5,6 +5,7 @@
 
 		// .NET development
 		"ms-dotnettools.csdevkit",
+		"ms-mssql.mssql",
 
 		// Testing frameworks
 		"vitest.explorer",
