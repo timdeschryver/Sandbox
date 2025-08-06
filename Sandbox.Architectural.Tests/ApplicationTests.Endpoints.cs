@@ -7,21 +7,21 @@ namespace Sandbox.Architectural.Tests;
 
 internal sealed partial class ApplicationTests : ArchitecturalBaseTest
 {
-    private static readonly GivenClassesConjunction NonHandlers = ArchRuleDefinition.Classes()
+    private static readonly GivenClassesConjunction Endpoints = ArchRuleDefinition.Classes()
               .That()
               .Are(ApplicationLayer)
               .And()
+              .AreNotNested()
+              .And()
               .DoNotHaveNameEndingWith("Handler");
-
-    private static readonly GivenClassesConjunction Endpoints = NonHandlers
-            .And()
-            .DoNotHaveFullNameContaining("+");
 
     [Test]
     [Retry(3)]
     public async Task Command_and_queries_are_immutable_and_record_types()
     {
-        await NonHandlers
+        await ArchRuleDefinition.Classes()
+            .That()
+            .AreNestedIn(Endpoints)
             .And()
             .HaveName("Command")
             .Or()
@@ -34,7 +34,7 @@ internal sealed partial class ApplicationTests : ArchitecturalBaseTest
     }
 
     [Test]
-    [Retry(5)]
+    [Retry(3)]
     public async Task Endpoints_implement_a_query_or_command()
     {
         await Endpoints
@@ -54,7 +54,7 @@ internal sealed partial class ApplicationTests : ArchitecturalBaseTest
                    var query = clazz.GetMethodMembers().SingleOrDefault(m => m.NameContains("Query"));
                    if (query != null)
                    {
-                       return query.Parameters.Any(p => p.NameEquals("parameters"));
+                       return query.Parameters.Any(p => p.NameEquals("Parameters"));
                    }
                    return true;
                }, "have parameters input", "The Query endpoint needs to have parameters as an input.")
@@ -72,7 +72,7 @@ internal sealed partial class ApplicationTests : ArchitecturalBaseTest
                 var command = clazz.GetMethodMembers().SingleOrDefault(m => m.NameContains("Handle"));
                 if (command != null)
                 {
-                    return command.Parameters.Any(p => p.NameEquals("command"));
+                    return command.Parameters.Any(p => p.NameEquals("Command"));
                 }
                 return true;
             }, "have a Command input", "The Command endpoint needs to have a Command input.")
