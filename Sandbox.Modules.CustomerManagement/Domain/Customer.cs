@@ -1,11 +1,13 @@
+using Sandbox.SharedKernel.Domain;
 using Sandbox.SharedKernel.StronglyTypedIds;
 
 namespace Sandbox.Modules.CustomerManagement.Domain;
 
-public class Customer
+public class Customer : ISoftDelete
 {
     public CustomerId Id { get; init; }
     public FullName Name { get; private set; }
+    public DateTimeOffset? DeletedAt { get; set; }
 
     private readonly List<CustomerBillingAddress> _billingAddresses = [];
     public IReadOnlyCollection<CustomerBillingAddress> BillingAddresses => _billingAddresses.AsReadOnly();
@@ -18,7 +20,7 @@ public class Customer
         return new Customer
         {
             Id = id,
-            Name = name
+            Name = name,
         };
     }
 

@@ -3,7 +3,7 @@ using Sandbox.SharedKernel.Infrastructure;
 
 namespace Sandbox.Modules.CustomerManagement.Data;
 
-public class CustomerDbContext(DbContextOptions options) : ModuleDbContext(options)
+public class CustomerDbContext(DbContextOptions<CustomerDbContext> options, TimeProvider timeProvider) : ModuleDbContext(options, timeProvider)
 {
     public override string Schema => "CustomerManagement";
 

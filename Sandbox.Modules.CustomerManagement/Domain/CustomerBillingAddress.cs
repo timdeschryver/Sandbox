@@ -11,7 +11,7 @@ public class CustomerBillingAddress : CustomerAddress
         return new CustomerBillingAddress
         {
             Id = customerAddressId,
-            Address = address
+            Address = address,
         };
     }
 }

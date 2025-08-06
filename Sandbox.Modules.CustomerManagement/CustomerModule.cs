@@ -2,6 +2,7 @@ using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Sandbox.Modules.CustomerManagement.Application;
@@ -25,12 +26,11 @@ public class CustomerManagementModule : IModule
             options.SerializerOptions.UnmappedMemberHandling = JsonUnmappedMemberHandling.Disallow;
         });
 
-        // Uncomment to use SQL Server instead of PostgreSQL
-        // builder.AddSqlServerDbContext<CustomerDbContext>(connectionName: "sandbox-db");
-        builder.AddNpgsqlDbContext<CustomerDbContext>(connectionName: "sandbox-db", options =>
+        builder.Services.AddDbContext<CustomerDbContext>(opt =>
+            opt.UseNpgsql(builder.Configuration.GetConnectionString("sandbox-db")));
+        builder.EnrichSqlServerDbContext<CustomerDbContext>(configureSettings =>
         {
-            // Conflicts with Wolverine's transaction management
-            options.DisableRetry = true;
+            configureSettings.DisableRetry = true;
         });
 
         builder.Services.AddTransient(sp => sp.GetRequiredService<CustomerDbContext>().Set<Customer>().AsNoTracking());
@@ -46,6 +46,7 @@ public class CustomerManagementModule : IModule
         group.MapGet("", GetCustomers.Query).DisableValidation();
         group.MapGet("{customerId}", GetCustomer.Query).DisableValidation();
         group.MapPost("", CreateCustomer.Handle);
+        group.MapDelete("{customerId}", DeleteCustomer.Handle);
         return app;
     }
 }

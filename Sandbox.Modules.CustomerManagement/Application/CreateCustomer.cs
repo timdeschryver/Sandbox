@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Sandbox.SharedKernel.StronglyTypedIds;
 using Wolverine.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Sandbox.Modules.CustomerManagement.Application;
 
@@ -22,11 +23,10 @@ public static class CreateCustomer
     /// <returns>The created customer ID.</returns>
     public static async Task<Created<CustomerId>> Handle(
         [FromBody] Command command,
-        [FromServices] IDbContextOutbox<CustomerDbContext> outbox,
+        [NotNull][FromServices] IDbContextOutbox<CustomerDbContext> outbox,
         CancellationToken cancellationToken)
     {
         ArgumentNullException.ThrowIfNull(command);
-        ArgumentNullException.ThrowIfNull(outbox);
 
         var customer = Customer.Create(CustomerId.New(), FullName.From(command.FirstName, command.LastName));
         if (command.BillingAddress != null)

@@ -1,4 +1,7 @@
 using Microsoft.AspNetCore.Builder;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Sandbox.Modules.Billing.Data;
 using Sandbox.SharedKernel.Modules;
@@ -13,10 +16,13 @@ public class BillingModule : IModule
     {
         ArgumentNullException.ThrowIfNull(builder);
 
-        builder.AddNpgsqlDbContext<BillingDbContext>(connectionName: "sandbox-db", options =>
+        builder.Services.AddDbContext<BillingDbContext>(opt =>
+            opt.UseNpgsql(builder.Configuration.GetConnectionString("sandbox-db")));
+        builder.EnrichSqlServerDbContext<BillingDbContext>(configureSettings =>
         {
-            options.DisableRetry = true;
+            configureSettings.DisableRetry = true;
         });
+
         return builder;
     }
 

@@ -9,6 +9,11 @@ public class CustomerShippingAddress : CustomerAddress
 
     public static CustomerShippingAddress Create(CustomerAddressId customerAddressId, Address address, string note)
     {
-        return new CustomerShippingAddress { Id = customerAddressId, Address = address, Note = note };
+        return new CustomerShippingAddress
+        {
+            Id = customerAddressId,
+            Address = address,
+            Note = note,
+        };
     }
 }

@@ -152,4 +152,31 @@ public class CustomerApiTests(CustomerApiWebApplicationFactory WebAppFactory)
         var response = await client.GetAsync(new Uri($"/customers/{nonExistentId}", UriKind.Relative));
         await Assert.That(response.StatusCode).IsEqualTo(HttpStatusCode.NotFound);
     }
+
+
+    [Test]
+    public async Task RemovedCustomer_IsNotIncluded()
+    {
+        using var client = WebAppFactory.CreateClient();
+        var createCustomerCommand = new CreateCustomer.Command(
+            FirstName: "Jane",
+            LastName: "Smith",
+            BillingAddress: null,
+            ShippingAddress: null
+        );
+
+        var createdResponse = await client.PostAsJsonAsync("/customers", createCustomerCommand);
+        await Assert.That(createdResponse.StatusCode).IsEqualTo(HttpStatusCode.Created);
+
+        var customerId = await createdResponse.Content.ReadFromJsonAsync<CustomerId>();
+
+        var getResponse = await client.GetAsync(new Uri($"/customers/{customerId}", UriKind.Relative));
+        await Assert.That(getResponse.StatusCode).IsEqualTo(HttpStatusCode.OK);
+
+        var deleteResponse = await client.DeleteAsync(new Uri($"/customers/{customerId}", UriKind.Relative));
+        await Assert.That(deleteResponse.StatusCode).IsEqualTo(HttpStatusCode.NoContent);
+
+        var postDeleteResponse = await client.GetAsync(new Uri($"/customers/{customerId}", UriKind.Relative));
+        await Assert.That(postDeleteResponse.StatusCode).IsEqualTo(HttpStatusCode.NotFound);
+    }
 }

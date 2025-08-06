@@ -3,7 +3,8 @@ using Sandbox.SharedKernel.Infrastructure;
 
 namespace Sandbox.Modules.Billing.Data;
 
-public class BillingDbContext(DbContextOptions options) : ModuleDbContext(options)
+
+public class BillingDbContext(DbContextOptions<BillingDbContext> options, TimeProvider timeProvider) : ModuleDbContext(options, timeProvider)
 {
     public override string Schema => "Billing";
 

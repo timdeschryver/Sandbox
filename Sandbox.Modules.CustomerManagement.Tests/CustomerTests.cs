@@ -1,4 +1,6 @@
+using Microsoft.Extensions.Time.Testing;
 using Sandbox.Modules.CustomerManagement.Domain;
+using Sandbox.SharedKernel.Domain;
 using Sandbox.SharedKernel.StronglyTypedIds;
 
 namespace Sandbox.Modules.CustomerManagement.Tests;
@@ -57,5 +59,17 @@ public sealed class CustomerTests
         customer.AddShippingAddress(CustomerShippingAddress.Create(CustomerAddressId.New(), Address.From("456 Elm St", "Los Angeles", "90001"), "Other note"));
 
         await Assert.That(customer.ShippingAddresses.Count).IsEqualTo(1);
+    }
+
+    [Test]
+    public async Task Customer_is_soft_deleted()
+    {
+        var customer = Customer.Create(CustomerId.New(), FullName.From("John", "Doe"));
+        var fakeTime = new FakeTimeProvider();
+
+        (customer as ISoftDelete).Delete(fakeTime);
+
+        await Assert.That((customer as ISoftDelete).IsDeleted).IsTrue();
+        await Assert.That(customer.DeletedAt).IsEqualTo(fakeTime.GetUtcNow());
     }
 }
