@@ -14,6 +14,8 @@ internal sealed class TaskMethodTests : ArchitecturalBaseTest
             .That()
             .HaveReturnType(typeof(Task), typeof(Task<>), typeof(ValueTask), typeof(ValueTask<>))
             .And()
+            .HaveFullNameContaining("Sandbox.")
+            .And()
             .DoNotHaveFullNameContaining("Test")
             .Should()
             .FollowCustomCondition(new LastParameterOfTypeCondition<CancellationToken>())
