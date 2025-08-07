@@ -18,6 +18,8 @@ builder.Services.AddDbContext<CustomerDbContext>(
     {
         options.UseNpgsql(builder.Configuration.GetConnectionString("sandbox-db"), optionsBuilder =>
         {
+            optionsBuilder.EnableRetryOnFailure();
+
             optionsBuilder.MigrationsAssembly(typeof(DbInitializer).Assembly.GetName().Name);
         });
     });
