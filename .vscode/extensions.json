@@ -19,6 +19,7 @@
 		// Additional helpful extensions
 		"ms-azuretools.vscode-containers",
 		"github.vscode-github-actions",
-		"GitHub.vscode-pull-request-github"
+		"GitHub.vscode-pull-request-github",
+		"eamodio.gitlens"
 	]
 }
