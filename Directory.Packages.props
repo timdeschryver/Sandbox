@@ -37,10 +37,10 @@
     <PackageVersion Include="Scalar.AspNetCore" Version="2.6.9" />
     <PackageVersion Include="Vogen" Version="8.0.1" />
     <PackageVersion Include="TngTech.ArchUnitNET" Version="0.12.1" />
-    <PackageVersion Include="TUnit" Version="0.56.50" />
-    <PackageVersion Include="WolverineFx" Version="4.9.3" />
-    <PackageVersion Include="WolverineFx.EntityFrameworkCore" Version="4.9.3" />
-    <PackageVersion Include="WolverineFx.Postgresql" Version="4.9.3" />
+    <PackageVersion Include="TUnit" Version="0.57.1" />
+    <PackageVersion Include="WolverineFx" Version="4.10.0" />
+    <PackageVersion Include="WolverineFx.EntityFrameworkCore" Version="4.10.0" />
+    <PackageVersion Include="WolverineFx.Postgresql" Version="4.10.0" />
     <PackageVersion Include="Yarp.ReverseProxy" Version="2.3.0" />
     <PackageVersion Include="Microsoft.CodeAnalysis.Workspaces.Common" Version="4.14.0" />
     <PackageVersion Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="4.14.0" />
