@@ -6,7 +6,9 @@
 	"automergeType": "pr",
 	"packageRules": [
 		{
-			"matchUpdateTypes": ["minor", "patch"]
+			"matchUpdateTypes": ["minor", "patch"],
+			"matchCurrentVersion": "!/^0/",
+			"automerge": true
 		},
 		{
 			"matchUpdateTypes": ["major"],

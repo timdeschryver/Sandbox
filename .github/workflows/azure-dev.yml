@@ -9,6 +9,7 @@ on:
     branches:
       - main
   workflow_dispatch:
+  merge_group:
 
 run-name: Deploy to ${{ inputs.deploy_target }} by @${{ github.actor }}
 
