@@ -8,11 +8,11 @@
 	},
 	"type": "module",
 	"devDependencies": {
-		"@eslint/js": "9.33.0",
+		"@eslint/js": "9.34.0",
 		"@playwright/test": "1.55.0",
 		"@types/node": "22.17.2",
 		"dotenv": "17.2.1",
-		"eslint": "9.33.0",
+		"eslint": "9.34.0",
 		"eslint-config-prettier": "10.1.8",
 		"eslint-plugin-playwright": "2.2.2",
 		"typescript": "5.8.3",
