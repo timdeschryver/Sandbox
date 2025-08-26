@@ -1,4 +1,4 @@
-import { EnvironmentProviders, provideAppInitializer } from '@angular/core';
+import { type EnvironmentProviders, provideAppInitializer } from '@angular/core';
 import { BatchSpanProcessor } from '@opentelemetry/sdk-trace-base';
 import { WebTracerProvider } from '@opentelemetry/sdk-trace-web';
 import { ZoneContextManager } from '@opentelemetry/context-zone';

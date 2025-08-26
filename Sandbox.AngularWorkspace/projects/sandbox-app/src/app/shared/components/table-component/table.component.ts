@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, TemplateRef, contentChild, input } from '@angular/core';
-import { HttpResourceRef } from '@angular/common/http';
+import { type HttpResourceRef } from '@angular/common/http';
 import { NgTemplateOutlet } from '@angular/common';
 import { TableBodyTemplateDirective } from '@sandbox-app/shared/components/table-component/table-body-template.directive';
 

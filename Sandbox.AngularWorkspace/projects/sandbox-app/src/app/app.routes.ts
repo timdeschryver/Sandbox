@@ -1,4 +1,4 @@
-import { Routes } from '@angular/router';
+import { type Routes } from '@angular/router';
 import { authenticatedGuard } from '@sandbox-app/authentication/authenticated.guard';
 
 export const routes: Routes = [

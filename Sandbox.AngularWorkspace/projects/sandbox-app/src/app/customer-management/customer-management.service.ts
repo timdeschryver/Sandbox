@@ -1,5 +1,5 @@
-import { Injectable, Signal, inject } from '@angular/core';
-import { HttpClient, HttpResourceRef, httpResource } from '@angular/common/http';
+import { Injectable, type Signal, inject } from '@angular/core';
+import { HttpClient, type HttpResourceRef, httpResource } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { parse, parseCollection } from '@sandbox-app/shared/functions';
 import {

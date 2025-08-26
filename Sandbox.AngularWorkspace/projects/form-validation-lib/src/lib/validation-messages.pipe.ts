@@ -1,5 +1,5 @@
-import { Pipe, PipeTransform, inject } from '@angular/core';
-import { ValidationErrors } from '@angular/forms';
+import { Pipe, type PipeTransform, inject } from '@angular/core';
+import { type ValidationErrors } from '@angular/forms';
 import { VALIDATION_MESSAGES, defaultValidationMessages } from './validation-messages.token';
 
 @Pipe({

@@ -1,4 +1,4 @@
-import { AfterViewInit, Directive, ElementRef, ViewContainerRef, contentChild, inject } from '@angular/core';
+import { type AfterViewInit, Directive, ElementRef, ViewContainerRef, contentChild, inject } from '@angular/core';
 import { NgControl, NgModelGroup } from '@angular/forms';
 import { ControlErrorComponent } from './control-error.component';
 
