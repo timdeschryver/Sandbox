@@ -16,6 +16,7 @@
 		"target": "ES2022",
 		"module": "ES2022",
 		"baseUrl": "./",
+		"verbatimModuleSyntax": true,
 		"paths": {
 			"@sandbox-app/*": ["projects/sandbox-app/src/app/*"],
 			"@opentelemetry": ["projects/opentelemetry-lib/src/public-api"],

@@ -5,6 +5,7 @@
 		"module": "commonjs",
 		"moduleResolution": "Node",
 		"sourceMap": true,
-		"outDir": "../tests-out"
+		"outDir": "../tests-out",
+		"verbatimModuleSyntax": true
 	}
 }
