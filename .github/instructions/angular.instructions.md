@@ -4,8 +4,14 @@ applyTo: '**/*.ts'
 
 # Angular Instructions
 
-Follow the best practices at https://angular.dev/context/best-practices.md.
-For the correct syntax refer to https://angular.dev/llms-full.txt.
+Follow the best practices at https://angular.dev/assets/context/best-practices.md.
+For the correct syntax refer to https://angular.dev/context/llm-files/llms-full.txt.
+
+## TypeScript Best Practices
+
+- Use strict type checking
+- Prefer type inference when the type is obvious
+- Avoid the `any` type; use `unknown` when type is uncertain
 
 ## General Principles
 
