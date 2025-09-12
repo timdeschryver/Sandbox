@@ -45,7 +45,7 @@
 
 ### Major Components
 
-#### Backend (.NET 10 Preview)
+#### Backend (.NET 10 RC)
 
 - **`Sandbox.AppHost`**: Aspire application host for service orchestration
 - **`Sandbox.Gateway`**: YARP-based API gateway with BFF authentication (Auth0 OIDC)
@@ -146,7 +146,7 @@
 
 ### Prerequisites
 
-- .NET 10 Preview SDK
+- .NET 10 Preview RC
 - Node.js 22+, pnpm 10+
 - Container tool (Docker/Podman)
 - Azure CLI (for deployment)
