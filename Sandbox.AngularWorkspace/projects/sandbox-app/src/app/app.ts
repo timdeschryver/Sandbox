@@ -9,4 +9,5 @@ import Header from './core/header/header';
 	styleUrl: './app.css',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
+// eslint-disable-next-line @typescript-eslint/no-extraneous-class
 export class App {}
