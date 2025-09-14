@@ -45,17 +45,48 @@ it('toggles shipping address visibility when checkbox is clicked', async () => {
 it('submits form with complete data when valid', async () => {
 	const { user, mockRequest, onSubmittedSpy } = await setup();
 
+	const firstNameInput = screen.getByLabelText(/first name/i);
+	const lastNameInput = screen.getByLabelText(/last name/i);
+
+	expect(firstNameInput).not.toHaveAttribute('aria-invalid');
+	expect(firstNameInput).not.toHaveAttribute('aria-describedby');
+	expect(lastNameInput).not.toHaveAttribute('aria-invalid');
+	expect(lastNameInput).not.toHaveAttribute('aria-describedby');
+
 	await user.click(screen.getByRole('button', { name: /create customer/i }));
 	expect(screen.queryAllByText('Field is required')).toHaveLength(2);
 	expect(onSubmittedSpy).not.toHaveBeenCalled();
 
-	await user.type(screen.getByLabelText(/first name/i), 'John');
-	await user.type(screen.getByLabelText(/last name/i), 'Doe');
+	expect(firstNameInput).toHaveAttribute('aria-invalid', 'true');
+	expect(firstNameInput).toHaveAttribute('aria-describedby');
+	expect(lastNameInput).toHaveAttribute('aria-invalid', 'true');
+	expect(lastNameInput).toHaveAttribute('aria-describedby');
+
+	await user.type(firstNameInput, 'John');
+	await user.type(lastNameInput, 'Doe');
+
+	expect(firstNameInput).not.toHaveAttribute('aria-invalid');
+	expect(firstNameInput).not.toHaveAttribute('aria-describedby');
+	expect(lastNameInput).not.toHaveAttribute('aria-invalid');
+	expect(lastNameInput).not.toHaveAttribute('aria-describedby');
 
 	await user.click(screen.getByLabelText(/add billing address/i));
-	await user.type(screen.getByLabelText(/street/i), '123 Billing St');
-	await user.type(screen.getByLabelText(/city/i), 'Bill City');
-	await user.type(screen.getByLabelText(/zip code/i), '12345');
+
+	const streetInput = screen.getByLabelText(/street/i);
+	const cityInput = screen.getByLabelText(/city/i);
+	const zipCodeInput = screen.getByLabelText(/zip code/i);
+
+	expect(streetInput).toHaveAttribute('aria-invalid');
+	expect(cityInput).toHaveAttribute('aria-invalid');
+	expect(zipCodeInput).toHaveAttribute('aria-invalid');
+
+	await user.type(streetInput, '123 Billing St');
+	await user.type(cityInput, 'Bill City');
+	await user.type(zipCodeInput, '12345');
+
+	expect(streetInput).not.toHaveAttribute('aria-invalid');
+	expect(cityInput).not.toHaveAttribute('aria-invalid');
+	expect(zipCodeInput).not.toHaveAttribute('aria-invalid');
 
 	await user.click(screen.getByRole('button', { name: /create customer/i }));
 

@@ -6,29 +6,30 @@ import { ValidationMessagesPipe } from './validation-messages.pipe';
 	selector: 'form-validation-control-error',
 	imports: [ValidationMessagesPipe],
 	template: `
-		<div class="error-message" [hidden]="!showError()">{{ this.control()?.errors | validationMessages }}</div>
+		<div class="error-message" [id]="errorId()" [hidden]="!showError()">
+			{{ this.control().errors | validationMessages }}
+		</div>
 	`,
 	styles: '.error-message { color: var(--error-color) }',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ControlErrorComponent {
 	private readonly form = inject(NgForm, { optional: true });
-	public readonly control = input<NgControl | undefined>(undefined);
+	public readonly control = input.required<NgControl>();
+	public readonly errorId = input.required<string>();
 
 	// TODO: use official Angular types
 	protected readonly showError = computed(() => {
 		const formSubmitted =
 			(this.form as unknown as undefined | { submittedReactive: Signal<boolean> })?.submittedReactive() ?? false;
-		const control = this.control() as unknown as
-			| undefined
-			| {
-					touchedReactive: Signal<boolean>;
-					pristineReactive: Signal<boolean>;
-					statusReactive: Signal<'VALID' | 'INVALID' | 'DISABLED' | 'PENDING'>;
-			  };
-		const controlTouched = control?.touchedReactive() ?? false;
-		const controlPristine = control?.pristineReactive() ?? true;
-		const controlStatus = control?.statusReactive();
+		const control = this.control() as unknown as {
+			touchedReactive: Signal<boolean>;
+			pristineReactive: Signal<boolean>;
+			statusReactive: Signal<'VALID' | 'INVALID' | 'DISABLED' | 'PENDING'>;
+		};
+		const controlTouched = control.touchedReactive();
+		const controlPristine = control.pristineReactive();
+		const controlStatus = control.statusReactive();
 		return controlStatus === 'INVALID' && (formSubmitted || controlTouched || !controlPristine);
 	});
 }
