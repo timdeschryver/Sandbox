@@ -6,11 +6,11 @@ export const customerManagementRoutes: Routes = [
 		children: [
 			{
 				path: '',
-				loadComponent: () => import('./customers-overview/customers-overview.component'),
+				loadComponent: () => import('./customers-overview/customers-overview'),
 			},
 			{
 				path: ':customerId',
-				loadComponent: () => import('./customer-details/customer-details.component'),
+				loadComponent: () => import('./customer-details/customer-details'),
 			},
 			{
 				path: '**',

@@ -4,8 +4,8 @@ import { TestBed } from '@angular/core/testing';
 import { render, screen } from '@testing-library/angular';
 import userEvent from '@testing-library/user-event';
 import { CreateCustomerCommand, CustomerId } from '@sandbox-app/customer-management/models';
-import { CustomerFormComponent } from './customer-form.component';
-import { AddressComponent } from '@sandbox-app/customer-management/shared/customer-address/customer-address.component';
+import { CustomerForm } from './customer-form';
+import { CustomerAddress } from '@sandbox-app/customer-management/shared/customer-address/customer-address';
 import { OutputEmitterRef } from '@angular/core';
 
 it('renders form with initial empty values', async () => {
@@ -128,8 +128,8 @@ async function setup() {
 	const onSubmittedSpy = vi.fn();
 	const user = userEvent.setup();
 
-	const { fixture } = await render(CustomerFormComponent, {
-		imports: [AddressComponent],
+	const { fixture } = await render(CustomerForm, {
+		imports: [CustomerAddress],
 		componentOutputs: {
 			submitted: {
 				emit: onSubmittedSpy,

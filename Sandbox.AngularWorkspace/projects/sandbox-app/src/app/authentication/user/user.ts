@@ -1,6 +1,6 @@
 import { JsonPipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { AuthenticationService } from '@sandbox-app/authentication/authentication.service';
+import { Authentication } from '@sandbox-app/authentication/authentication';
 
 @Component({
 	selector: 'sandbox-user',
@@ -8,7 +8,7 @@ import { AuthenticationService } from '@sandbox-app/authentication/authenticatio
 	template: ` <pre>{{ user() | json }}</pre> `,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export default class UserComponent {
-	private readonly userService = inject(AuthenticationService);
+export default class User {
+	private readonly userService = inject(Authentication);
 	protected readonly user = this.userService.user;
 }

@@ -21,5 +21,7 @@ export default tseslint.config(...rootConfig, {
 				style: 'kebab-case',
 			},
 		],
+		'@angular-eslint/component-class-suffix': 'off',
+		'@angular-eslint/component-directive-suffix': 'off',
 	},
 });

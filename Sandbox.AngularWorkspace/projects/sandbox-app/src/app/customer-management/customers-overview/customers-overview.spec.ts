@@ -2,7 +2,7 @@ import { it } from 'vitest';
 import { HttpTestingController } from '@angular/common/http/testing';
 import { render } from '@testing-library/angular';
 import { CustomerOverviewResponse } from '@sandbox-app/customer-management/models';
-import CustomersOverviewComponent from './customers-overview.component';
+import CustomersOverview from './customers-overview';
 import { TestBed } from '@angular/core/testing';
 import { generateUuid } from '@sandbox-app/shared/functions';
 
@@ -20,7 +20,7 @@ it('renders the component with customers table', async () => {
 	// expect(container).toMatchInlineSnapshot();
 });
 async function setup() {
-	const { fixture, container } = await render(CustomersOverviewComponent);
+	const { fixture, container } = await render(CustomersOverview);
 
 	const httpMock = TestBed.inject(HttpTestingController);
 	return {

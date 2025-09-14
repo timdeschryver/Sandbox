@@ -1,5 +1,5 @@
 import { expect, it } from 'vitest';
-import { AuthenticatedDirective } from './authenticated.directive';
+import { Authenticated } from './authenticated';
 import { render, screen } from '@testing-library/angular';
 import { HttpTestingController } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
@@ -20,7 +20,7 @@ it('does not display content when the user is unauthenticated', async () => {
 
 async function setup() {
 	const { fixture } = await render('<div *sandboxAuthenticated>I am authenticated</div>', {
-		imports: [AuthenticatedDirective],
+		imports: [Authenticated],
 	});
 	const mock = TestBed.inject(HttpTestingController);
 

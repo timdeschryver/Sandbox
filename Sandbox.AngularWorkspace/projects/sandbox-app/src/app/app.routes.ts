@@ -1,5 +1,5 @@
 import { type Routes } from '@angular/router';
-import { authenticatedGuard } from '@sandbox-app/authentication/authenticated.guard';
+import { authenticatedGuard } from '@sandbox-app/authentication/authenticated-guard';
 
 export const routes: Routes = [
 	{
@@ -15,12 +15,12 @@ export const routes: Routes = [
 	},
 	{
 		path: 'user',
-		loadComponent: () => import('@sandbox-app/authentication/user/user.component'),
+		loadComponent: () => import('@sandbox-app/authentication/user/user'),
 		title: 'User',
 	},
 	{
 		path: '**',
-		loadComponent: () => import('@sandbox-app/authentication/not-found/not-found.component'),
+		loadComponent: () => import('@sandbox-app/authentication/not-found/not-found'),
 		title: 'Not Found',
 	},
 ];

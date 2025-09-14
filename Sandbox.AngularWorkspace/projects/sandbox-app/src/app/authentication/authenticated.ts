@@ -1,13 +1,13 @@
 import { Directive, TemplateRef, ViewContainerRef, effect, inject } from '@angular/core';
-import { AuthenticationService } from '@sandbox-app/authentication/authentication.service';
+import { Authentication } from '@sandbox-app/authentication/authentication';
 
 @Directive({
 	selector: '[sandboxAuthenticated]',
 })
-export class AuthenticatedDirective {
+export class Authenticated {
 	private viewContainerRef = inject(ViewContainerRef);
 	private templateRef = inject(TemplateRef);
-	private authenticationService = inject(AuthenticationService);
+	private authenticationService = inject(Authentication);
 
 	constructor() {
 		effect(() => {

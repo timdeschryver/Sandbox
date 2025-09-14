@@ -46,6 +46,8 @@ export default tseslint.config(
 			'@typescript-eslint/no-deprecated': 'error',
 			'@angular-eslint/no-experimental': 'off',
 			'@angular-eslint/no-developer-preview': 'off',
+			'@angular-eslint/component-class-suffix': 'off',
+			'@angular-eslint/directive-class-suffix': 'off',
 		},
 	},
 	{

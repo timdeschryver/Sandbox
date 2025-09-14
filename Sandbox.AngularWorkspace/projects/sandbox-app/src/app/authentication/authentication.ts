@@ -6,7 +6,7 @@ import { parse } from '@sandbox-app/shared/functions';
 @Injectable({
 	providedIn: 'root',
 })
-export class AuthenticationService {
+export class Authentication {
 	private _user = httpResource(() => '/bff/user', {
 		parse: parse(User),
 	}).asReadonly();

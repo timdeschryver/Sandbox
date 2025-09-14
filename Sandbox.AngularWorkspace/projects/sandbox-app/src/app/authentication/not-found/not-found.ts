@@ -12,4 +12,4 @@ import { RouterLink } from '@angular/router';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 // eslint-disable-next-line @typescript-eslint/no-extraneous-class
-export default class NotFoundComponent {}
+export default class NotFound {}

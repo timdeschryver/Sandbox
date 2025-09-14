@@ -1,7 +1,7 @@
 import { expect, it } from 'vitest';
 import { render, screen } from '@testing-library/angular';
 import { TestBed } from '@angular/core/testing';
-import { AnonymousDirective } from './anonymous.directive';
+import { Anonymous } from './anonymous';
 import { HttpTestingController } from '@angular/common/http/testing';
 
 it('displays content when the user is unauthenticated', async () => {
@@ -20,7 +20,7 @@ it('does not display content when the user is authenticated', async () => {
 
 async function setup() {
 	const { fixture } = await render('<div *sandboxAnonymous>I am anonymous</div>', {
-		imports: [AnonymousDirective],
+		imports: [Anonymous],
 	});
 	const mock = TestBed.inject(HttpTestingController);
 

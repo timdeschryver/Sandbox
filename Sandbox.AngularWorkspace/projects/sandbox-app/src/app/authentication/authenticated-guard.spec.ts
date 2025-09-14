@@ -4,8 +4,8 @@ import { DOCUMENT } from '@angular/common';
 import { TestBed } from '@angular/core/testing';
 import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { Observable, firstValueFrom } from 'rxjs';
-import { authenticatedGuard } from './authenticated.guard';
-import { AuthenticationService } from './authentication.service';
+import { authenticatedGuard } from './authenticated-guard';
+import { Authentication } from './authentication';
 
 it('allows access when user is authenticated', async () => {
 	const guard = await setup(true);
@@ -29,7 +29,7 @@ async function setup(isAuthenticated: boolean) {
 	TestBed.configureTestingModule({
 		providers: [
 			{
-				provide: AuthenticationService,
+				provide: Authentication,
 				useValue: {
 					user: signal({
 						isAuthenticated,

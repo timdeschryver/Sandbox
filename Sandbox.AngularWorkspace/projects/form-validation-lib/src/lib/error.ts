@@ -8,8 +8,8 @@ import {
 	inject,
 } from '@angular/core';
 import { NgControl, NgModelGroup } from '@angular/forms';
-import { ControlErrorComponent } from './control-error.component';
-import { FormFieldDirective } from './form-field.directive';
+import { ControlError } from './control-error';
+import { FormField } from './form-field';
 
 let ERROR_ID = 0;
 
@@ -17,12 +17,12 @@ let ERROR_ID = 0;
 	// eslint-disable-next-line @angular-eslint/directive-selector
 	selector: '[ngModel], [ngModelGroup]',
 })
-export class ErrorDirective implements AfterViewInit {
+export class Error implements AfterViewInit {
 	private el = inject(ElementRef);
 	private readonly viewContainerRef = inject(ViewContainerRef);
 	private readonly ngModel = inject(NgControl, { optional: true });
 	private readonly ngModelGroup = inject(NgModelGroup, { optional: true });
-	private readonly formFieldDirective = inject(FormFieldDirective, { optional: true });
+	private readonly formFieldDirective = inject(FormField, { optional: true });
 
 	private errorId = `error-${(++ERROR_ID).toString()}`;
 
@@ -48,7 +48,7 @@ export class ErrorDirective implements AfterViewInit {
 	public ngAfterViewInit() {
 		const control = this.ngModel?.control ?? this.ngModelGroup?.control;
 		if (control && !this.formFieldDirective) {
-			const errorContainer = this.viewContainerRef.createComponent(ControlErrorComponent);
+			const errorContainer = this.viewContainerRef.createComponent(ControlError);
 			errorContainer.setInput('control', control);
 			errorContainer.setInput('errorId', this.errorId);
 		}

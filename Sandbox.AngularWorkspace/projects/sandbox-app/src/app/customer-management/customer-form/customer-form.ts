@@ -2,19 +2,19 @@ import { ChangeDetectionStrategy, Component, inject, output, signal } from '@ang
 import { CommonModule } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
 import { CreateCustomerCommand, CustomerId } from '@sandbox-app/customer-management/models';
-import { CustomersService } from '@sandbox-app/customer-management/customer-management.service';
-import { AddressComponent } from '@sandbox-app/customer-management/shared/customer-address/customer-address.component';
+import { Customers } from '@sandbox-app/customer-management/customer-management';
+import { CustomerAddress } from '@sandbox-app/customer-management/shared/customer-address/customer-address';
 import { HttpErrorResponse } from '@angular/common/http';
 import { formValidation } from '@form-validation';
 
 @Component({
 	selector: 'sandbox-customer-form',
-	imports: [CommonModule, FormsModule, AddressComponent, formValidation],
-	templateUrl: './customer-form.component.html',
+	imports: [CommonModule, FormsModule, CustomerAddress, formValidation],
+	templateUrl: './customer-form.html',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CustomerFormComponent {
-	private readonly customersService = inject(CustomersService);
+export class CustomerForm {
+	private readonly customersService = inject(Customers);
 	protected readonly submitState = signal<
 		| {
 				state: 'idle';

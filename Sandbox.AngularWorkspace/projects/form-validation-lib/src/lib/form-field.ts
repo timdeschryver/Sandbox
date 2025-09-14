@@ -1,12 +1,11 @@
 import { type AfterViewInit, Directive, ElementRef, ViewContainerRef, contentChild, inject } from '@angular/core';
 import { NgControl, NgModelGroup } from '@angular/forms';
-import { ControlErrorComponent } from './control-error.component';
+import { ControlError } from './control-error';
 
 @Directive({
-	// eslint-disable-next-line @angular-eslint/directive-selector
-	selector: '[formField]',
+	selector: '[formValidationField]',
 })
-export class FormFieldDirective implements AfterViewInit {
+export class FormField implements AfterViewInit {
 	private readonly element = inject(ElementRef);
 	private readonly viewContainerRef = inject(ViewContainerRef);
 	private readonly ngModelGroup = inject(NgModelGroup, { optional: true });
@@ -18,7 +17,7 @@ export class FormFieldDirective implements AfterViewInit {
 		if (control) {
 			this.viewContainerRef.clear();
 
-			const errorContainer = this.viewContainerRef.createComponent(ControlErrorComponent);
+			const errorContainer = this.viewContainerRef.createComponent(ControlError);
 
 			const host = this.element.nativeElement as HTMLElement;
 			host.style.flexWrap = 'wrap';

@@ -4,7 +4,7 @@ import { TestBed } from '@angular/core/testing';
 import { render, screen } from '@testing-library/angular';
 import userEvent from '@testing-library/user-event';
 import { CustomerDetailsResponse } from '@sandbox-app/customer-management/models';
-import CustomerDetailsComponent from './customer-details.component';
+import CustomerDetails from './customer-details';
 import { generateUuid } from '@sandbox-app/shared/functions';
 
 it('renders customer details when data is loaded', async () => {
@@ -176,7 +176,7 @@ it('displays error message when API request fails and can retry', async () => {
 async function setup() {
 	const user = userEvent.setup();
 	const customerId = generateUuid();
-	const { fixture } = await render(CustomerDetailsComponent, {
+	const { fixture } = await render(CustomerDetails, {
 		inputs: {
 			customerId,
 		},

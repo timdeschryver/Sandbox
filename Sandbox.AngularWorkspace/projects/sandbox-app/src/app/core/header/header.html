@@ -1,0 +1,15 @@
+<header *sandboxAnonymous>
+	<nav>
+		<a href="/bff/login">Login</a> | <a routerLink="/user">Current User</a> |
+		<a routerLink="/customers">Customers</a>
+	</nav>
+</header>
+<header *sandboxAuthenticated>
+	<div>
+		<h3>👋 Hello, {{ user()?.name }}</h3>
+	</div>
+	<nav>
+		<a routerLink="/customers">Customers</a> | <a routerLink="/user">Current User</a> |
+		<a href="/bff/logout">Logout</a>
+	</nav>
+</header>

@@ -12,7 +12,7 @@ import {
 @Injectable({
 	providedIn: 'root',
 })
-export class CustomersService {
+export class Customers {
 	private http = inject(HttpClient);
 
 	public getOverview(): HttpResourceRef<CustomerOverviewResponse[] | undefined> {

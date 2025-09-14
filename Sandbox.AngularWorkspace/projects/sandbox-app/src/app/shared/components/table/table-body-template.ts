@@ -4,10 +4,10 @@ import { type HttpResourceRef } from '@angular/common/http';
 @Directive({
 	selector: 'ng-template[sandboxTableBody]',
 })
-export class TableBodyTemplateDirective<T> {
+export class TableBodyTemplate<T> {
 	public readonly sandboxTableBody = input.required<HttpResourceRef<T[] | undefined>>();
 	static ngTemplateContextGuard<TContext>(
-		_dir: TableBodyTemplateDirective<TContext>,
+		_dir: TableBodyTemplate<TContext>,
 		ctx: unknown,
 	): ctx is {
 		$implicit: TContext;

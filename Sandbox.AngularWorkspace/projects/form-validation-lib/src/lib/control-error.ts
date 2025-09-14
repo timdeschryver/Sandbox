@@ -13,7 +13,7 @@ import { ValidationMessagesPipe } from './validation-messages.pipe';
 	styles: '.error-message { color: var(--error-color) }',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ControlErrorComponent {
+export class ControlError {
 	private readonly form = inject(NgForm, { optional: true });
 	public readonly control = input.required<NgControl>();
 	public readonly errorId = input.required<string>();
