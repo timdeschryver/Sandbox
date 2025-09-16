@@ -47,7 +47,7 @@
 		"angular-eslint": "20.2.0",
 		"eslint": "9.35.0",
 		"eslint-config-prettier": "10.1.8",
-		"jsdom": "26.1.0",
+		"jsdom": "27.0.0",
 		"ng-packagr": "20.3.0",
 		"playwright": "1.55.0",
 		"prettier": "3.6.2",
