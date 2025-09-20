@@ -34,10 +34,10 @@
     <PackageVersion Include="OpenTelemetry.Instrumentation.AspNetCore" Version="1.12.0" />
     <PackageVersion Include="OpenTelemetry.Instrumentation.Http" Version="1.12.0" />
     <PackageVersion Include="OpenTelemetry.Instrumentation.Runtime" Version="1.12.0" />
-    <PackageVersion Include="Scalar.AspNetCore" Version="2.8.4" />
+    <PackageVersion Include="Scalar.AspNetCore" Version="2.8.5" />
     <PackageVersion Include="Vogen" Version="8.0.2" />
     <PackageVersion Include="TngTech.ArchUnitNET" Version="0.12.1" />
-    <PackageVersion Include="TUnit" Version="0.57.65" />
+    <PackageVersion Include="TUnit" Version="0.60.15" />
     <PackageVersion Include="WolverineFx" Version="4.12.1" />
     <PackageVersion Include="WolverineFx.EntityFrameworkCore" Version="4.12.1" />
     <PackageVersion Include="WolverineFx.Postgresql" Version="4.12.1" />
