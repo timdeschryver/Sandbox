@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, type Signal, computed, inject, input } from '@angular/core';
-import { NgControl, NgForm } from '@angular/forms';
+import { type NgControl, NgForm } from '@angular/forms';
 import { ValidationMessagesPipe } from './validation-messages.pipe';
 
 @Component({

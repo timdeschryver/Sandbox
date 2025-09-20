@@ -1,5 +1,5 @@
 import { inject } from '@angular/core';
-import { ActivatedRouteSnapshot, type CanActivateFn, RouterStateSnapshot } from '@angular/router';
+import { type ActivatedRouteSnapshot, type CanActivateFn, type RouterStateSnapshot } from '@angular/router';
 import { Authentication } from '@sandbox-app/authentication/authentication';
 import { toObservable } from '@angular/core/rxjs-interop';
 import { map } from 'rxjs';

@@ -44,6 +44,12 @@ export default tseslint.config(
 				},
 			],
 			'@typescript-eslint/no-deprecated': 'error',
+			'@typescript-eslint/consistent-type-imports': [
+				'error',
+				{
+					fixStyle: 'inline-type-imports',
+				},
+			],
 			'@angular-eslint/no-experimental': 'off',
 			'@angular-eslint/no-developer-preview': 'off',
 			'@angular-eslint/component-class-suffix': 'off',

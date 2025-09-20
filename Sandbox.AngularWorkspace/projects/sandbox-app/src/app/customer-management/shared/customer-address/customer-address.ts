@@ -1,8 +1,8 @@
 import { generateUuid } from '@sandbox-app/shared/functions';
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
-import { FormsModule, NgForm } from '@angular/forms';
-import { Address } from '@sandbox-app/customer-management/models';
+import { FormsModule, type NgForm } from '@angular/forms';
+import { type Address } from '@sandbox-app/customer-management/models';
 import { formValidation } from '@form-validation';
 
 @Component({

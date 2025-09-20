@@ -3,7 +3,7 @@ import { HttpTestingController } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { render, screen } from '@testing-library/angular';
 import userEvent from '@testing-library/user-event';
-import { CustomerDetailsResponse } from '@sandbox-app/customer-management/models';
+import { type CustomerDetailsResponse } from '@sandbox-app/customer-management/models';
 import CustomerDetails from './customer-details';
 import { generateUuid } from '@sandbox-app/shared/functions';
 

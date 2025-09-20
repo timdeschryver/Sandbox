@@ -30,7 +30,6 @@ public class CustomerApiTests(CustomerApiWebApplicationFactory WebAppFactory)
         );
 
         var response = await client.PostAsJsonAsync("/customers", createCustomerCommand);
-
         await Assert.That(response.StatusCode).IsEqualTo(HttpStatusCode.Created);
     }
 
@@ -63,7 +62,6 @@ public class CustomerApiTests(CustomerApiWebApplicationFactory WebAppFactory)
         );
 
         var response = await client.PostAsJsonAsync("/customers", createCustomerCommand);
-
         await Assert.That(response.StatusCode).IsEqualTo(HttpStatusCode.BadRequest);
 
         var problemDetails = await response.Content.ReadFromJsonAsync<ProblemDetails>();
@@ -83,13 +81,11 @@ public class CustomerApiTests(CustomerApiWebApplicationFactory WebAppFactory)
         };
 
         var response = await client.PostAsJsonAsync("/customers", request);
-
         await Assert.That(response.StatusCode).IsEqualTo(HttpStatusCode.BadRequest);
 
         var problemDetails = await response.Content.ReadFromJsonAsync<ProblemDetails>();
         await Assert.That(problemDetails).IsNotNull();
     }
-
 
     [Test]
     public async Task GetCustomers_Returns_OkWithCustomersList()
@@ -104,8 +100,8 @@ public class CustomerApiTests(CustomerApiWebApplicationFactory WebAppFactory)
         );
 
         await client.PostAsJsonAsync("/customers", createCustomerCommand);
-        var response = await client.GetAsync(new Uri("/customers", UriKind.Relative));
 
+        var response = await client.GetAsync(new Uri("/customers", UriKind.Relative));
         await Assert.That(response.StatusCode).IsEqualTo(HttpStatusCode.OK);
 
         var customers = await response.Content.ReadFromJsonAsync<List<GetCustomers.Response>>();
@@ -131,8 +127,8 @@ public class CustomerApiTests(CustomerApiWebApplicationFactory WebAppFactory)
 
         var createResponse = await client.PostAsJsonAsync("/customers", createCustomerCommand);
         var customerId = await createResponse.Content.ReadFromJsonAsync<CustomerId>();
-        var response = await client.GetAsync(new Uri($"/customers/{customerId}", UriKind.Relative));
 
+        var response = await client.GetAsync(new Uri($"/customers/{customerId}", UriKind.Relative));
         await Assert.That(response.StatusCode).IsEqualTo(HttpStatusCode.OK);
 
         var customer = await response.Content.ReadFromJsonAsync<GetCustomer.Response>();
@@ -152,7 +148,6 @@ public class CustomerApiTests(CustomerApiWebApplicationFactory WebAppFactory)
         var response = await client.GetAsync(new Uri($"/customers/{nonExistentId}", UriKind.Relative));
         await Assert.That(response.StatusCode).IsEqualTo(HttpStatusCode.NotFound);
     }
-
 
     [Test]
     public async Task RemovedCustomer_IsNotIncluded()

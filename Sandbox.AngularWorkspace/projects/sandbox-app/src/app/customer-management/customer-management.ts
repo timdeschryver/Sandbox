@@ -1,11 +1,11 @@
 import { Injectable, type Signal, inject } from '@angular/core';
 import { HttpClient, type HttpResourceRef, httpResource } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { type Observable } from 'rxjs';
 import { parse, parseCollection } from '@sandbox-app/shared/functions';
 import {
-	CreateCustomerCommand,
+	type CreateCustomerCommand,
 	CustomerDetailsResponse,
-	CustomerId,
+	type CustomerId,
 	CustomerOverviewResponse,
 } from '@sandbox-app/customer-management/models';
 

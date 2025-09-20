@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject, output, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule, NgForm } from '@angular/forms';
-import { CreateCustomerCommand, CustomerId } from '@sandbox-app/customer-management/models';
+import { FormsModule, type NgForm } from '@angular/forms';
+import { type CreateCustomerCommand, type CustomerId } from '@sandbox-app/customer-management/models';
 import { Customers } from '@sandbox-app/customer-management/customer-management';
 import { CustomerAddress } from '@sandbox-app/customer-management/shared/customer-address/customer-address';
 import { HttpErrorResponse } from '@angular/common/http';

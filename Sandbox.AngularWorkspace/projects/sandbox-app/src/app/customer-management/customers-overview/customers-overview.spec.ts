@@ -1,7 +1,7 @@
 import { it } from 'vitest';
 import { HttpTestingController } from '@angular/common/http/testing';
 import { render } from '@testing-library/angular';
-import { CustomerOverviewResponse } from '@sandbox-app/customer-management/models';
+import { type CustomerOverviewResponse } from '@sandbox-app/customer-management/models';
 import CustomersOverview from './customers-overview';
 import { TestBed } from '@angular/core/testing';
 import { generateUuid } from '@sandbox-app/shared/functions';
