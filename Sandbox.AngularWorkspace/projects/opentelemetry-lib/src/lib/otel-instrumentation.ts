@@ -11,7 +11,7 @@ import { getWebAutoInstrumentations } from '@opentelemetry/auto-instrumentations
 export function provideOpenTelemetryInstrumentation(): EnvironmentProviders {
 	return provideAppInitializer(() => {
 		const resource = resourceFromAttributes({
-			[ATTR_SERVICE_NAME]: 'Angular Application',
+			[ATTR_SERVICE_NAME]: 'angular-frontend',
 			[ATTR_SERVICE_VERSION]: '1.0.0',
 		});
 
