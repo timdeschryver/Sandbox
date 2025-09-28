@@ -24,6 +24,7 @@ internal static class CommandResourceBuilderExtensions
                 var interactionService = context.ServiceProvider.GetRequiredService<IInteractionService>();
                 var prompt = await interactionService.PromptInputAsync("Repetition", "How many times do you want to repeat the Playwright tests?", new InteractionInput
                 {
+                    Name = "RepetitionCount",
                     Label = "Repetition Count",
                     Description = "Enter the number of times to repeat the Playwright tests.",
                     InputType = InputType.Number,

@@ -115,7 +115,7 @@ var apiService = builder.AddProject<Projects.Sandbox_ApiService>("apiservice")
     });
 
 var angularApplication = builder
-    .AddNpmApp("angularfrontend", "../Sandbox.AngularWorkspace")
+    .AddNpmApp("angular-frontend", "../Sandbox.AngularWorkspace")
     .WithHttpEndpoint(env: "PORT")
     .WithEnvironment("APPLICATION", "sandbox-app")
     .PublishAsDockerFile(configure: resource =>

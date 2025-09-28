@@ -3,16 +3,16 @@
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
   </PropertyGroup>
   <ItemGroup>
-    <PackageVersion Include="Aspire.Hosting.AppHost" Version="9.4.2" />
-    <PackageVersion Include="Aspire.Hosting.Azure" Version="9.4.2" />
+    <PackageVersion Include="Aspire.Hosting.AppHost" Version="9.5.0" />
+    <PackageVersion Include="Aspire.Hosting.Azure" Version="9.5.0" />
     <PackageVersion Include="Aspire.Hosting.Docker" Version="9.4.0-preview.1.25378.8" />
-    <PackageVersion Include="Aspire.Hosting.NodeJs" Version="9.4.2" />
-    <PackageVersion Include="Aspire.Hosting.PostgreSQL" Version="9.4.2" />
-    <PackageVersion Include="Aspire.Hosting.SqlServer" Version="9.4.2" />
-    <PackageVersion Include="Aspire.Microsoft.EntityFrameworkCore.SqlServer" Version="9.4.2" />
-    <PackageVersion Include="Aspire.Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.4.2" />
-    <PackageVersion Include="CommunityToolkit.Aspire.Hosting.Minio" Version="9.7.2" />
-    <PackageVersion Include="Duende.AccessTokenManagement.OpenIdConnect" Version="4.0.0" />
+    <PackageVersion Include="Aspire.Hosting.NodeJs" Version="9.5.0" />
+    <PackageVersion Include="Aspire.Hosting.PostgreSQL" Version="9.5.0" />
+    <PackageVersion Include="Aspire.Hosting.SqlServer" Version="9.5.0" />
+    <PackageVersion Include="Aspire.Microsoft.EntityFrameworkCore.SqlServer" Version="9.5.0" />
+    <PackageVersion Include="Aspire.Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.5.0" />
+    <PackageVersion Include="CommunityToolkit.Aspire.Hosting.Minio" Version="9.8.0" />
+    <PackageVersion Include="Duende.AccessTokenManagement.OpenIdConnect" Version="4.0.1" />
     <PackageVersion Include="Microsoft.AspNetCore.Authentication.JwtBearer"
       Version="10.0.0-rc.1.25451.107" />
     <PackageVersion Include="Microsoft.AspNetCore.Authentication.OpenIdConnect"
@@ -22,8 +22,8 @@
       Version="10.0.0-rc.1.25451.107" />
     <PackageVersion Include="Microsoft.Extensions.Hosting" Version="10.0.0-rc.1.25451.107" />
     <PackageVersion Include="Microsoft.Extensions.Http.Resilience" Version="9.9.0" />
-    <PackageVersion Include="Microsoft.Extensions.ServiceDiscovery" Version="9.4.2" />
-    <PackageVersion Include="Microsoft.Extensions.ServiceDiscovery.Yarp" Version="9.4.2" />
+    <PackageVersion Include="Microsoft.Extensions.ServiceDiscovery" Version="9.5.0" />
+    <PackageVersion Include="Microsoft.Extensions.ServiceDiscovery.Yarp" Version="9.5.0" />
     <PackageVersion Include="Microsoft.Extensions.TimeProvider.Testing" Version="9.9.0" />
     <PackageVersion Include="Microsoft.Testing.Extensions.CodeCoverage" Version="17.14.2" />
     <PackageVersion Include="Microsoft.Testing.Extensions.TrxReport" Version="1.8.4" />
@@ -34,13 +34,13 @@
     <PackageVersion Include="OpenTelemetry.Instrumentation.AspNetCore" Version="1.12.0" />
     <PackageVersion Include="OpenTelemetry.Instrumentation.Http" Version="1.12.0" />
     <PackageVersion Include="OpenTelemetry.Instrumentation.Runtime" Version="1.12.0" />
-    <PackageVersion Include="Scalar.AspNetCore" Version="2.8.4" />
+    <PackageVersion Include="Scalar.AspNetCore" Version="2.8.7" />
     <PackageVersion Include="Vogen" Version="8.0.2" />
-    <PackageVersion Include="TngTech.ArchUnitNET" Version="0.12.1" />
-    <PackageVersion Include="TUnit" Version="0.57.65" />
-    <PackageVersion Include="WolverineFx" Version="4.12.1" />
-    <PackageVersion Include="WolverineFx.EntityFrameworkCore" Version="4.12.1" />
-    <PackageVersion Include="WolverineFx.Postgresql" Version="4.12.1" />
+    <PackageVersion Include="TngTech.ArchUnitNET" Version="0.12.3" />
+    <PackageVersion Include="TUnit" Version="0.61.39" />
+    <PackageVersion Include="WolverineFx" Version="4.12.2" />
+    <PackageVersion Include="WolverineFx.EntityFrameworkCore" Version="4.12.2" />
+    <PackageVersion Include="WolverineFx.Postgresql" Version="4.12.2" />
     <PackageVersion Include="Yarp.ReverseProxy" Version="2.3.0" />
     <PackageVersion Include="Microsoft.CodeAnalysis.Workspaces.Common" Version="4.14.0" />
     <PackageVersion Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="4.14.0" />
