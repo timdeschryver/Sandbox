@@ -7,8 +7,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.AddServiceDefaults();
 
-builder.Services.AddReverseProxy(builder.Configuration);
-builder.Services.AddAuthenticationSchemes(builder.Configuration);
+builder.AddReverseProxy();
+builder.AddAuthenticationSchemes();
 
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddOpenIdConnectAccessTokenManagement();
@@ -27,7 +27,6 @@ app.UseStatusCodePages();
 app.UseExceptionHandler();
 app.UseAntiforgery();
 
-app.UseNoUnauthorizedRedirect("/api");
 app.UseAuthentication();
 app.UseAuthorization();
 

@@ -2,10 +2,13 @@
 	"compilerOptions": {
 		"baseUrl": ".",
 		"target": "ESNext",
-		"module": "commonjs",
+		"module": "ESNext",
 		"moduleResolution": "Node",
 		"sourceMap": true,
 		"outDir": "../tests-out",
-		"verbatimModuleSyntax": true
+		"verbatimModuleSyntax": true,
+		"allowImportingTsExtensions": false,
+		"esModuleInterop": true,
+		"allowSyntheticDefaultImports": true
 	}
 }

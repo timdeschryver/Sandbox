@@ -82,5 +82,6 @@ export default defineConfig({
 		command: 'dotnet run --project ./Sandbox.AppHost',
 		url: config.applicationUrl,
 		reuseExistingServer: !process.env.CI,
+		timeout: 60000 * 5,
 	},
 });

@@ -29,7 +29,7 @@ graph TD
 
     subgraph "External Facing Components"
         Gateway["API Gateway (YARP)<br>Sandbox.Gateway"]
-        Auth0["Auth0<br>Authentication Provider"]
+        Keycloak["Keycloak<br>Authentication Provider"]
     end
 
     subgraph "Internal Components"
@@ -42,7 +42,7 @@ graph TD
         Gateway --> ApiService
         ApiService --> SqlDatabase
         SqlDatabase -.-o DbMigrations
-        Gateway -.-> Auth0
+        Gateway -.-> Keycloak
     end
 
     subgraph "Monitoring"
@@ -63,7 +63,7 @@ graph TD
     classDef monitoring fill:#ffd,stroke:#333,stroke-width:1px;
 
     class Gateway gateway,externalFacing;
-    class Auth0 auth,externalFacing;
+    class Keycloak auth,externalFacing;
     class AngularApp frontend;
     class ApiService backend;
     class SqlDatabase,DbMigrations database;

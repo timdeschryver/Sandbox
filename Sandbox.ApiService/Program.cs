@@ -12,11 +12,17 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.AddServiceDefaults();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, jwtOptions =>
-    {
-        jwtOptions.Authority = $"https://{builder.Configuration["OpenIDConnectSettings:Domain"]}";
-        jwtOptions.Audience = builder.Configuration["OpenIDConnectSettings:Audience"];
-    });
+    .AddKeycloakJwtBearer(
+        serviceName: "keycloak",
+        realm: "sandbox",
+        configureOptions: options =>
+        {
+            options.Audience = "sandbox.api";
+            if (builder.Environment.IsDevelopment())
+            {
+                options.RequireHttpsMetadata = false;
+            }
+        });
 
 builder.Services.AddAuthorization();
 builder.Services.AddProblemDetails();
