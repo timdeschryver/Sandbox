@@ -6,6 +6,7 @@ import userEvent from '@testing-library/user-event';
 import { type CustomerDetailsResponse } from '@sandbox-app/customer-management/models';
 import CustomerDetails from './customer-details';
 import { generateUuid } from '@sandbox-app/shared/functions';
+import { inputBinding, signal } from '@angular/core';
 
 it('renders customer details when data is loaded', async () => {
 	const { mockRequest } = await setup();
@@ -175,16 +176,14 @@ it('displays error message when API request fails and can retry', async () => {
 
 async function setup() {
 	const user = userEvent.setup();
-	const customerId = generateUuid();
+	const customerId = signal(generateUuid());
 	const { fixture } = await render(CustomerDetails, {
-		inputs: {
-			customerId,
-		},
+		bindings: [inputBinding('customerId', customerId)],
 	});
 	const httpMock = TestBed.inject(HttpTestingController);
 	return {
 		mockRequest: async (response: object, opts?: object) => {
-			const request = httpMock.expectOne(`/api/customers/${customerId}`);
+			const request = httpMock.expectOne(`/api/customers/${customerId()}`);
 			request.flush(response, opts);
 
 			await fixture.whenStable();

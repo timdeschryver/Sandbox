@@ -3,10 +3,10 @@ import { HttpTestingController } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { render, screen } from '@testing-library/angular';
 import userEvent from '@testing-library/user-event';
-import { type CreateCustomerCommand, type CustomerId } from '@sandbox-app/customer-management/models';
+import { type CreateCustomerCommand } from '@sandbox-app/customer-management/models';
 import { CustomerForm } from './customer-form';
 import { CustomerAddress } from '@sandbox-app/customer-management/shared/customer-address/customer-address';
-import { type OutputEmitterRef } from '@angular/core';
+import { outputBinding } from '@angular/core';
 
 it('renders form with initial empty values', async () => {
 	await setup();
@@ -130,11 +130,7 @@ async function setup() {
 
 	const { fixture } = await render(CustomerForm, {
 		imports: [CustomerAddress],
-		componentOutputs: {
-			submitted: {
-				emit: onSubmittedSpy,
-			} as unknown as OutputEmitterRef<CustomerId>,
-		},
+		bindings: [outputBinding('submitted', onSubmittedSpy)],
 	});
 
 	const httpMock = TestBed.inject(HttpTestingController);
