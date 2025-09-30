@@ -4,10 +4,17 @@ using Sandbox.AppHost.Extensions;
 
 var builder = DistributedApplication.CreateBuilder(args);
 
-var authDomain = builder.AddParameter("OpenIDConnectSettingsDomain", secret: false);
-var authClientId = builder.AddParameter("OpenIDConnectSettingsClientId", secret: false);
-var authClientSecret = builder.AddParameter("OpenIDConnectSettingsClientSecret", secret: true);
-var authAudience = builder.AddParameter("OpenIDConnectSettingsAudience", secret: false);
+
+var openIDConnectSettingsClientSecret = builder.AddParameter("OpenIDConnectSettingsClientSecret", secret: true);
+
+var keycloakAdminUsername = builder.AddParameter("KeycloakAdminUsername");
+var keycloakAdminPassword = builder.AddParameter("KeycloakAdminPassword", secret: true);
+
+
+var keycloak = builder.AddKeycloak("keycloak", 8080, keycloakAdminUsername, keycloakAdminPassword)
+    .WithDataVolume()
+    .WithRealmImport("../config/keycloak/realms");
+openIDConnectSettingsClientSecret.WithParentRelationship(keycloak);
 
 var minioUser = builder.AddParameter("MinioUser", secret: false);
 var minioPassword = builder.AddParameter("MinioPassword", secret: true);
@@ -104,10 +111,10 @@ if (builder.Environment.IsDevelopment())
 
 var apiService = builder.AddProject<Projects.Sandbox_ApiService>("apiservice")
     .WithReference(db)
-    .WithEnvironment("OpenIDConnectSettings__Domain", authDomain)
-    .WithEnvironment("OpenIDConnectSettings__Audience", authAudience)
+    .WithReference(keycloak)
     .WaitFor(db)
     .WaitFor(migrations)
+    .WaitFor(keycloak)
     .WithUrlForEndpoint("http", url =>
     {
         url.DisplayText = "Browse OpenAPI Specification";
@@ -127,13 +134,13 @@ var gateway = builder.AddProject<Projects.Sandbox_Gateway>("gateway")
     .WithReference(apiService)
     .WithReference(angularApplication)
     .WithReference(openTelemetryCollector.Resource.HTTPEndpoint)
-    .WithEnvironment("OpenIDConnectSettings__Domain", authDomain)
-    .WithEnvironment("OpenIDConnectSettings__ClientId", authClientId)
-    .WithEnvironment("OpenIDConnectSettings__ClientSecret", authClientSecret)
-    .WithEnvironment("OpenIDConnectSettings__Audience", authAudience)
+    .WithReference(keycloak)
+    .WithEnvironment("OpenIDConnectSettings__ClientSecret", openIDConnectSettingsClientSecret)
+
     .WaitFor(apiService)
     .WaitFor(angularApplication)
     .WaitFor(openTelemetryCollector)
+    .WaitFor(keycloak)
     .WithUrlForEndpoint("http", url =>
     {
         url.DisplayText = "Open application";
@@ -142,11 +149,7 @@ var gateway = builder.AddProject<Projects.Sandbox_Gateway>("gateway")
 
 apiService.WithParentRelationship(gateway);
 angularApplication.WithParentRelationship(gateway);
-authDomain.WithParentRelationship(gateway);
-authClientId.WithParentRelationship(gateway);
-authClientSecret.WithParentRelationship(gateway);
-authAudience.WithParentRelationship(gateway);
-
+keycloak.WithParentRelationship(gateway);
 if (builder.Environment.IsDevelopment())
 {
     var playwright = builder

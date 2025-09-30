@@ -16,13 +16,13 @@ test('authenticate user', async ({ page }) => {
 
 	await page.goto('/bff/login');
 
-	await page.getByRole('textbox', { name: 'Email address' }).click();
-	await page.getByRole('textbox', { name: 'Email address' }).fill(config.username);
-	await page.getByRole('textbox', { name: 'Email address' }).press('Enter');
+	const usernameInput = page.getByRole('textbox', { name: /Username/i });
+	const passwordInput = page.getByRole('textbox', { name: /Password/i });
 
-	await page.getByRole('textbox', { name: 'Password' }).click();
-	await page.getByRole('textbox', { name: 'Password' }).fill(config.password);
-	await page.getByRole('textbox', { name: 'Password' }).press('Enter');
+	await usernameInput.fill(config.username);
+
+	await passwordInput.fill(config.password);
+	await passwordInput.press('Enter');
 
 	await expect(
 		page.getByRole('heading', {

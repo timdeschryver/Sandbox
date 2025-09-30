@@ -1,0 +1,214 @@
+{
+	"realm": "sandbox",
+	"enabled": true,
+	"displayName": "Sandbox Realm",
+	"sslRequired": "external",
+	"registrationAllowed": true,
+	"registrationEmailAsUsername": false,
+	"rememberMe": true,
+	"verifyEmail": false,
+	"loginWithEmailAllowed": true,
+	"duplicateEmailsAllowed": false,
+	"resetPasswordAllowed": true,
+	"editUsernameAllowed": false,
+	"bruteForceProtected": true,
+	"permanentLockout": false,
+	"maxFailureWaitSeconds": 900,
+	"minimumQuickLoginWaitSeconds": 60,
+	"waitIncrementSeconds": 60,
+	"quickLoginCheckMilliSeconds": 1000,
+	"maxDeltaTimeSeconds": 43200,
+	"failureFactor": 30,
+	"roles": {
+		"realm": [
+			{
+				"name": "user",
+				"description": "User role"
+			}
+		]
+	},
+	"users": [
+		{
+			"username": "testuser",
+			"enabled": true,
+			"firstName": "Test",
+			"lastName": "User",
+			"email": "test@sandbox.local",
+			"credentials": [
+				{
+					"type": "password",
+					"value": "password123",
+					"temporary": false
+				}
+			],
+			"realmRoles": ["user", "offline_access"]
+		}
+	],
+	"identityProviders": [],
+	"clients": [
+		{
+			"clientId": "sandbox-gateway",
+			"name": "Sandbox Gateway",
+			"description": "Gateway client for BFF authentication",
+			"enabled": true,
+			"clientAuthenticatorType": "client-secret",
+			"secret": "supersecret",
+			"standardFlowEnabled": true,
+			"implicitFlowEnabled": false,
+			"directAccessGrantsEnabled": false,
+			"serviceAccountsEnabled": false,
+			"publicClient": false,
+			"frontchannelLogout": true,
+			"protocol": "openid-connect",
+			"attributes": {
+				"saml.assertion.signature": "false",
+				"saml.force.post.binding": "false",
+				"saml.multivalued.roles": "false",
+				"saml.encrypt": "false",
+				"saml.server.signature": "false",
+				"saml.server.signature.keyinfo.ext": "false",
+				"exclude.session.state.from.auth.response": "false",
+				"saml_force_name_id_format": "false",
+				"saml.client.signature": "false",
+				"tls.client.certificate.bound.access.tokens": "false",
+				"saml.authnstatement": "false",
+				"display.on.consent.screen": "false",
+				"saml.onetimeuse.condition": "false"
+			},
+			"fullScopeAllowed": true,
+			"nodeReRegistrationTimeout": -1,
+			"protocolMappers": [
+				{
+					"name": "name",
+					"protocol": "openid-connect",
+					"protocolMapper": "oidc-usermodel-property-mapper",
+					"consentRequired": false,
+					"config": {
+						"userinfo.token.claim": "true",
+						"user.attribute": "username",
+						"id.token.claim": "true",
+						"access.token.claim": "true",
+						"claim.name": "name",
+						"jsonType.label": "String"
+					}
+				}
+			],
+			"defaultClientScopes": ["web-origins", "acr", "profile", "roles", "email", "openid"],
+			"optionalClientScopes": ["offline_access", "sandbox:all"],
+			"redirectUris": ["*"],
+			"webOrigins": ["*"]
+		},
+		{
+			"clientId": "sandbox.api",
+			"name": "Sandbox API",
+			"description": "API client for JWT authentication",
+			"enabled": true,
+			"bearerOnly": true,
+			"publicClient": false,
+			"protocol": "openid-connect",
+			"attributes": {
+				"access.token.lifespan": "300"
+			},
+			"fullScopeAllowed": true
+		}
+	],
+	"authenticationFlows": [
+		{
+			"alias": "registration form",
+			"description": "Registration form",
+			"providerId": "form-flow",
+			"topLevel": false,
+			"builtIn": true,
+			"authenticationExecutions": [
+				{
+					"authenticator": "registration-user-creation",
+					"requirement": "REQUIRED",
+					"priority": 20,
+					"userSetupAllowed": false,
+					"autheticatorFlow": false
+				},
+				{
+					"authenticator": "registration-password-action",
+					"requirement": "REQUIRED",
+					"priority": 50,
+					"userSetupAllowed": false,
+					"autheticatorFlow": false
+				}
+			]
+		}
+	],
+	"clientScopes": [
+		{
+			"name": "openid",
+			"description": "OpenID Connect built-in scope",
+			"protocol": "openid-connect",
+			"attributes": {
+				"include.in.token.scope": "true",
+				"display.on.consent.screen": "false"
+			}
+		},
+		{
+			"name": "profile",
+			"description": "OpenID Connect built-in scope for profile information",
+			"protocol": "openid-connect",
+			"attributes": {
+				"include.in.token.scope": "true",
+				"display.on.consent.screen": "true"
+			}
+		},
+		{
+			"name": "email",
+			"description": "OpenID Connect built-in scope for email",
+			"protocol": "openid-connect",
+			"attributes": {
+				"include.in.token.scope": "true",
+				"display.on.consent.screen": "true"
+			}
+		},
+		{
+			"name": "offline_access",
+			"description": "OpenID Connect built-in scope for refresh tokens",
+			"protocol": "openid-connect",
+			"attributes": {
+				"include.in.token.scope": "true",
+				"display.on.consent.screen": "true"
+			}
+		},
+		{
+			"name": "sandbox:all",
+			"description": "Full sandbox access",
+			"protocol": "openid-connect",
+			"attributes": {
+				"include.in.token.scope": "true",
+				"display.on.consent.screen": "true"
+			},
+			"protocolMappers": [
+				{
+					"name": "sandbox-audience",
+					"protocol": "openid-connect",
+					"protocolMapper": "oidc-audience-mapper",
+					"consentRequired": false,
+					"config": {
+						"included.client.audience": "sandbox.api",
+						"id.token.claim": "false",
+						"access.token.claim": "true"
+					}
+				}
+			]
+		}
+	],
+	"components": {
+		"org.keycloak.userprofile.UserProfileProvider": [
+			{
+				"id": "7723bfc4-6c92-4847-a346-cb61a22926f1",
+				"providerId": "declarative-user-profile",
+				"subComponents": {},
+				"config": {
+					"kc.user.profile.config": [
+						"{\"attributes\":[{\"name\":\"username\",\"displayName\":\"${username}\",\"validations\":{\"length\":{\"min\":3,\"max\":255},\"username-prohibited-characters\":{},\"up-username-not-idn-homograph\":{}},\"permissions\":{\"view\":[\"admin\",\"user\"],\"edit\":[\"admin\",\"user\"]},\"multivalued\":false},{\"name\":\"email\",\"displayName\":\"${email}\",\"validations\":{\"email\":{},\"length\":{\"max\":255}},\"required\":{\"roles\":[\"user\"]},\"permissions\":{\"view\":[\"admin\",\"user\"],\"edit\":[\"admin\",\"user\"]},\"multivalued\":false}],\"groups\":[{\"name\":\"user-metadata\",\"displayHeader\":\"User metadata\",\"displayDescription\":\"Attributes, which refer to user metadata\"}]}"
+					]
+				}
+			}
+		]
+	}
+}

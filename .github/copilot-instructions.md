@@ -48,7 +48,7 @@
 #### Backend (.NET 10 RC)
 
 - **`Sandbox.AppHost`**: Aspire application host for service orchestration
-- **`Sandbox.Gateway`**: YARP-based API gateway with BFF authentication (Auth0 OIDC)
+- **`Sandbox.Gateway`**: YARP-based API gateway with BFF authentication (Keycloak)
 - **`Sandbox.ApiService`**: Main API service with 2 replicas
 - **`Sandbox.Migrations`**: Database migration service
 - **`Sandbox.ServiceDefaults`**: Shared service configurations
@@ -70,7 +70,7 @@
 
 - **`Sandbox.Architectural.Tests`**: Architecture compliance tests (ArchUnitNET)
 - **`Sandbox.IntegrationTests`**: Service integration tests (TUnit)
-- **`Sandbox.EndToEndTests`**: Playwright E2E tests with Auth0 authentication
+- **`Sandbox.EndToEndTests`**: Playwright E2E tests with Keycloak authentication
 - **`Sandbox.Modules.*.Tests`**: Unit tests for each module (TUnit)
 
 ### Data Stores
@@ -81,7 +81,6 @@
 
 ### External Services
 
-- **Auth0**: OIDC identity provider (`td-sandbox.eu.auth0.com`)
 - **Azure**: Deployment target via Azure Developer CLI
 
 ## Style Rules & Standards
@@ -122,7 +121,7 @@
 
 ### User Authentication
 
-1. **Login**: `/bff/login` → Auth0 OIDC flow
+1. **Login**: `/bff/login` → (Keycloak) OIDC flow
 2. **Session**: HTTP-only cookies (`__Sandbox`) with server-side token storage
 3. **API Calls**: Gateway automatically adds Bearer tokens to backend requests
 4. **Logout**: `/bff/logout` → clears both cookie and OIDC sessions
@@ -162,5 +161,5 @@
 
 - **Unit Tests**: TUnit for .NET, Vitest for Angular
 - **Integration Tests**: TUnit with TestContainers for database
-- **E2E Tests**: Playwright with Auth0 authentication
+- **E2E Tests**: Playwright with Keycloak authentication
 - **Architecture Tests**: ArchUnitNET for compliance validation

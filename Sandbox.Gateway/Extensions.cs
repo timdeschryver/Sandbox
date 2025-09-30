@@ -12,34 +12,34 @@ namespace Sandbox.Gateway;
 
 internal static class Extensions
 {
-    public static IServiceCollection AddReverseProxy(this IServiceCollection services, IConfiguration configuration)
+    public static IHostApplicationBuilder AddReverseProxy(this IHostApplicationBuilder builder)
     {
-        services.AddSingleton<AddBearerTokenToHeadersTransform>();
-        services.AddSingleton<AddAntiforgeryTokenResponseTransform>();
-        services.AddSingleton<ValidateAntiforgeryTokenRequestTransform>();
+        builder.Services.AddSingleton<AddBearerTokenToHeadersTransform>();
+        builder.Services.AddSingleton<AddAntiforgeryTokenResponseTransform>();
+        builder.Services.AddSingleton<ValidateAntiforgeryTokenRequestTransform>();
 
-        services
+        builder.Services
             .AddReverseProxy()
-            .LoadFromConfig(configuration.GetSection("ReverseProxy"))
+            .LoadFromConfig(builder.Configuration.GetSection("ReverseProxy"))
             .AddTransforms(builderContext =>
             {
                 builderContext.ResponseTransforms.Add(builderContext.Services.GetRequiredService<AddAntiforgeryTokenResponseTransform>());
                 builderContext.RequestTransforms.Add(builderContext.Services.GetRequiredService<ValidateAntiforgeryTokenRequestTransform>());
+                builderContext.RequestTransforms.Add(new RequestHeaderRemoveTransform("Cookie"));
 
                 if (!string.IsNullOrEmpty(builderContext.Route.AuthorizationPolicy))
                 {
                     builderContext.RequestTransforms.Add(builderContext.Services.GetRequiredService<AddBearerTokenToHeadersTransform>());
                 }
-                builderContext.RequestTransforms.Add(new RequestHeaderRemoveTransform("Cookie"));
             })
             .AddServiceDiscoveryDestinationResolver();
 
-        return services;
+        return builder;
     }
 
-    public static IServiceCollection AddAuthenticationSchemes(this IServiceCollection services, IConfiguration configuration)
+    public static IHostApplicationBuilder AddAuthenticationSchemes(this IHostApplicationBuilder builder)
     {
-        services.AddAuthentication(options =>
+        builder.Services.AddAuthentication(options =>
         {
             options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
             options.DefaultChallengeScheme = OpenIdConnectDefaults.AuthenticationScheme;
@@ -50,74 +50,47 @@ internal static class Extensions
             options.Cookie.SameSite = Microsoft.AspNetCore.Http.SameSiteMode.Strict;
             options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
         })
-        .AddOpenIdConnect(OpenIdConnectDefaults.AuthenticationScheme, options =>
-        {
-            options.Authority = $"https://{configuration.GetValue<string>("OpenIDConnectSettings:Domain")}";
-            options.ClientId = configuration.GetValue<string>("OpenIDConnectSettings:ClientId");
-            options.ClientSecret = configuration.GetValue<string>("OpenIDConnectSettings:ClientSecret");
-
-            options.ResponseType = OpenIdConnectResponseType.Code;
-            options.ResponseMode = OpenIdConnectResponseMode.Query;
-
-            options.GetClaimsFromUserInfoEndpoint = true;
-            options.SaveTokens = true;
-            options.MapInboundClaims = false;
-
-            options.TokenValidationParameters = new TokenValidationParameters
+        .AddKeycloakOpenIdConnect(
+            serviceName: "keycloak",
+            realm: "sandbox",
+            configureOptions: options =>
             {
-                NameClaimType = ClaimTypes.NameIdentifier,
-                RoleClaimType = ClaimTypes.Role,
-            };
+                options.ClientId = "sandbox-gateway";
+                options.ClientSecret = builder.Configuration.GetValue<string>("OpenIDConnectSettings:ClientSecret");
+                options.ResponseType = OpenIdConnectResponseType.Code;
+                options.ResponseMode = OpenIdConnectResponseMode.Query;
+                options.GetClaimsFromUserInfoEndpoint = true;
+                options.SaveTokens = true;
+                options.MapInboundClaims = false;
+                options.CallbackPath = "/signin-oidc";
 
-            options.Scope.Clear();
-            options.Scope.Add("openid");
-            options.Scope.Add("profile");
-            options.Scope.Add("offline_access");
-
-            options.Events = new()
-            {
-                OnRedirectToIdentityProviderForSignOut = (context) =>
+                options.TokenValidationParameters = new TokenValidationParameters
                 {
-                    var logoutUri = $"https://{configuration.GetValue<string>("OpenIDConnectSettings:Domain")}/oidc/logout?client_id={configuration.GetValue<string>("OpenIDConnectSettings:ClientId")}";
-                    var redirectUrl = context.HttpContext.BuildRedirectUrl(context.Properties.RedirectUri);
-                    logoutUri += $"&post_logout_redirect_uri={redirectUrl}";
+                    NameClaimType = ClaimTypes.NameIdentifier,
+                    RoleClaimType = ClaimTypes.Role,
+                };
 
-                    context.Response.Redirect(logoutUri);
-                    context.HandleResponse();
-                    return Task.CompletedTask;
-                },
-                OnRedirectToIdentityProvider = (context) =>
+                options.Scope.Clear();
+                options.Scope.Add("openid");
+                options.Scope.Add("profile");
+                options.Scope.Add("email");
+                options.Scope.Add("offline_access");
+                options.Scope.Add("sandbox:all");
+
+                if (builder.Environment.IsDevelopment())
                 {
-                    context.ProtocolMessage.SetParameter("audience", configuration.GetValue<string>("OpenIDConnectSettings:Audience"));
-                    return Task.CompletedTask;
-                },
-            };
-        });
+                    options.RequireHttpsMetadata = false;
+                }
+            });
 
-        services.AddAuthorization(options =>
+        builder.Services.AddAuthorization(options =>
         {
             options.DefaultPolicy = new AuthorizationPolicyBuilder(CookieAuthenticationDefaults.AuthenticationScheme)
                 .RequireAuthenticatedUser()
                 .Build();
         });
 
-        return services;
-    }
-
-    // Thanks Damien https://github.com/damienbod/bff-auth0-aspnetcore-angular/blob/main/server/Services/ApplicationBuilderExtensions.cs#L7
-    public static IApplicationBuilder UseNoUnauthorizedRedirect(this IApplicationBuilder applicationBuilder, params string[] segments)
-    {
-        applicationBuilder.Use(async (httpContext, func) =>
-        {
-            if (segments.Any(s => httpContext.Request.Path.StartsWithSegments(s, StringComparison.Ordinal)))
-            {
-                httpContext.Request.Headers[HeaderNames.XRequestedWith] = "XMLHttpRequest";
-            }
-
-            await func();
-        });
-
-        return applicationBuilder;
+        return builder;
     }
 
     public static string BuildRedirectUrl(this HttpContext context, string? redirectUrl)

@@ -10,4 +10,11 @@ export default tseslint.config(
 	tseslint.configs.recommended,
 	playwright.configs['flat/recommended'],
 	eslintConfigPrettier,
+	{
+		languageOptions: {
+			parserOptions: {
+				tsconfigRootDir: import.meta.dirname,
+			},
+		},
+	},
 );
