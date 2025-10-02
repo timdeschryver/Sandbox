@@ -4,17 +4,16 @@ using Sandbox.AppHost.Extensions;
 
 var builder = DistributedApplication.CreateBuilder(args);
 
-
 var openIDConnectSettingsClientSecret = builder.AddParameter("OpenIDConnectSettingsClientSecret", secret: true);
-
 var keycloakAdminUsername = builder.AddParameter("KeycloakAdminUsername");
 var keycloakAdminPassword = builder.AddParameter("KeycloakAdminPassword", secret: true);
-
 
 var keycloak = builder.AddKeycloak("keycloak", 8080, keycloakAdminUsername, keycloakAdminPassword)
     .WithDataVolume()
     .WithRealmImport("../config/keycloak/realms");
 openIDConnectSettingsClientSecret.WithParentRelationship(keycloak);
+keycloakAdminUsername.WithParentRelationship(keycloak);
+keycloakAdminPassword.WithParentRelationship(keycloak);
 
 var minioUser = builder.AddParameter("MinioUser", secret: false);
 var minioPassword = builder.AddParameter("MinioPassword", secret: true);
@@ -24,6 +23,15 @@ var minio = builder.AddMinioContainer("minio", minioUser, minioPassword)
     .WithDataVolume();
 minioUser.WithParentRelationship(minio);
 minioPassword.WithParentRelationship(minio);
+
+var minioBucketCreator = builder
+    .AddContainer("minio-bucket-creator", "minio/mc")
+    .WaitFor(minio)
+    .WithEnvironment("MinioUser", minioUser)
+    .WithEnvironment("MinioPassword", minioPassword)
+    .WithEntrypoint("/bin/sh")
+    .WithArgs("-c", $" /usr/bin/mc alias set myminio http://{minio.Resource.Name}:9000 $MinioUser $MinioPassword; /usr/bin/mc mb myminio/loki; /usr/bin/mc anonymous set public myminio/loki; /usr/bin/mc mb myminio/tempo;  /usr/bin/mc anonymous set public myminio/tempo; exit 0;");
+minioBucketCreator.WithParentRelationship(minio);
 
 var loki = builder.AddContainer("loki", "grafana/loki")
     .WithBindMount("../config/loki", "/etc/loki", isReadOnly: true)
@@ -83,11 +91,6 @@ var openTelemetryCollector = builder.AddOpenTelemetryCollector("../config/otel.y
     .WithEnvironment("LOKI_ENDPOINT", $"{loki.GetEndpoint("http")}/otlp")
     .WithEnvironment("TEMPO_URL", $"{tempo.GetEndpoint("otlp")}");
 
-// Uncomment to use SQL Server instead of PostgreSQL
-// var sql = builder.AddSqlServer("sql")
-//     .WithDataVolume();
-// var db = sql.AddDatabase("sandbox-db");
-
 var postgres = builder.AddPostgres("postgres")
     .WithDataVolume()
     .WithPgAdmin()
@@ -136,7 +139,6 @@ var gateway = builder.AddProject<Projects.Sandbox_Gateway>("gateway")
     .WithReference(openTelemetryCollector.Resource.HTTPEndpoint)
     .WithReference(keycloak)
     .WithEnvironment("OpenIDConnectSettings__ClientSecret", openIDConnectSettingsClientSecret)
-
     .WaitFor(apiService)
     .WaitFor(angularApplication)
     .WaitFor(openTelemetryCollector)
@@ -161,7 +163,6 @@ if (builder.Environment.IsDevelopment())
         .WithReference(gateway)
         .WithParentRelationship(angularApplication);
 }
-
 
 builder.AddDockerComposeEnvironment("Sandbox");
 #pragma warning disable ASPIREAZURE001 // Type is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
