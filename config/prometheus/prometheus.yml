@@ -39,6 +39,8 @@ scrape_configs:
       - targets:
           - http://host.docker.internal:5499/health
           - http://host.docker.internal:5165/health
+          - http://keycloak:9000/health
+          - http://minio:9000/minio/health/live
     relabel_configs:
       - source_labels: [__address__]
         target_label: __param_target
@@ -46,6 +48,10 @@ scrape_configs:
         target_label: instance
       - target_label: __address__
         replacement: host.docker.internal:9115
+  - job_name: 'keycloak'
+    static_configs:
+      - targets:
+          - keycloak:9000
 
 otlp:
   promote_resource_attributes:

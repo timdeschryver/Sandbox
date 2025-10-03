@@ -8,8 +8,10 @@ var openIDConnectSettingsClientSecret = builder.AddParameter("OpenIDConnectSetti
 var keycloakAdminUsername = builder.AddParameter("KeycloakAdminUsername");
 var keycloakAdminPassword = builder.AddParameter("KeycloakAdminPassword", secret: true);
 
-var keycloak = builder.AddKeycloak("keycloak", 8080, keycloakAdminUsername, keycloakAdminPassword)
+var keycloak = builder.AddKeycloak("keycloak", adminUsername: keycloakAdminUsername, adminPassword: keycloakAdminPassword)
     .WithDataVolume()
+    .WithEnvironment("KC_HEALTH_ENABLED", "true")
+    .WithEnvironment("KC_METRICS_ENABLED", "true")
     .WithRealmImport("../config/keycloak/realms");
 openIDConnectSettingsClientSecret.WithParentRelationship(keycloak);
 keycloakAdminUsername.WithParentRelationship(keycloak);
@@ -40,7 +42,8 @@ var loki = builder.AddContainer("loki", "grafana/loki")
     .WithEnvironment("MINIO_USER", minioUser)
     .WithEnvironment("MINIO_PASSWORD", minioPassword)
     .WithHttpEndpoint(targetPort: 3100, name: "http")
-    .WaitFor(minio);
+    .WaitFor(minio)
+    .WaitForCompletion(minioBucketCreator);
 
 var tempo = builder
     .AddContainer("tempo", "grafana/tempo")
@@ -51,7 +54,8 @@ var tempo = builder
     .WithEnvironment("MINIO_PASSWORD", minioPassword)
     .WithEndpoint(targetPort: 3200, port: 3200, name: "http", scheme: "http")
     .WithEndpoint(targetPort: 4317, port: 4007, name: "otlp", scheme: "http")
-    .WaitFor(minio);
+    .WaitFor(minio)
+    .WaitForCompletion(minioBucketCreator);
 
 var prometheus = builder.AddContainer("prometheus", "prom/prometheus")
     .WithBindMount("../config/prometheus", "/etc/prometheus", isReadOnly: true)
@@ -91,15 +95,14 @@ var openTelemetryCollector = builder.AddOpenTelemetryCollector("../config/otel.y
     .WithEnvironment("LOKI_ENDPOINT", $"{loki.GetEndpoint("http")}/otlp")
     .WithEnvironment("TEMPO_URL", $"{tempo.GetEndpoint("otlp")}");
 
-var postgres = builder.AddPostgres("postgres")
+var db = builder.AddPostgres("postgres")
     .WithDataVolume()
     .WithPgAdmin()
-    .WithPgWeb();
-var db = postgres.AddDatabase("sandbox-db");
+    .WithPgWeb()
+    .AddDatabase("sandbox-db");
 
 var migrations = builder.AddProject<Projects.Sandbox_Migrations>("migrations")
     .WithReference(db)
-    .WaitFor(postgres)
     .WaitFor(db)
     .WithParentRelationship(db);
 
@@ -113,9 +116,9 @@ if (builder.Environment.IsDevelopment())
 }
 
 var apiService = builder.AddProject<Projects.Sandbox_ApiService>("apiservice")
+    .WithHttpHealthCheck("/health")
     .WithReference(db)
     .WithReference(keycloak)
-    .WaitFor(db)
     .WaitFor(migrations)
     .WaitFor(keycloak)
     .WithUrlForEndpoint("http", url =>
@@ -164,7 +167,8 @@ if (builder.Environment.IsDevelopment())
         .WithParentRelationship(angularApplication);
 }
 
-builder.AddDockerComposeEnvironment("Sandbox");
+builder.AddDockerComposeEnvironment("Sandbox")
+    .WithDashboard(false);
 #pragma warning disable ASPIREAZURE001 // Type is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
 builder.AddAzureEnvironment();
 #pragma warning restore ASPIREAZURE001 // Type is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.

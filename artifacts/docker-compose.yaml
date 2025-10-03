@@ -1,0 +1,288 @@
+services:
+  keycloak:
+    image: 'quay.io/keycloak/keycloak:26.3'
+    command:
+      - 'start'
+      - '--import-realm'
+    environment:
+      KC_BOOTSTRAP_ADMIN_USERNAME: '${KEYCLOAKADMINUSERNAME}'
+      KC_BOOTSTRAP_ADMIN_PASSWORD: '${KEYCLOAKADMINPASSWORD}'
+      KC_HEALTH_ENABLED: 'true'
+    expose:
+      - '8080'
+      - '9000'
+    volumes:
+      - type: 'volume'
+        target: '/opt/keycloak/data'
+        source: 'sandbox.apphost-580edeb21e-keycloak-data'
+        read_only: false
+      - type: 'bind'
+        target: '/opt/keycloak/data/import'
+        source: "D:\\Sandbox\\config\\keycloak\\realms"
+        read_only: true
+    networks:
+      - 'aspire'
+  minio:
+    image: 'docker.io/minio/minio:RELEASE.2025-04-22T22-12-26Z'
+    command:
+      - 'server'
+      - '/data'
+      - '--console-address'
+      - ':9001'
+    environment:
+      MINIO_ROOT_USER: '${MINIOUSER}'
+      MINIO_ROOT_PASSWORD: '${MINIOPASSWORD}'
+      MINIO_PROMETHEUS_AUTH_TYPE: 'public'
+    expose:
+      - '9000'
+      - '9001'
+    volumes:
+      - type: 'volume'
+        target: '/data'
+        source: 'sandbox.apphost-580edeb21e-minio-data'
+        read_only: false
+    networks:
+      - 'aspire'
+  minio-bucket-creator:
+    image: 'minio/mc:latest'
+    command:
+      - '-c'
+      - ' /usr/bin/mc alias set myminio http://minio:9000 $$MinioUser $$MinioPassword; /usr/bin/mc mb myminio/loki; /usr/bin/mc anonymous set public myminio/loki; /usr/bin/mc mb myminio/tempo;  /usr/bin/mc anonymous set public myminio/tempo; exit 0;'
+    entrypoint:
+      - '/bin/sh'
+    environment:
+      MinioUser: '${MINIOUSER}'
+      MinioPassword: '${MINIOPASSWORD}'
+    depends_on:
+      minio:
+        condition: 'service_started'
+    networks:
+      - 'aspire'
+  loki:
+    image: 'grafana/loki:latest'
+    command:
+      - '--config.file=/etc/loki/loki.yml'
+      - '--config.expand-env=true'
+    environment:
+      MINIO_USER: '${MINIOUSER}'
+      MINIO_PASSWORD: '${MINIOPASSWORD}'
+    expose:
+      - '3100'
+    volumes:
+      - type: 'bind'
+        target: '/etc/loki'
+        source: "D:\\Sandbox\\config\\loki"
+        read_only: true
+      - type: 'volume'
+        target: '/loki'
+        source: 'loki-data'
+        read_only: false
+    depends_on:
+      minio:
+        condition: 'service_started'
+    networks:
+      - 'aspire'
+  tempo:
+    image: 'grafana/tempo:latest'
+    command:
+      - '--config.file=/etc/tempo/tempo.yml'
+      - '--config.expand-env=true'
+      - 'chown 10001:10001 /var/tempo'
+    environment:
+      MINIO_USER: '${MINIOUSER}'
+      MINIO_PASSWORD: '${MINIOPASSWORD}'
+    expose:
+      - '3200'
+      - '4317'
+    volumes:
+      - type: 'bind'
+        target: '/etc/tempo'
+        source: "D:\\Sandbox\\config\\tempo"
+        read_only: true
+      - type: 'volume'
+        target: '/var/tempo'
+        source: 'tempo-data'
+        read_only: false
+    depends_on:
+      minio:
+        condition: 'service_started'
+    networks:
+      - 'aspire'
+  prometheus:
+    image: 'prom/prometheus:latest'
+    command:
+      - '--web.enable-otlp-receiver'
+      - '--web.enable-remote-write-receiver'
+      - '--enable-feature=native-histograms'
+      - '--config.file=/etc/prometheus/prometheus.yml'
+    expose:
+      - '9090'
+    volumes:
+      - type: 'bind'
+        target: '/etc/prometheus'
+        source: "D:\\Sandbox\\config\\prometheus"
+        read_only: true
+    networks:
+      - 'aspire'
+  blackbox:
+    image: 'prom/blackbox-exporter:latest'
+    command:
+      - '--config.file=/etc/blackbox/blackbox.yml'
+    expose:
+      - '9115'
+    volumes:
+      - type: 'bind'
+        target: '/etc/blackbox/'
+        source: "D:\\Sandbox\\config\\blackbox"
+        read_only: false
+    networks:
+      - 'aspire'
+  grafana:
+    image: 'grafana/grafana:latest'
+    environment:
+      PROMETHEUS_ENDPOINT: 'http://prometheus:9090'
+      LOKI_ENDPOINT: 'http://loki:3100'
+      TEMPO_URL: 'http://tempo:3200'
+      GF_AUTH_ANONYMOUS_ENABLED: 'true'
+      GF_AUTH_ANONYMOUS_ORG_ROLE: 'Admin'
+      GF_AUTH_DISABLE_LOGIN_FORM: 'true'
+    expose:
+      - '3000'
+    volumes:
+      - type: 'bind'
+        target: '/etc/grafana'
+        source: "D:\\Sandbox\\config\\grafana\\config"
+        read_only: true
+      - type: 'bind'
+        target: '/var/lib/grafana/dashboards'
+        source: "D:\\Sandbox\\config\\grafana\\dashboards"
+        read_only: true
+      - type: 'volume'
+        target: '/var/lib/grafana'
+        source: 'sandbox.apphost-580edeb21e-grafana-data'
+        read_only: false
+    networks:
+      - 'aspire'
+  otelcollector:
+    image: 'ghcr.io/open-telemetry/opentelemetry-collector-releases/opentelemetry-collector-contrib:latest'
+    environment:
+      PROMETHEUS_ENDPOINT: 'http://prometheus:9090/api/v1/otlp'
+      LOKI_ENDPOINT: 'http://loki:3100/otlp'
+      TEMPO_URL: 'http://tempo:4317'
+    expose:
+      - '4317'
+      - '4318'
+    volumes:
+      - type: 'bind'
+        target: '/etc/otelcol-contrib/config.yaml'
+        source: "D:\\Sandbox\\config\\otel.yml"
+        read_only: false
+    networks:
+      - 'aspire'
+  postgres:
+    image: 'docker.io/library/postgres:17.6'
+    environment:
+      POSTGRES_HOST_AUTH_METHOD: 'scram-sha-256'
+      POSTGRES_INITDB_ARGS: '--auth-host=scram-sha-256 --auth-local=scram-sha-256'
+      POSTGRES_USER: 'postgres'
+      POSTGRES_PASSWORD: '${POSTGRES_PASSWORD}'
+    expose:
+      - '5432'
+    volumes:
+      - type: 'volume'
+        target: '/var/lib/postgresql/data'
+        source: 'sandbox.apphost-580edeb21e-postgres-data'
+        read_only: false
+    networks:
+      - 'aspire'
+  migrations:
+    image: '${MIGRATIONS_IMAGE}'
+    environment:
+      OTEL_DOTNET_EXPERIMENTAL_OTLP_EMIT_EXCEPTION_LOG_ATTRIBUTES: 'true'
+      OTEL_DOTNET_EXPERIMENTAL_OTLP_EMIT_EVENT_LOG_ATTRIBUTES: 'true'
+      OTEL_DOTNET_EXPERIMENTAL_OTLP_RETRY: 'in_memory'
+      ASPNETCORE_FORWARDEDHEADERS_ENABLED: 'true'
+      HTTP_PORTS: '${MIGRATIONS_PORT}'
+      ConnectionStrings__sandbox-db: 'Host=postgres;Port=5432;Username=postgres;Password=${POSTGRES_PASSWORD};Database=sandbox-db'
+    expose:
+      - '${MIGRATIONS_PORT}'
+    depends_on:
+      postgres:
+        condition: 'service_started'
+    networks:
+      - 'aspire'
+  apiservice:
+    image: '${APISERVICE_IMAGE}'
+    environment:
+      OTEL_DOTNET_EXPERIMENTAL_OTLP_EMIT_EXCEPTION_LOG_ATTRIBUTES: 'true'
+      OTEL_DOTNET_EXPERIMENTAL_OTLP_EMIT_EVENT_LOG_ATTRIBUTES: 'true'
+      OTEL_DOTNET_EXPERIMENTAL_OTLP_RETRY: 'in_memory'
+      ASPNETCORE_FORWARDEDHEADERS_ENABLED: 'true'
+      HTTP_PORTS: '${APISERVICE_PORT}'
+      ConnectionStrings__sandbox-db: 'Host=postgres;Port=5432;Username=postgres;Password=${POSTGRES_PASSWORD};Database=sandbox-db'
+      services__keycloak__http__0: 'http://keycloak:8080'
+      services__keycloak__management__0: 'http://keycloak:9000'
+    expose:
+      - '${APISERVICE_PORT}'
+    depends_on:
+      postgres:
+        condition: 'service_started'
+      migrations:
+        condition: 'service_started'
+      keycloak:
+        condition: 'service_started'
+    networks:
+      - 'aspire'
+  angular-frontend:
+    image: '${ANGULAR_FRONTEND_IMAGE}'
+    environment:
+      NODE_ENV: 'production'
+      PORT: '8000'
+      APPLICATION: 'sandbox-app'
+    expose:
+      - '8000'
+    networks:
+      - 'aspire'
+  gateway:
+    image: '${GATEWAY_IMAGE}'
+    environment:
+      OTEL_DOTNET_EXPERIMENTAL_OTLP_EMIT_EXCEPTION_LOG_ATTRIBUTES: 'true'
+      OTEL_DOTNET_EXPERIMENTAL_OTLP_EMIT_EVENT_LOG_ATTRIBUTES: 'true'
+      OTEL_DOTNET_EXPERIMENTAL_OTLP_RETRY: 'in_memory'
+      ASPNETCORE_FORWARDEDHEADERS_ENABLED: 'true'
+      HTTP_PORTS: '${GATEWAY_PORT}'
+      services__apiservice__http__0: 'http://apiservice:${APISERVICE_PORT}'
+      services__angular-frontend__http__0: 'http://angular-frontend:8000'
+      services__otelcollector__http__0: 'http://otelcollector:4318'
+      services__keycloak__http__0: 'http://keycloak:8080'
+      services__keycloak__management__0: 'http://keycloak:9000'
+      OpenIDConnectSettings__ClientSecret: '${OPENIDCONNECTSETTINGSCLIENTSECRET}'
+    ports:
+      - '${GATEWAY_PORT}'
+    depends_on:
+      apiservice:
+        condition: 'service_started'
+      angular-frontend:
+        condition: 'service_started'
+      otelcollector:
+        condition: 'service_started'
+      keycloak:
+        condition: 'service_started'
+    networks:
+      - 'aspire'
+networks:
+  aspire:
+    driver: 'bridge'
+volumes:
+  sandbox.apphost-580edeb21e-keycloak-data:
+    driver: 'local'
+  sandbox.apphost-580edeb21e-minio-data:
+    driver: 'local'
+  loki-data:
+    driver: 'local'
+  tempo-data:
+    driver: 'local'
+  sandbox.apphost-580edeb21e-grafana-data:
+    driver: 'local'
+  sandbox.apphost-580edeb21e-postgres-data:
+    driver: 'local'
