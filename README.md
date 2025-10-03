@@ -14,7 +14,7 @@ Some buzzwords that are used:
 - [YARP](https://learn.microsoft.com/en-us/aspnet/core/fundamentals/servers/yarp/getting-started)
 - Containers
 - [Azure Developer CLI](https://learn.microsoft.com/en-us/azure/developer/azure-developer-cli/) (azd)
-- Authentication
+- Authentication with [Keycloak](https://www.keycloak.org/)
 - Secrets OPerationS ([SOPS](https://github.com/getsops/sops))
 - [Renovate](https://docs.renovatebot.com/) for automatic dependency updates
 - Testing
@@ -101,19 +101,35 @@ dotnet run --project ./Sandbox.AppHost
 
 ## Result
 
-While the project runs you should see the Aspire dashboard.
-The first time this can take a while to spin up the containers and download the images.
+### Aspire dashboard
 
-[![Aspire dashboard](./other/dashboard.png)](./other/dashboard.png)
+The .NET Aspire dashboard provides a comprehensive view of all running services, their health status, and resource utilization in the development environment.
 
-Navigating to the gateway opens the Angular app, which invokes the .NET API.
-Interacting with the application generates traces that are sent to the Aspire dashboard, which can be looked at in real-time through the "Traces" tab in the dashboard.
+![.NET Aspire dashboard showing running services including API Gateway, Angular app, API service, SQL Server database, and Keycloak authentication provider with their respective health statuses and resource metrics](./other/aspire.png)
 
-[![Trace](./other/trace.png)](./other/trace.png)
+### Grafana Stack with OpenTelemetry data
 
-With the corresponding logs for the traces.
+The monitoring stack uses Grafana to visualize OpenTelemetry data collected from all services, providing insights into application performance, logs, traces, and health metrics.
 
-[![Logs](./other/logs.png)](./other/logs.png)
+![Grafana dashboard displaying application metrics and performance data collected via OpenTelemetry, showing service response times, request rates, and system resource utilization](./other/grafana.png)
+
+![Grafana Loki logs interface showing structured application logs from all services with filtering and search capabilities for debugging and monitoring](./other/logs.png)
+
+![Grafana Tempo distributed tracing view displaying request traces across microservices, showing the complete request flow from gateway through API services to database](./other/traces.png)
+
+![Application health monitoring dashboard showing the status of all services, endpoints, and dependencies with visual indicators for system health](./other/health.png)
+
+### Authentication using Keycloak
+
+Keycloak serves as the identity and access management solution, providing secure authentication and authorization for the application.
+
+![Keycloak admin console interface showing user management, realm settings, and authentication configuration for the Sandbox application](./other/keycloak.png)
+
+### OpenAPI Specification with Scalar
+
+Scalar provides an interactive API documentation interface generated from the OpenAPI specification, allowing developers to explore and test API endpoints.
+
+![Scalar API documentation interface displaying the Sandbox API endpoints with interactive request/response examples, authentication requirements, and detailed parameter documentation](./other/scalar.png)
 
 ## Deploy to Azure
 
