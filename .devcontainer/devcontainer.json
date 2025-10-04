@@ -27,11 +27,6 @@
 			"moby": true
 		}
 	},
-	"hostRequirements": {
-		"cpus": 8,
-		"memory": "32gb",
-		"storage": "64gb"
-	},
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	// "forwardPorts": [5000, 5001],
 	// "portsAttributes": {
@@ -39,7 +34,7 @@
 	//			"protocol": "https"
 	//		}
 	// }
-	"onCreateCommand": "dotnet tool install -g Aspire.Cli --prerelease",
+	"onCreateCommand": ["dotnet tool install -g Aspire.Cli --prerelease", "dotnet tool install -g kiota --prerelease"],
 	"postCreateCommand": {
 		"dotnet": "dotnet restore",
 		"pnpm": "pnpm install --frozen-lockfile --prefer-offline && pnpm --filter='sandbox.e2e' exec playwright install --with-deps"

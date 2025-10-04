@@ -3,5 +3,6 @@ node_modules
 build
 coverage
 *-lock.yaml
+*-lock.json
 .github/prompts
 test-results

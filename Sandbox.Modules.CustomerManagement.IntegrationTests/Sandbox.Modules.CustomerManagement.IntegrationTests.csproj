@@ -5,6 +5,7 @@
 
     <ItemGroup>
         <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" />
+        <PackageReference Include="Microsoft.Kiota.Bundle" />
         <PackageReference Include="Microsoft.Testing.Extensions.CodeCoverage" />
         <PackageReference Include="Microsoft.Testing.Extensions.TrxReport" />
         <PackageReference Include="Testcontainers.PostgreSql" />
@@ -18,4 +19,11 @@
         <ProjectReference
             Include="..\Sandbox.Modules.CustomerManagement\Sandbox.Modules.CustomerManagement.csproj" />
     </ItemGroup>
+
+    <Target Name="GenerateClient" BeforeTargets="BeforeBuild"
+        Condition="$(Configuration)=='Debug'">
+        <Exec
+            Command="kiota generate -l CSharp --output ./ApiServiceSDK --namespace-name ApiServiceSDK --class-name ApiClient --openapi ../Sandbox.ApiService/obj/Sandbox.ApiService.json --clean-output"
+            WorkingDirectory="$(ProjectDir)" />
+    </Target>
 </Project>

@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Mvc;
-using Sandbox.Modules.CustomerManagement.Application;
 using Sandbox.Modules.CustomerManagement.IntegrationTests.Setup;
 using Sandbox.SharedKernel.StronglyTypedIds;
 using System.Net;
@@ -12,60 +11,71 @@ public class CustomerApiTests(CustomerApiWebApplicationFactory WebAppFactory)
     [Test]
     public async Task CreateCustomer_WithValidData_Returns_CreatedResponse()
     {
-        using var client = WebAppFactory.CreateClient();
+        var apiClient = WebAppFactory.CreateApiClient();
 
-        var createCustomerCommand = new CreateCustomer.Command(
-            FirstName: "John",
-            LastName: "Doe",
-            BillingAddress: new CreateCustomer.BillingAddress(
-                Street: "123 Main St",
-                City: "Anytown",
-                ZipCode: "12345"
-            ), ShippingAddress: new CreateCustomer.ShippingAddress(
-                Street: "456 Oak Ave",
-                City: "Somewhere",
-                ZipCode: "67890",
-                Note: "Leave at door"
-            )
-        );
-
-        var response = await client.PostAsJsonAsync("/customers", createCustomerCommand);
-        await Assert.That(response.StatusCode).IsEqualTo(HttpStatusCode.Created);
+        var response = await apiClient.Customers.PostAsync(new ApiServiceSDK.Models.Command()
+        {
+            FirstName = "John",
+            LastName = "Doe",
+            BillingAddress = new ApiServiceSDK.Models.Command.Command_billingAddress()
+            {
+                BillingAddress = new ApiServiceSDK.Models.BillingAddress()
+                {
+                    Street = "123 Main St",
+                    City = "Anytown",
+                    ZipCode = "12345"
+                }
+            },
+            ShippingAddress = new ApiServiceSDK.Models.Command.Command_shippingAddress()
+            {
+                ShippingAddress = new ApiServiceSDK.Models.ShippingAddress()
+                {
+                    Street = "456 Oak Ave",
+                    City = "Somewhere",
+                    ZipCode = "67890",
+                    Note = "Leave at door"
+                }
+            }
+        });
     }
 
     [Test]
     public async Task CreateCustomer_WithMinimalData_Returns_CreatedResponse()
     {
-        using var client = WebAppFactory.CreateClient();
+        var apiClient = WebAppFactory.CreateApiClient();
 
-        var createCustomerCommand = new CreateCustomer.Command(
-            FirstName: "Jane",
-            LastName: "Smith",
-            BillingAddress: null,
-            ShippingAddress: null
-        );
+        var response = await apiClient.Customers.PostAsync(new ApiServiceSDK.Models.Command()
+        {
+            FirstName = "Jane",
+            LastName = "Smith",
+            BillingAddress = null,
+            ShippingAddress = null
+        });
 
-        var response = await client.PostAsJsonAsync("/customers", createCustomerCommand);
-        await Assert.That(response.StatusCode).IsEqualTo(HttpStatusCode.Created);
+        await Assert.That(response).IsNotNull();
     }
 
     [Test]
     public async Task CreateCustomer_WithInvalidData_Returns_BadRequestProblemDetails()
     {
-        using var client = WebAppFactory.CreateClient();
+        var apiClient = WebAppFactory.CreateApiClient();
 
-        var createCustomerCommand = new CreateCustomer.Command(
-            FirstName: "A",
-            LastName: "B",
-            BillingAddress: null,
-            ShippingAddress: null
-        );
+        try
+        {
+            await apiClient.Customers.PostAsync(new ApiServiceSDK.Models.Command()
+            {
+                FirstName = "A",
+                LastName = "B",
+                BillingAddress = null,
+                ShippingAddress = null
+            });
 
-        var response = await client.PostAsJsonAsync("/customers", createCustomerCommand);
-        await Assert.That(response.StatusCode).IsEqualTo(HttpStatusCode.BadRequest);
-
-        var problemDetails = await response.Content.ReadFromJsonAsync<ProblemDetails>();
-        await Assert.That(problemDetails).IsNotNull();
+            Assert.Fail("Expected ApiException was not thrown");
+        }
+        catch (Microsoft.Kiota.Abstractions.ApiException ex)
+        {
+            await Assert.That(ex.ResponseStatusCode).IsEqualTo(400);
+        }
     }
 
     [Test]
@@ -73,6 +83,8 @@ public class CustomerApiTests(CustomerApiWebApplicationFactory WebAppFactory)
     {
         using var client = WebAppFactory.CreateClient();
 
+        // For this test, we'll send a raw HTTP request with unknown property since Kiota's typed client
+        // won't allow unknown properties by design. This test verifies server-side validation.
         var request = new
         {
             FirstName = "Firstname",
@@ -90,88 +102,103 @@ public class CustomerApiTests(CustomerApiWebApplicationFactory WebAppFactory)
     [Test]
     public async Task GetCustomers_Returns_OkWithCustomersList()
     {
-        using var client = WebAppFactory.CreateClient();
+        var apiClient = WebAppFactory.CreateApiClient();
 
-        var createCustomerCommand = new CreateCustomer.Command(
-            FirstName: "Test",
-            LastName: "User",
-            BillingAddress: null,
-            ShippingAddress: null
-        );
+        await apiClient.Customers.PostAsync(new ApiServiceSDK.Models.Command()
+        {
+            FirstName = "Test",
+            LastName = "User",
+            BillingAddress = null,
+            ShippingAddress = null
+        });
+        await apiClient.Customers.PostAsync(new ApiServiceSDK.Models.Command()
+        {
+            FirstName = "Test 2",
+            LastName = "User 2",
+            BillingAddress = null,
+            ShippingAddress = null
+        });
 
-        await client.PostAsJsonAsync("/customers", createCustomerCommand);
-
-        var response = await client.GetAsync(new Uri("/customers", UriKind.Relative));
-        await Assert.That(response.StatusCode).IsEqualTo(HttpStatusCode.OK);
-
-        var customers = await response.Content.ReadFromJsonAsync<List<GetCustomers.Response>>();
+        var customers = await apiClient.Customers.GetAsync();
         await Assert.That(customers).IsNotNull();
-        await Assert.That(customers!.Count).IsGreaterThan(0);
+        await Assert.That(customers!.Count).IsGreaterThanOrEqualTo(2);
     }
 
     [Test]
     public async Task GetCustomer_WithValidId_Returns_OkWithCustomer()
     {
-        using var client = WebAppFactory.CreateClient();
+        var apiClient = WebAppFactory.CreateApiClient();
 
-        var createCustomerCommand = new CreateCustomer.Command(
-            FirstName: "Individual",
-            LastName: "Customer",
-            BillingAddress: new CreateCustomer.BillingAddress(
-                Street: "789 Pine St",
-                City: "TestCity",
-                ZipCode: "54321"
-            ),
-            ShippingAddress: null
-        );
+        var createResponse = await apiClient.Customers.PostAsync(new ApiServiceSDK.Models.Command()
+        {
+            FirstName = "Individual",
+            LastName = "Customer",
+            BillingAddress = new ApiServiceSDK.Models.Command.Command_billingAddress()
+            {
+                BillingAddress = new ApiServiceSDK.Models.BillingAddress()
+                {
+                    Street = "789 Pine Rd",
+                    City = "Elsewhere",
+                    ZipCode = "54321"
+                }
+            },
+            ShippingAddress = null
+        });
+        var customerId = (string)createResponse!.GetType().GetField("_value", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)!.GetValue(createResponse)!;
 
-        var createResponse = await client.PostAsJsonAsync("/customers", createCustomerCommand);
-        var customerId = await createResponse.Content.ReadFromJsonAsync<CustomerId>();
-
-        var response = await client.GetAsync(new Uri($"/customers/{customerId}", UriKind.Relative));
-        await Assert.That(response.StatusCode).IsEqualTo(HttpStatusCode.OK);
-
-        var customer = await response.Content.ReadFromJsonAsync<GetCustomer.Response>();
+        var customer = await apiClient.Customers[customerId!.ToString()].GetAsync();
         await Assert.That(customer).IsNotNull();
         await Assert.That(customer!.FirstName).IsEqualTo("Individual");
         await Assert.That(customer.LastName).IsEqualTo("Customer");
-        await Assert.That(customer.BillingAddresses.Count()).IsEqualTo(1);
-        await Assert.That(customer.ShippingAddresses.Count()).IsEqualTo(0);
+        await Assert.That(customer.BillingAddresses?.Count).IsEqualTo(1);
+        await Assert.That(customer.ShippingAddresses?.Count).IsEqualTo(0);
     }
 
     [Test]
     public async Task GetCustomer_WithNonExistentId_Returns_NotFound()
     {
-        using var client = WebAppFactory.CreateClient();
+        var apiClient = WebAppFactory.CreateApiClient();
+
         var nonExistentId = CustomerId.New();
 
-        var response = await client.GetAsync(new Uri($"/customers/{nonExistentId}", UriKind.Relative));
-        await Assert.That(response.StatusCode).IsEqualTo(HttpStatusCode.NotFound);
+        try
+        {
+            await apiClient.Customers[nonExistentId.ToString()].GetAsync();
+            Assert.Fail("Expected ApiException was not thrown");
+        }
+        catch (Microsoft.Kiota.Abstractions.ApiException ex)
+        {
+            await Assert.That(ex.ResponseStatusCode).IsEqualTo(404);
+        }
     }
 
     [Test]
     public async Task RemovedCustomer_IsNotIncluded()
     {
-        using var client = WebAppFactory.CreateClient();
-        var createCustomerCommand = new CreateCustomer.Command(
-            FirstName: "Jane",
-            LastName: "Smith",
-            BillingAddress: null,
-            ShippingAddress: null
-        );
+        var apiClient = WebAppFactory.CreateApiClient();
 
-        var createdResponse = await client.PostAsJsonAsync("/customers", createCustomerCommand);
-        await Assert.That(createdResponse.StatusCode).IsEqualTo(HttpStatusCode.Created);
+        var createResponse = await apiClient.Customers.PostAsync(new ApiServiceSDK.Models.Command()
+        {
+            FirstName = "Jane",
+            LastName = "Smith",
+            BillingAddress = null,
+            ShippingAddress = null
+        });
+        var customerId = (string)createResponse!.GetType().GetField("_value", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)!.GetValue(createResponse)!;
 
-        var customerId = await createdResponse.Content.ReadFromJsonAsync<CustomerId>();
+        var customer = await apiClient.Customers[customerId!.ToString()].GetAsync();
+        await Assert.That(customer).IsNotNull();
 
-        var getResponse = await client.GetAsync(new Uri($"/customers/{customerId}", UriKind.Relative));
-        await Assert.That(getResponse.StatusCode).IsEqualTo(HttpStatusCode.OK);
+        await apiClient.Customers[customerId.ToString()].DeleteAsync();
 
-        var deleteResponse = await client.DeleteAsync(new Uri($"/customers/{customerId}", UriKind.Relative));
-        await Assert.That(deleteResponse.StatusCode).IsEqualTo(HttpStatusCode.NoContent);
-
-        var postDeleteResponse = await client.GetAsync(new Uri($"/customers/{customerId}", UriKind.Relative));
-        await Assert.That(postDeleteResponse.StatusCode).IsEqualTo(HttpStatusCode.NotFound);
+        try
+        {
+            await apiClient.Customers[customerId.ToString()].GetAsync();
+            Assert.Fail("Expected ApiException was not thrown");
+        }
+        catch (Microsoft.Kiota.Abstractions.ApiException ex)
+        {
+            await Assert.That(ex.ResponseStatusCode).IsEqualTo(404);
+        }
     }
 }

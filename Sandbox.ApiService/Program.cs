@@ -52,6 +52,11 @@ builder.Services.AddOpenApi(options =>
 builder.Services.AddResourceSetupOnStartup();
 builder.Host.UseWolverine(opts =>
 {
+    // Needed to generate the OpenAPI document, otherwise this exception is thrown
+    if (Environment.GetCommandLineArgs().Any(e => e.Contains("GetDocument.Insider", StringComparison.OrdinalIgnoreCase)))
+    {
+        return;
+    }
     var connectionString = builder.Configuration.GetConnectionString("sandbox-db") ?? throw new InvalidOperationException("Connection string 'sandbox-db' not found.");
     opts.PersistMessagesWithPostgresql(connectionString, "wolverine");
     opts.UseEntityFrameworkCoreTransactions();

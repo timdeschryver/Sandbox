@@ -1,8 +1,11 @@
 extern alias migrations;
 
+using ApiServiceSDK;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Kiota.Abstractions.Authentication;
+using Microsoft.Kiota.Http.HttpClientLibrary;
 using Sandbox.Modules.CustomerManagement.Data;
 using Testcontainers.PostgreSql;
 using TUnit.Core.Interfaces;
@@ -51,5 +54,13 @@ public class CustomerApiWebApplicationFactory : WebApplicationFactory<Program>, 
         });
 
         builder.UseEnvironment("IntegrationTest");
+    }
+
+    public ApiClient CreateApiClient()
+    {
+        var client = CreateClient();
+        var authProvider = new AnonymousAuthenticationProvider();
+        using var adapter = new HttpClientRequestAdapter(authProvider, httpClient: client);
+        return new ApiClient(adapter);
     }
 }
