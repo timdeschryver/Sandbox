@@ -1,6 +1,6 @@
 services:
   keycloak:
-    image: 'quay.io/keycloak/keycloak:26.3'
+    image: 'quay.io/keycloak/keycloak:26.4@sha256:5f3fb534cde6bf006d79f5912473e5d2c828c707cdfc52e16972803aca9d43dd'
     command:
       - 'start'
       - '--import-realm'
@@ -23,7 +23,7 @@ services:
     networks:
       - 'aspire'
   minio:
-    image: 'docker.io/minio/minio:RELEASE.2025-04-22T22-12-26Z'
+    image: 'docker.io/minio/minio:RELEASE.2025-04-22T22-12-26Z@sha256:a1ea29fa28355559ef137d71fc570e508a214ec84ff8083e39bc5428980b015e'
     command:
       - 'server'
       - '/data'
@@ -44,7 +44,7 @@ services:
     networks:
       - 'aspire'
   minio-bucket-creator:
-    image: 'minio/mc:latest'
+    image: 'minio/mc:latest@sha256:a7fe349ef4bd8521fb8497f55c6042871b2ae640607cf99d9bede5e9bdf11727'
     command:
       - '-c'
       - ' /usr/bin/mc alias set myminio http://minio:9000 $$MinioUser $$MinioPassword; /usr/bin/mc mb myminio/loki; /usr/bin/mc anonymous set public myminio/loki; /usr/bin/mc mb myminio/tempo;  /usr/bin/mc anonymous set public myminio/tempo; exit 0;'
@@ -59,7 +59,7 @@ services:
     networks:
       - 'aspire'
   loki:
-    image: 'grafana/loki:latest'
+    image: 'grafana/loki:latest@sha256:31628519045e7f28692a7ae73b4a3fd293dccb425585ed5d16ceea3b5c9592e6'
     command:
       - '--config.file=/etc/loki/loki.yml'
       - '--config.expand-env=true'
@@ -83,7 +83,7 @@ services:
     networks:
       - 'aspire'
   tempo:
-    image: 'grafana/tempo:latest'
+    image: 'grafana/tempo:latest@sha256:2e64b9d77c07bef41c17737f28f64c08dd335e106c8823e82ffc17e69066eb3e'
     command:
       - '--config.file=/etc/tempo/tempo.yml'
       - '--config.expand-env=true'
@@ -109,7 +109,7 @@ services:
     networks:
       - 'aspire'
   prometheus:
-    image: 'prom/prometheus:latest'
+    image: 'prom/prometheus:latest@sha256:76947e7ef22f8a698fc638f706685909be425dbe09bd7a2cd7aca849f79b5f64'
     command:
       - '--web.enable-otlp-receiver'
       - '--web.enable-remote-write-receiver'
@@ -125,7 +125,7 @@ services:
     networks:
       - 'aspire'
   blackbox:
-    image: 'prom/blackbox-exporter:latest'
+    image: 'prom/blackbox-exporter:latest@sha256:a50c4c0eda297baa1678cd4dc4712a67fdea713b832d43ce7fcc5f9bea05094d'
     command:
       - '--config.file=/etc/blackbox/blackbox.yml'
     expose:
@@ -138,7 +138,7 @@ services:
     networks:
       - 'aspire'
   grafana:
-    image: 'grafana/grafana:latest'
+    image: 'grafana/grafana:latest@sha256:74144189b38447facf737dfd0f3906e42e0776212bf575dc3334c3609183adf7'
     environment:
       PROMETHEUS_ENDPOINT: 'http://prometheus:9090'
       LOKI_ENDPOINT: 'http://loki:3100'
@@ -164,7 +164,7 @@ services:
     networks:
       - 'aspire'
   otelcollector:
-    image: 'ghcr.io/open-telemetry/opentelemetry-collector-releases/opentelemetry-collector-contrib:latest'
+    image: 'ghcr.io/open-telemetry/opentelemetry-collector-releases/opentelemetry-collector-contrib:latest@sha256:45392d534c1edcc809c2d112394029246bc679d2ae5ea7081414a1fc74f2c621'
     environment:
       PROMETHEUS_ENDPOINT: 'http://prometheus:9090/api/v1/otlp'
       LOKI_ENDPOINT: 'http://loki:3100/otlp'
@@ -180,7 +180,7 @@ services:
     networks:
       - 'aspire'
   postgres:
-    image: 'docker.io/library/postgres:17.6'
+    image: 'docker.io/library/postgres:18.0@sha256:073e7c8b84e2197f94c8083634640ab37105effe1bc853ca4d5fbece3219b0e8'
     environment:
       POSTGRES_HOST_AUTH_METHOD: 'scram-sha-256'
       POSTGRES_INITDB_ARGS: '--auth-host=scram-sha-256 --auth-local=scram-sha-256'
