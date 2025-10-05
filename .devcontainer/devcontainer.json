@@ -34,7 +34,7 @@
 	//			"protocol": "https"
 	//		}
 	// }
-	"onCreateCommand": ["dotnet tool install -g Aspire.Cli --prerelease", "dotnet tool install -g kiota --prerelease"],
+	"onCreateCommand": "dotnet tool install -g Aspire.Cli --prerelease && dotnet tool install -g Microsoft.OpenApi.Kiota --prerelease",
 	"postCreateCommand": {
 		"dotnet": "dotnet restore",
 		"pnpm": "pnpm install --frozen-lockfile --prefer-offline && pnpm --filter='sandbox.e2e' exec playwright install --with-deps"
