@@ -1,35 +1,29 @@
-import { ChangeDetectionStrategy, Component, type Signal, computed, inject, input } from '@angular/core';
-import { type NgControl, NgForm } from '@angular/forms';
-import { ValidationMessagesPipe } from './validation-messages.pipe';
+import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
+import { ValidationMessagePipe } from './validation-message.pipe';
+import type { Control } from '@angular/forms/signals';
 
 @Component({
 	selector: 'form-validation-control-error',
-	imports: [ValidationMessagesPipe],
+	imports: [ValidationMessagePipe],
 	template: `
-		<div class="error-message" [id]="errorId()" [hidden]="!showError()">
-			{{ this.control().errors | validationMessages }}
+		<div [id]="describedby()" [hidden]="!showError()">
+			@for (error of control().state().errors(); track $index) {
+				{{ error | validationMessage: false }}
+			}
 		</div>
 	`,
-	styles: '.error-message { color: var(--error-color) }',
+	styles: ':host { color: var(--error-color) }',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ControlError {
-	private readonly form = inject(NgForm, { optional: true });
-	public readonly control = input.required<NgControl>();
-	public readonly errorId = input.required<string>();
+	public readonly control = input.required<Control<unknown>>();
+	public readonly describedby = input.required<string>();
 
-	// TODO: use official Angular types
 	protected readonly showError = computed(() => {
-		const formSubmitted =
-			(this.form as unknown as undefined | { submittedReactive: Signal<boolean> })?.submittedReactive() ?? false;
-		const control = this.control() as unknown as {
-			touchedReactive: Signal<boolean>;
-			pristineReactive: Signal<boolean>;
-			statusReactive: Signal<'VALID' | 'INVALID' | 'DISABLED' | 'PENDING'>;
-		};
-		const controlTouched = control.touchedReactive();
-		const controlPristine = control.pristineReactive();
-		const controlStatus = control.statusReactive();
-		return controlStatus === 'INVALID' && (formSubmitted || controlTouched || !controlPristine);
+		// TODO: show error on form submit without marking all as touched
+		const controlTouched = this.control().state().touched();
+		const controlPristine = !this.control().state().dirty();
+		const controlInvalid = this.control().state().invalid();
+		return controlInvalid && (controlTouched || !controlPristine);
 	});
 }

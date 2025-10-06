@@ -98,7 +98,7 @@
 
 - **Testing**: Vitest + Angular Testing Library (not Jasmine/Karma)
 - **Signals**: Prefer signals for reactive state management
-- **Forms**: Prefer template-driven forms over reactive forms
+- **Forms**: Use Signal Forms to create forms
 - **Accessibility**: Always consider from the start, use semantic HTML
 - **Structure**: Flat folder structure, keep files close to usage
 - **HTTP**: Use `httpResource` for data fetching with caching

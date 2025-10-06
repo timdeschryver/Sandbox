@@ -15,7 +15,7 @@ export const CreateCustomerCommand = z.strictObject({
 			street: z.string(),
 			city: z.string(),
 			zipCode: z.string(),
-			note: z.optional(z.string()),
+			note: z.nullable(z.string()),
 		}),
 	),
 });

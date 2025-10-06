@@ -1,81 +1,58 @@
-<form #customerForm="ngForm" (ngSubmit)="onSubmit(customerForm)">
+<form novalidate (submit)="onSubmit($event)">
 	<h2>Create Customer</h2>
 
-	@let formState = submitState();
-	@if (formState.state === 'error') {
-		<div>{{ formState.message }}</div>
+	@for (error of customerForm().errors(); track $index) {
+		<div>{{ error.message }}</div>
+	}
+
+	@for (error of customerForm().errorSummary(); track $index) {
+		<div>{{ error | validationMessage: true }}</div>
 	}
 
 	<fieldset>
 		<legend>Customer Information</legend>
 		<div>
 			<label for="firstName">First Name</label>
-			<input
-				#firstNameField="ngModel"
-				id="firstName"
-				name="firstName"
-				required
-				type="text"
-				[(ngModel)]="customer.firstName"
-			/>
+			<input id="firstName" type="text" [control]="customerForm.firstName" />
 		</div>
 
 		<div>
 			<label for="lastName">Last Name</label>
-			<input
-				#lastNameField="ngModel"
-				id="lastName"
-				name="lastName"
-				required
-				type="text"
-				[(ngModel)]="customer.lastName"
-			/>
+			<input id="lastName" type="text" [control]="customerForm.lastName" />
 		</div>
 	</fieldset>
 
 	<div>
-		<input
-			type="checkbox"
-			id="hasBillingAddress"
-			name="hasBillingAddress"
-			[checked]="!!customer.billingAddress"
-			(change)="toggleBillingAddress()"
-		/>
+		<input type="checkbox" id="hasBillingAddress" [control]="customerForm.hasBillingAddress" />
 		<label for="hasBillingAddress">Add Billing Address</label>
 	</div>
 
-	@if (customer.billingAddress) {
+	@if (!customerForm.billingAddress().hidden()) {
 		<fieldset>
 			<legend>Billing Address</legend>
-			<sandbox-customer-address [address]="customer.billingAddress" [form]="customerForm" />
+			<sandbox-customer-address [address]="customerForm.billingAddress" />
 		</fieldset>
 	}
 
 	<div>
-		<input
-			type="checkbox"
-			id="hasShippingAddress"
-			name="hasShippingAddress"
-			[checked]="!!customer.shippingAddress"
-			(change)="toggleShippingAddress()"
-		/>
+		<input type="checkbox" id="hasShippingAddress" [control]="customerForm.hasShippingAddress" />
 		<label for="hasShippingAddress">Add Shipping Address</label>
 	</div>
 
-	@if (customer.shippingAddress) {
+	@if (!customerForm.shippingAddress().hidden()) {
 		<fieldset>
 			<legend>Shipping Address</legend>
-			<sandbox-customer-address [address]="customer.shippingAddress" [form]="customerForm">
+			<sandbox-customer-address [address]="customerForm.shippingAddress">
 				<div>
 					<label for="note">Note</label>
-					<textarea id="note" name="note" [(ngModel)]="customer.shippingAddress.note"></textarea>
+					<textarea id="note" [control]="customerForm.shippingAddress.note"></textarea>
 				</div>
 			</sandbox-customer-address>
 		</fieldset>
 	}
 
-	<button type="submit" [disabled]="formState.state === 'pending'">
-		@if (formState.state === 'pending') {
+	<button type="submit" [disabled]="customerForm().submitting()">
+		@if (customerForm().submitting()) {
 			Creating Customer
 		} @else {
 			Create Customer

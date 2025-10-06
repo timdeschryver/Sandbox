@@ -1,56 +1,31 @@
-import {
-	type AfterViewInit,
-	Directive,
-	ElementRef,
-	type Signal,
-	ViewContainerRef,
-	effect,
-	inject,
-} from '@angular/core';
-import { NgControl, NgModelGroup } from '@angular/forms';
+import { type AfterViewInit, Directive, ElementRef, ViewContainerRef, effect, inject } from '@angular/core';
 import { ControlError } from './control-error';
-import { FormField } from './form-field';
-
-let ERROR_ID = 0;
+import { Control } from '@angular/forms/signals';
 
 @Directive({
 	// eslint-disable-next-line @angular-eslint/directive-selector
-	selector: '[ngModel], [ngModelGroup]',
+	selector: '[control]',
 })
 export class Error implements AfterViewInit {
 	private el = inject(ElementRef);
 	private readonly viewContainerRef = inject(ViewContainerRef);
-	private readonly ngModel = inject(NgControl, { optional: true });
-	private readonly ngModelGroup = inject(NgModelGroup, { optional: true });
-	private readonly formFieldDirective = inject(FormField, { optional: true });
-
-	private errorId = `error-${(++ERROR_ID).toString()}`;
+	private readonly control = inject(Control);
 
 	constructor() {
-		const control = (this.ngModel?.control ?? this.ngModelGroup?.control) as unknown as
-			| undefined
-			| {
-					statusReactive: Signal<'VALID' | 'INVALID' | 'DISABLED' | 'PENDING'>;
-			  };
-		if (control) {
-			effect(() => {
-				if (control.statusReactive() === 'INVALID') {
-					(this.el.nativeElement as HTMLElement).setAttribute('aria-invalid', 'true');
-					(this.el.nativeElement as HTMLElement).setAttribute('aria-describedby', this.errorId);
-				} else {
-					(this.el.nativeElement as HTMLElement).removeAttribute('aria-invalid');
-					(this.el.nativeElement as HTMLElement).removeAttribute('aria-describedby');
-				}
-			});
-		}
+		effect(() => {
+			if (this.control.state().invalid()) {
+				(this.el.nativeElement as HTMLElement).setAttribute('aria-invalid', 'true');
+				(this.el.nativeElement as HTMLElement).setAttribute('aria-describedby', `error-${this.control.state().name()}`);
+			} else {
+				(this.el.nativeElement as HTMLElement).removeAttribute('aria-invalid');
+				(this.el.nativeElement as HTMLElement).removeAttribute('aria-describedby');
+			}
+		});
 	}
 
 	public ngAfterViewInit() {
-		const control = this.ngModel?.control ?? this.ngModelGroup?.control;
-		if (control && !this.formFieldDirective) {
-			const errorContainer = this.viewContainerRef.createComponent(ControlError);
-			errorContainer.setInput('control', control);
-			errorContainer.setInput('errorId', this.errorId);
-		}
+		const errorContainer = this.viewContainerRef.createComponent(ControlError);
+		errorContainer.setInput('control', this.control);
+		errorContainer.setInput('describedby', `error-${this.control.state().name()}`);
 	}
 }
