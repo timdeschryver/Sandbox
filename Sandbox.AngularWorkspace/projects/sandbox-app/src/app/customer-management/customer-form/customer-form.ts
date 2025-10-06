@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component, inject, output, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { FormsModule, type NgForm } from '@angular/forms';
 import { type CreateCustomerCommand, type CustomerId } from '@sandbox-app/customer-management/models';
 import { Customers } from '@sandbox-app/customer-management/customer-management';
@@ -9,7 +8,7 @@ import { formValidation } from '@form-validation';
 
 @Component({
 	selector: 'sandbox-customer-form',
-	imports: [CommonModule, FormsModule, CustomerAddress, formValidation],
+	imports: [FormsModule, CustomerAddress, formValidation],
 	templateUrl: './customer-form.html',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
