@@ -1,4 +1,4 @@
-name: Default
+name: CI
 
 on:
   pull_request:
@@ -25,7 +25,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  build:
+  backend:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -35,38 +35,6 @@ jobs:
         uses: actions/setup-dotnet@v5
         with:
           global-json-file: global.json
-
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          package_json_file: './package.json'
-
-      - name: Use Node.js
-        uses: actions/setup-node@v5
-        with:
-          node-version-file: .node-version
-          cache: 'pnpm'
-          cache-dependency-path: '**/pnpm-lock.yaml'
-
-      - name: Install pnpm dependencies
-        run: pnpm install --frozen-lockfile
-
-      - name: Install Playwright Browsers
-        run: pnpm --filter='sandbox.e2e' exec playwright install --with-deps
-
-      - name: Install SOPS
-        run: |
-          curl -Lo sops "https://github.com/getsops/sops/releases/download/v3.9.1/sops-v3.9.1.linux.amd64"
-          chmod +x sops
-          sudo mv sops /usr/local/bin/
-
-      - name: Decrypt appsettings
-        run: sops --decrypt "config/appsettings.encrypted.json" > "Sandbox.AppHost/appsettings.json"
-        env:
-          SOPS_AGE_KEY: ${{ secrets.SOPS_AGE_KEY }}
-
-      - name: Format check
-        run: pnpm prettier --check .
 
       - name: Build .NET solution
         run: dotnet build --configuration Release
@@ -101,6 +69,14 @@ jobs:
         run: cat coveragereport/SummaryGithub.md >> $GITHUB_STEP_SUMMARY
         shell: bash
 
+  frontend:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - uses: ./.github/actions/setup-pnpm
+
       - name: Build Angular workspace
         run: pnpm --filter="sandbox.angular-workspace" build
 
@@ -109,6 +85,34 @@ jobs:
 
       - name: Unit test all frontend projects
         run: pnpm --filter="!sandbox.e2e" test
+
+  e2e:
+    runs-on: ubuntu-latest
+    needs: [backend, frontend]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v5
+        with:
+          global-json-file: global.json
+
+      - uses: ./.github/actions/setup-pnpm
+
+      - name: Install Playwright Browsers
+        run: pnpm --filter='sandbox.e2e' exec playwright install --with-deps
+
+      - name: Install SOPS
+        run: |
+          curl -Lo sops "https://github.com/getsops/sops/releases/download/v3.9.1/sops-v3.9.1.linux.amd64"
+          chmod +x sops
+          sudo mv sops /usr/local/bin/
+
+      - name: Decrypt appsettings
+        run: sops --decrypt "config/appsettings.encrypted.json" > "Sandbox.AppHost/appsettings.json"
+        env:
+          SOPS_AGE_KEY: ${{ secrets.SOPS_AGE_KEY }}
 
       - name: E2E test frontend projects
         run: pnpm --filter="sandbox.e2e" test
@@ -126,7 +130,7 @@ jobs:
 
   release:
     runs-on: ubuntu-latest
-    needs: build
+    needs: [backend, frontend, e2e]
     if: github.ref == 'refs/heads/main'
     env:
       AZURE_CLIENT_ID: ${{ vars.AZURE_CLIENT_ID }}
@@ -138,22 +142,15 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v5
 
+      - uses: ./.github/actions/setup-pnpm
+
       - name: Install azd
         uses: Azure/setup-azd@v2
+
       - name: Setup .NET
         uses: actions/setup-dotnet@v5
         with:
           global-json-file: global.json
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          package_json_file: './package.json'
-      - name: Use Node.js
-        uses: actions/setup-node@v5
-        with:
-          node-version-file: .node-version
-          cache: 'pnpm'
-          cache-dependency-path: '**/pnpm-lock.yaml'
 
       - name: Log in with Azure (Federated Credentials)
         run: |
@@ -168,9 +165,6 @@ jobs:
           curl -Lo sops "https://github.com/getsops/sops/releases/download/v3.9.1/sops-v3.9.1.linux.amd64"
           chmod +x sops
           sudo mv sops /usr/local/bin/
-
-      - name: Install pnpm dependencies
-        run: pnpm install --frozen-lockfile
 
       - name: Decrypt appsettings
         run: sops --decrypt "config/appsettings.encrypted.json" > "Sandbox.AppHost/appsettings.json"
