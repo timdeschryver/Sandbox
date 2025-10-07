@@ -87,7 +87,6 @@ The project uses [SOPS (Secrets Operations)](https://github.com/getsops/sops) to
 ### SOPS Quick Start
 
 ```powershell
-$env:SOPS_AGE_KEY_FILE = "./config/sops/age/keys.txt"
 sops --decrypt "config/appsettings.encrypted.json" > "Sandbox.AppHost/appsettings.json"
 sops --encrypt "Sandbox.AppHost/appsettings.json" > "config/appsettings.encrypted.json"
 ```
