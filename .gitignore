@@ -43,7 +43,6 @@ Thumbs.db
 # SOPS encryption keys
 .age-key.txt
 *.age-key
-Sandbox.AppHost/appsettings.json
 *.decrypted.json
 
 # Azurite (Azure Storage Emulator)

@@ -1,0 +1,35 @@
+name: autofix.ci
+
+on:
+  pull_request:
+  push:
+    branches: ['main']
+
+permissions:
+  contents: read
+
+jobs:
+  autofix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          package_json_file: './package.json'
+
+      - name: Use Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version-file: .node-version
+          cache: 'pnpm'
+          cache-dependency-path: '**/pnpm-lock.yaml'
+
+      - name: Install pnpm dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Format code
+        run: pnpm prettier --write .
+
+      - uses: autofix-ci/action@635ffb0c9798bd160680f18fd73371e355b85f27
