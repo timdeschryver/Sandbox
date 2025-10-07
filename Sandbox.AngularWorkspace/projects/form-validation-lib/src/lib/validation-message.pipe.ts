@@ -15,7 +15,7 @@ export class ValidationMessagePipe implements PipeTransform {
 		if (!error) {
 			return '';
 		}
-		const message = this.messages[error.kind] ?? this.messages['invalid'];
-		return showFieldName ? `${error.field().name()}: ${message(error)}` : message(error);
+		const message = error.message ?? (this.messages[error.kind] ?? this.messages['invalid'])(error);
+		return showFieldName ? `${error.field().name()}: ${message}` : message;
 	}
 }

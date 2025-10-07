@@ -7,6 +7,7 @@ import {
 	applyWhen,
 	form,
 	hidden,
+	maxLength,
 	minLength,
 	required,
 	schema,
@@ -126,7 +127,8 @@ const addressSchema = schema<Address>((path) => {
 	required(path.city);
 	minLength(path.city, 3);
 	required(path.zipCode);
-	minLength(path.zipCode, 3);
+	minLength(path.zipCode, 3, { message: 'Zip code must be between 3 and 5 characters long.' });
+	maxLength(path.zipCode, 5, { message: 'Zip code must be between 3 and 5 characters long.' });
 });
 
 interface CustomerFormModel {

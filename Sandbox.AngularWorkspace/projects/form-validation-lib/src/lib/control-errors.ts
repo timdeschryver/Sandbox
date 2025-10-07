@@ -3,7 +3,7 @@ import { ValidationMessagePipe } from './validation-message.pipe';
 import type { Control } from '@angular/forms/signals';
 
 @Component({
-	selector: 'form-validation-control-error',
+	selector: 'form-validation-control-errors',
 	imports: [ValidationMessagePipe],
 	template: `
 		<div [id]="describedby()" [hidden]="!showError()">
@@ -15,15 +15,11 @@ import type { Control } from '@angular/forms/signals';
 	styles: ':host { color: var(--error-color) }',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ControlError {
+export class ControlErrors {
 	public readonly control = input.required<Control<unknown>>();
 	public readonly describedby = input.required<string>();
 
 	protected readonly showError = computed(() => {
-		// TODO: show error on form submit without marking all as touched
-		const controlTouched = this.control().state().touched();
-		const controlPristine = !this.control().state().dirty();
-		const controlInvalid = this.control().state().invalid();
-		return controlInvalid && (controlTouched || !controlPristine);
+		return this.control().state().invalid() && this.control().state().touched();
 	});
 }

@@ -1,5 +1,5 @@
 import { type AfterViewInit, Directive, ElementRef, ViewContainerRef, effect, inject } from '@angular/core';
-import { ControlError } from './control-error';
+import { ControlErrors } from './control-errors';
 import { Control } from '@angular/forms/signals';
 
 @Directive({
@@ -24,7 +24,7 @@ export class Error implements AfterViewInit {
 	}
 
 	public ngAfterViewInit() {
-		const errorContainer = this.viewContainerRef.createComponent(ControlError);
+		const errorContainer = this.viewContainerRef.createComponent(ControlErrors);
 		errorContainer.setInput('control', this.control);
 		errorContainer.setInput('describedby', `error-${this.control.state().name()}`);
 	}

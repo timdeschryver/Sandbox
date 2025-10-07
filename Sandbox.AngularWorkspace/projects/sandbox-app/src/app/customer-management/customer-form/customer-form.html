@@ -5,8 +5,13 @@
 		<div>{{ error.message }}</div>
 	}
 
-	@for (error of customerForm().errorSummary(); track $index) {
-		<div>{{ error | validationMessage: true }}</div>
+	@if (customerForm().touched() && customerForm().invalid()) {
+		<h3>Validation summary:</h3>
+		<ul>
+			@for (error of customerForm().errorSummary(); track $index) {
+				<li>{{ error | validationMessage: true }}</li>
+			}
+		</ul>
 	}
 
 	<fieldset>
