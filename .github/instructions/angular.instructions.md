@@ -16,7 +16,7 @@ For the correct syntax refer to https://angular.dev/context/llm-files/llms-full.
 ## General Principles
 
 - Make use of signals where possible for reactive state management
-- Prefer template-driven forms over reactive forms
+- Prefer Signal Forms
 - Prefer flat folder structure - keep files close to where they're used
 
 ### HTTP and Data Management

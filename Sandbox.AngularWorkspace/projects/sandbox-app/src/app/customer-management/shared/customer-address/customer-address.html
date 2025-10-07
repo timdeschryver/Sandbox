@@ -1,37 +1,22 @@
 <div>
-	<label [for]="`street-${componentId}`">Street</label>
-	<input
-		#streetField="ngModel"
-		required
-		type="text"
-		[id]="`street-${componentId}`"
-		[name]="`street-${componentId}`"
-		[(ngModel)]="address().street"
-	/>
+	<label
+		>Street
+		<input type="text" [control]="address().street" />
+	</label>
 </div>
 
 <div>
-	<label [for]="`city-${componentId}`">City</label>
-	<input
-		#cityField="ngModel"
-		required
-		type="text"
-		[id]="`city-${componentId}`"
-		[name]="`city-${componentId}`"
-		[(ngModel)]="address().city"
-	/>
+	<label>
+		City
+		<input type="text" [control]="address().city" />
+	</label>
 </div>
 
 <div>
-	<label [for]="`zipCode-${componentId}`">Zip Code</label>
-	<input
-		#zipCodeField="ngModel"
-		required
-		type="text"
-		[id]="`zipCode-${componentId}`"
-		[name]="`zipCode-${componentId}`"
-		[(ngModel)]="address().zipCode"
-	/>
+	<label
+		>Zip Code
+		<input type="text" [control]="address().zipCode" />
+	</label>
 </div>
 
 <ng-content />

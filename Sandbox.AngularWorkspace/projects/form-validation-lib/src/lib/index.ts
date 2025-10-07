@@ -1,12 +1,10 @@
 export * from './validation-messages.token';
-export * from './validation-messages.pipe';
-export * from './control-error';
+export * from './validation-message.pipe';
+export * from './control-errors';
 export * from './error';
-export * from './form-field';
 
-import { ControlError } from './control-error';
+import { ControlErrors } from './control-errors';
 import { Error } from './error';
-import { FormField } from './form-field';
-import { ValidationMessagesPipe } from './validation-messages.pipe';
+import { ValidationMessagePipe } from './validation-message.pipe';
 
-export const formValidation = [ControlError, Error, FormField, ValidationMessagesPipe];
+export const formValidation = [ControlErrors, Error, ValidationMessagePipe];

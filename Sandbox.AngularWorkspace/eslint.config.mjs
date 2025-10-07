@@ -54,6 +54,12 @@ export default tseslint.config(
 			'@angular-eslint/no-developer-preview': 'off',
 			'@angular-eslint/component-class-suffix': 'off',
 			'@angular-eslint/directive-class-suffix': 'off',
+			'@angular-eslint/component-max-inline-declarations': [
+				'error',
+				{
+					template: 25,
+				},
+			],
 		},
 	},
 	{

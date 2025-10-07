@@ -8,6 +8,7 @@ using Sandbox.SharedKernel.StronglyTypedIds;
 using Wolverine.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
+using System.Security.Cryptography;
 
 namespace Sandbox.Modules.CustomerManagement.Application;
 
@@ -26,6 +27,8 @@ public static class CreateCustomer
         [NotNull][FromServices] IDbContextOutbox<CustomerDbContext> outbox,
         CancellationToken cancellationToken)
     {
+        await Task.Delay(RandomNumberGenerator.GetInt32(10, 2000), cancellationToken);
+
         ArgumentNullException.ThrowIfNull(command);
 
         var customer = Customer.Create(CustomerId.New(), FullName.From(command.FirstName, command.LastName));

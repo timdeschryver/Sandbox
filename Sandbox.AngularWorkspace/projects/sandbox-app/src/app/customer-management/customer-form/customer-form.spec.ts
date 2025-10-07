@@ -43,15 +43,15 @@ it('toggles shipping address visibility when checkbox is clicked', async () => {
 });
 
 it('submits form with complete data when valid', async () => {
-	const { user, mockRequest, onSubmittedSpy } = await setup();
+	const { user, mockRequest, customerCreatedSpy: onSubmittedSpy } = await setup();
 
 	const firstNameInput = screen.getByLabelText(/first name/i);
 	const lastNameInput = screen.getByLabelText(/last name/i);
 
-	expect(firstNameInput).not.toHaveAttribute('aria-invalid');
-	expect(firstNameInput).not.toHaveAttribute('aria-describedby');
-	expect(lastNameInput).not.toHaveAttribute('aria-invalid');
-	expect(lastNameInput).not.toHaveAttribute('aria-describedby');
+	expect(firstNameInput).toHaveAttribute('aria-invalid');
+	expect(firstNameInput).toHaveAttribute('aria-describedby');
+	expect(lastNameInput).toHaveAttribute('aria-invalid');
+	expect(lastNameInput).toHaveAttribute('aria-describedby');
 
 	await user.click(screen.getByRole('button', { name: /create customer/i }));
 	expect(screen.queryAllByText('Field is required')).toHaveLength(2);
@@ -120,17 +120,17 @@ it('displays error message when API request fails', async () => {
 
 	await mockRequest({ title: 'Customer creation failed' }, { status: 500, statusText: 'Bad Request' });
 
-	expect(screen.queryByText('Customer creation failed')).toBeInTheDocument();
+	expect(await screen.findByText('Customer creation failed')).toBeInTheDocument();
 	expect(screen.queryByRole('button', { name: /create customer/i })).toBeEnabled();
 });
 
 async function setup() {
-	const onSubmittedSpy = vi.fn();
+	const customerCreatedSpy = vi.fn();
 	const user = userEvent.setup();
 
 	const { fixture } = await render(CustomerForm, {
 		imports: [CustomerAddress],
-		bindings: [outputBinding('submitted', onSubmittedSpy)],
+		bindings: [outputBinding('customerCreated', customerCreatedSpy)],
 	});
 
 	const httpMock = TestBed.inject(HttpTestingController);
@@ -148,6 +148,6 @@ async function setup() {
 			return request;
 		},
 		user,
-		onSubmittedSpy,
+		customerCreatedSpy,
 	};
 }
