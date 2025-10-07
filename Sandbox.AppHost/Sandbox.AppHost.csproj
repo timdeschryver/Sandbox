@@ -24,7 +24,8 @@
     <PackageReference Include="CommunityToolkit.Aspire.Hosting.Minio" />
   </ItemGroup>
 
-  <Target Name="RestoreNodeModules" BeforeTargets="Build" Condition="'$(DesignTimeBuild)' != 'true'">
+  <Target Name="RestoreNodeModules" BeforeTargets="Build"
+    Condition="$(Configuration) == 'Debug' And '$(DesignTimeBuild)' != 'true'">
     <Message Importance="Normal" Text="Installing npm packages" />
     <Exec Command="pnpm install --frozen-lockfile --prefer-offline" WorkingDirectory="." />
   </Target>
