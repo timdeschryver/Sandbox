@@ -59,7 +59,7 @@ services:
     networks:
       - 'aspire'
   loki:
-    image: 'grafana/loki:latest@sha256:31628519045e7f28692a7ae73b4a3fd293dccb425585ed5d16ceea3b5c9592e6'
+    image: 'grafana/loki:latest@sha256:2b10e3c0ba66ee115c018736b351c435006c809d32ea2c14be62be88d80f8372'
     command:
       - '--config.file=/etc/loki/loki.yml'
       - '--config.expand-env=true'
@@ -83,7 +83,7 @@ services:
     networks:
       - 'aspire'
   tempo:
-    image: 'grafana/tempo:latest@sha256:2e64b9d77c07bef41c17737f28f64c08dd335e106c8823e82ffc17e69066eb3e'
+    image: 'grafana/tempo:latest@sha256:f89405757419026e4c4d8e707c9f872da7c929566185992f714b74833362bd43'
     command:
       - '--config.file=/etc/tempo/tempo.yml'
       - '--config.expand-env=true'
@@ -164,7 +164,7 @@ services:
     networks:
       - 'aspire'
   otelcollector:
-    image: 'ghcr.io/open-telemetry/opentelemetry-collector-releases/opentelemetry-collector-contrib:latest@sha256:45392d534c1edcc809c2d112394029246bc679d2ae5ea7081414a1fc74f2c621'
+    image: 'ghcr.io/open-telemetry/opentelemetry-collector-releases/opentelemetry-collector-contrib:latest@sha256:886722fe0f37af9d1fe24d29529253ec59fbf263b3b1df4facaf221373e19d23'
     environment:
       PROMETHEUS_ENDPOINT: 'http://prometheus:9090/api/v1/otlp'
       LOKI_ENDPOINT: 'http://loki:3100/otlp'
