@@ -170,7 +170,9 @@ test.describe('Customer Creation - Validation Scenarios', () => {
 			await expect(validationSummary).toBeVisible();
 
 			// Zip Code shows error: "Zip code must be between 3 and 5 characters long."
-			await expect(page.getByText(/ng\.form0\.billingAddress\.zipCode:.*Zip code must be between 3 and 5 characters long/i)).toBeVisible();
+			await expect(
+				page.getByText(/ng\.form0\.billingAddress\.zipCode:.*Zip code must be between 3 and 5 characters long/i),
+			).toBeVisible();
 		});
 	});
 
