@@ -25,13 +25,13 @@ test('creates a new customer and can open details', { tag: '@customer-management
 	});
 
 	await test.step(`verify customer is created`, async () => {
-		const customerCell = page.getByRole('cell', { name: `${firstName} ${lastName}` });
+		const customerCell = page.getByRole('cell', { name: new RegExp(`${firstName} ${lastName}`, 'i') });
 		await expect(customerCell).toBeVisible();
 	});
 
 	await test.step(`open customer details`, async () => {
-		const customerRow = page.getByRole('row', { name: `${firstName} ${lastName}` });
-		const customerDetailsLink = customerRow.getByRole('link');
+		const customerRow = page.getByRole('row', { name: new RegExp(`${firstName} ${lastName}`, 'i') });
+		const customerDetailsLink = customerRow.getByRole('link', { name: /details/i });
 
 		await customerDetailsLink.click();
 
@@ -42,6 +42,6 @@ test('creates a new customer and can open details', { tag: '@customer-management
 - group "Personal Information": Personal Information Name:${firstName} ${lastName}
 - group "Billing Addresses": Billing Addresses Street:b street City:b city Zip Code:b zip
 `);
-		expect(page.url()).toMatch(/\/customers\/[\w-]+/);
+		expect(page.url()).toMatch(/\/customers\/[\w-]+/i);
 	});
 });

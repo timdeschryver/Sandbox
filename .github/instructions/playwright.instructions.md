@@ -23,7 +23,7 @@ applyTo: '**/Sandbox.EndToEndTests/**/*.test.ts'
 
 ## File Organization
 
-- **Location**: Store all test files in the `tests/` directory.
+- **Location**: Store all test files in the `tests/generated-by-ai` directory.
 - **Naming**: Use the convention `<feature-or-domain>.test.ts` (e.g., `customers.test.ts`).
 - **Scope**: Aim for one test file per major application feature or page.
 
@@ -39,6 +39,7 @@ applyTo: '**/Sandbox.EndToEndTests/**/*.test.ts'
 - **Text Content**: Use `toHaveText` for exact text matches and `toContainText` for partial matches.
 - **Navigation**: Use `toHaveURL` to verify the page URL after an action.
 - **Magic values**: Avoid hard-coded values in tests. Use utility functions to generate random strings or numbers for dynamic data (e.g., `generateRandomString(8)`). Use these values in locators and assertions to ensure tests are resilient to changes in the application.
+- **Regular Expressions**: For searching strings, use case insensitive regular expressions to create flexible assertions and locators. Preferably use the short syntax: `/text/i` instead of `new RegExp('text', 'i')`.
 
 ## Example Test Structure
 
@@ -70,13 +71,13 @@ test('creates a new customer and can open details', { tag: '@customer-management
 	});
 
 	await test.step(`verify customer is created`, async () => {
-		const customerCell = page.getByRole('cell', { name: `${firstName} ${lastName}` });
+		const customerCell = page.getByRole('cell', { name: new RegExp(`${firstName} ${lastName}`, 'i') });
 		await expect(customerCell).toBeVisible();
 	});
 
 	await test.step(`open customer details`, async () => {
-		const customerRow = page.getByRole('row', { name: `${firstName} ${lastName}` });
-		const customerDetailsLink = customerRow.getByRole('link');
+		const customerRow = page.getByRole('row', { name: new RegExp(`${firstName} ${lastName}`, 'i') });
+		const customerDetailsLink = customerRow.getByRole('link', { name: /details/i });
 
 		await customerDetailsLink.click();
 
@@ -87,7 +88,7 @@ test('creates a new customer and can open details', { tag: '@customer-management
 - group "Personal Information": Personal Information Name:${firstName} ${lastName}
 - group "Billing Addresses": Billing Addresses Street:b street City:b city Zip Code:b zip
 `);
-		expect(page.url()).toMatch(/\/customers\/[\w-]+/);
+		expect(page.url()).toMatch(/\/customers\/[\w-]+/i);
 	});
 });
 ```

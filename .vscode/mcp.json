@@ -4,6 +4,12 @@
 			"command": "npx",
 			"args": ["-y", "@playwright/mcp@latest"]
 		},
+		"playwright-test": {
+			"type": "stdio",
+			"command": "npx",
+			"args": ["playwright", "run-test-mcp-server"],
+			"cwd": "${workspaceFolder}"
+		},
 		"microsoft.docs.mcp": {
 			"type": "http",
 			"url": "https://learn.microsoft.com/api/mcp"

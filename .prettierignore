@@ -5,4 +5,5 @@ coverage
 *-lock.yaml
 *-lock.json
 .github/prompts
+.github/chatmodes
 test-results
