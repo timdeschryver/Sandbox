@@ -23,7 +23,7 @@ applyTo: '**/Sandbox.EndToEndTests/**/*.test.ts'
 
 ## File Organization
 
-- **Location**: Store all test files in the `tests/generated-by-ai` directory.
+- **Location**: Store generated test files in the `tests/ai-generated` directory.
 - **Naming**: Use the convention `<feature-or-domain>.test.ts` (e.g., `customers.test.ts`).
 - **Scope**: Aim for one test file per major application feature or page.
 

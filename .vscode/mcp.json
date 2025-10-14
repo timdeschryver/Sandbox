@@ -2,13 +2,14 @@
 	"servers": {
 		"playwright": {
 			"command": "npx",
-			"args": ["-y", "@playwright/mcp@latest"]
+			"args": ["-y", "@playwright/mcp@latest"],
+			"cwd": "${workspaceFolder}/Sandbox.EndToEndTests"
 		},
 		"playwright-test": {
 			"type": "stdio",
 			"command": "npx",
 			"args": ["playwright", "run-test-mcp-server"],
-			"cwd": "${workspaceFolder}"
+			"cwd": "${workspaceFolder}/Sandbox.EndToEndTests"
 		},
 		"microsoft.docs.mcp": {
 			"type": "http",
@@ -16,7 +17,8 @@
 		},
 		"angular-cli": {
 			"command": "npx",
-			"args": ["-y", "@angular/cli", "mcp"]
+			"args": ["-y", "@angular/cli", "mcp"],
+			"cwd": "${workspaceFolder}/Sandbox.AngularWorkspace"
 		}
 	}
 }

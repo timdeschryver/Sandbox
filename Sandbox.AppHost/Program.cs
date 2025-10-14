@@ -119,6 +119,7 @@ var apiService = builder.AddProject<Projects.Sandbox_ApiService>("apiservice")
     .WithHttpHealthCheck("/health")
     .WithReference(db)
     .WithReference(keycloak)
+    .WaitFor(db)
     .WaitFor(migrations)
     .WaitFor(keycloak)
     .WithUrlForEndpoint("http", url =>

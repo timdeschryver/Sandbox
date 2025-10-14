@@ -16,6 +16,9 @@ jobs:
 
       - uses: ./.github/actions/setup-pnpm
 
+      - name: Fix lint issues
+        run: pnpm -r lint --fix
+
       - name: Format code
         run: pnpm prettier --write .
 

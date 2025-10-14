@@ -33,7 +33,9 @@ export class CustomerForm {
 
 	protected readonly customerForm = form(signal<CustomerFormModel>(this.initializeCustomerModel()), (path) => {
 		required(path.firstName);
+		maxLength(path.firstName, 255);
 		required(path.lastName);
+		maxLength(path.lastName, 255);
 
 		hidden(path.billingAddress, (logic) => !logic.valueOf(path.hasBillingAddress));
 		applyWhen(path.billingAddress, (logic) => logic.valueOf(path.hasBillingAddress), addressSchema);
