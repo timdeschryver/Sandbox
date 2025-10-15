@@ -18,7 +18,7 @@ export interface Config {
  */
 export function getConfig(): Config {
 	// Load environment variables from .env file
-	dotenv.config({ path: `${__dirname}/../.env` });
+	dotenv.config({ path: `${__dirname}/../.env`, quiet: true });
 
 	// Create configuration object
 	const config: Config = {
