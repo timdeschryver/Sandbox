@@ -1,0 +1,13 @@
+<sandbox-table [resource]="customers()">
+	<ng-template #sandboxTableHeader>
+		<th>Name</th>
+		<th></th>
+	</ng-template>
+
+	<ng-template let-customer [sandboxTableBody]="customers()">
+		<td>{{ customer.firstName }} {{ customer.lastName }}</td>
+		<td>
+			<a [routerLink]="[customer.id]">View Details</a>
+		</td>
+	</ng-template>
+</sandbox-table>

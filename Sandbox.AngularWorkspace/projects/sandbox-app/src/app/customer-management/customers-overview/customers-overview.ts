@@ -1,13 +1,11 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { RouterLink } from '@angular/router';
 import { Customers } from '@sandbox-app/customer-management/customer-management';
-import { Table } from '@sandbox-app/shared/components/table/table';
-import { TableBodyTemplate } from '@sandbox-app/shared/components/table/table-body-template';
 import { CustomerForm } from '@sandbox-app/customer-management/customer-form/customer-form';
+import { CustomersList } from '@sandbox-app/customer-management/customers-list/customers-list';
 
 @Component({
 	selector: 'sandbox-customers-overview',
-	imports: [Table, TableBodyTemplate, CustomerForm, RouterLink],
+	imports: [CustomersList, CustomerForm],
 	templateUrl: './customers-overview.html',
 	styleUrl: './customers-overview.css',
 	changeDetection: ChangeDetectionStrategy.OnPush,

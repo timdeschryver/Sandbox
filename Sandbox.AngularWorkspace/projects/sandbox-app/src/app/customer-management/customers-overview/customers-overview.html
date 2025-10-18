@@ -1,18 +1,6 @@
 <div>
 	<h2>Customers</h2>
-	<sandbox-table [resource]="customers">
-		<ng-template #sandboxTableHeader>
-			<th>Name</th>
-			<th></th>
-		</ng-template>
-
-		<ng-template let-customer [sandboxTableBody]="customers">
-			<td>{{ customer.firstName }} {{ customer.lastName }}</td>
-			<td>
-				<a [routerLink]="[customer.id]">View Details</a>
-			</td>
-		</ng-template>
-	</sandbox-table>
+	<sandbox-customers-list [customers]="customers" />
 </div>
 
 <sandbox-customer-form (customerCreated)="customerCreated()" />
