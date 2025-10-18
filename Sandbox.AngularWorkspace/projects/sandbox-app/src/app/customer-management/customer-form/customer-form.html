@@ -18,17 +18,17 @@
 		<legend>Customer Information</legend>
 		<div>
 			<label for="firstName">First Name</label>
-			<input id="firstName" type="text" [control]="customerForm.firstName" />
+			<input id="firstName" type="text" [field]="customerForm.firstName" />
 		</div>
 
 		<div>
 			<label for="lastName">Last Name</label>
-			<input id="lastName" type="text" [control]="customerForm.lastName" />
+			<input id="lastName" type="text" [field]="customerForm.lastName" />
 		</div>
 	</fieldset>
 
 	<div>
-		<input type="checkbox" id="hasBillingAddress" [control]="customerForm.hasBillingAddress" />
+		<input type="checkbox" id="hasBillingAddress" [field]="customerForm.hasBillingAddress" />
 		<label for="hasBillingAddress">Add Billing Address</label>
 	</div>
 
@@ -40,7 +40,7 @@
 	}
 
 	<div>
-		<input type="checkbox" id="hasShippingAddress" [control]="customerForm.hasShippingAddress" />
+		<input type="checkbox" id="hasShippingAddress" [field]="customerForm.hasShippingAddress" />
 		<label for="hasShippingAddress">Add Shipping Address</label>
 	</div>
 
@@ -50,7 +50,7 @@
 			<sandbox-customer-address [address]="customerForm.shippingAddress">
 				<div>
 					<label for="note">Note</label>
-					<textarea id="note" [control]="customerForm.shippingAddress.note"></textarea>
+					<textarea id="note" [field]="customerForm.shippingAddress.note"></textarea>
 				</div>
 			</sandbox-customer-address>
 		</fieldset>

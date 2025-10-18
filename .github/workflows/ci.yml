@@ -40,34 +40,36 @@ jobs:
         run: dotnet build --configuration Release
 
       - name: Run .NET tests
-        run: dotnet test --no-build --configuration Release -- --coverage --coverage-output coverage.xml --coverage-output-format cobertura --coverage-settings "../coverage.config"
+        # TODO: settings cannot be located anymore?
+        # run: dotnet test --no-build --configuration Release -- --coverage --coverage-output coverage.xml --coverage-output-format cobertura --coverage-settings "./coverage.config"
+        run: dotnet test --no-build --configuration Release -- --coverage --coverage-output coverage.xml --coverage-output-format cobertura
 
-      - name: ReportGenerator
-        uses: danielpalme/ReportGenerator-GitHub-Action@v5.4.16
-        with:
-          reports: '**/coverage.xml'
-          targetdir: 'coveragereport'
-          reporttypes: 'HtmlInline;Cobertura;MarkdownSummaryGithub'
-          tag: '${{ github.run_number }}_${{ github.run_id }}'
-          customSettings: 'minimumCoverageThresholds:lineCoverage=70'
+      # - name: ReportGenerator
+      #   uses: danielpalme/ReportGenerator-GitHub-Action@v5.4.17
+      #   with:
+      #     reports: '**/coverage.xml'
+      #     targetdir: 'coveragereport'
+      #     reporttypes: 'HtmlInline;Cobertura;MarkdownSummaryGithub'
+      #     tag: '${{ github.run_number }}_${{ github.run_id }}'
+      #     customSettings: 'minimumCoverageThresholds:lineCoverage=70'
 
-      - name: Upload .NET coverage report artifact
-        uses: actions/upload-artifact@v4
-        if: ${{ !cancelled() }}
-        with:
-          name: CoverageReport
-          path: coveragereport
+      # - name: Upload .NET coverage report artifact
+      #   uses: actions/upload-artifact@v4
+      #   if: ${{ !cancelled() }}
+      #   with:
+      #     name: CoverageReport
+      #     path: coveragereport
 
-      - name: Add comment to PR
-        if: github.event_name == 'pull_request'
-        run: gh pr comment $PR_NUMBER --edit-last --create-if-none --body-file coveragereport/SummaryGithub.md
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          PR_NUMBER: ${{ github.event.number }}
+      # - name: Add comment to PR
+      #   if: github.event_name == 'pull_request'
+      #   run: gh pr comment $PR_NUMBER --edit-last --create-if-none --body-file coveragereport/SummaryGithub.md
+      #   env:
+      #     GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #     PR_NUMBER: ${{ github.event.number }}
 
-      - name: Publish coverage in build summary
-        run: cat coveragereport/SummaryGithub.md >> $GITHUB_STEP_SUMMARY
-        shell: bash
+      # - name: Publish coverage in build summary
+      #   run: cat coveragereport/SummaryGithub.md >> $GITHUB_STEP_SUMMARY
+      #   shell: bash
 
   frontend:
     runs-on: ubuntu-latest

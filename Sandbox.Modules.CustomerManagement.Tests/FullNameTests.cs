@@ -1,5 +1,4 @@
 using Sandbox.Modules.CustomerManagement.Domain;
-using TUnit.Assertions.AssertConditions.Throws;
 
 namespace Sandbox.Modules.CustomerManagement.Tests;
 
@@ -25,7 +24,7 @@ public sealed class FullNameTests
         var fullName = FullName.From("Alice", "Smith");
 
         await Assert.That(fullName)
-            .HasMember(s => s.FirstName).EqualTo("Alice")
-            .HasMember(s => s.LastName).EqualTo("Smith");
+            .Member(s => s.FirstName, firstName => firstName.IsEqualTo("Alice"))
+            .And.Member(s => s.LastName, lastName => lastName.IsEqualTo("Smith"));
     }
 }
