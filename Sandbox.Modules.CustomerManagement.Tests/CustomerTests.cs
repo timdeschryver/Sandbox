@@ -21,10 +21,9 @@ public sealed class CustomerTests
         var customer = Customer.Create(CustomerId.New(), FullName.From("John", "Doe"));
         customer.AddBillingAddress(CustomerBillingAddress.Create(CustomerAddressId.New(), Address.From("456 Elm St", "Los Angeles", "90001")));
 
-        await Assert.That(customer.BillingAddresses.Count).IsEqualTo(1);
-        await Assert.That(customer.BillingAddresses).All().Satisfy(
-            assert => assert.IsNotNull().HasMember(s => s.Type).EqualTo("Billing")
-        );
+        await Assert.That(customer.BillingAddresses)
+            .HasCount(1)
+            .And.Satisfies(addresses => addresses is not null && addresses.All(a => a.Type == "Billing"));
     }
 
     [Test]
@@ -43,12 +42,9 @@ public sealed class CustomerTests
         var customer = Customer.Create(CustomerId.New(), FullName.From("John", "Doe"));
         customer.AddShippingAddress(CustomerShippingAddress.Create(CustomerAddressId.New(), Address.From("456 Elm St", "Los Angeles", "90001"), "Leave at front door"));
 
-        await Assert.That(customer.ShippingAddresses.Count).IsEqualTo(1);
-        await Assert.That(customer.ShippingAddresses).All().Satisfy(
-            assert => assert.IsNotNull()
-                .HasMember(s => s.Type).EqualTo("Shipping")
-                .HasMember(s => s.Note).EqualTo("Leave at front door")
-        );
+        await Assert.That(customer.ShippingAddresses)
+            .HasCount(1)
+            .And.Satisfies(addresses => addresses is not null && addresses.All(a => a is {Type: "Shipping", Note: "Leave at front door"}));
     }
 
     [Test]
