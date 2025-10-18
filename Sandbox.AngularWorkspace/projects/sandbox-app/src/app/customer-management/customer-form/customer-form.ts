@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject, output, signal } from '@angular/core';
 import {
-	Control,
+	Field,
 	type OneOrMany,
 	type ValidationError,
 	type WithOptionalField,
@@ -22,7 +22,7 @@ import { formValidation } from '@form-validation';
 
 @Component({
 	selector: 'sandbox-customer-form',
-	imports: [Control, CustomerAddress, formValidation],
+	imports: [Field, CustomerAddress, formValidation],
 	templateUrl: './customer-form.html',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
