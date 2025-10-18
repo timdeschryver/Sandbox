@@ -46,8 +46,7 @@ public sealed class AddressTests
         var address = Address.From("123 Main St", "New York", "10001");
 
         await Assert.That(address)
-            .IsNotNull()
-            .And.Member(s => s.Street, street => street.IsEqualTo("123 Main St"))
+            .Member(s => s.Street, street => street.IsEqualTo("123 Main St"))
             .And.Member(s => s.City, city => city.IsEqualTo("New York"))
             .And.Member(s => s.ZipCode, zipCode => zipCode.IsEqualTo("10001"));
     }

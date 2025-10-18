@@ -24,8 +24,7 @@ public sealed class FullNameTests
         var fullName = FullName.From("Alice", "Smith");
 
         await Assert.That(fullName)
-            .IsNotNull()
-            .And.Member(s => s.FirstName, firstName => firstName.IsEqualTo("Alice"))
+            .Member(s => s.FirstName, firstName => firstName.IsEqualTo("Alice"))
             .And.Member(s => s.LastName, lastName => lastName.IsEqualTo("Smith"));
     }
 }
