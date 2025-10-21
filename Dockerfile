@@ -1,4 +1,4 @@
-FROM node:22-slim@sha256:d943bf20249f8b92eff6f605362df2ee9cf2d6ce2ea771a8886e126ec8714f08 AS base
+FROM node:22-slim@sha256:e9ae30657f657d841649dc24885c4dcb0c326621fdeebd13f899c17d84150178 AS base
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
 RUN corepack enable
