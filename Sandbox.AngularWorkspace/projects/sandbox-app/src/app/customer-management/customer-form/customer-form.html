@@ -17,13 +17,13 @@
 	<fieldset>
 		<legend>Customer Information</legend>
 		<div>
-			<label for="firstName">First Name</label>
-			<input id="firstName" type="text" [field]="customerForm.firstName" />
+			<label [for]="customerForm.firstName().name()">First Name</label>
+			<input type="text" [id]="customerForm.firstName().name()" [field]="customerForm.firstName" />
 		</div>
 
 		<div>
-			<label for="lastName">Last Name</label>
-			<input id="lastName" type="text" [field]="customerForm.lastName" />
+			<label [for]="customerForm.lastName().name()">Last Name</label>
+			<input type="text" [id]="customerForm.lastName().name()" [field]="customerForm.lastName" />
 		</div>
 	</fieldset>
 
