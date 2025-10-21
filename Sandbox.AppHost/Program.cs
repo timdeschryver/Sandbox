@@ -156,6 +156,7 @@ var gateway = builder.AddProject<Projects.Sandbox_Gateway>("gateway")
 apiService.WithParentRelationship(gateway);
 angularApplication.WithParentRelationship(gateway);
 keycloak.WithParentRelationship(gateway);
+
 if (builder.Environment.IsDevelopment())
 {
     var playwright = builder

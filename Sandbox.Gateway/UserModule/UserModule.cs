@@ -16,7 +16,7 @@ internal static partial class UserModule
                 { Identity.IsAuthenticated: true } => new User
                 {
                     IsAuthenticated = true,
-                    Name = principal.Claims.SingleOrDefault(c => c.Type == "name")?.Value,
+                    Name = principal.FindFirstValue("name"),
                     Claims = principal.Claims.Select(c => new UserClaim { Type = c.Type, Value = c.Value }),
                 },
                 _ => new User

@@ -9,6 +9,7 @@ builder.AddServiceDefaults();
 
 builder.AddReverseProxy();
 builder.AddAuthenticationSchemes();
+builder.AddRateLimiting();
 
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddOpenIdConnectAccessTokenManagement();
@@ -28,6 +29,7 @@ app.UseExceptionHandler();
 app.UseAntiforgery();
 
 app.UseAuthentication();
+app.UseRateLimiter();
 app.UseAuthorization();
 
 app.MapGroup("bff")

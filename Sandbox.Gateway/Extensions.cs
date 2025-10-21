@@ -6,6 +6,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.Net.Http.Headers;
 using Sandbox.Gateway.Transformers;
 using System.Security.Claims;
+using System.Threading.RateLimiting;
 using Yarp.ReverseProxy.Transforms;
 
 namespace Sandbox.Gateway;
@@ -88,6 +89,33 @@ internal static class Extensions
             options.DefaultPolicy = new AuthorizationPolicyBuilder(CookieAuthenticationDefaults.AuthenticationScheme)
                 .RequireAuthenticatedUser()
                 .Build();
+        });
+
+        return builder;
+    }
+
+    public static IHostApplicationBuilder AddRateLimiting(this IHostApplicationBuilder builder)
+    {
+        builder.Services.AddRateLimiter(options =>
+        {
+            options.AddPolicy("user-or-ip", httpContext =>
+            {
+                var partitionKey = httpContext.User.Identity?.IsAuthenticated == true
+                    ? httpContext.User.FindFirstValue("name") ?? "anonymous"
+                    : httpContext.Connection.RemoteIpAddress?.ToString() ?? "unknown";
+
+                return RateLimitPartition.GetFixedWindowLimiter(
+                    partitionKey: partitionKey,
+                    factory: _ => new FixedWindowRateLimiterOptions
+                    {
+                        PermitLimit = 100,
+                        Window = TimeSpan.FromMinutes(1),
+                        QueueProcessingOrder = QueueProcessingOrder.OldestFirst,
+                        QueueLimit = 0
+                    });
+            });
+
+            options.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
         });
 
         return builder;
