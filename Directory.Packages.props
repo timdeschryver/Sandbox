@@ -44,7 +44,7 @@
     <PackageVersion Include="Scalar.AspNetCore" Version="2.9.0" />
     <PackageVersion Include="Vogen" Version="8.0.2" />
     <PackageVersion Include="TngTech.ArchUnitNET" Version="0.12.3" />
-    <PackageVersion Include="TUnit" Version="0.73.19" />
+    <PackageVersion Include="TUnit" Version="0.74.2" />
     <PackageVersion Include="WolverineFx" Version="4.12.3" />
     <PackageVersion Include="WolverineFx.EntityFrameworkCore" Version="4.12.3" />
     <PackageVersion Include="WolverineFx.Postgresql" Version="4.12.3" />
