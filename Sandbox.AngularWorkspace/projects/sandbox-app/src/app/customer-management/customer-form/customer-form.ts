@@ -47,9 +47,7 @@ export class CustomerForm {
 		});
 	});
 
-	protected async onSubmit(event: Event): Promise<void> {
-		event.preventDefault();
-
+	protected async onSubmit(): Promise<void> {
 		await submit(this.customerForm, async (form) => {
 			if (this.customerForm().invalid()) {
 				return;

@@ -1,4 +1,4 @@
-<form novalidate (submit)="onSubmit($event)">
+<form novalidate (submit.preventDefault)="onSubmit()">
 	<h2>Create Customer</h2>
 
 	@for (error of customerForm().errors(); track $index) {

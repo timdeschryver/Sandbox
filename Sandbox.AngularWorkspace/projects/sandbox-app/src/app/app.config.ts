@@ -8,6 +8,7 @@ import { DATE_PIPE_DEFAULT_OPTIONS } from '@angular/common';
 import { provideHttpClient, withXsrfConfiguration } from '@angular/common/http';
 import { routes } from '@sandbox-app/app.routes';
 import { provideOpenTelemetryInstrumentation } from '@opentelemetry';
+import { provideEventPlugins } from './shared/event-managers';
 
 export const appConfig: ApplicationConfig = {
 	providers: [
@@ -30,6 +31,7 @@ export const appConfig: ApplicationConfig = {
 			provide: DATE_PIPE_DEFAULT_OPTIONS,
 			useValue: { dateFormat: 'dd-MMM-yyyy' },
 		},
+		provideEventPlugins(),
 		provideOpenTelemetryInstrumentation(),
 	],
 };
