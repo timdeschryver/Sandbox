@@ -83,7 +83,7 @@ services:
     networks:
       - 'aspire'
   tempo:
-    image: 'grafana/tempo:latest@sha256:a0b702ea740d066f67bed7e36f17244c3125810004604ffa71c54b404e01df13'
+    image: 'grafana/tempo:latest@sha256:35948734c4a153fffbdcb66abbd4bd9d8ebbde22c0e603ee2fea03fc73b07cb4'
     command:
       - '--config.file=/etc/tempo/tempo.yml'
       - '--config.expand-env=true'
