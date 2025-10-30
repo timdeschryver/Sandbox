@@ -1,6 +1,6 @@
 {
   "descriptionHash": "E86B131E95848D97EDB3FADB44A894F6C9EC99F4F9662FC3E910EEE015381D33514AC25D594E77445C260944B8E7C3760D13193F47833F70F1F7BC0F93B2DD26",
-  "descriptionLocation": "../../Sandbox.ApiService/obj/Sandbox.ApiService.json",
+  "descriptionLocation": "../../Sandbox.ApiService/documentation/Sandbox.ApiService.json",
   "lockFileVersion": "1.0.0",
   "kiotaVersion": "1.28.0",
   "clientClassName": "ApiClient",
