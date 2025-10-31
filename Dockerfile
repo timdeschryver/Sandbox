@@ -15,7 +15,7 @@ RUN pnpm run -r build
 RUN pnpm deploy --filter=./Sandbox.AngularWorkspace --prod /prod/sandbox-app
 RUN ls /prod/sandbox-app
 
-FROM nginx:alpine@sha256:9dacca6749f2215cc3094f641c5b6662f7791e66a57ed034e806a7c48d51c18f AS sandbox-app
+FROM nginx:alpine@sha256:b3c656d55d7ad751196f21b7fd2e8d4da9cb430e32f646adcf92441b72f82b14 AS sandbox-app
 COPY --from=build /prod/sandbox-app/default.conf.template /etc/nginx/templates/default.conf.template
 COPY --from=build /prod/sandbox-app/dist/sandbox-app/browser /usr/share/nginx/html
 EXPOSE 80
