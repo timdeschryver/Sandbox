@@ -71,6 +71,10 @@ jobs:
       #   run: cat coveragereport/SummaryGithub.md >> $GITHUB_STEP_SUMMARY
       #   shell: bash
 
+      - uses: stoplightio/spectral-action@latest
+        with:
+          file_glob: '**/documentation/*.json'
+
   frontend:
     runs-on: ubuntu-latest
     steps:

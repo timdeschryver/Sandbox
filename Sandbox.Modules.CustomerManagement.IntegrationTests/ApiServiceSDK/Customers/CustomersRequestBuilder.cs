@@ -47,7 +47,7 @@ namespace ApiServiceSDK.Customers
         {
         }
         /// <summary>
-        /// Get all customers.
+        /// Get all customers
         /// </summary>
         /// <returns>A List&lt;global::ApiServiceSDK.Models.Response&gt;</returns>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
@@ -66,7 +66,7 @@ namespace ApiServiceSDK.Customers
             return collectionResult?.AsList();
         }
         /// <summary>
-        /// Create a new customer.
+        /// Create a new customer
         /// </summary>
         /// <returns>A <see cref="UntypedNode"/></returns>
         /// <param name="body">The request body</param>
@@ -86,7 +86,7 @@ namespace ApiServiceSDK.Customers
             return await RequestAdapter.SendAsync<UntypedNode>(requestInfo, UntypedNode.CreateFromDiscriminatorValue, default, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
-        /// Get all customers.
+        /// Get all customers
         /// </summary>
         /// <returns>A <see cref="RequestInformation"/></returns>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
@@ -105,7 +105,7 @@ namespace ApiServiceSDK.Customers
             return requestInfo;
         }
         /// <summary>
-        /// Create a new customer.
+        /// Create a new customer
         /// </summary>
         /// <returns>A <see cref="RequestInformation"/></returns>
         /// <param name="body">The request body</param>

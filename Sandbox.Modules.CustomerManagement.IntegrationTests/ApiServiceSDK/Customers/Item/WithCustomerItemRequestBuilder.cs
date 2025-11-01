@@ -34,7 +34,7 @@ namespace ApiServiceSDK.Customers.Item
         {
         }
         /// <summary>
-        /// Soft delete a customer by id.
+        /// Delete a customer by ID
         /// </summary>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
@@ -51,7 +51,7 @@ namespace ApiServiceSDK.Customers.Item
             await RequestAdapter.SendNoContentAsync(requestInfo, default, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
-        /// Get a customer by id.
+        /// Get a customer by ID
         /// </summary>
         /// <returns>A <see cref="global::ApiServiceSDK.Models.Response"/></returns>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
@@ -69,7 +69,7 @@ namespace ApiServiceSDK.Customers.Item
             return await RequestAdapter.SendAsync<global::ApiServiceSDK.Models.Response>(requestInfo, global::ApiServiceSDK.Models.Response.CreateFromDiscriminatorValue, default, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
-        /// Soft delete a customer by id.
+        /// Delete a customer by ID
         /// </summary>
         /// <returns>A <see cref="RequestInformation"/></returns>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
@@ -87,7 +87,7 @@ namespace ApiServiceSDK.Customers.Item
             return requestInfo;
         }
         /// <summary>
-        /// Get a customer by id.
+        /// Get a customer by ID
         /// </summary>
         /// <returns>A <see cref="RequestInformation"/></returns>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>

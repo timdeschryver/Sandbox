@@ -1,5 +1,6 @@
 using JasperFx.Resources;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.OpenApi;
 using Sandbox.ApiService;
 using Sandbox.ServiceDefaults;
 using Sandbox.SharedKernel.Modules;
@@ -26,27 +27,26 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 builder.Services.AddAuthorization();
 builder.Services.AddProblemDetails();
-builder.Services.AddOpenApi(options =>
+builder.Services.AddOpenApi(openApi =>
 {
-    options.AddDocumentTransformer((document, context, _) =>
+    openApi.AddDocumentTransformer((document, _, _) =>
     {
-        document.Info = new()
+        document.Servers = [new OpenApiServer { Url = "https://localhost:7333" }];
+        document.Info = new OpenApiInfo
         {
             Title = "Sandbox API Reference",
             Version = "v1",
-            Description = """
-                          This is a sample API for the Sandbox project.
-                          """,
-            Contact = new()
+            Description = "This is a sample API for the Sandbox project.",
+            Contact = new OpenApiContact
             {
                 Name = "Support",
-                Email = "doesnotexist@timdeschryver.dev",
+                Email = "contact@timdeschryver.dev",
                 Url = new Uri("https://github.com/timdeschryver/sandbox")
-            }
+            },
         };
         return Task.CompletedTask;
     });
-    options.AddDocumentTransformer<BearerSecuritySchemeTransformer>();
+    openApi.AddDocumentTransformer<BearerSecuritySchemeTransformer>();
 });
 
 builder.Services.AddResourceSetupOnStartup();

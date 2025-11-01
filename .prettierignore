@@ -7,3 +7,4 @@ coverage
 .github/prompts
 .github/chatmodes
 test-results
+**/documentation/*.json
