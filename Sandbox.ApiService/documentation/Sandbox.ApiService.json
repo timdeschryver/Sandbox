@@ -1,235 +1,278 @@
 {
-	"openapi": "3.1.1",
-	"info": {
-		"title": "Sandbox API Reference",
-		"description": "This is a sample API for the Sandbox project.",
-		"contact": {
-			"name": "Support",
-			"url": "https://github.com/timdeschryver/sandbox",
-			"email": "doesnotexist@timdeschryver.dev"
-		},
-		"version": "v1"
-	},
-	"paths": {
-		"/customers": {
-			"get": {
-				"tags": ["Customer Management"],
-				"summary": "Get all customers.",
-				"responses": {
-					"200": {
-						"description": "A collection with all customers.",
-						"content": {
-							"application/json": {
-								"schema": {
-									"type": "array",
-									"items": {
-										"$ref": "#/components/schemas/Response"
-									}
-								}
-							}
-						}
-					}
-				}
-			},
-			"post": {
-				"tags": ["Customer Management"],
-				"summary": "Create a new customer.",
-				"requestBody": {
-					"content": {
-						"application/json": {
-							"schema": {
-								"$ref": "#/components/schemas/Command"
-							}
-						}
-					},
-					"required": true
-				},
-				"responses": {
-					"201": {
-						"description": "The created customer ID.",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/CustomerId"
-								}
-							}
-						}
-					}
-				}
-			}
-		},
-		"/customers/{customerId}": {
-			"get": {
-				"tags": ["Customer Management"],
-				"summary": "Get a customer by id.",
-				"parameters": [
-					{
-						"name": "customerId",
-						"in": "path",
-						"required": true,
-						"schema": {
-							"$ref": "#/components/schemas/CustomerId"
-						}
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "OK",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/Response"
-								}
-							}
-						}
-					},
-					"404": {
-						"description": "Not Found"
-					}
-				}
-			},
-			"delete": {
-				"tags": ["Customer Management"],
-				"summary": "Soft delete a customer by id.",
-				"parameters": [
-					{
-						"name": "customerId",
-						"in": "path",
-						"required": true,
-						"schema": {
-							"$ref": "#/components/schemas/CustomerId"
-						}
-					}
-				],
-				"responses": {
-					"204": {
-						"description": "No Content"
-					},
-					"404": {
-						"description": "Not Found"
-					}
-				}
-			}
-		}
-	},
-	"components": {
-		"schemas": {
-			"BillingAddress": {
-				"required": ["id", "street", "city", "zipCode"],
-				"type": "object",
-				"properties": {
-					"id": {
-						"$ref": "#/components/schemas/CustomerAddressId"
-					},
-					"street": {
-						"type": "string"
-					},
-					"city": {
-						"type": "string"
-					},
-					"zipCode": {
-						"type": "string"
-					}
-				},
-				"additionalProperties": false
-			},
-			"Command": {
-				"required": ["firstName", "lastName", "billingAddress", "shippingAddress"],
-				"type": "object",
-				"properties": {
-					"firstName": {
-						"type": "string"
-					},
-					"lastName": {
-						"type": "string"
-					},
-					"billingAddress": {
-						"oneOf": [
-							{
-								"type": "null"
-							},
-							{
-								"$ref": "#/components/schemas/BillingAddress"
-							}
-						]
-					},
-					"shippingAddress": {
-						"oneOf": [
-							{
-								"type": "null"
-							},
-							{
-								"$ref": "#/components/schemas/ShippingAddress"
-							}
-						]
-					}
-				},
-				"additionalProperties": false
-			},
-			"CustomerAddressId": {},
-			"CustomerId": {},
-			"Response": {
-				"required": ["id", "firstName", "lastName", "billingAddresses", "shippingAddresses"],
-				"type": "object",
-				"properties": {
-					"id": {
-						"$ref": "#/components/schemas/CustomerId"
-					},
-					"firstName": {
-						"type": "string"
-					},
-					"lastName": {
-						"type": "string"
-					},
-					"billingAddresses": {
-						"type": "array",
-						"items": {
-							"$ref": "#/components/schemas/BillingAddress"
-						}
-					},
-					"shippingAddresses": {
-						"type": "array",
-						"items": {
-							"$ref": "#/components/schemas/ShippingAddress"
-						}
-					}
-				},
-				"additionalProperties": false
-			},
-			"ShippingAddress": {
-				"required": ["id", "street", "city", "zipCode", "note"],
-				"type": "object",
-				"properties": {
-					"id": {
-						"$ref": "#/components/schemas/CustomerAddressId"
-					},
-					"street": {
-						"type": "string"
-					},
-					"city": {
-						"type": "string"
-					},
-					"zipCode": {
-						"type": "string"
-					},
-					"note": {
-						"type": "string"
-					}
-				},
-				"additionalProperties": false
-			}
-		},
-		"securitySchemes": {
-			"Bearer": {
-				"type": "http",
-				"scheme": "bearer",
-				"bearerFormat": "Json Web Token"
-			}
-		}
-	},
-	"tags": [
-		{
-			"name": "Customer Management"
-		}
-	]
+  "openapi": "3.1.1",
+  "info": {
+    "title": "Sandbox API Reference",
+    "description": "This is a sample API for the Sandbox project.",
+    "contact": {
+      "name": "Support",
+      "url": "https://github.com/timdeschryver/sandbox",
+      "email": "contact@timdeschryver.dev"
+    },
+    "version": "v1"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:5499"
+    }
+  ],
+  "paths": {
+    "/customers": {
+      "get": {
+        "tags": [
+          "Customer Management"
+        ],
+        "summary": "Get all customers.",
+        "description": "Get all customers",
+        "operationId": "GetCustomers",
+        "responses": {
+          "200": {
+            "description": "A collection with all customers.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Response"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Customer Management"
+        ],
+        "summary": "Create a new customer.",
+        "description": "Create a new customer",
+        "operationId": "CreateCustomer",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Command"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "The created customer ID.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomerId"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/customers/{customerId}": {
+      "get": {
+        "tags": [
+          "Customer Management"
+        ],
+        "summary": "Get a customer by id.",
+        "description": "Get a customer by ID",
+        "operationId": "GetCustomer",
+        "parameters": [
+          {
+            "name": "customerId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/CustomerId"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Customer Management"
+        ],
+        "summary": "Soft delete a customer by id.",
+        "description": "Delete a customer by ID",
+        "operationId": "DeleteCustomer",
+        "parameters": [
+          {
+            "name": "customerId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/CustomerId"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "BillingAddress": {
+        "required": [
+          "id",
+          "street",
+          "city",
+          "zipCode"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "$ref": "#/components/schemas/CustomerAddressId"
+          },
+          "street": {
+            "type": "string"
+          },
+          "city": {
+            "type": "string"
+          },
+          "zipCode": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Command": {
+        "required": [
+          "firstName",
+          "lastName",
+          "billingAddress",
+          "shippingAddress"
+        ],
+        "type": "object",
+        "properties": {
+          "firstName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "billingAddress": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/BillingAddress"
+              }
+            ]
+          },
+          "shippingAddress": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/ShippingAddress"
+              }
+            ]
+          }
+        },
+        "additionalProperties": false
+      },
+      "CustomerAddressId": { },
+      "CustomerId": { },
+      "Response": {
+        "required": [
+          "id",
+          "firstName",
+          "lastName",
+          "billingAddresses",
+          "shippingAddresses"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "$ref": "#/components/schemas/CustomerId"
+          },
+          "firstName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "billingAddresses": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/BillingAddress"
+            }
+          },
+          "shippingAddresses": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ShippingAddress"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "ShippingAddress": {
+        "required": [
+          "id",
+          "street",
+          "city",
+          "zipCode",
+          "note"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "$ref": "#/components/schemas/CustomerAddressId"
+          },
+          "street": {
+            "type": "string"
+          },
+          "city": {
+            "type": "string"
+          },
+          "zipCode": {
+            "type": "string"
+          },
+          "note": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "securitySchemes": {
+      "Bearer": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "Json Web Token"
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Customer Management"
+    }
+  ]
 }

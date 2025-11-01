@@ -31,7 +31,7 @@ builder.Services.AddOpenApi(openApi =>
 {
     openApi.AddDocumentTransformer((document, _, _) =>
     {
-        document.Servers = [new OpenApiServer { Url = "https://localhost:7333" }];
+        document.Servers = [new OpenApiServer { Url = "http://localhost:5499" }];
         document.Info = new OpenApiInfo
         {
             Title = "Sandbox API Reference",
