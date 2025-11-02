@@ -1,5 +1,6 @@
 using JasperFx.Resources;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.OpenApi;
 using Sandbox.ApiService;
 using Sandbox.ServiceDefaults;
@@ -24,7 +25,6 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 options.RequireHttpsMetadata = false;
             }
         });
-
 builder.Services.AddAuthorization();
 builder.Services.AddProblemDetails();
 builder.Services.AddOpenApi(openApi =>
@@ -48,11 +48,12 @@ builder.Services.AddOpenApi(openApi =>
     });
     openApi.AddDocumentTransformer<BearerSecuritySchemeTransformer>();
 });
+builder.Services.AddErrorHandling();
 
 builder.Services.AddResourceSetupOnStartup();
 builder.Host.UseWolverine(opts =>
 {
-    // Needed to generate the OpenAPI document, otherwise this exception is thrown
+    // Required to generate the OpenAPI document, otherwise this exception is thrown
     if (Environment.GetCommandLineArgs().Any(e => e.Contains("GetDocument.Insider", StringComparison.OrdinalIgnoreCase)))
     {
         return;

@@ -29,14 +29,14 @@ internal static class CommandResourceBuilderExtensions
                     Description = "Enter the number of times to repeat the Playwright tests.",
                     InputType = InputType.Number,
                     Required = true,
-                    Placeholder = "25",
+                    Placeholder = $"{repeatCount}",
                 });
 #pragma warning restore ASPIREINTERACTION001 // Type is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
                 if (prompt.Canceled)
                 {
                     return CommandResults.Success();
                 }
-                return await OnRunCommand(builder, context, $"pnpm run test --repeat-each={prompt.Data?.Value}");
+                return await OnRunCommand(builder, context, $"pnpm run test --repeat-each={prompt.Data.Value}");
             },
             commandOptions: commandOptions);
 
