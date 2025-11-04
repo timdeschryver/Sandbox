@@ -14,7 +14,7 @@ applyTo: '**/*.cs'
 - TUnit is used for writing tests
 - PostgreSQL is used as database
 - Strongly typed ids using `Vogen` to ensure type safety in identifiers
-- .NET Aspire for service orchestration
+- Aspire for service orchestration
 
 ## Project Organization
 

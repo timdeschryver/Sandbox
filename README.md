@@ -4,7 +4,7 @@
 
 Some buzzwords that are used:
 
-- [.NET Aspire](https://learn.microsoft.com/en-us/dotnet/aspire/get-started/aspire-overview)
+- [Aspire](https://learn.microsoft.com/en-us/dotnet/aspire/get-started/aspire-overview)
 - [.NET (Minimal) API](https://learn.microsoft.com/en-us/aspnet/core/fundamentals/minimal-apis/overview)
   - [EF Core](https://learn.microsoft.com/en-us/ef/core/) (with Migrations)
 - [Angular](https://angular.dev/)
@@ -104,9 +104,9 @@ dotnet run --project ./Sandbox.AppHost
 
 ### Aspire dashboard
 
-The .NET Aspire dashboard provides a comprehensive view of all running services, their health status, and resource utilization in the development environment.
+The Aspire dashboard provides a comprehensive view of all running services, their health status, and resource utilization in the development environment.
 
-![.NET Aspire dashboard showing running services including API Gateway, Angular app, API service, SQL Server database, and Keycloak authentication provider with their respective health statuses and resource metrics](./other/aspire.png)
+![Aspire dashboard showing running services including API Gateway, Angular app, API service, SQL Server database, and Keycloak authentication provider with their respective health statuses and resource metrics](./other/aspire.png)
 
 ### Grafana Stack with OpenTelemetry data
 

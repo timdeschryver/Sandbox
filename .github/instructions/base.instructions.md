@@ -23,7 +23,7 @@ The workspace contains the following main components:
 
 ### Core Services
 
-- `Sandbox.AppHost/` - .NET Aspire application host for orchestrating services
+- `Sandbox.AppHost/` - Aspire application host for orchestrating services
 - `Sandbox.ApiService/` - Main API service
 - `Sandbox.Gateway/` - API gateway service
 - `Sandbox.Migrations/` - Database migration service
