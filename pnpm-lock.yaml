@@ -124,9 +124,6 @@ importers:
       typescript-eslint:
         specifier: 8.46.2
         version: 8.46.2(eslint@9.39.1(jiti@1.21.7))(typescript@5.9.3)
-      vite:
-        specifier: 7.1.12
-        version: 7.1.12(@types/node@24.9.2)(jiti@1.21.7)(less@4.3.0)(sass@1.93.2)(terser@5.39.1)
       vitest:
         specifier: 4.0.6
         version: 4.0.6(@types/node@24.9.2)(jiti@1.21.7)(jsdom@27.1.0(postcss@8.5.6))(less@4.3.0)(sass@1.93.2)(terser@5.39.1)
