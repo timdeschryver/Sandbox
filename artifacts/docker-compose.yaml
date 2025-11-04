@@ -83,7 +83,7 @@ services:
     networks:
       - 'aspire'
   tempo:
-    image: 'grafana/tempo:latest@sha256:33975cde5fe87fbcc27942dddfded9fcecec153571a72b30b3cdcc863f7193a0'
+    image: 'grafana/tempo:latest@sha256:ecb46c1b5f9760f0f36848d8df110a149285e22a2a79de1ae51d2e11f6f756c9'
     command:
       - '--config.file=/etc/tempo/tempo.yml'
       - '--config.expand-env=true'
@@ -164,7 +164,7 @@ services:
     networks:
       - 'aspire'
   otelcollector:
-    image: 'ghcr.io/open-telemetry/opentelemetry-collector-releases/opentelemetry-collector-contrib:latest@sha256:4a951ff0a9772f4fa8e9c7a326434370301b98b2b813933468dcb54aa6a6b5e5'
+    image: 'ghcr.io/open-telemetry/opentelemetry-collector-releases/opentelemetry-collector-contrib:latest@sha256:faf125d656fa47cea568b2f3b4494efd2525083bc75c1e96038bc23f05cd68fd'
     environment:
       PROMETHEUS_ENDPOINT: 'http://prometheus:9090/api/v1/otlp'
       LOKI_ENDPOINT: 'http://loki:3100/otlp'
@@ -180,7 +180,7 @@ services:
     networks:
       - 'aspire'
   postgres:
-    image: 'docker.io/library/postgres:18.0@sha256:1ffc019dae94eca6b09a49ca67d37398951346de3c3d0cfe23d8d4ca33da83fb'
+    image: 'docker.io/library/postgres:18.0@sha256:b3ef52d269e0050ac3ba8266d8bc9650987412f60d66472fdf7e14f523ecc506'
     environment:
       POSTGRES_HOST_AUTH_METHOD: 'scram-sha-256'
       POSTGRES_INITDB_ARGS: '--auth-host=scram-sha-256 --auth-local=scram-sha-256'
