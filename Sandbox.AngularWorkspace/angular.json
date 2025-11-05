@@ -65,15 +65,9 @@
 					},
 					"defaultConfiguration": "development"
 				},
-				"extract-i18n": {
-					"builder": "@angular/build:extract-i18n"
-				},
 				"test": {
 					"builder": "@angular/build:unit-test",
 					"options": {
-						"tsConfig": "tsconfig.json",
-						"buildTarget": "::development",
-						"runner": "vitest",
 						"providersFile": "projects/sandbox-app/src/test-providers.ts",
 						"setupFiles": ["projects/sandbox-app/src/test-setup.ts"]
 					}

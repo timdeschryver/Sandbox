@@ -7,6 +7,7 @@ import { type CreateCustomerCommand } from '@sandbox-app/customer-management/mod
 import { CustomerForm } from './customer-form';
 import { CustomerAddress } from '@sandbox-app/customer-management/shared/customer-address/customer-address';
 import { outputBinding } from '@angular/core';
+import { provideEventPlugins } from '@sandbox-app/shared/event-managers';
 
 it('renders form with initial empty values', async () => {
 	await setup();
@@ -131,6 +132,7 @@ async function setup() {
 	const { fixture } = await render(CustomerForm, {
 		imports: [CustomerAddress],
 		bindings: [outputBinding('customerCreated', customerCreatedSpy)],
+		providers: [provideEventPlugins()],
 	});
 
 	const httpMock = TestBed.inject(HttpTestingController);

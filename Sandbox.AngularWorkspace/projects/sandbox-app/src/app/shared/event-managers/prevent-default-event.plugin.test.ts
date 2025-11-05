@@ -3,6 +3,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { render, screen } from '@testing-library/angular';
 import { userEvent } from '@testing-library/user-event';
 import { PreventDefaultEventPlugin } from './prevent-default-event.plugin';
+import { provideEventPlugins } from '.';
 
 @Component({
 	selector: 'sandbox-test',
@@ -16,7 +17,7 @@ class TestComponent {
 
 it('prevents default behavior and calls handler', async () => {
 	const user = userEvent.setup();
-	const { fixture } = await render(TestComponent);
+	const { fixture } = await render(TestComponent, { providers: [provideEventPlugins()] });
 
 	const component = fixture.componentInstance;
 	const link = screen.getByRole('link', { name: 'Click me' });
