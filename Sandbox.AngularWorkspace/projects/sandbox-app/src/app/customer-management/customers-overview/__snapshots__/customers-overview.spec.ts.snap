@@ -1,0 +1,204 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`renders the component with customers table 1`] = `
+<div>
+  <div>
+    <h2>
+      Customers
+    </h2>
+    <sandbox-customers-list>
+      <sandbox-table>
+        <div>
+          <!--container-->
+          <table>
+            <thead>
+              <tr>
+                <th>
+                  <button
+                    type="button"
+                  >
+                    🔃
+                  </button>
+                </th>
+                <th>
+                  Name
+                </th>
+                <th />
+                <!--container-->
+              </tr>
+            </thead>
+            <!--container-->
+            <tbody>
+              <tr>
+                <td />
+                <td>
+                  John Doe
+                </td>
+                <td>
+                  <a
+                    href="/a8574564-ef6f-42da-9393-67d7e466e8c8"
+                  >
+                    View Details
+                  </a>
+                </td>
+                <!--container-->
+              </tr>
+              <tr>
+                <td />
+                <td>
+                  Jane Smith
+                </td>
+                <td>
+                  <a
+                    href="/d654bad5-19e1-4728-b019-37d30358524f"
+                  >
+                    View Details
+                  </a>
+                </td>
+                <!--container-->
+              </tr>
+              <!--container-->
+              <!--container-->
+              <!--container-->
+              <!--container-->
+              <!--container-->
+            </tbody>
+            <!--container-->
+          </table>
+        </div>
+      </sandbox-table>
+    </sandbox-customers-list>
+  </div>
+  <sandbox-customer-form>
+    <form
+      novalidate=""
+    >
+      <h2>
+        Create Customer
+      </h2>
+      <!--container-->
+      <!--container-->
+      <fieldset>
+        <legend>
+          Customer Information
+        </legend>
+        <div>
+          <label
+            for="a.form0.firstName"
+          >
+            First Name
+          </label>
+          <input
+            aria-describedby="error-a.form0.firstName"
+            aria-invalid="true"
+            id="a.form0.firstName"
+            maxlength="255"
+            name="a.form0.firstName"
+            required=""
+            type="text"
+          />
+          <form-validation-field-errors
+            _nghost-a-c71381843=""
+          >
+            <div
+              _ngcontent-a-c71381843=""
+              hidden=""
+              id="error-a.form0.firstName"
+            >
+               Field is required 
+              <!--container-->
+            </div>
+          </form-validation-field-errors>
+          <!--container-->
+        </div>
+        <div>
+          <label
+            for="a.form0.lastName"
+          >
+            Last Name
+          </label>
+          <input
+            aria-describedby="error-a.form0.lastName"
+            aria-invalid="true"
+            id="a.form0.lastName"
+            maxlength="255"
+            name="a.form0.lastName"
+            required=""
+            type="text"
+          />
+          <form-validation-field-errors
+            _nghost-a-c71381843=""
+          >
+            <div
+              _ngcontent-a-c71381843=""
+              hidden=""
+              id="error-a.form0.lastName"
+            >
+               Field is required 
+              <!--container-->
+            </div>
+          </form-validation-field-errors>
+          <!--container-->
+        </div>
+      </fieldset>
+      <div>
+        <input
+          id="hasBillingAddress"
+          name="a.form0.hasBillingAddress"
+          type="checkbox"
+        />
+        <form-validation-field-errors
+          _nghost-a-c71381843=""
+        >
+          <div
+            _ngcontent-a-c71381843=""
+            hidden=""
+            id="error-a.form0.hasBillingAddress"
+          >
+            <!--container-->
+          </div>
+        </form-validation-field-errors>
+        <!--container-->
+        <label
+          for="hasBillingAddress"
+        >
+          Add Billing Address
+        </label>
+      </div>
+      <!--container-->
+      <div>
+        <input
+          id="hasShippingAddress"
+          name="a.form0.hasShippingAddress"
+          type="checkbox"
+        />
+        <form-validation-field-errors
+          _nghost-a-c71381843=""
+        >
+          <div
+            _ngcontent-a-c71381843=""
+            hidden=""
+            id="error-a.form0.hasShippingAddress"
+          >
+            <!--container-->
+          </div>
+        </form-validation-field-errors>
+        <!--container-->
+        <label
+          for="hasShippingAddress"
+        >
+          Add Shipping Address
+        </label>
+      </div>
+      <!--container-->
+      <button
+        type="submit"
+      >
+        <!--container-->
+         Create Customer 
+        <!--container-->
+      </button>
+    </form>
+  </sandbox-customer-form>
+</div>
+`;
