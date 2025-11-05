@@ -1,0 +1,12 @@
+﻿[
+  {
+    FirstName: Test,
+    Id: {Scrubbed},
+    LastName: User
+  },
+  {
+    FirstName: Test 2,
+    Id: {Scrubbed},
+    LastName: User 2
+  }
+]

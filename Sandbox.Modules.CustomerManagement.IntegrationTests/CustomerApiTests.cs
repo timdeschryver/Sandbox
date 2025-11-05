@@ -5,13 +5,20 @@ using System.Net;
 
 namespace Sandbox.Modules.CustomerManagement.IntegrationTests;
 
-[ClassDataSource<CustomerApiWebApplicationFactory>(Shared = SharedType.PerTestSession)]
-public class CustomerApiTests(CustomerApiWebApplicationFactory WebAppFactory)
+[ClassDataSource<CustomerApiWebApplicationFactory>(Shared = SharedType.None)]
+public class CustomerApiTests
 {
+    private readonly CustomerApiWebApplicationFactory _webAppFactory;
+    public CustomerApiTests(CustomerApiWebApplicationFactory webAppFactory)
+    {
+        _webAppFactory = webAppFactory;
+        VerifierSettings.ScrubMember("Id");
+    }
+
     [Test]
     public async Task CreateCustomer_WithValidData_Returns_CreatedResponse()
     {
-        var apiClient = WebAppFactory.CreateApiClient();
+        var apiClient = _webAppFactory.CreateApiClient();
 
         var response = await apiClient.Customers.PostAsync(new ApiServiceSDK.Models.Command()
         {
@@ -37,12 +44,14 @@ public class CustomerApiTests(CustomerApiWebApplicationFactory WebAppFactory)
                 }
             }
         });
+
+        await Assert.That(response).IsNotNull();
     }
 
     [Test]
     public async Task CreateCustomer_WithMinimalData_Returns_CreatedResponse()
     {
-        var apiClient = WebAppFactory.CreateApiClient();
+        var apiClient = _webAppFactory.CreateApiClient();
 
         var response = await apiClient.Customers.PostAsync(new ApiServiceSDK.Models.Command()
         {
@@ -58,7 +67,7 @@ public class CustomerApiTests(CustomerApiWebApplicationFactory WebAppFactory)
     [Test]
     public async Task CreateCustomer_WithInvalidData_Returns_BadRequestProblemDetails()
     {
-        var apiClient = WebAppFactory.CreateApiClient();
+        var apiClient = _webAppFactory.CreateApiClient();
 
         try
         {
@@ -81,7 +90,7 @@ public class CustomerApiTests(CustomerApiWebApplicationFactory WebAppFactory)
     [Test]
     public async Task CreateCustomer_WithUnknownProperty_Returns_BadRequestProblemDetails()
     {
-        using var client = WebAppFactory.CreateClient();
+        using var client = _webAppFactory.CreateClient();
 
         // For this test, we'll send a raw HTTP request with unknown property since Kiota's typed client
         // won't allow unknown properties by design. This test verifies server-side validation.
@@ -102,7 +111,7 @@ public class CustomerApiTests(CustomerApiWebApplicationFactory WebAppFactory)
     [Test]
     public async Task GetCustomers_Returns_OkWithCustomersList()
     {
-        var apiClient = WebAppFactory.CreateApiClient();
+        var apiClient = _webAppFactory.CreateApiClient();
 
         await apiClient.Customers.PostAsync(new ApiServiceSDK.Models.Command()
         {
@@ -122,12 +131,14 @@ public class CustomerApiTests(CustomerApiWebApplicationFactory WebAppFactory)
         var customers = await apiClient.Customers.GetAsync();
         await Assert.That(customers).IsNotNull();
         await Assert.That(customers!.Count).IsGreaterThanOrEqualTo(2);
+
+        await Verify(customers.OrderBy(c => c.FirstName).ThenBy(c => c.LastName));
     }
 
     [Test]
     public async Task GetCustomer_WithValidId_Returns_OkWithCustomer()
     {
-        var apiClient = WebAppFactory.CreateApiClient();
+        var apiClient = _webAppFactory.CreateApiClient();
 
         var createResponse = await apiClient.Customers.PostAsync(new ApiServiceSDK.Models.Command()
         {
@@ -152,12 +163,14 @@ public class CustomerApiTests(CustomerApiWebApplicationFactory WebAppFactory)
         await Assert.That(customer.LastName).IsEqualTo("Customer");
         await Assert.That(customer.BillingAddresses?.Count).IsEqualTo(1);
         await Assert.That(customer.ShippingAddresses?.Count).IsEqualTo(0);
+
+        await Verify(customer);
     }
 
     [Test]
     public async Task GetCustomer_WithNonExistentId_Returns_NotFound()
     {
-        var apiClient = WebAppFactory.CreateApiClient();
+        var apiClient = _webAppFactory.CreateApiClient();
 
         var nonExistentId = CustomerId.New();
 
@@ -175,7 +188,7 @@ public class CustomerApiTests(CustomerApiWebApplicationFactory WebAppFactory)
     [Test]
     public async Task RemovedCustomer_IsNotIncluded()
     {
-        var apiClient = WebAppFactory.CreateApiClient();
+        var apiClient = _webAppFactory.CreateApiClient();
 
         var createResponse = await apiClient.Customers.PostAsync(new ApiServiceSDK.Models.Command()
         {

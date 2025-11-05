@@ -10,6 +10,7 @@
         <PackageReference Include="Microsoft.Testing.Extensions.TrxReport" />
         <PackageReference Include="Testcontainers.PostgreSql" />
         <PackageReference Include="TUnit" />
+        <PackageReference Include="Verify.TUnit" />
     </ItemGroup>
     <ItemGroup>
         <ProjectReference Include="..\Sandbox.ApiService\Sandbox.ApiService.csproj" />
