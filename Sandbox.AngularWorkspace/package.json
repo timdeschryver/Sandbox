@@ -43,7 +43,7 @@
 		"@testing-library/angular": "18.1.0",
 		"@testing-library/jest-dom": "6.9.1",
 		"@testing-library/user-event": "14.6.1",
-		"@vitest/browser": "4.0.6",
+		"@vitest/browser": "4.0.7",
 		"angular-eslint": "20.5.1",
 		"eslint": "9.39.1",
 		"eslint-config-prettier": "10.1.8",
@@ -54,6 +54,6 @@
 		"run-script-os": "1.1.6",
 		"typescript": "5.9.3",
 		"typescript-eslint": "8.46.3",
-		"vitest": "4.0.6"
+		"vitest": "4.0.7"
 	}
 }
