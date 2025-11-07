@@ -41,14 +41,14 @@
     <PackageVersion Include="OpenTelemetry.Instrumentation.AspNetCore" Version="1.13.0" />
     <PackageVersion Include="OpenTelemetry.Instrumentation.Http" Version="1.13.0" />
     <PackageVersion Include="OpenTelemetry.Instrumentation.Runtime" Version="1.13.0" />
-    <PackageVersion Include="Scalar.AspNetCore" Version="2.10.0" />
+    <PackageVersion Include="Scalar.AspNetCore" Version="2.10.1" />
     <PackageVersion Include="Verify.TUnit" Version="31.4.3" />
     <PackageVersion Include="Vogen" Version="8.0.2" />
     <PackageVersion Include="TngTech.ArchUnitNET" Version="0.12.3" />
-    <PackageVersion Include="TUnit" Version="0.90.28" />
-    <PackageVersion Include="WolverineFx" Version="5.0.0" />
-    <PackageVersion Include="WolverineFx.EntityFrameworkCore" Version="5.0.0" />
-    <PackageVersion Include="WolverineFx.Postgresql" Version="5.0.0" />
+    <PackageVersion Include="TUnit" Version="1.0.0" />
+    <PackageVersion Include="WolverineFx" Version="5.1.0" />
+    <PackageVersion Include="WolverineFx.EntityFrameworkCore" Version="5.1.0" />
+    <PackageVersion Include="WolverineFx.Postgresql" Version="5.1.0" />
     <PackageVersion Include="Yarp.ReverseProxy" Version="2.3.0" />
     <PackageVersion Include="Microsoft.CodeAnalysis.Workspaces.Common" Version="4.14.0" />
     <PackageVersion Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="4.14.0" />
