@@ -10,7 +10,6 @@ packages/
 .vs/
 TestResults/
 CoverageReport/
-coveragereport/
 
 # Angular
 node_modules/
