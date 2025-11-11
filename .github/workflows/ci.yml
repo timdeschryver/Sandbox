@@ -43,7 +43,7 @@ jobs:
         run: dotnet test --no-build --configuration Release -- --coverage --coverage-output coverage.xml --coverage-output-format cobertura --coverage-settings "${{ github.workspace }}/coverage.config"
 
       - name: ReportGenerator
-        uses: danielpalme/ReportGenerator-GitHub-Action@v5.4.17
+        uses: danielpalme/ReportGenerator-GitHub-Action@v5.4.18
         with:
           reports: '**/coverage.xml'
           targetdir: 'coveragereport'
@@ -52,7 +52,7 @@ jobs:
           customSettings: 'minimumCoverageThresholds:lineCoverage=70'
 
       - name: Upload .NET coverage report artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         if: ${{ !cancelled() }}
         with:
           name: CoverageReport
