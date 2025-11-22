@@ -18,8 +18,11 @@ it('throws error for invalid input', () => {
 	const idSchema = z.number();
 	const parseId = stronglyTypedIdAttribute(idSchema, numberAttribute);
 	const invalidInput = 'abc';
+	const consoleSpy = vi.spyOn(console, 'error').mockImplementationOnce(() => {});
 
 	expect(() => parseId(invalidInput)).toThrow();
+
+	expect(consoleSpy).toHaveBeenCalledWith('Validation error:', expect.any(Object));
 });
 
 it('logs error in development mode', () => {

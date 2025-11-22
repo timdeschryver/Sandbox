@@ -1,6 +1,6 @@
 import { Pipe, type PipeTransform, inject } from '@angular/core';
 import { VALIDATION_MESSAGES, defaultValidationMessages } from './validation-messages.token';
-import type { ValidationErrorWithField } from '@angular/forms/signals';
+import type { ValidationError } from '@angular/forms/signals';
 
 @Pipe({
 	name: 'validationMessage',
@@ -11,11 +11,11 @@ export class ValidationMessagePipe implements PipeTransform {
 		...inject(VALIDATION_MESSAGES, { optional: true }),
 	};
 
-	public transform(error: ValidationErrorWithField | null | undefined, showFieldName = false): string {
+	public transform(error: ValidationError.WithOptionalField | null | undefined, showFieldName = false): string {
 		if (!error) {
 			return '';
 		}
 		const message = error.message ?? (this.messages[error.kind] ?? this.messages['invalid'])(error);
-		return showFieldName ? `${error.field().name()}: ${message}` : message;
+		return showFieldName && error.field ? `${error.field().name()}: ${message}` : message;
 	}
 }
