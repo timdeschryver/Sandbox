@@ -15,8 +15,12 @@ it('throws error for invalid data', () => {
 	const schema = z.object({ id: z.number() });
 	const parseData = parse(schema);
 	const invalidData = { id: '1' };
+	const consoleSpy = vi.spyOn(console, 'error').mockImplementationOnce(() => {});
 
 	expect(() => parseData(invalidData)).toThrow();
+	expect(consoleSpy).toHaveBeenCalledTimes(1);
+
+	consoleSpy.mockRestore();
 });
 
 it('parse logs error in development mode', () => {
@@ -70,9 +74,13 @@ it('parses collection of valid items', () => {
 it('throws error for invalid collection', () => {
 	const schema = z.object({ id: z.number() });
 	const parseItems = parseCollection(schema);
+	const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
 
 	expect(() => parseItems('not-an-array')).toThrow();
 	expect(() => parseItems([{ id: '1' }])).toThrow();
+	expect(consoleSpy).toHaveBeenCalledTimes(2);
+
+	consoleSpy.mockRestore();
 });
 
 it('parse collection logs error in development mode', () => {
