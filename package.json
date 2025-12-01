@@ -9,7 +9,7 @@
 		"pnpm": ">=10"
 	},
 	"devDependencies": {
-		"@stoplight/spectral-cli": "6.15.0",
-		"prettier": "3.6.2"
+		"@stoplight/spectral-cli": "catalog:",
+		"prettier": "catalog:"
 	}
 }

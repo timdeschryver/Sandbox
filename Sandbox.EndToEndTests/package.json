@@ -8,14 +8,14 @@
 	},
 	"type": "module",
 	"devDependencies": {
-		"@eslint/js": "9.39.1",
-		"@playwright/test": "1.56.1",
-		"@types/node": "24.10.0",
-		"dotenv": "17.2.3",
-		"eslint": "9.39.1",
-		"eslint-config-prettier": "10.1.8",
-		"eslint-plugin-playwright": "2.3.0",
-		"typescript": "5.8.3",
-		"typescript-eslint": "8.46.3"
+		"@eslint/js": "catalog:eslint",
+		"@playwright/test": "catalog:playwright",
+		"@types/node": "catalog:",
+		"dotenv": "catalog:",
+		"eslint": "catalog:eslint",
+		"eslint-config-prettier": "catalog:eslint",
+		"eslint-plugin-playwright": "catalog:eslint",
+		"typescript": "catalog:",
+		"typescript-eslint": "catalog:eslint"
 	}
 }
