@@ -22,8 +22,11 @@ public sealed class CustomerTests
         customer.AddBillingAddress(CustomerBillingAddress.Create(CustomerAddressId.New(), Address.From("456 Elm St", "Los Angeles", "90001")));
 
         await Assert.That(customer.BillingAddresses)
-            .HasCount(1)
-            .And.Satisfies(addresses => addresses is not null && addresses.All(a => a.Type == "Billing"));
+            .Count()
+            .IsEqualTo(1);
+
+        await Assert.That(customer.BillingAddresses)
+            .Satisfies(addresses => addresses is not null && addresses.All(a => a.Type == "Billing"));
     }
 
     [Test]
@@ -43,8 +46,11 @@ public sealed class CustomerTests
         customer.AddShippingAddress(CustomerShippingAddress.Create(CustomerAddressId.New(), Address.From("456 Elm St", "Los Angeles", "90001"), "Leave at front door"));
 
         await Assert.That(customer.ShippingAddresses)
-            .HasCount(1)
-            .And.Satisfies(addresses => addresses is not null && addresses.All(a => a is {Type: "Shipping", Note: "Leave at front door"}));
+            .Count()
+            .IsEqualTo(1);
+
+        await Assert.That(customer.ShippingAddresses)
+            .Satisfies(addresses => addresses is not null && addresses.All(a => a is { Type: "Shipping", Note: "Leave at front door" }));
     }
 
     [Test]

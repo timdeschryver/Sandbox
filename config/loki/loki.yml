@@ -43,8 +43,12 @@ schema_config:
 
 storage_config:
   aws:
-    s3: http://${MINIO_USER}:${MINIO_PASSWORD}@minio.:9000/loki
+    endpoint: http://minio.:9000
+    access_key_id: ${MINIO_USER}
+    secret_access_key: ${MINIO_PASSWORD}
+    bucketnames: loki
     s3forcepathstyle: true
+    insecure: true
   tsdb_shipper:
     active_index_directory: /loki/index
     cache_location: /loki/index_cache

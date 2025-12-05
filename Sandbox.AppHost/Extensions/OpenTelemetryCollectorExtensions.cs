@@ -32,7 +32,7 @@ internal static class OpenTelemetryCollectorExtensions
             .WithEnvironment("ASPIRE_API_KEY", builder.Configuration[DashboardOtlpKeyVariableName])
             .WithEnvironment("ASPIRE_INSECURE", isHttps ? "false" : "true");
 
-        otel.ApplicationBuilder.Services.TryAddLifecycleHook<OltpEndpointVariableHook>();
+        otel.ApplicationBuilder.Services.TryAddEventingSubscriber<OltpEndpointVariableLifecycle>();
 
         return otel;
     }

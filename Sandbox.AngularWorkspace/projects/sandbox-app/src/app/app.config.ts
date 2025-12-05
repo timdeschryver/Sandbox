@@ -5,7 +5,7 @@ import {
 } from '@angular/core';
 import { provideRouter, withComponentInputBinding, withInMemoryScrolling } from '@angular/router';
 import { DATE_PIPE_DEFAULT_OPTIONS } from '@angular/common';
-import { provideHttpClient, withXsrfConfiguration } from '@angular/common/http';
+import { provideHttpClient, withFetch, withXsrfConfiguration } from '@angular/common/http';
 import { routes } from '@sandbox-app/app.routes';
 import { provideOpenTelemetryInstrumentation } from '@opentelemetry';
 import { provideEventPlugins } from './shared/event-managers';
@@ -26,6 +26,7 @@ export const appConfig: ApplicationConfig = {
 				cookieName: '__Sandbox-X-XSRF-TOKEN',
 				headerName: 'X-XSRF-TOKEN',
 			}),
+			withFetch(),
 		),
 		{
 			provide: DATE_PIPE_DEFAULT_OPTIONS,
