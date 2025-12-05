@@ -17,6 +17,10 @@ internal sealed class AddAntiforgeryTokenResponseTransform(IAntiforgery antiforg
             return ValueTask.CompletedTask;
         }
 
+        // Set cache headers before calling antiforgery to prevent override warning
+        context.HttpContext.Response.Headers.CacheControl = "no-cache, no-store";
+        context.HttpContext.Response.Headers.Pragma = "no-cache";
+
         var tokenSet = antiforgery.GetAndStoreTokens(context.HttpContext);
         ArgumentNullException.ThrowIfNull(tokenSet.RequestToken);
         context.HttpContext.Response.Cookies.Append("__Sandbox-X-XSRF-TOKEN", tokenSet.RequestToken, new CookieOptions
