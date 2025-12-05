@@ -4,27 +4,27 @@ packages:
 
 catalog:
   '@stoplight/spectral-cli': '6.15.0'
-  '@types/node': '24.10.0'
+  '@types/node': '24.10.1'
   'dotenv': '17.2.3'
-  'jsdom': '27.1.0'
-  'prettier': '3.6.2'
+  'jsdom': '27.2.0'
+  'prettier': '3.7.3'
   'run-script-os': '1.1.6'
   'rxjs': '~7.8.2'
   'tslib': '2.8.1'
   'typescript': '5.9.3'
-  'zod': '4.1.12'
+  'zod': '4.1.13'
 
 catalogs:
   angular:
     '@angular/build': '21.0.1'
     '@angular/cli': '21.0.1'
-    '@angular/common': '21.0.1'
+    '@angular/common': '21.0.2'
     '@angular/compiler': '21.0.2'
-    '@angular/compiler-cli': '21.0.1'
-    '@angular/core': '21.0.1'
-    '@angular/forms': '21.0.1'
-    '@angular/platform-browser': '21.0.1'
-    '@angular/router': '21.0.1'
+    '@angular/compiler-cli': '21.0.2'
+    '@angular/core': '21.0.2'
+    '@angular/forms': '21.0.2'
+    '@angular/platform-browser': '21.0.2'
+    '@angular/router': '21.0.2'
     'ng-packagr': '21.0.0'
 
   opentelemetry:
@@ -47,13 +47,13 @@ catalogs:
     'eslint': '9.39.1'
     'angular-eslint': '21.0.1'
     'eslint-config-prettier': '10.1.8'
-    'eslint-plugin-playwright': '2.3.0'
+    'eslint-plugin-playwright': '2.4.0'
     'typescript-eslint': '8.48.0'
 
   playwright:
-    '@playwright/test': '1.56.1'
-    'playwright': '1.56.1'
+    '@playwright/test': '1.57.0'
+    'playwright': '1.57.0'
 
   vitest:
-    '@vitest/browser': '4.0.8'
-    'vitest': '4.0.8'
+    '@vitest/browser': '4.0.14'
+    'vitest': '4.0.14'
