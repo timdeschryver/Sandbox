@@ -23,7 +23,7 @@ test.describe('Customer Management - Read Operations', () => {
 		await expect(page.getByRole('button', { name: '🔃' })).toBeVisible();
 
 		// Verify: Name column
-		await expect(page.getByRole('cell', { name: 'Name' })).toBeVisible();
+		await expect(page.getByRole('columnheader', { name: 'Name' })).toBeVisible();
 
 		// Verify: All existing customers are listed in the table
 		// Verify: Each customer row displays full name (First Name + Last Name)
