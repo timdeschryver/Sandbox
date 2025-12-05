@@ -111,7 +111,7 @@ test.describe('Accessibility', () => {
 		await expect(table).toBeVisible();
 
 		// Verify table headers are accessible
-		await expect(page.getByRole('cell', { name: 'Name' })).toBeVisible();
+		await expect(page.getByRole('columnheader', { name: 'Name' })).toBeVisible();
 
 		// Verify customer rows are accessible
 		const customerRows = page.getByRole('row').filter({ hasText: 'Alice Smith' });

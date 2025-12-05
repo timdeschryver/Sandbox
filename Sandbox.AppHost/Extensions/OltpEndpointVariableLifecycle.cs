@@ -1,15 +1,16 @@
+using Aspire.Hosting.Eventing;
 using Aspire.Hosting.Lifecycle;
 using Microsoft.Extensions.Logging;
 
 namespace Sandbox.AppHost.Extensions;
 
-internal sealed class OltpEndpointVariableHook(ILogger<OltpEndpointVariableHook> logger) : IDistributedApplicationLifecycleHook
+internal sealed class OltpEndpointVariableLifecycle(ILogger<OltpEndpointVariableLifecycle> logger) : IDistributedApplicationEventingSubscriber
 {
     private const string OtelExporterOtlpEndpoint = "OTEL_EXPORTER_OTLP_ENDPOINT";
 
-    public Task AfterEndpointsAllocatedAsync(DistributedApplicationModel appModel, CancellationToken cancellationToken)
+    public Task OnBeforeStartAsync(BeforeStartEvent @event, CancellationToken cancellationToken = default)
     {
-        var collectorResource = appModel.Resources.OfType<OpenTelemetryCollectorResource>().FirstOrDefault();
+        var collectorResource = @event.Model.Resources.OfType<OpenTelemetryCollectorResource>().FirstOrDefault();
         if (collectorResource == null)
         {
             logger.LogWarning($"No {nameof(OpenTelemetryCollectorResource)} resource found.");
@@ -23,7 +24,7 @@ internal sealed class OltpEndpointVariableHook(ILogger<OltpEndpointVariableHook>
             return Task.CompletedTask;
         }
 
-        foreach (var resource in appModel.GetProjectResources())
+        foreach (var resource in @event.Model.GetProjectResources())
         {
             resource.Annotations.Add(new EnvironmentCallbackAnnotation(context =>
             {
@@ -35,6 +36,13 @@ internal sealed class OltpEndpointVariableHook(ILogger<OltpEndpointVariableHook>
             }));
         }
 
+        return Task.CompletedTask;
+    }
+
+
+    public Task SubscribeAsync(IDistributedApplicationEventing eventing, DistributedApplicationExecutionContext executionContext, CancellationToken cancellationToken)
+    {
+        eventing.Subscribe<BeforeStartEvent>(OnBeforeStartAsync);
         return Task.CompletedTask;
     }
 }
