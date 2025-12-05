@@ -18,4 +18,4 @@ runs:
 
     - name: Install pnpm dependencies
       shell: bash
-      run: pnpm install --frozen-lockfile
+      run: pnpm install --frozen-lockfile --prefer-offline

@@ -1,6 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-
-  <Sdk Name="Aspire.AppHost.Sdk" Version="13.0.2" />
+﻿<Project Sdk="Aspire.AppHost.Sdk/13.0.2">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -14,19 +12,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Aspire.Hosting.AppHost" />
     <PackageReference Include="Aspire.Hosting.Azure" />
     <PackageReference Include="Aspire.Hosting.Docker" />
     <PackageReference Include="Aspire.Hosting.Keycloak" />
-    <PackageReference Include="Aspire.Hosting.NodeJs" />
+    <PackageReference Include="Aspire.Hosting.JavaScript" />
     <PackageReference Include="Aspire.Hosting.PostgreSQL" />
     <PackageReference Include="Aspire.Hosting.SqlServer" />
     <PackageReference Include="CommunityToolkit.Aspire.Hosting.Minio" />
   </ItemGroup>
-
-  <Target Name="RestoreNodeModules" BeforeTargets="Build"
-    Condition="$(Configuration) == 'Debug' And '$(DesignTimeBuild)' != 'true'">
-    <Message Importance="Normal" Text="Installing npm packages" />
-    <Exec Command="pnpm install --frozen-lockfile --prefer-offline" WorkingDirectory="." />
-  </Target>
 </Project>

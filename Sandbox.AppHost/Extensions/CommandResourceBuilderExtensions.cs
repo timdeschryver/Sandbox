@@ -1,13 +1,13 @@
 using System.Diagnostics;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Aspire.Hosting;
+using Aspire.Hosting.JavaScript;
 
 namespace Sandbox.AppHost.Extensions;
 
 internal static class CommandResourceBuilderExtensions
 {
-    public static IResourceBuilder<NodeAppResource> WithPlaywrightRepeatCommand(this IResourceBuilder<NodeAppResource> builder, int repeatCount = 25)
+    public static IResourceBuilder<JavaScriptAppResource> WithPlaywrightRepeatCommand(this IResourceBuilder<JavaScriptAppResource> builder, int repeatCount = 25)
     {
         var commandOptions = new CommandOptions
         {
@@ -43,7 +43,7 @@ internal static class CommandResourceBuilderExtensions
         return builder;
     }
 
-    private static async Task<ExecuteCommandResult> OnRunCommand(IResourceBuilder<NodeAppResource> builder, ExecuteCommandContext context, string command)
+    private static async Task<ExecuteCommandResult> OnRunCommand(IResourceBuilder<JavaScriptAppResource> builder, ExecuteCommandContext context, string command)
     {
         var loggerService = context.ServiceProvider.GetRequiredService<ResourceLoggerService>();
         var logger = loggerService.GetLogger(context.ResourceName);

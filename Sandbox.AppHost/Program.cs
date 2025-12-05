@@ -129,7 +129,9 @@ var apiService = builder.AddProject<Projects.Sandbox_ApiService>("apiservice")
     });
 
 var angularApplication = builder
-    .AddNpmApp("angular-frontend", "../Sandbox.AngularWorkspace")
+    .AddJavaScriptApp("angular-frontend", "../Sandbox.AngularWorkspace")
+    .WithPnpm(install: true, installArgs: ["--frozen-lockfile"])
+    .WithRunScript("start")
     .WithHttpEndpoint(env: "PORT")
     .WithEnvironment("APPLICATION", "sandbox-app")
     .PublishAsDockerFile(configure: resource =>
@@ -160,7 +162,9 @@ keycloak.WithParentRelationship(gateway);
 if (builder.Environment.IsDevelopment())
 {
     var playwright = builder
-        .AddNpmApp("playwright", "../Sandbox.EndToEndTests", "test")
+        .AddJavaScriptApp("playwright", "../Sandbox.EndToEndTests")
+        .WithPnpm(install: false)
+        .WithRunScript("test")
         .WithExplicitStart()
         .WithPlaywrightRepeatCommand()
         .ExcludeFromManifest()
