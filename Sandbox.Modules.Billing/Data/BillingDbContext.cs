@@ -6,7 +6,7 @@ namespace Sandbox.Modules.Billing.Data;
 
 public class BillingDbContext(DbContextOptions<BillingDbContext> options, TimeProvider timeProvider) : ModuleDbContext(options, timeProvider)
 {
-    public override string Schema => "Billing";
+    public override string Schema => "billing";
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

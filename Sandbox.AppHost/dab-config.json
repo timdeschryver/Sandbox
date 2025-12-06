@@ -1,0 +1,166 @@
+{
+	"$schema": "https://github.com/Azure/data-api-builder/releases/download/v1.7.81-rc/dab.draft.schema.json",
+	"data-source": {
+		"database-type": "postgresql",
+		"connection-string": "@env('ConnectionString')"
+	},
+	"runtime": {
+		"rest": {
+			"enabled": true,
+			"path": "/api",
+			"request-body-strict": true
+		},
+		"graphql": {
+			"enabled": true,
+			"path": "/graphql",
+			"allow-introspection": true
+		},
+		"health": {
+			"enabled": true
+		},
+		"mcp": {
+			"enabled": true,
+			"path": "/mcp"
+		},
+		"host": {
+			"cors": {
+				"origins": [],
+				"allow-credentials": false
+			},
+			"authentication": {
+				"provider": "StaticWebApps"
+			},
+			"mode": "@env('DAB_ENVIRONMENT')"
+		}
+	},
+	"entities": {
+		"Customer": {
+			"source": {
+				"object": "customermanagement.customers",
+				"type": "table"
+			},
+
+			"fields": [
+				{
+					"name": "Id",
+					"description": "Primary key",
+					"primary-key": true
+				},
+				{
+					"name": "Name_FirstName",
+					"description": "First name",
+					"primary-key": false
+				},
+				{
+					"name": "Name_LastName",
+					"description": "Last name",
+					"primary-key": false
+				},
+				{
+					"name": "DeletedAt",
+					"description": "Deletion timestamp (for soft delete)",
+					"primary-key": false
+				}
+			],
+			"graphql": {
+				"enabled": true,
+				"type": {
+					"singular": "Customer",
+					"plural": "Customers"
+				}
+			},
+			"rest": {
+				"enabled": true
+			},
+			"permissions": [
+				{
+					"role": "anonymous",
+					"actions": [
+						{
+							"action": "*"
+						}
+					]
+				}
+			],
+			"relationships": {
+				"addresses": {
+					"cardinality": "many",
+					"target.entity": "CustomerAddress",
+					"source.fields": ["Id"],
+					"target.fields": ["CustomerId"]
+				}
+			}
+		},
+		"CustomerAddress": {
+			"source": {
+				"object": "customermanagement.customeraddresses",
+				"type": "table"
+			},
+			"fields": [
+				{
+					"name": "Id",
+					"description": "Primary key",
+					"primary-key": true
+				},
+				{
+					"name": "AddressType",
+					"description": "Address type (Billing, Shipping, etc.)",
+					"primary-key": false
+				},
+				{
+					"name": "CustomerId",
+					"description": "Foreign key to Customer",
+					"primary-key": false
+				},
+				{
+					"name": "Address_City",
+					"description": "City",
+					"primary-key": false
+				},
+				{
+					"name": "Address_Street",
+					"description": "Street",
+					"primary-key": false
+				},
+				{
+					"name": "Address_ZipCode",
+					"description": "Zip code",
+					"primary-key": false
+				},
+				{
+					"name": "Note",
+					"description": "Note about the address",
+					"primary-key": false
+				}
+			],
+			"graphql": {
+				"enabled": true,
+				"type": {
+					"singular": "CustomerAddress",
+					"plural": "CustomerAddresses"
+				}
+			},
+			"rest": {
+				"enabled": true
+			},
+			"permissions": [
+				{
+					"role": "anonymous",
+					"actions": [
+						{
+							"action": "*"
+						}
+					]
+				}
+			],
+			"relationships": {
+				"customer": {
+					"cardinality": "one",
+					"target.entity": "Customer",
+					"source.fields": ["CustomerId"],
+					"target.fields": ["Id"]
+				}
+			}
+		}
+	}
+}

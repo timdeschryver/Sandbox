@@ -34,9 +34,10 @@
 	//			"protocol": "https"
 	//		}
 	// }
-	"onCreateCommand": "dotnet tool install -g Aspire.Cli --prerelease && dotnet tool install -g Microsoft.OpenApi.Kiota --prerelease && dotnet tool install -g Verify.Cli",
+	"onCreateCommand": "dotnet tool install -g Microsoft.OpenApi.Kiota --prerelease && dotnet tool install -g Verify.Cli && curl -sSL https://aspire.dev/install.sh | bash",
 	"postCreateCommand": {
 		"dotnet": "dotnet restore",
+		"certs": "dotnet dev-certs https --trust",
 		"pnpm": "pnpm install --frozen-lockfile --prefer-offline && pnpm --filter='sandbox.e2e' exec playwright install --with-deps"
 	},
 	// Configure tool-specific properties.

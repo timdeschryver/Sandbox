@@ -9,7 +9,7 @@ internal class CustomerAddressEntityConfiguration : IEntityTypeConfiguration<Cus
 {
     public void Configure(EntityTypeBuilder<CustomerAddress> builder)
     {
-        builder.ToTable("CustomerAddresses");
+        builder.ToTable("customeraddresses");
         builder.HasKey(p => p.Id);
 
         builder.Property<CustomerId>("CustomerId")

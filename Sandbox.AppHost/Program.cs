@@ -95,16 +95,17 @@ var openTelemetryCollector = builder.AddOpenTelemetryCollector("../config/otel.y
     .WithEnvironment("LOKI_ENDPOINT", $"{loki.GetEndpoint("http")}/otlp")
     .WithEnvironment("TEMPO_URL", $"{tempo.GetEndpoint("otlp")}");
 
-var db = builder.AddPostgres("postgres")
+var postgres = builder.AddPostgres("postgres")
     .WithDataVolume()
     .WithPgAdmin()
-    .WithPgWeb()
-    .AddDatabase("sandbox-db");
+    .WithPgWeb();
+
+var database = postgres.AddDatabase("sandbox-db");
 
 var migrations = builder.AddProject<Projects.Sandbox_Migrations>("migrations")
-    .WithReference(db)
-    .WaitFor(db)
-    .WithParentRelationship(db);
+    .WithReference(database)
+    .WaitFor(database)
+    .WithParentRelationship(database);
 
 if (builder.Environment.IsDevelopment())
 {
@@ -117,15 +118,15 @@ if (builder.Environment.IsDevelopment())
 
 var apiService = builder.AddProject<Projects.Sandbox_ApiService>("apiservice")
     .WithHttpHealthCheck("/health")
-    .WithReference(db)
+    .WithReference(database)
     .WithReference(keycloak)
-    .WaitFor(db)
+    .WaitFor(database)
     .WaitFor(migrations)
     .WaitFor(keycloak)
-    .WithUrlForEndpoint("http", url =>
+    .WithUrls(context =>
     {
-        url.DisplayText = "Browse OpenAPI Specification";
-        url.Url = "/scalar";
+        context.Urls.Clear();
+        context.Urls.Add(new() { Url = "/scalar", DisplayText = "OpenAPI Specification", Endpoint = context.GetEndpoint("http") });
     });
 
 var angularApplication = builder
@@ -173,10 +174,30 @@ if (builder.Environment.IsDevelopment())
         .WithParentRelationship(angularApplication);
 }
 
+var dabServer = builder
+    .AddContainer("data-api", image: "azure-databases/data-api-builder", tag: "1.7.83-rc")
+    .WithImageRegistry("mcr.microsoft.com")
+    .WithBindMount(source: new FileInfo("dab-config.json").FullName, target: "/App/dab-config.json", isReadOnly: true)
+    .WithHttpEndpoint(port: 5000, targetPort: 5000, name: "http")
+    .WithUrls(context =>
+    {
+        context.Urls.Clear();
+        context.Urls.Add(new() { Url = "/graphql", DisplayText = "Nitro", Endpoint = context.GetEndpoint("http") });
+        context.Urls.Add(new() { Url = "/swagger", DisplayText = "Swagger", Endpoint = context.GetEndpoint("http") });
+        context.Urls.Add(new() { Url = "/", DisplayText = "Health", Endpoint = context.GetEndpoint("http") });
+    })
+    .WithOtlpExporter()
+    .WithHttpHealthCheck("/")
+    .WithEnvironment("DAB_ENVIRONMENT", builder.Environment.IsDevelopment() ? "development" : "production")
+    .WithEnvironment("ConnectionString", database)
+    .WaitFor(database)
+    .WaitFor(migrations);
+
 builder.AddDockerComposeEnvironment("Sandbox")
     .WithDashboard(false);
+
 #pragma warning disable ASPIREAZURE001 // Type is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
 builder.AddAzureEnvironment();
 #pragma warning restore ASPIREAZURE001 // Type is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
 
-builder.Build().Run();
+await builder.Build().RunAsync();

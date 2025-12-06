@@ -8,7 +8,7 @@ internal class CustomerEntityConfiguration : IEntityTypeConfiguration<Customer>
 {
     public void Configure(EntityTypeBuilder<Customer> builder)
     {
-        builder.ToTable("Customers");
+        builder.ToTable("customers");
         builder.HasKey(p => p.Id);
 
         builder.ComplexProperty(p => p.Name, o =>

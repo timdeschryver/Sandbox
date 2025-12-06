@@ -1,5 +1,9 @@
 {
 	"servers": {
+		"data-api-builder": {
+			"type": "http",
+			"url": "http://localhost:5000/mcp"
+		},
 		"playwright": {
 			"command": "npx",
 			"args": ["-y", "@playwright/mcp@latest"],

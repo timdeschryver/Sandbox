@@ -5,7 +5,7 @@ namespace Sandbox.Modules.CustomerManagement.Data;
 
 public class CustomerDbContext(DbContextOptions<CustomerDbContext> options, TimeProvider timeProvider) : ModuleDbContext(options, timeProvider)
 {
-    public override string Schema => "CustomerManagement";
+    public override string Schema => "customermanagement";
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
