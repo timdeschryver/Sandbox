@@ -7,6 +7,7 @@ const config = getConfig();
  * See https://playwright.dev/docs/test-configuration.
  */
 export default defineConfig({
+	globalSetup: './global-setup.ts',
 	tsconfig: './tsconfig.json',
 	testDir: './tests',
 	/* Run tests in files in parallel */

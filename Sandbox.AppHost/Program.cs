@@ -170,6 +170,7 @@ if (builder.Environment.IsDevelopment())
         .ExcludeFromManifest()
         .WithEnvironment("ASPIRE", "true")
         .WithReference(gateway)
+        .WithReference(migrations)
         .WithParentRelationship(angularApplication);
 }
 
