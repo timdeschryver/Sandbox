@@ -79,7 +79,7 @@ graph TD
 > [!NOTE]
 > **Windows Long Path Support**
 >
-> Windows has a default path length limitation of 260 characters that may cause errors during Git operations with this repository (e.g., "Filename too long" errors). To enable long path support, run one of the following commands:
+> Windows has a default path length limitation of 260 characters that may cause errors during Git operations with this repository (e.g., "Filename too long" errors). To enable long path support, run one of the following commands (see [git config core.longpaths](https://git-scm.com/docs/git-config#Documentation/git-config.txt-corelongpaths)):
 >
 > **System-wide (requires Administrator privileges):**
 > ```bash
