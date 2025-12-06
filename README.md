@@ -76,21 +76,20 @@ graph TD
 - [`pnpm`](https://pnpm.io/)
 - Containerization tool ([podman](https://podman.io/), [docker](https://www.docker.com/products/docker-desktop/), etc)
 
-### Windows Long Path Support
-
-Windows has a default path length limitation of 260 characters that may cause errors during Git operations with this repository (e.g., "Filename too long" errors). To enable long path support, run one of the following commands:
-
-**System-wide (requires Administrator privileges):**
-
-```bash
-git config --system core.longpaths true
-```
-
-**User-level (no Administrator required):**
-
-```bash
-git config --global core.longpaths true
-```
+> [!NOTE]
+> **Windows Long Path Support**
+>
+> Windows has a default path length limitation of 260 characters that may cause errors during Git operations with this repository (e.g., "Filename too long" errors). To enable long path support, run one of the following commands:
+>
+> **System-wide (requires Administrator privileges):**
+> ```bash
+> git config --system core.longpaths true
+> ```
+>
+> **User-level (no Administrator required):**
+> ```bash
+> git config --global core.longpaths true
+> ```
 
 ## Secret Management with SOPS
 
