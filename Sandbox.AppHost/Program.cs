@@ -125,7 +125,6 @@ var apiService = builder.AddProject<Projects.Sandbox_ApiService>("apiservice")
     .WaitFor(keycloak)
     .WithUrls(context =>
     {
-        context.Urls.Clear();
         context.Urls.Add(new() { Url = "/scalar", DisplayText = "OpenAPI Specification", Endpoint = context.GetEndpoint("http") });
     });
 
