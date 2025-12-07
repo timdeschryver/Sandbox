@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Antiforgery;
+using Sandbox.SharedKernel.Logging;
 using Yarp.ReverseProxy.Transforms;
 
 namespace Sandbox.Gateway.Transformers;
@@ -20,7 +21,7 @@ internal sealed class ValidateAntiforgeryTokenRequestTransform(IAntiforgery anti
             return;
         }
 
-        logger.LogInformation("Validating antiforgery token for request path: {RequestPath}", context.HttpContext.Request.Path.Value);
+        logger.LogValidatingAntiforgeryToken(context.HttpContext.Request.Path.Value);
 
         try
         {
@@ -29,7 +30,7 @@ internal sealed class ValidateAntiforgeryTokenRequestTransform(IAntiforgery anti
         catch (AntiforgeryValidationException ex)
         {
             context.HttpContext.Response.StatusCode = StatusCodes.Status400BadRequest;
-            logger.LogError(ex, "Antiforgery token validation failed for request path: {RequestPath}.", context.HttpContext.Request.Path.Value);
+            logger.LogAntiforgeryValidationFailed(ex, context.HttpContext.Request.Path.Value);
         }
     }
 }

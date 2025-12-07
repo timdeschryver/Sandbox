@@ -9,6 +9,7 @@
     <ProjectReference Include="..\Sandbox.Gateway\Sandbox.Gateway.csproj" />
     <ProjectReference Include="..\Sandbox.ApiService\Sandbox.ApiService.csproj" />
     <ProjectReference Include="..\Sandbox.Migrations\Sandbox.Migrations.csproj" />
+    <ProjectReference Include="..\Sandbox.SharedKernel\Sandbox.SharedKernel.csproj" IsAspireProjectResource="false" />
   </ItemGroup>
 
   <ItemGroup>

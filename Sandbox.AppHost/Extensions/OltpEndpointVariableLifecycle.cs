@@ -1,6 +1,7 @@
 using Aspire.Hosting.Eventing;
 using Aspire.Hosting.Lifecycle;
 using Microsoft.Extensions.Logging;
+using Sandbox.SharedKernel.Logging;
 
 namespace Sandbox.AppHost.Extensions;
 
@@ -13,14 +14,14 @@ internal sealed class OltpEndpointVariableLifecycle(ILogger<OltpEndpointVariable
         var collectorResource = @event.Model.Resources.OfType<OpenTelemetryCollectorResource>().FirstOrDefault();
         if (collectorResource == null)
         {
-            logger.LogWarning($"No {nameof(OpenTelemetryCollectorResource)} resource found.");
+            logger.LogResourceNotFound(nameof(OpenTelemetryCollectorResource));
             return Task.CompletedTask;
         }
 
         var endpoint = collectorResource.GetEndpoint(OpenTelemetryCollectorResource.GRPCEndpointName);
         if (!endpoint.Exists)
         {
-            logger.LogWarning($"No {OpenTelemetryCollectorResource.GRPCEndpointName} endpoint for the collector.");
+            logger.LogEndpointNotFound(OpenTelemetryCollectorResource.GRPCEndpointName);
             return Task.CompletedTask;
         }
 
@@ -30,7 +31,7 @@ internal sealed class OltpEndpointVariableLifecycle(ILogger<OltpEndpointVariable
             {
                 if (context.EnvironmentVariables.ContainsKey(OtelExporterOtlpEndpoint))
                 {
-                    logger.LogDebug("Forwarding telemetry for {ResourceName} to the collector.", resource.Name);
+                    logger.LogForwardingTelemetry(resource.Name);
                     context.EnvironmentVariables[OtelExporterOtlpEndpoint] = endpoint;
                 }
             }));

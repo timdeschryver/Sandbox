@@ -1,5 +1,6 @@
 using Microsoft.Extensions.Logging;
 using Sandbox.SharedKernel.Messages;
+using Sandbox.SharedKernel.Logging;
 
 namespace Sandbox.Modules.Billing.Application;
 
@@ -10,6 +11,6 @@ public class CustomerCreatedHandler
         ArgumentNullException.ThrowIfNull(message);
         ArgumentNullException.ThrowIfNull(logger);
 
-        logger.LogInformation("Billing received {CustomerId}: {FirstName} {LastName}", message.Id, message.FirstName, message.LastName);
+        logger.LogBillingCustomerReceived(message.Id, message.FirstName, message.LastName);
     }
 }

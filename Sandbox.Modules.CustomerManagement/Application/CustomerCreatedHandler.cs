@@ -1,4 +1,5 @@
 using Sandbox.SharedKernel.Messages;
+using Sandbox.SharedKernel.Logging;
 using Microsoft.Extensions.Logging;
 
 namespace Sandbox.Modules.CustomerManagement.Application;
@@ -10,6 +11,6 @@ public class CustomerCreatedHandler
         ArgumentNullException.ThrowIfNull(message);
         ArgumentNullException.ThrowIfNull(logger);
 
-        logger.LogInformation("Customer {CustomerId} created: {FirstName} {LastName}", message.Id, message.FirstName, message.LastName);
+        logger.LogCustomerCreated(message.Id, message.FirstName, message.LastName);
     }
 }

@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Antiforgery;
+using Sandbox.SharedKernel.Logging;
 using Yarp.ReverseProxy.Transforms;
 
 namespace Sandbox.Gateway.Transformers;
@@ -29,7 +30,7 @@ internal sealed class AddAntiforgeryTokenResponseTransform(IAntiforgery antiforg
             Secure = true,
             SameSite = SameSiteMode.Strict,
         });
-        logger.LogInformation("XSRF token added to response for request path: {RequestPath}", context.HttpContext.Request.Path.Value);
+        logger.LogXsrfTokenAdded(context.HttpContext.Request.Path.Value);
         return ValueTask.CompletedTask;
     }
 }

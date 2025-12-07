@@ -2,6 +2,7 @@ using System.Diagnostics;
 using Microsoft.EntityFrameworkCore;
 using Sandbox.Modules.CustomerManagement.Data;
 using Sandbox.Modules.CustomerManagement.Domain;
+using Sandbox.SharedKernel.Logging;
 using Sandbox.SharedKernel.StronglyTypedIds;
 
 namespace Sandbox.Migrations;
@@ -30,12 +31,12 @@ internal class DbInitializer(IServiceProvider serviceProvider, ILogger<DbInitial
 
         await SeedAsync(dbContext, cancellationToken);
 
-        logger.LogInformation("Database initialization completed after {ElapsedMilliseconds}ms", sw.ElapsedMilliseconds);
+        logger.LogDatabaseInitializationCompleted(sw.ElapsedMilliseconds);
     }
 
     private async Task SeedAsync(DbContext dbContext, CancellationToken cancellationToken)
     {
-        logger.LogInformation("Seeding database");
+        logger.LogSeedingDatabase();
 
         await SeedCustomers(dbContext, cancellationToken);
     }
