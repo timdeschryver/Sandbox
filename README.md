@@ -1,6 +1,11 @@
+<div align="center">
+  <img src="./other/logo.svg" alt="Sandbox Logo" width="200"/>
+  
 # .NET and Angular Sandbox
 
 [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://github.com/codespaces/new?hide_repo_select=true&ref=main&repo=925777950)
+
+</div>
 
 Some buzzwords that are used:
 
