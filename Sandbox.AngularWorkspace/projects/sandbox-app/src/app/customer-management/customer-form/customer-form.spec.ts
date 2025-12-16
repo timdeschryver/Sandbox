@@ -5,7 +5,6 @@ import { render, screen } from '@testing-library/angular';
 import userEvent from '@testing-library/user-event';
 import { type CreateCustomerCommand } from '@sandbox-app/customer-management/models';
 import { CustomerForm } from './customer-form';
-import { CustomerAddress } from '@sandbox-app/customer-management/shared/customer-address/customer-address';
 import { outputBinding } from '@angular/core';
 import { provideEventPlugins } from '@sandbox-app/shared/event-managers';
 
@@ -130,7 +129,6 @@ async function setup() {
 	const user = userEvent.setup();
 
 	const { fixture } = await render(CustomerForm, {
-		imports: [CustomerAddress],
 		bindings: [outputBinding('customerCreated', customerCreatedSpy)],
 		providers: [provideEventPlugins()],
 	});
