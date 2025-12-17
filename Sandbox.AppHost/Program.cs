@@ -42,6 +42,10 @@ var loki = builder.AddContainer("loki", "grafana/loki")
     .WithEnvironment("MINIO_USER", minioUser)
     .WithEnvironment("MINIO_PASSWORD", minioPassword)
     .WithHttpEndpoint(targetPort: 3100, name: "http")
+    .WithUrlForEndpoint("http", url =>
+    {
+        url.DisplayLocation = UrlDisplayLocation.DetailsOnly;
+    })
     .WaitFor(minio)
     .WaitForCompletion(minioBucketCreator);
 
@@ -52,8 +56,16 @@ var tempo = builder
     .WithArgs("--config.file=/etc/tempo/tempo.yml", "--config.expand-env=true", "chown 10001:10001 /var/tempo")
     .WithEnvironment("MINIO_USER", minioUser)
     .WithEnvironment("MINIO_PASSWORD", minioPassword)
-    .WithEndpoint(targetPort: 3200, port: 3200, name: "http", scheme: "http")
     .WithEndpoint(targetPort: 4317, port: 4007, name: "otlp", scheme: "http")
+    .WithUrlForEndpoint("otlp", url =>
+    {
+        url.DisplayLocation = UrlDisplayLocation.DetailsOnly;
+    })
+    .WithEndpoint(targetPort: 3200, port: 3200, name: "http", scheme: "http")
+    .WithUrlForEndpoint("http", url =>
+    {
+        url.DisplayLocation = UrlDisplayLocation.DetailsOnly;
+    })
     .WaitFor(minio)
     .WaitForCompletion(minioBucketCreator);
 
@@ -129,7 +141,7 @@ var apiService = builder.AddProject<Projects.Sandbox_ApiService>("apiservice")
     });
 
 var angularApplication = builder
-    .AddJavaScriptApp("angular-frontend", "../Sandbox.AngularWorkspace")
+    .AddJavaScriptApp("angular-frontend", "../Sandbox.AngularWorkspace", runScriptName: "start")
     .WithPnpm(install: true, installArgs: ["--frozen-lockfile"])
     .WithRunScript("start")
     .WithHttpEndpoint(env: "PORT")
@@ -178,7 +190,7 @@ var dabServer = builder
     .AddContainer("data-api", image: "azure-databases/data-api-builder", tag: "1.7.83-rc")
     .WithImageRegistry("mcr.microsoft.com")
     .WithBindMount(source: new FileInfo("dab-config.json").FullName, target: "/App/dab-config.json", isReadOnly: true)
-    .WithHttpEndpoint(port: 5000, targetPort: 5000, name: "http")
+    .WithHttpEndpoint(port: 5000, targetPort: 5000)
     .WithUrls(context =>
     {
         context.Urls.Clear();
