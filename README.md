@@ -154,6 +154,10 @@ Scalar provides an interactive API documentation interface generated from the Op
 
 ![Scalar API documentation interface displaying the Sandbox API endpoints with interactive request/response examples, authentication requirements, and detailed parameter documentation](./other/scalar.png)
 
+## Additional Resources
+
+- [github/awesome-copilot](https://github.com/github/awesome-copilot/tree/main): A collection of custom instructions, agents, prompts, and skills for GitHub Copilot.
+
 ## Deploy to Azure
 
 To deploy the project, make sure you have an Azure subscription and [`azd` installed](https://learn.microsoft.com/en-us/azure/developer/azure-developer-cli/install-azd?tabs=winget-windows%2Cbrew-mac%2Cscript-linux&pivots=os-windows).

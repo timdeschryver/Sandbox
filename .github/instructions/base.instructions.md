@@ -1,4 +1,5 @@
 ---
+description: 'Base instructions for the entire project structure and general guidelines, It contains the overall architecture and best practices applicable to all parts of the project.'
 applyTo: '**'
 ---
 

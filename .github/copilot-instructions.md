@@ -1,5 +1,7 @@
 # Copilot Instructions
 
+This file contains the project's structure and provides the general commands.
+
 ## Core Commands
 
 ### Build & Development
@@ -45,7 +47,7 @@
 
 ### Major Components
 
-#### Backend (.NET 10 RC)
+#### Backend (.NET)
 
 - **`Sandbox.AppHost`**: Aspire application host for service orchestration
 - **`Sandbox.Gateway`**: YARP-based API gateway with BFF authentication (Keycloak)
@@ -59,7 +61,7 @@
 - **`Sandbox.Modules.Billing`**: Billing domain module
 - **`Sandbox.SharedKernel`**: Domain primitives, strongly-typed IDs (Vogen), common utilities
 
-#### Frontend (Angular 20)
+#### Frontend (Angular 21)
 
 - **`Sandbox.AngularWorkspace`**: Angular workspace with multiple projects
   - `sandbox-app`: Main application
@@ -104,11 +106,11 @@
 - **HTTP**: Use `httpResource` for data fetching with caching
 - **Error Handling**: Signal-based error states
 
-### TypeScript/JavaScript
+### TypeScript
 
-- **Package Manager**: pnpm (not npm/yarn)
+- **Package Manager**: pnpm
 - **ESLint**: Flat config with TypeScript ESLint, Prettier integration
-- **Node**: Requires Node.js 22+, pnpm 10+
+- **Node**: Requires Node.js, pnpm
 
 ### General Conventions
 
@@ -145,7 +147,7 @@
 
 ### Prerequisites
 
-- .NET 10 Preview RC
+- .NET 10
 - Node.js 22+, pnpm 10+
 - Container tool (Docker/Podman)
 - Azure CLI (for deployment)
