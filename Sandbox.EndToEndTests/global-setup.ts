@@ -1,5 +1,7 @@
 import { getConfig } from './utils/env';
 
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
+
 async function globalSetup() {
 	const config = getConfig();
 	const databaseUrl = config.databaseUrl;
@@ -9,16 +11,13 @@ async function globalSetup() {
 		return;
 	}
 
-	const resetUrl = `${databaseUrl}/reset-db`;
+	const reseedUrl = `${databaseUrl}/reseed-db`;
 
-	console.log(`Resetting database via ${resetUrl}...`);
+	console.log(`Resetting database via ${reseedUrl}...`);
 
 	try {
-		const response = await fetch(resetUrl, {
+		const response = await fetch(reseedUrl, {
 			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-			},
 		});
 
 		if (!response.ok) {

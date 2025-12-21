@@ -61,5 +61,6 @@ export default defineConfig({
 		url: config.applicationUrl,
 		reuseExistingServer: !process.env.CI,
 		timeout: 60000 * 5,
+		ignoreHTTPSErrors: true,
 	},
 });

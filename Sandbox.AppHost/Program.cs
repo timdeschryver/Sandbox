@@ -10,8 +10,7 @@ var keycloakAdminPassword = builder.AddParameter("KeycloakAdminPassword", secret
 
 var keycloak = builder.AddKeycloak("keycloak", adminUsername: keycloakAdminUsername, adminPassword: keycloakAdminPassword)
     .WithDataVolume()
-    .WithEnvironment("KC_HEALTH_ENABLED", "true")
-    .WithEnvironment("KC_METRICS_ENABLED", "true")
+    .WithOtlpExporter()
     .WithRealmImport("../config/keycloak/realms");
 openIDConnectSettingsClientSecret.WithParentRelationship(keycloak);
 keycloakAdminUsername.WithParentRelationship(keycloak);
@@ -108,9 +107,10 @@ var openTelemetryCollector = builder.AddOpenTelemetryCollector("../config/otel.y
     .WithEnvironment("TEMPO_URL", $"{tempo.GetEndpoint("otlp")}");
 
 var postgres = builder.AddPostgres("postgres")
-    .WithDataVolume()
-    .WithPgAdmin()
-    .WithPgWeb();
+    .WithDataVolume();
+postgres
+    .WithPgAdmin(c => c.WithParentRelationship(postgres))
+    .WithPgWeb(c => c.WithParentRelationship(postgres));
 
 var database = postgres.AddDatabase("sandbox-db");
 
@@ -125,6 +125,12 @@ if (builder.Environment.IsDevelopment())
     {
         IconName = "DatabaseLightning",
         ConfirmationMessage = "Are you sure you want to reset the database?",
+    });
+
+    migrations.WithHttpCommand(path: "/reseed-db", displayName: "Reseed Database", commandOptions: new HttpCommandOptions
+    {
+        IconName = "DatabaseLightning",
+        ConfirmationMessage = "Are you sure you want to reseed the database?",
     });
 }
 
@@ -161,7 +167,7 @@ var gateway = builder.AddProject<Projects.Sandbox_Gateway>("gateway")
     .WaitFor(angularApplication)
     .WaitFor(openTelemetryCollector)
     .WaitFor(keycloak)
-    .WithUrlForEndpoint("http", url =>
+    .WithUrlForEndpoint("https", url =>
     {
         url.DisplayText = "Open application";
     })

@@ -83,6 +83,10 @@ Each module follows DDD structure:
 - Register services in module-specific extension methods
 - Use `IOptions<T>` for configuration binding
 
+## Logging
+
+- Use structured logging with LoggerMessage delegates (CA1848)
+
 ## Testing Guidelines
 
 ### Unit Tests with TUnit

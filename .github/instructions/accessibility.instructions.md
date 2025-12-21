@@ -1,6 +1,6 @@
 ---
 description: 'Guidance for creating more accessible code'
-applyTo: '**'
+applyTo: '**/*.ts, **/*.html'
 ---
 
 # Instructions for accessibility

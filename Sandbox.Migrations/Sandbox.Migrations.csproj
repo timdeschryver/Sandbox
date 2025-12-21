@@ -18,5 +18,6 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Build.Tasks.Core" />
+    <PackageReference Include="Respawn" />
   </ItemGroup>
 </Project>

@@ -124,6 +124,7 @@ jobs:
           PLAYWRIGHT_USERNAME: ${{ secrets.PLAYWRIGHT_USERNAME }}
           PLAYWRIGHT_PASSWORD: ${{ secrets.PLAYWRIGHT_PASSWORD }}
           APPLICATION_URL: ${{ secrets.APPLICATION_URL }}
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
 
       - name: Upload E2E Results Artifact
         uses: actions/upload-artifact@v5
