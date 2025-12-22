@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Sandbox.Modules.CustomerManagement.Data;
 using Sandbox.Modules.CustomerManagement.Domain;
+using Sandbox.SharedKernel.Messages;
 using Sandbox.SharedKernel.StronglyTypedIds;
 using Wolverine.EntityFrameworkCore;
 
@@ -33,6 +34,7 @@ public static class DeleteCustomer
         }
 
         outbox.DbContext.Remove(customer);
+        await outbox.PublishAsync(new CustomerDeleted(customer.Id));
         await outbox.SaveChangesAndFlushMessagesAsync(cancellationToken);
 
         return TypedResults.NoContent();

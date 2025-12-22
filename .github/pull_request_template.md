@@ -19,7 +19,7 @@ What kind of change does this PR introduce?
 
 <!-- Briefly describe your contribution and its purpose. Include any relevant context or usage notes. -->
 
-### What is the current behavior?
+### What is the current behavior (add a screenshot if applicable)?
 
 <!-- Please describe the current behavior that you are modifying, or link to a relevant issue. -->
 
