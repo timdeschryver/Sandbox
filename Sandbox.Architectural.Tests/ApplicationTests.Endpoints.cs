@@ -5,7 +5,7 @@ using Sandbox.Architectural.Tests.ArchTUnit;
 
 namespace Sandbox.Architectural.Tests;
 
-internal sealed partial class ApplicationTests : ArchitecturalBaseTest
+internal sealed partial class HandlerTests : ArchitecturalBaseTest
 {
     private static readonly GivenClassesConjunction Endpoints = ArchRuleDefinition.Classes()
               .That()
