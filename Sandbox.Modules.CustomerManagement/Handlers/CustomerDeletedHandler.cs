@@ -5,7 +5,7 @@ using Sandbox.Modules.CustomerManagement.Data;
 using Sandbox.SharedKernel.Logging;
 using Sandbox.SharedKernel.Messages;
 
-namespace Sandbox.Modules.CustomerManagement.Application;
+namespace Sandbox.Modules.CustomerManagement.Handlers;
 
 public class CustomerDeletedHandler
 {
@@ -16,6 +16,7 @@ public class CustomerDeletedHandler
         ArgumentNullException.ThrowIfNull(cache);
 
         logger.LogCustomerDeleted(message.Id);
+
         await cache.InvalidateCustomersCacheAsync(cancellationToken);
     }
 }

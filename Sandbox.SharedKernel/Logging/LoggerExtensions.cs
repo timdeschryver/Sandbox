@@ -26,6 +26,14 @@ public static partial class LoggerExtensions
     [LoggerMessage(
         EventId = 2001,
         Level = LogLevel.Information,
+        Message = "Customer {CustomerId} deleted")]
+    public static partial void LogCustomerDeleted(
+        this ILogger logger,
+        CustomerId customerId);
+
+    [LoggerMessage(
+        EventId = 2002,
+        Level = LogLevel.Information,
         Message = "Billing received customer {CustomerId}: {FirstName} {LastName}")]
     public static partial void LogBillingCustomerReceived(
         this ILogger logger,
@@ -34,7 +42,7 @@ public static partial class LoggerExtensions
         string lastName);
 
     [LoggerMessage(
-        EventId = 2002,
+        EventId = 2003,
         Level = LogLevel.Information,
         Message = "Database initialization completed after {ElapsedMilliseconds}ms")]
     public static partial void LogDatabaseInitializationCompleted(
@@ -42,13 +50,13 @@ public static partial class LoggerExtensions
         long elapsedMilliseconds);
 
     [LoggerMessage(
-        EventId = 2003,
+        EventId = 2004,
         Level = LogLevel.Information,
         Message = "Seeding database")]
     public static partial void LogSeedingDatabase(this ILogger logger);
 
     [LoggerMessage(
-        EventId = 2004,
+        EventId = 2005,
         Level = LogLevel.Information,
         Message = "XSRF token added to response for request path: {RequestPath}")]
     public static partial void LogXsrfTokenAdded(
@@ -56,7 +64,7 @@ public static partial class LoggerExtensions
         string? requestPath);
 
     [LoggerMessage(
-        EventId = 2005,
+        EventId = 2006,
         Level = LogLevel.Information,
         Message = "Validating antiforgery token for request path: {RequestPath}")]
     public static partial void LogValidatingAntiforgeryToken(
@@ -64,7 +72,7 @@ public static partial class LoggerExtensions
         string? requestPath);
 
     [LoggerMessage(
-        EventId = 2006,
+        EventId = 2007,
         Level = LogLevel.Information,
         Message = "Adding bearer token to request headers for request path: {RequestPath}")]
     public static partial void LogAddingBearerToken(
@@ -72,7 +80,7 @@ public static partial class LoggerExtensions
         string? requestPath);
 
     [LoggerMessage(
-        EventId = 2007,
+        EventId = 2008,
         Level = LogLevel.Information,
         Message = "{Line}")]
     public static partial void LogCommandOutput(

@@ -16,6 +16,7 @@ public class CustomerCreatedHandler
         ArgumentNullException.ThrowIfNull(cache);
 
         logger.LogCustomerCreated(message.Id, message.FirstName, message.LastName);
+
         await cache.InvalidateCustomersCacheAsync(cancellationToken);
     }
 }
