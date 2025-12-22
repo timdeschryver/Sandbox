@@ -15,6 +15,7 @@ public class CustomerDeletedHandler
         ArgumentNullException.ThrowIfNull(logger);
         ArgumentNullException.ThrowIfNull(cache);
 
+        logger.LogCustomerDeleted(message.Id);
         await cache.InvalidateCustomersCacheAsync(cancellationToken);
     }
 }
