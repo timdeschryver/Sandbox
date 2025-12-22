@@ -8,6 +8,7 @@ using Microsoft.Kiota.Abstractions.Authentication;
 using Microsoft.Kiota.Http.HttpClientLibrary;
 using Sandbox.Modules.CustomerManagement.Data;
 using Testcontainers.PostgreSql;
+using Testcontainers.Redis;
 using TUnit.Core.Interfaces;
 
 namespace Sandbox.Modules.CustomerManagement.IntegrationTests.Setup;
@@ -15,10 +16,12 @@ namespace Sandbox.Modules.CustomerManagement.IntegrationTests.Setup;
 public class CustomerApiWebApplicationFactory : WebApplicationFactory<Program>, IAsyncInitializer, IAsyncDisposable
 {
     private readonly PostgreSqlContainer _postgreSqlContainer = new PostgreSqlBuilder().Build();
+    private readonly RedisContainer _redisContainer = new RedisBuilder().Build();
 
     public async Task InitializeAsync()
     {
         await _postgreSqlContainer.StartAsync();
+        await _redisContainer.StartAsync();
 
         _ = Server;
 
@@ -31,6 +34,7 @@ public class CustomerApiWebApplicationFactory : WebApplicationFactory<Program>, 
     {
         await base.DisposeAsync();
         await _postgreSqlContainer.DisposeAsync();
+        await _redisContainer.DisposeAsync();
         GC.SuppressFinalize(this);
     }
 
@@ -38,6 +42,7 @@ public class CustomerApiWebApplicationFactory : WebApplicationFactory<Program>, 
     {
         ArgumentNullException.ThrowIfNull(builder);
         builder.UseSetting("ConnectionStrings:sandbox-db", _postgreSqlContainer.GetConnectionString());
+        builder.UseSetting("ConnectionStrings:cache", _redisContainer.GetConnectionString());
 
         builder.ConfigureServices(services =>
         {

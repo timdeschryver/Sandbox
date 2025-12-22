@@ -10,6 +10,7 @@ using Sandbox.Modules.CustomerManagement.Data;
 using Sandbox.Modules.CustomerManagement.Domain;
 using Sandbox.SharedKernel.Modules;
 using Wolverine.Attributes;
+using ZiggyCreatures.Caching.Fusion;
 
 [assembly: WolverineModule]
 namespace Sandbox.Modules.CustomerManagement;
@@ -34,6 +35,14 @@ public class CustomerManagementModule : IModule
         });
 
         builder.Services.AddTransient(sp => sp.GetRequiredService<CustomerDbContext>().Set<Customer>().AsNoTracking());
+
+        builder.Services.AddFusionCache("Customers")
+            .WithCacheKeyPrefixByCacheName()
+            .WithRegisteredSerializer()
+            .WithRegisteredDistributedCache()
+            .WithRegisteredBackplane()
+            .AsKeyedHybridCache("Customers");
+
         return builder;
     }
 

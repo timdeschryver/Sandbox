@@ -23,6 +23,8 @@ public static class GetCustomer
        [FromServices] IQueryable<Customer> customers,
        CancellationToken cancellationToken)
     {
+        ArgumentNullException.ThrowIfNull(parameters);
+
         var customer = await customers
             .Select(c => new Response(
                 c.Id,

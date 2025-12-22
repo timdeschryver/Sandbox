@@ -1,7 +1,8 @@
 using JasperFx.Resources;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.OpenApi;
+using OpenTelemetry.Metrics;
+using OpenTelemetry.Trace;
 using Sandbox.ApiService;
 using Sandbox.ServiceDefaults;
 using Sandbox.SharedKernel.Modules;
@@ -9,6 +10,7 @@ using Scalar.AspNetCore;
 using Wolverine;
 using Wolverine.EntityFrameworkCore;
 using Wolverine.Postgresql;
+using ZiggyCreatures.Caching.Fusion;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -49,6 +51,46 @@ builder.Services.AddOpenApi(openApi =>
     openApi.AddDocumentTransformer<BearerSecuritySchemeTransformer>();
 });
 builder.Services.AddErrorHandling();
+
+builder.AddRedisDistributedCache(connectionName: "cache");
+builder.Services.AddFusionCache()
+    .WithOptions(options =>
+    {
+        options.DistributedCacheCircuitBreakerDuration = TimeSpan.FromSeconds(2);
+    })
+    .WithDefaultEntryOptions(new FusionCacheEntryOptions
+    {
+        Duration = TimeSpan.FromMinutes(1),
+
+        IsFailSafeEnabled = true,
+        FailSafeMaxDuration = TimeSpan.FromHours(2),
+        FailSafeThrottleDuration = TimeSpan.FromSeconds(30),
+
+        EagerRefreshThreshold = 0.9f,
+
+        FactorySoftTimeout = TimeSpan.FromMilliseconds(100),
+        FactoryHardTimeout = TimeSpan.FromMilliseconds(1500),
+
+        DistributedCacheSoftTimeout = TimeSpan.FromSeconds(1),
+        DistributedCacheHardTimeout = TimeSpan.FromSeconds(2),
+        AllowBackgroundDistributedCacheOperations = true,
+
+        JitterMaxDuration = TimeSpan.FromSeconds(2)
+    });
+
+builder.Services
+    .AddFusionCacheSystemTextJsonSerializer()
+    .AddFusionCacheStackExchangeRedisBackplane(options =>
+    {
+        options.Configuration = builder.Configuration.GetConnectionString("cache");
+    })
+    .AddOpenTelemetry()
+        .WithTracing(tracing => tracing
+            .AddFusionCacheInstrumentation()
+        )
+        .WithMetrics(metrics => metrics
+            .AddFusionCacheInstrumentation()
+        );
 
 builder.Services.AddResourceSetupOnStartup();
 builder.Host.UseWolverine(opts =>
