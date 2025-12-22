@@ -13,6 +13,7 @@ Some buzzwords that are used:
 - [.NET (Minimal) API](https://learn.microsoft.com/en-us/aspnet/core/fundamentals/minimal-apis/overview)
   - [EF Core](https://learn.microsoft.com/en-us/ef/core/) (with Migrations)
 - [Angular](https://angular.dev/)
+- [Redis](https://redis.io/) with [FusionCache](https://github.com/ZiggyCreatures/FusionCache) (distributed hybrid caching with backplane synchronization)
 - [OpenTelemetry](https://opentelemetry.io/)
   - [Grafana](https://grafana.com/) Stack ([Tempo](https://grafana.com/docs/tempo/latest/), [Loki](https://grafana.com/docs/loki/latest/))
   - [Prometheus](https://prometheus.io/) (and [Blackbox](https://github.com/prometheus/blackbox_exporter))
