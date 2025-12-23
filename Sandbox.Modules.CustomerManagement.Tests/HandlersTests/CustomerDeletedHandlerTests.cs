@@ -19,6 +19,6 @@ public sealed class CustomerDeletedHandlerTests
 
         await handler.Handle(message, logger, cache, CancellationToken.None);
 
-        await cache.Received(1).RemoveByTagAsync(Arg.Any<string>(), Arg.Any<CancellationToken>());
+        await cache.Received(1).RemoveByTagAsync(Arg.Any<IEnumerable<string>>(), Arg.Any<CancellationToken>());
     }
 }
