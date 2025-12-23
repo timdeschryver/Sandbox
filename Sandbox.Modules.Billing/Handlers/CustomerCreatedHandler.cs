@@ -2,7 +2,7 @@ using Microsoft.Extensions.Logging;
 using Sandbox.SharedKernel.Messages;
 using Sandbox.SharedKernel.Logging;
 
-namespace Sandbox.Modules.Billing.Application;
+namespace Sandbox.Modules.Billing.Handlers;
 
 public class CustomerCreatedHandler
 {

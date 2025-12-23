@@ -13,6 +13,7 @@ Some buzzwords that are used:
 - [.NET (Minimal) API](https://learn.microsoft.com/en-us/aspnet/core/fundamentals/minimal-apis/overview)
   - [EF Core](https://learn.microsoft.com/en-us/ef/core/) (with Migrations)
 - [Angular](https://angular.dev/)
+- [Redis](https://redis.io/) with [FusionCache](https://github.com/ZiggyCreatures/FusionCache) (distributed hybrid caching with backplane synchronization)
 - [OpenTelemetry](https://opentelemetry.io/)
   - [Grafana](https://grafana.com/) Stack ([Tempo](https://grafana.com/docs/tempo/latest/), [Loki](https://grafana.com/docs/loki/latest/))
   - [Prometheus](https://prometheus.io/) (and [Blackbox](https://github.com/prometheus/blackbox_exporter))
@@ -41,11 +42,13 @@ graph TD
         AngularApp["Angular Frontend<br>Sandbox.AngularWorkspace"]
         ApiService["API Service<br>Sandbox.ApiService<br>"]
         SqlDatabase["SQL Server Database"]
+        Redis["Redis Cache<br>FusionCache with Backplane"]
         DbMigrations["Database Migrations<br>Sandbox.ApiService.Migrations"]
 
         Gateway --> AngularApp
         Gateway --> ApiService
         ApiService --> SqlDatabase
+        ApiService --> Redis
         SqlDatabase -.-o DbMigrations
         Gateway -.-> Keycloak
     end
@@ -63,6 +66,7 @@ graph TD
     classDef frontend fill:#bbf,stroke:#333,stroke-width:1px;
     classDef backend fill:#bfb,stroke:#333,stroke-width:1px;
     classDef database fill:#fbb,stroke:#333,stroke-width:1px;
+    classDef cache fill:#fcb,stroke:#333,stroke-width:1px;
     classDef secrets fill:#9cf,stroke:#333,stroke-width:1px;
     classDef auth fill:#f99,stroke:#333,stroke-width:1px;
     classDef monitoring fill:#ffd,stroke:#333,stroke-width:1px;
@@ -72,6 +76,7 @@ graph TD
     class AngularApp frontend;
     class ApiService backend;
     class SqlDatabase,DbMigrations database;
+    class Redis cache;
     class OpenTelemetry monitoring;
 ```
 

@@ -18,6 +18,8 @@ public abstract class ArchitecturalBaseTest
         ArchRuleDefinition.Types().That().HaveFullNameContaining(".Domain").As("Domain Layer");
     protected static readonly IObjectProvider<IType> ApplicationLayer =
         ArchRuleDefinition.Types().That().HaveFullNameContaining(".Application").As("Application Layer");
+    protected static readonly IObjectProvider<IType> HandlersLayer =
+        ArchRuleDefinition.Types().That().HaveFullNameContaining(".Handlers").As("Handlers Layer");
     protected static readonly IObjectProvider<IType> InfrastructureLayer =
         ArchRuleDefinition.Types().That().HaveFullNameContaining(".Data").As("Infrastructure Layer");
     protected static readonly IObjectProvider<IType> SharedKernelLayer =

@@ -78,6 +78,7 @@ This file contains the project's structure and provides the general commands.
 ### Data Stores
 
 - **Primary Database**: PostgreSQL (with option to switch to SQL Server)
+- **Distributed Cache**: Redis with FusionCache hybrid L1/L2 caching and backplane for replica synchronization
 - **Session Storage**: Distributed memory cache for authentication
 - **Monitoring**: OpenTelemetry collector for metrics, traces, and logs
 

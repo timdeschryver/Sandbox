@@ -109,10 +109,15 @@ var openTelemetryCollector = builder.AddOpenTelemetryCollector("../config/otel.y
 var postgres = builder.AddPostgres("postgres")
     .WithDataVolume();
 postgres
-    .WithPgAdmin(c => c.WithParentRelationship(postgres))
-    .WithPgWeb(c => c.WithParentRelationship(postgres));
+    .WithPgAdmin(p => p.WithParentRelationship(postgres))
+    .WithPgWeb(p => p.WithParentRelationship(postgres));
 
 var database = postgres.AddDatabase("sandbox-db");
+
+var redis = builder.AddRedis("cache")
+    .WithDataVolume();
+redis.WithRedisInsight(p => p.WithParentRelationship(redis))
+    .WithRedisCommander(p => p.WithParentRelationship(redis));
 
 var migrations = builder.AddProject<Projects.Sandbox_Migrations>("migrations")
     .WithReference(database)
@@ -138,9 +143,11 @@ var apiService = builder.AddProject<Projects.Sandbox_ApiService>("apiservice")
     .WithHttpHealthCheck("/health")
     .WithReference(database)
     .WithReference(keycloak)
+    .WithReference(redis)
     .WaitFor(database)
     .WaitFor(migrations)
     .WaitFor(keycloak)
+    .WaitFor(redis)
     .WithUrls(context =>
     {
         context.Urls.Add(new() { Url = "/scalar", DisplayText = "OpenAPI Specification", Endpoint = context.GetEndpoint("http") });

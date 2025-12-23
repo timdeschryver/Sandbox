@@ -9,6 +9,7 @@
         <PackageReference Include="Microsoft.Testing.Extensions.CodeCoverage" />
         <PackageReference Include="Microsoft.Testing.Extensions.TrxReport" />
         <PackageReference Include="Testcontainers.PostgreSql" />
+        <PackageReference Include="Testcontainers.Redis" />
         <PackageReference Include="TUnit" />
         <PackageReference Include="Verify.TUnit" />
     </ItemGroup>
@@ -17,14 +18,10 @@
         <ProjectReference Include="..\Sandbox.Migrations\Sandbox.Migrations.csproj">
             <Aliases>migrations</Aliases>
         </ProjectReference>
-        <ProjectReference
-            Include="..\Sandbox.Modules.CustomerManagement\Sandbox.Modules.CustomerManagement.csproj" />
+        <ProjectReference Include="..\Sandbox.Modules.CustomerManagement\Sandbox.Modules.CustomerManagement.csproj" />
     </ItemGroup>
 
-    <Target Name="GenerateClient" AfterTargets="Build"
-        Condition="$(Configuration)=='Debug'">
-        <Exec
-            Command="kiota generate -l CSharp --output ./ApiServiceSDK --namespace-name ApiServiceSDK --class-name ApiClient --openapi ../Sandbox.ApiService/documentation/Sandbox.ApiService.json --clean-output"
-            WorkingDirectory="$(ProjectDir)" />
+    <Target Name="GenerateClient" AfterTargets="Build" Condition="$(Configuration)=='Debug'">
+        <Exec Command="kiota generate -l CSharp --output ./ApiServiceSDK --namespace-name ApiServiceSDK --class-name ApiClient --openapi ../Sandbox.ApiService/documentation/Sandbox.ApiService.json --clean-output" WorkingDirectory="$(ProjectDir)" />
     </Target>
 </Project>
