@@ -23,8 +23,8 @@ export function getConfig(): Config {
 
 	// Create configuration object
 	const config: Config = {
-		applicationUrl: process.env['services__gateway__http__0'] || process.env.APPLICATION_URL,
-		databaseUrl: process.env['services__migrations__http__0'] || process.env.DATABASE_URL,
+		applicationUrl: process.env['services__gateway__https__0'] || process.env.APPLICATION_URL,
+		databaseUrl: process.env['services__migrations__https__0'] || process.env.DATABASE_URL,
 		username: process.env.PLAYWRIGHT_USERNAME || '',
 		password: process.env.PLAYWRIGHT_PASSWORD || '',
 	};
