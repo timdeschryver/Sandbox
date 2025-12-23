@@ -16,7 +16,7 @@
 }
 
 .error-icon {
-	margin-bottom: var(--space-6);
+	/* mb-6 utility class applied in HTML */
 }
 
 .error-icon svg {
@@ -27,37 +27,12 @@
 	font-size: var(--font-size-3xl);
 	font-weight: 600;
 	color: var(--color-text-primary);
-	margin: 0 0 var(--space-4) 0;
+	margin: 0 0 var(--space-4);
 }
 
 .error-message {
 	font-size: var(--font-size-lg);
 	color: var(--color-text-secondary);
 	line-height: var(--line-height-relaxed);
-	margin: 0 0 var(--space-8) 0;
-}
-
-.home-button {
-	display: inline-flex;
-	align-items: center;
-	gap: var(--space-2);
-	padding: var(--space-3) var(--space-6);
-	background-color: var(--color-primary);
-	color: var(--color-white);
-	border-radius: var(--radius-md);
-	font-size: var(--font-size-base);
-	font-weight: 500;
-	text-decoration: none;
-	transition: all var(--transition-fast);
-}
-
-.home-button:hover {
-	background-color: var(--color-primary-dark);
-	color: var(--color-white);
-	box-shadow: var(--shadow-md);
-	transform: translateY(-1px);
-}
-
-.home-button:active {
-	transform: translateY(0);
+	margin: 0 0 var(--space-8);
 }

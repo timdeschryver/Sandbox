@@ -65,8 +65,9 @@
 	--space-20: 5rem;
 
 	/* Typography */
-	--font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell',
-		'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+	--font-sans:
+		-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
+		'Helvetica Neue', sans-serif;
 	--font-mono: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace;
 
 	--font-size-xs: 0.75rem;
@@ -446,104 +447,11 @@ tbody tr:last-child td {
 	border-bottom: none;
 }
 
-/* Cards */
-.card {
-	background-color: var(--color-background);
-	border: 1px solid var(--color-border);
-	border-radius: var(--radius-lg);
-	padding: var(--space-6);
-	box-shadow: var(--shadow-sm);
-	transition: box-shadow var(--transition-base);
-}
-
-.card:hover {
-	box-shadow: var(--shadow-md);
-}
-
-/* Alerts & Messages */
-.alert {
-	padding: var(--space-4) var(--space-6);
-	border-radius: var(--radius-md);
-	margin-bottom: var(--space-4);
-	border-left: 4px solid;
-}
-
-.alert-error {
-	background-color: var(--color-error-subtle);
-	border-left-color: var(--color-error);
-	color: var(--color-error);
-}
-
-.alert-success {
-	background-color: var(--color-success-subtle);
-	border-left-color: var(--color-success);
-	color: var(--color-success);
-}
-
-.alert-warning {
-	background-color: var(--color-warning-subtle);
-	border-left-color: var(--color-warning);
-	color: var(--color-warning);
-}
-
 /* Utility Classes */
 .container {
 	max-width: var(--container-max-width);
 	margin: 0 auto;
 	padding: 0 var(--space-6);
-}
-
-.flex {
-	display: flex;
-}
-
-.flex-col {
-	display: flex;
-	flex-direction: column;
-}
-
-.items-center {
-	align-items: center;
-}
-
-.justify-between {
-	justify-content: space-between;
-}
-
-.gap-2 {
-	gap: var(--space-2);
-}
-
-.gap-4 {
-	gap: var(--space-4);
-}
-
-.gap-6 {
-	gap: var(--space-6);
-}
-
-.text-center {
-	text-align: center;
-}
-
-.text-sm {
-	font-size: var(--font-size-sm);
-}
-
-.text-lg {
-	font-size: var(--font-size-lg);
-}
-
-.font-medium {
-	font-weight: 500;
-}
-
-.font-semibold {
-	font-weight: 600;
-}
-
-.text-secondary {
-	color: var(--color-text-secondary);
 }
 
 .mb-2 {
@@ -556,6 +464,10 @@ tbody tr:last-child td {
 
 .mb-6 {
 	margin-bottom: var(--space-6);
+}
+
+.mb-8 {
+	margin-bottom: var(--space-8);
 }
 
 .mt-2 {

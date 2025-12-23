@@ -15,7 +15,7 @@
 	display: flex;
 	align-items: center;
 	gap: var(--space-3);
-	margin-bottom: var(--space-5);
+	/* Use .mb-4 utility class instead */
 	padding-bottom: var(--space-4);
 	border-bottom: 1px solid var(--color-border-light);
 }

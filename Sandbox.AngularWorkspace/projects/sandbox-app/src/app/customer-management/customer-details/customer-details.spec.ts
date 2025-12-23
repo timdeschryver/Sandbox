@@ -28,7 +28,7 @@ it('renders customer details when data is loaded', async () => {
 	expect(stripUtilAttributes(billingAddresses)).toMatchInlineSnapshot(`
 		<div>
 		  <div
-		    class="card-header"
+		    class="card-header mb-4"
 		  >
 		    <svg
 		      class="section-icon"
@@ -127,7 +127,7 @@ it('renders customer details when data is loaded', async () => {
 	expect(stripUtilAttributes(shippingAddresses)).toMatchInlineSnapshot(`
 		<div>
 		  <div
-		    class="card-header"
+		    class="card-header mb-4"
 		  >
 		    <svg
 		      class="section-icon"

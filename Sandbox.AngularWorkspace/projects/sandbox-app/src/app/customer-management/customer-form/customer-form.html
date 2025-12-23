@@ -3,11 +3,11 @@
 		<h2 class="form-title">Create Customer</h2>
 
 		@for (error of customerForm().errors(); track $index) {
-			<div class="alert alert-error">{{ error.message }}</div>
+			<sandbox-alert type="error">{{ error.message }}</sandbox-alert>
 		}
 
 		@if (customerForm().touched() && customerForm().errorSummary().length > 0) {
-			<div class="validation-summary">
+			<div class="validation-summary mb-6">
 				<h3 class="validation-title">Please fix the following errors:</h3>
 				<ul class="validation-list">
 					@for (error of customerForm().errorSummary(); track $index) {
@@ -17,7 +17,7 @@
 			</div>
 		}
 
-		<fieldset class="form-fieldset">
+		<fieldset class="form-fieldset mb-6">
 			<legend>Customer Information</legend>
 			<div class="form-row">
 				<div class="form-group">
@@ -50,7 +50,7 @@
 		</div>
 
 		@if (!customerForm.shippingAddress().hidden()) {
-			<fieldset class="form-fieldset address-fieldset">
+			<fieldset class="form-fieldset address-fieldset mb-6">
 				<legend>Shipping Address</legend>
 				<sandbox-customer-address [address]="customerForm.shippingAddress">
 					<div class="form-group">
@@ -62,7 +62,7 @@
 		}
 
 		<div class="form-actions">
-			<button type="submit" class="submit-button" [disabled]="customerForm().submitting()">
+			<button type="submit" class="button" [disabled]="customerForm().submitting()">
 				@if (customerForm().submitting()) {
 					<div class="loading"></div>
 					<span>Creating Customer...</span>

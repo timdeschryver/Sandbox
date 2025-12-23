@@ -3,7 +3,7 @@
 }
 
 .page-header {
-	margin-bottom: var(--space-8);
+	/* Use .mb-8 utility class instead */
 }
 
 .page-title {

@@ -1,6 +1,6 @@
 <div class="customer-details">
 	@if (customer.hasValue() && customer.value(); as customer) {
-		<div class="details-header">
+		<div class="details-header mb-8">
 			<div class="header-content">
 				<h1 class="customer-name">{{ customer.firstName }} {{ customer.lastName }}</h1>
 				<a routerLink=".." class="back-link">
@@ -153,7 +153,7 @@
 				<p class="error-message">
 					{{ $any(customer.error())?.error?.title || 'An unexpected error occurred. Please try again.' }}
 				</p>
-				<button type="button" class="retry-button" (click)="customer.reload()">
+				<button type="button" class="button mt-2" (click)="customer.reload()">
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
 						width="16"

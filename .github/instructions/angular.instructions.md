@@ -1,6 +1,6 @@
 ---
 description: 'Angular project coding and best practices instructions'
-applyTo: '**/*.ts, **/*.html'
+applyTo: '**/*.ts,**/*.html'
 ---
 
 # Angular Instructions

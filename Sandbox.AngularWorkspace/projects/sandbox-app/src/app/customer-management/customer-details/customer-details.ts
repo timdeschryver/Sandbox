@@ -3,7 +3,7 @@ import { RouterLink } from '@angular/router';
 import { Customers } from '@sandbox-app/customer-management/customer-management';
 import { stronglyTypedIdAttribute } from '@sandbox-app/shared/functions';
 import { CustomerId } from '@sandbox-app/customer-management/models';
-import { InfoCard } from '@sandbox-app/shared/components/info-card/info-cardt';
+import { InfoCard } from '@sandbox-app/shared/components/info-card/info-card';
 
 @Component({
 	selector: 'sandbox-customer-details',

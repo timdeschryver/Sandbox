@@ -19,10 +19,11 @@ import { CustomerAddress } from '@sandbox-app/customer-management/shared/custome
 import { HttpErrorResponse } from '@angular/common/http';
 import { type Observable, catchError, firstValueFrom, map, of } from 'rxjs';
 import { formValidation } from '@form-validation';
+import { Alert } from '@sandbox-app/shared/components/alert/alert';
 
 @Component({
 	selector: 'sandbox-customer-form',
-	imports: [Field, CustomerAddress, formValidation],
+	imports: [Field, CustomerAddress, formValidation, Alert],
 	templateUrl: './customer-form.html',
 	styleUrl: './customer-form.css',
 	changeDetection: ChangeDetectionStrategy.OnPush,

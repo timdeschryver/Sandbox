@@ -110,21 +110,3 @@
 	color: var(--color-text-secondary);
 	font-size: var(--font-size-sm);
 }
-
-.retry-button {
-	margin-top: var(--space-2);
-	padding: var(--space-2) var(--space-5);
-	background-color: var(--color-primary);
-	color: var(--color-text-on-primary);
-	border: none;
-	border-radius: var(--radius-md);
-	cursor: pointer;
-	font-size: var(--font-size-sm);
-	font-weight: 500;
-	transition: all var(--transition-fast);
-}
-
-.retry-button:hover {
-	background-color: var(--color-primary-dark);
-	box-shadow: var(--shadow-sm);
-}

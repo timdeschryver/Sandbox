@@ -15,7 +15,7 @@
 }
 
 .details-header {
-	margin-bottom: var(--space-8);
+	/* Use .mb-8 utility class instead */
 }
 
 .header-content {
@@ -196,32 +196,6 @@
 	font-size: var(--font-size-base);
 	color: var(--color-text-secondary);
 	margin: 0;
-}
-
-.retry-button {
-	display: inline-flex;
-	align-items: center;
-	gap: var(--space-2);
-	margin-top: var(--space-2);
-	padding: var(--space-3) var(--space-6);
-	background-color: var(--color-primary);
-	color: var(--color-white);
-	border: none;
-	border-radius: var(--radius-md);
-	font-size: var(--font-size-base);
-	font-weight: 500;
-	cursor: pointer;
-	transition: all var(--transition-fast);
-}
-
-.retry-button:hover {
-	background-color: var(--color-primary-dark);
-	box-shadow: var(--shadow-md);
-	transform: translateY(-1px);
-}
-
-.retry-button:active {
-	transform: translateY(0);
 }
 
 @media (max-width: 768px) {

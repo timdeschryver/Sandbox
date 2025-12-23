@@ -6,7 +6,7 @@ exports[`renders the component with customers table 1`] = `
     class="customers-overview"
   >
     <div
-      class="page-header"
+      class="page-header mb-8"
     >
       <h1
         class="page-title"
@@ -186,7 +186,7 @@ exports[`renders the component with customers table 1`] = `
               <!--container-->
               <!--container-->
               <fieldset
-                class="form-fieldset"
+                class="form-fieldset mb-6"
               >
                 <legend>
                   Customer Information
@@ -306,7 +306,7 @@ exports[`renders the component with customers table 1`] = `
                 class="form-actions"
               >
                 <button
-                  class="submit-button"
+                  class="button"
                   type="submit"
                 >
                   <!--container-->
