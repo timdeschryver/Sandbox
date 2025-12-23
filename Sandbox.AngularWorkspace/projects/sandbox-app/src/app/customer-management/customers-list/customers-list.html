@@ -1,13 +1,30 @@
-<sandbox-table [resource]="customers()">
+<sandbox-table [resource]="customers()" class="customers-table">
 	<ng-template #sandboxTableHeader>
 		<th>Name</th>
-		<th></th>
+		<th class="actions-column"></th>
 	</ng-template>
 
 	<ng-template let-customer [sandboxTableBody]="customers()">
-		<td>{{ customer.firstName }} {{ customer.lastName }}</td>
-		<td>
-			<a [routerLink]="[customer.id]">View Details</a>
+		<td class="customer-name">
+			<span class="name-text">{{ customer.firstName }} {{ customer.lastName }}</span>
+		</td>
+		<td class="actions-cell">
+			<a [routerLink]="[customer.id]" class="view-details-link">
+				<span>View Details</span>
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					width="16"
+					height="16"
+					viewBox="0 0 24 24"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="2"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+				>
+					<path d="M5 12h14M12 5l7 7-7 7" />
+				</svg>
+			</a>
 		</td>
 	</ng-template>
 </sandbox-table>

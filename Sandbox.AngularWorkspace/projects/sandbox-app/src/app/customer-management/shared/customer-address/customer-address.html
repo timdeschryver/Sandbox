@@ -1,22 +1,16 @@
-<div>
-	<label
-		>Street
-		<input type="text" [field]="address().street" />
-	</label>
+<div class="form-group">
+	<label [for]="address().street().name()">Street</label>
+	<input type="text" [id]="address().street().name()" [field]="address().street" />
 </div>
 
-<div>
-	<label>
-		City
-		<input type="text" [field]="address().city" />
-	</label>
+<div class="form-group">
+	<label [for]="address().city().name()">City</label>
+	<input type="text" [id]="address().city().name()" [field]="address().city" />
 </div>
 
-<div>
-	<label
-		>Zip Code
-		<input type="text" [field]="address().zipCode" />
-	</label>
+<div class="form-group">
+	<label [for]="address().zipCode().name()">Zip Code</label>
+	<input type="text" [id]="address().zipCode().name()" [field]="address().zipCode" />
 </div>
 
 <ng-content />

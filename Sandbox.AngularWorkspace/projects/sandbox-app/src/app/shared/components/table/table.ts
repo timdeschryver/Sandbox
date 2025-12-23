@@ -7,6 +7,7 @@ import { TableBodyTemplate } from '@sandbox-app/shared/components/table/table-bo
 	selector: 'sandbox-table',
 	imports: [NgTemplateOutlet],
 	templateUrl: './table.html',
+	styleUrl: './table.css',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Table {

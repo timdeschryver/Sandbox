@@ -12,7 +12,7 @@ import { type Field } from '@angular/forms/signals';
 			}
 		</div>
 	`,
-	styles: ':host { color: var(--error-color) }',
+	styles: ':host { color: var(--color-error) }',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FieldErrors {

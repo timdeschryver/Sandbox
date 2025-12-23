@@ -1,0 +1,36 @@
+.customers-overview {
+	width: 100%;
+}
+
+.page-header {
+	margin-bottom: var(--space-8);
+}
+
+.page-title {
+	font-size: var(--font-size-3xl);
+	font-weight: 600;
+	color: var(--color-text-primary);
+	margin: 0;
+}
+
+.content-layout {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: var(--space-8);
+	align-items: start;
+}
+
+.customers-section,
+.form-section {
+	width: 100%;
+}
+
+@media (max-width: 1024px) {
+	.content-layout {
+		grid-template-columns: 1fr;
+	}
+
+	.form-section {
+		order: -1;
+	}
+}

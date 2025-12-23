@@ -1,6 +1,15 @@
-<div>
-	<h2>Customers</h2>
-	<sandbox-customers-list [customers]="customers" />
-</div>
+<div class="customers-overview">
+	<div class="page-header">
+		<h1 class="page-title">Customers</h1>
+	</div>
 
-<sandbox-customer-form (customerCreated)="customerCreated()" />
+	<div class="content-layout">
+		<div class="customers-section">
+			<sandbox-customers-list [customers]="customers" />
+		</div>
+
+		<div class="form-section">
+			<sandbox-customer-form (customerCreated)="customerCreated()" />
+		</div>
+	</div>
+</div>

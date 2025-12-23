@@ -24,6 +24,7 @@ import { formValidation } from '@form-validation';
 	selector: 'sandbox-customer-form',
 	imports: [Field, CustomerAddress, formValidation],
 	templateUrl: './customer-form.html',
+	styleUrl: './customer-form.css',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CustomerForm {

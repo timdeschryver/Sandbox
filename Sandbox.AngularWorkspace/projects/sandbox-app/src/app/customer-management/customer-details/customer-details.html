@@ -1,75 +1,190 @@
-<div>
+<div class="customer-details">
 	@if (customer.hasValue() && customer.value(); as customer) {
-		<div>
-			<h2>Customer Details</h2>
-			<a routerLink="..">Back to Overview</a>
+		<div class="details-header">
+			<div class="header-content">
+				<h1 class="customer-name">{{ customer.firstName }} {{ customer.lastName }}</h1>
+				<a routerLink=".." class="back-link">
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						width="16"
+						height="16"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+					>
+						<path d="M19 12H5M12 19l-7-7 7-7" />
+					</svg>
+					<span>Back to Overview</span>
+				</a>
+			</div>
+		</div>
 
-			<fieldset>
-				<legend>Personal Information</legend>
-				<div>
-					<span>Name:</span>
-					<span>{{ customer.firstName }} {{ customer.lastName }}</span>
+		<div class="details-content">
+			<div class="info-card">
+				<div class="card-header">
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						width="20"
+						height="20"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						class="section-icon"
+					>
+						<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+						<circle cx="12" cy="7" r="4" />
+					</svg>
+					<h2 class="card-title">Personal Information</h2>
 				</div>
-			</fieldset>
+				<div class="info-row">
+					<span class="info-label">Full Name</span>
+					<span class="info-value">{{ customer.firstName }} {{ customer.lastName }}</span>
+				</div>
+			</div>
 
 			@if (customer.billingAddresses.length > 0) {
-				<fieldset>
-					<legend>Billing Addresses</legend>
+				<div class="info-card">
+					<div class="card-header">
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							width="20"
+							height="20"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="2"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							class="section-icon"
+						>
+							<rect x="2" y="5" width="20" height="14" rx="2" />
+							<line x1="2" y1="10" x2="22" y2="10" />
+						</svg>
+						<h2 class="card-title">Billing Addresses</h2>
+						<span class="badge">{{ customer.billingAddresses.length }}</span>
+					</div>
 
-					@for (billingAddress of customer.billingAddresses; track billingAddress.id) {
-						<div>
-							<div>
-								<span>Street:</span>
-								<span>{{ billingAddress.street }}</span>
+					<div class="addresses-grid">
+						@for (billingAddress of customer.billingAddresses; track billingAddress.id) {
+							<div class="address-card">
+								<div class="address-row">
+									<span class="address-label">Street</span>
+									<span class="address-value">{{ billingAddress.street }}</span>
+								</div>
+								<div class="address-row">
+									<span class="address-label">City</span>
+									<span class="address-value">{{ billingAddress.city }}</span>
+								</div>
+								<div class="address-row">
+									<span class="address-label">Zip Code</span>
+									<span class="address-value">{{ billingAddress.zipCode }}</span>
+								</div>
 							</div>
-							<div>
-								<span>City:</span>
-								<span>{{ billingAddress.city }}</span>
-							</div>
-							<div>
-								<span>Zip Code:</span>
-								<span>{{ billingAddress.zipCode }}</span>
-							</div>
-						</div>
-					}
-				</fieldset>
+						}
+					</div>
+				</div>
 			}
 
 			@if (customer.shippingAddresses.length > 0) {
-				<fieldset>
-					<legend>Shipping Addresses</legend>
+				<div class="info-card">
+					<div class="card-header">
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							width="20"
+							height="20"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="2"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							class="section-icon"
+						>
+							<path d="M16 3h5v5M4 20L21 3M21 16v5h-5M15 15l6 6M4 4l5 5" />
+						</svg>
+						<h2 class="card-title">Shipping Addresses</h2>
+						<span class="badge">{{ customer.shippingAddresses.length }}</span>
+					</div>
 
-					@for (shippingAddress of customer.shippingAddresses; track shippingAddress.id) {
-						<div>
-							<div>
-								<span>Street:</span>
-								<span>{{ shippingAddress.street }}</span>
-							</div>
-							<div>
-								<span>City:</span>
-								<span>{{ shippingAddress.city }}</span>
-							</div>
-							<div>
-								<span>Zip Code:</span>
-								<span>{{ shippingAddress.zipCode }}</span>
-							</div>
-							@if (shippingAddress.note) {
-								<div>
-									<span>Note:</span>
-									<span>{{ shippingAddress.note }}</span>
+					<div class="addresses-grid">
+						@for (shippingAddress of customer.shippingAddresses; track shippingAddress.id) {
+							<div class="address-card">
+								<div class="address-row">
+									<span class="address-label">Street</span>
+									<span class="address-value">{{ shippingAddress.street }}</span>
 								</div>
-							}
-						</div>
-					}
-				</fieldset>
+								<div class="address-row">
+									<span class="address-label">City</span>
+									<span class="address-value">{{ shippingAddress.city }}</span>
+								</div>
+								<div class="address-row">
+									<span class="address-label">Zip Code</span>
+									<span class="address-value">{{ shippingAddress.zipCode }}</span>
+								</div>
+								@if (shippingAddress.note) {
+									<div class="address-note">
+										<span class="note-label">Note</span>
+										<p class="note-text">{{ shippingAddress.note }}</p>
+									</div>
+								}
+							</div>
+						}
+					</div>
+				</div>
 			}
 		</div>
 	} @else if (customer.error()) {
-		<div>
-			{{ $any(customer.error())?.error?.title || 'An unexpected error occurred, please try again.' }}
-			<button type="button" (click)="customer.reload()">Retry</button>
+		<div class="error-container">
+			<div class="error-content">
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					width="64"
+					height="64"
+					viewBox="0 0 24 24"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="1"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+				>
+					<circle cx="12" cy="12" r="10" />
+					<line x1="12" y1="8" x2="12" y2="12" />
+					<line x1="12" y1="16" x2="12.01" y2="16" />
+				</svg>
+				<h2 class="error-title">Unable to Load Customer</h2>
+				<p class="error-message">
+					{{ $any(customer.error())?.error?.title || 'An unexpected error occurred. Please try again.' }}
+				</p>
+				<button type="button" (click)="customer.reload()" class="retry-button">
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						width="16"
+						height="16"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+					>
+						<path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2" />
+					</svg>
+					<span>Try Again</span>
+				</button>
+			</div>
 		</div>
 	} @else {
-		<div>Loading customer...</div>
+		<div class="loading-container">
+			<div class="loading-content">
+				<div class="loading"></div>
+				<p class="loading-text">Loading customer details...</p>
+			</div>
+		</div>
 	}
 </div>
