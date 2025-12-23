@@ -23,8 +23,8 @@ test.describe('Customer Management - Create Operations - Form Validation', () =>
 		// 4. Leave all form fields empty
 		// 5. Observe the form state (validation errors may appear automatically)
 
-		// Verify: "Validation summary:" heading is displayed
-		await expect(page.getByRole('heading', { name: 'Validation summary:' })).toBeVisible();
+		// Verify: "Please fix the following errors:" heading is displayed
+		await expect(page.getByRole('heading', { name: 'Please fix the following errors:' })).toBeVisible();
 
 		// Verify: Validation errors list includes required field errors
 		const validationList = page.getByRole('list');

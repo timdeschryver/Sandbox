@@ -1,4 +1,4 @@
-<sandbox-table [resource]="customers()" class="customers-table">
+<sandbox-table class="customers-table" [resource]="customers()">
 	<ng-template #sandboxTableHeader>
 		<th>Name</th>
 		<th class="actions-column"></th>
@@ -9,7 +9,7 @@
 			<span class="name-text">{{ customer.firstName }} {{ customer.lastName }}</span>
 		</td>
 		<td class="actions-cell">
-			<a [routerLink]="[customer.id]" class="view-details-link">
+			<a class="view-details-link" [routerLink]="[customer.id]">
 				<span>View Details</span>
 				<svg
 					xmlns="http://www.w3.org/2000/svg"

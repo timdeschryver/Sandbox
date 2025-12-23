@@ -15,125 +15,313 @@ it('renders customer details when data is loaded', async () => {
 
 	await mockRequest(customerDetails);
 
-	expect(screen.queryByText(/Customer Details/i)).toBeInTheDocument();
-	expect(screen.queryByText(/John Doe/i)).toBeInTheDocument();
+	expect(screen.queryByText(/Personal information/i)).toBeInTheDocument();
+	expect(screen.queryAllByText(/John Doe/i)).toHaveLength(2);
 	expect(screen.queryByText(/123 Billing St/i)).toBeInTheDocument();
 	expect(screen.queryByText(/456 Shipping Ave/i)).toBeInTheDocument();
 	expect(screen.queryByText(/Leave at door/i)).toBeInTheDocument();
 	expect(screen.queryByText(/789 Delivery Rd/i)).toBeInTheDocument();
 
-	const billingAddresses = screen.queryByRole('group', {
-		name: /billing addresses/i,
-	});
+	const billingAddresses = screen.queryByTestId('billing-addresses');
 	expect(billingAddresses).toBeInTheDocument();
 	expect(billingAddresses).toMatchInlineSnapshot(`
-      <fieldset>
-        <legend>
-          Billing Addresses
-        </legend>
-        <div>
-          <div>
-            <span>
-              Street:
-            </span>
-            <span>
-              123 Billing St
-            </span>
-          </div>
-          <div>
-            <span>
-              City:
-            </span>
-            <span>
-              Bill City
-            </span>
-          </div>
-          <div>
-            <span>
-              Zip Code:
-            </span>
-            <span>
-              12345
-            </span>
-          </div>
-        </div>
-        <!--container-->
-      </fieldset>
-    `);
+		<div
+		  _ngcontent-a-c2324101917=""
+		  class="info-card"
+		  data-testid="billing-addresses"
+		>
+		  <div
+		    _ngcontent-a-c2324101917=""
+		    class="card-header"
+		  >
+		    <svg
+		      _ngcontent-a-c2324101917=""
+		      class="section-icon"
+		      fill="none"
+		      height="20"
+		      stroke="currentColor"
+		      stroke-linecap="round"
+		      stroke-linejoin="round"
+		      stroke-width="2"
+		      viewBox="0 0 24 24"
+		      width="20"
+		      xmlns="http://www.w3.org/2000/svg"
+		    >
+		      <rect
+		        _ngcontent-a-c2324101917=""
+		        height="14"
+		        rx="2"
+		        width="20"
+		        x="2"
+		        y="5"
+		      />
+		      <line
+		        _ngcontent-a-c2324101917=""
+		        x1="2"
+		        x2="22"
+		        y1="10"
+		        y2="10"
+		      />
+		    </svg>
+		    <h2
+		      _ngcontent-a-c2324101917=""
+		      class="card-title"
+		    >
+		      Billing Addresses
+		    </h2>
+		    <span
+		      _ngcontent-a-c2324101917=""
+		      class="badge"
+		    >
+		      1
+		    </span>
+		  </div>
+		  <div
+		    _ngcontent-a-c2324101917=""
+		    class="addresses-grid"
+		  >
+		    <div
+		      _ngcontent-a-c2324101917=""
+		      class="address-card"
+		    >
+		      <div
+		        _ngcontent-a-c2324101917=""
+		        class="address-row"
+		      >
+		        <span
+		          _ngcontent-a-c2324101917=""
+		          class="address-label"
+		        >
+		          Street
+		        </span>
+		        <span
+		          _ngcontent-a-c2324101917=""
+		          class="address-value"
+		        >
+		          123 Billing St
+		        </span>
+		      </div>
+		      <div
+		        _ngcontent-a-c2324101917=""
+		        class="address-row"
+		      >
+		        <span
+		          _ngcontent-a-c2324101917=""
+		          class="address-label"
+		        >
+		          City
+		        </span>
+		        <span
+		          _ngcontent-a-c2324101917=""
+		          class="address-value"
+		        >
+		          Bill City
+		        </span>
+		      </div>
+		      <div
+		        _ngcontent-a-c2324101917=""
+		        class="address-row"
+		      >
+		        <span
+		          _ngcontent-a-c2324101917=""
+		          class="address-label"
+		        >
+		          Zip Code
+		        </span>
+		        <span
+		          _ngcontent-a-c2324101917=""
+		          class="address-value"
+		        >
+		          12345
+		        </span>
+		      </div>
+		    </div>
+		    <!--container-->
+		  </div>
+		</div>
+	`);
 
-	const shippingAddresses = screen.queryByRole('group', {
-		name: /shipping addresses/i,
-	});
+	const shippingAddresses = screen.queryByTestId('shipping-addresses');
 	expect(shippingAddresses).toMatchInlineSnapshot(`
-      <fieldset>
-        <legend>
-          Shipping Addresses
-        </legend>
-        <div>
-          <div>
-            <span>
-              Street:
-            </span>
-            <span>
-              456 Shipping Ave
-            </span>
-          </div>
-          <div>
-            <span>
-              City:
-            </span>
-            <span>
-              Ship City
-            </span>
-          </div>
-          <div>
-            <span>
-              Zip Code:
-            </span>
-            <span>
-              67890
-            </span>
-          </div>
-          <div>
-            <span>
-              Note:
-            </span>
-            <span>
-              Leave at door
-            </span>
-          </div>
-          <!--container-->
-        </div>
-        <div>
-          <div>
-            <span>
-              Street:
-            </span>
-            <span>
-              789 Delivery Rd
-            </span>
-          </div>
-          <div>
-            <span>
-              City:
-            </span>
-            <span>
-              Deliver Town
-            </span>
-          </div>
-          <div>
-            <span>
-              Zip Code:
-            </span>
-            <span>
-              54321
-            </span>
-          </div>
-          <!--container-->
-        </div>
-        <!--container-->
-      </fieldset>
-    `);
+		<div
+		  _ngcontent-a-c2324101917=""
+		  class="info-card"
+		  data-testid="shipping-addresses"
+		>
+		  <div
+		    _ngcontent-a-c2324101917=""
+		    class="card-header"
+		  >
+		    <svg
+		      _ngcontent-a-c2324101917=""
+		      class="section-icon"
+		      fill="none"
+		      height="20"
+		      stroke="currentColor"
+		      stroke-linecap="round"
+		      stroke-linejoin="round"
+		      stroke-width="2"
+		      viewBox="0 0 24 24"
+		      width="20"
+		      xmlns="http://www.w3.org/2000/svg"
+		    >
+		      <path
+		        _ngcontent-a-c2324101917=""
+		        d="M16 3h5v5M4 20L21 3M21 16v5h-5M15 15l6 6M4 4l5 5"
+		      />
+		    </svg>
+		    <h2
+		      _ngcontent-a-c2324101917=""
+		      class="card-title"
+		    >
+		      Shipping Addresses
+		    </h2>
+		    <span
+		      _ngcontent-a-c2324101917=""
+		      class="badge"
+		    >
+		      2
+		    </span>
+		  </div>
+		  <div
+		    _ngcontent-a-c2324101917=""
+		    class="addresses-grid"
+		  >
+		    <div
+		      _ngcontent-a-c2324101917=""
+		      class="address-card"
+		    >
+		      <div
+		        _ngcontent-a-c2324101917=""
+		        class="address-row"
+		      >
+		        <span
+		          _ngcontent-a-c2324101917=""
+		          class="address-label"
+		        >
+		          Street
+		        </span>
+		        <span
+		          _ngcontent-a-c2324101917=""
+		          class="address-value"
+		        >
+		          456 Shipping Ave
+		        </span>
+		      </div>
+		      <div
+		        _ngcontent-a-c2324101917=""
+		        class="address-row"
+		      >
+		        <span
+		          _ngcontent-a-c2324101917=""
+		          class="address-label"
+		        >
+		          City
+		        </span>
+		        <span
+		          _ngcontent-a-c2324101917=""
+		          class="address-value"
+		        >
+		          Ship City
+		        </span>
+		      </div>
+		      <div
+		        _ngcontent-a-c2324101917=""
+		        class="address-row"
+		      >
+		        <span
+		          _ngcontent-a-c2324101917=""
+		          class="address-label"
+		        >
+		          Zip Code
+		        </span>
+		        <span
+		          _ngcontent-a-c2324101917=""
+		          class="address-value"
+		        >
+		          67890
+		        </span>
+		      </div>
+		      <div
+		        _ngcontent-a-c2324101917=""
+		        class="address-note"
+		      >
+		        <span
+		          _ngcontent-a-c2324101917=""
+		          class="note-label"
+		        >
+		          Note
+		        </span>
+		        <p
+		          _ngcontent-a-c2324101917=""
+		          class="note-text"
+		        >
+		          Leave at door
+		        </p>
+		      </div>
+		      <!--container-->
+		    </div>
+		    <div
+		      _ngcontent-a-c2324101917=""
+		      class="address-card"
+		    >
+		      <div
+		        _ngcontent-a-c2324101917=""
+		        class="address-row"
+		      >
+		        <span
+		          _ngcontent-a-c2324101917=""
+		          class="address-label"
+		        >
+		          Street
+		        </span>
+		        <span
+		          _ngcontent-a-c2324101917=""
+		          class="address-value"
+		        >
+		          789 Delivery Rd
+		        </span>
+		      </div>
+		      <div
+		        _ngcontent-a-c2324101917=""
+		        class="address-row"
+		      >
+		        <span
+		          _ngcontent-a-c2324101917=""
+		          class="address-label"
+		        >
+		          City
+		        </span>
+		        <span
+		          _ngcontent-a-c2324101917=""
+		          class="address-value"
+		        >
+		          Deliver Town
+		        </span>
+		      </div>
+		      <div
+		        _ngcontent-a-c2324101917=""
+		        class="address-row"
+		      >
+		        <span
+		          _ngcontent-a-c2324101917=""
+		          class="address-label"
+		        >
+		          Zip Code
+		        </span>
+		        <span
+		          _ngcontent-a-c2324101917=""
+		          class="address-value"
+		        >
+		          54321
+		        </span>
+		      </div>
+		      <!--container-->
+		    </div>
+		    <!--container-->
+		  </div>
+		</div>
+	`);
 });
 
 it('does not display address info when no addresses are present', async () => {
@@ -147,7 +335,7 @@ it('does not display address info when no addresses are present', async () => {
 
 	await mockRequest(customerWithNoAddresses);
 
-	expect(screen.queryByText(/John Doe/i)).toBeInTheDocument();
+	expect(screen.queryAllByText(/John Doe/i)).toHaveLength(2);
 
 	expect(screen.queryByText(/Shipping Addresses/i)).not.toBeInTheDocument();
 	expect(screen.queryByText(/Billing Addresses/i)).not.toBeInTheDocument();
@@ -167,11 +355,11 @@ it('displays error message when API request fails and can retry', async () => {
 
 	expect(screen.queryByText(/Something went wrong/i)).toBeInTheDocument();
 
-	await user.click(screen.getByRole('button', { name: /retry/i }));
+	await user.click(screen.getByRole('button', { name: /Try again/i }));
 
 	await mockRequest(customerDetails);
 
-	expect(screen.queryByText(/Customer Details/i)).toBeInTheDocument();
+	expect(screen.queryByText(/Personal information/i)).toBeInTheDocument();
 });
 
 async function setup() {

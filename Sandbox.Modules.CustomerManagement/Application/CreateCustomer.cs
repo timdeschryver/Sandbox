@@ -27,7 +27,7 @@ public static class CreateCustomer
         [NotNull][FromServices] IDbContextOutbox<CustomerDbContext> outbox,
         CancellationToken cancellationToken)
     {
-        await Task.Delay(RandomNumberGenerator.GetInt32(10, 2000), cancellationToken);
+        await Task.Delay(RandomNumberGenerator.GetInt32(0, 1000), cancellationToken);
 
         ArgumentNullException.ThrowIfNull(command);
 

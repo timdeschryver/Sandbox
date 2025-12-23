@@ -23,7 +23,7 @@
 		</div>
 
 		<div class="details-content">
-			<div class="info-card">
+			<div class="info-card" data-testid="personal-information">
 				<div class="card-header">
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
@@ -49,7 +49,7 @@
 			</div>
 
 			@if (customer.billingAddresses.length > 0) {
-				<div class="info-card">
+				<div class="info-card" data-testid="billing-addresses">
 					<div class="card-header">
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
@@ -92,7 +92,7 @@
 			}
 
 			@if (customer.shippingAddresses.length > 0) {
-				<div class="info-card">
+				<div class="info-card" data-testid="shipping-addresses">
 					<div class="card-header">
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
@@ -161,7 +161,7 @@
 				<p class="error-message">
 					{{ $any(customer.error())?.error?.title || 'An unexpected error occurred. Please try again.' }}
 				</p>
-				<button type="button" (click)="customer.reload()" class="retry-button">
+				<button type="button" class="retry-button" (click)="customer.reload()">
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
 						width="16"

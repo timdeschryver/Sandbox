@@ -15,7 +15,7 @@ it('renders anonymous header when user is not authenticated', async () => {
 it('renders authenticated header when user is authenticated', async () => {
 	await setup({ isAuthenticated: true, name: 'John Doe' });
 
-	expect(screen.getByText('👋 Hello, John Doe')).toBeInTheDocument();
+	expect(screen.getByText('👋 John Doe')).toBeInTheDocument();
 	expect(screen.getByText('Logout')).toBeInTheDocument();
 	expect(screen.getByText('Customers')).toBeInTheDocument();
 });
@@ -24,7 +24,7 @@ it('has working navigation links', async () => {
 	await setup({ isAuthenticated: true, name: 'John Doe' });
 
 	const customersLink = screen.getByRole('link', { name: 'Customers' });
-	const userLink = screen.getByRole('link', { name: 'Current User' });
+	const userLink = screen.getByRole('link', { name: 'Profile' });
 
 	expect(customersLink).toHaveAttribute('href', '/customers');
 	expect(userLink).toHaveAttribute('href', '/user');

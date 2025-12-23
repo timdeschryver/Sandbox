@@ -38,7 +38,7 @@ import { Authentication } from '@sandbox-app/authentication/authentication';
 		}
 
 		.user-card {
-			background-color: var(--color-white);
+			background-color: var(--color-background);
 			border: 1px solid var(--color-border);
 			border-radius: var(--radius-lg);
 			padding: var(--space-8);

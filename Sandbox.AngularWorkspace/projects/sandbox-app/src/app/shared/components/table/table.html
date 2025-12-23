@@ -13,7 +13,7 @@
 			<thead>
 				<tr>
 					<th class="refresh-column">
-						<button type="button" class="refresh-button" (click)="refresh()" title="Refresh data">
+						<button type="button" class="refresh-button" title="Refresh data" (click)="refresh()">
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
 								width="16"
@@ -105,7 +105,7 @@
 								<line x1="12" y1="16" x2="12.01" y2="16" />
 							</svg>
 							<p>{{ $any(resource().error()).error?.title ?? 'An unexpected error occurred.' }}</p>
-							<button type="button" (click)="refresh()" class="retry-button">Try Again</button>
+							<button type="button" class="retry-button" (click)="refresh()">Try Again</button>
 						</div>
 					</td>
 				</tr>

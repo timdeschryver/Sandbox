@@ -13,14 +13,14 @@ test.describe('Customer Management - Read Operations', () => {
 		await expect(page).toHaveTitle('Customers');
 
 		// Verify: "Customers" heading (h2) is displayed
-		await expect(page.getByRole('heading', { name: 'Customers', level: 2 })).toBeVisible();
+		await expect(page.getByRole('heading', { name: 'Customers', level: 1 })).toBeVisible();
 
 		// Verify: Customer table is visible with columns
 		const table = page.getByRole('table');
 		await expect(table).toBeVisible();
 
-		// Verify: Refresh icon column (🔃 button)
-		await expect(page.getByRole('button', { name: '🔃' })).toBeVisible();
+		// Verify: Refresh icon columm
+		await expect(page.getByRole('button', { name: 'Refresh data' })).toBeVisible();
 
 		// Verify: Name column
 		await expect(page.getByRole('columnheader', { name: 'Name' })).toBeVisible();
@@ -42,8 +42,8 @@ test.describe('Customer Management - Read Operations', () => {
 		// 2. Note the current list of customers
 		const rowsBefore = await page.getByRole('row').count();
 
-		// 3. Click the refresh button (🔃) in the table header
-		await page.getByRole('button', { name: '🔃' }).click();
+		// 3. Click the refresh button in the table header
+		await page.getByRole('button', { name: 'Refresh data' }).click();
 
 		// Verify: Table refreshes and reloads customer data
 		// Verify: All customers are still displayed
@@ -83,13 +83,13 @@ test.describe('Customer Management - Read Operations', () => {
 		await expect(page).toHaveTitle('Customers');
 
 		// Verify: "Customer Details" heading (h2) is displayed
-		await expect(page.getByRole('heading', { name: 'Customer Details', level: 2 })).toBeVisible();
+		await expect(page.getByRole('heading', { name: 'Personal Information', level: 2 })).toBeVisible();
 
 		// Verify: "Back to Overview" link is visible
 		await expect(page.getByRole('link', { name: 'Back to Overview' })).toBeVisible();
 
 		// Verify: "Personal Information" group displays Name
-		const personalInfoGroup = page.getByRole('group', { name: 'Personal Information' });
+		const personalInfoGroup = page.getByTestId('personal-information');
 		await expect(personalInfoGroup).toBeVisible();
 		await expect(personalInfoGroup.getByText(new RegExp(`Name.*${firstName} ${lastName}`, 'i'))).toBeVisible();
 
@@ -132,12 +132,12 @@ test.describe('Customer Management - Read Operations', () => {
 		await expect(page).toHaveURL(/\/customers\/[\w-]+/);
 
 		// Verify: "Personal Information" section displays customer name
-		const personalInfoGroup = page.getByRole('group', { name: 'Personal Information' });
+		const personalInfoGroup = page.getByTestId('personal-information');
 		await expect(personalInfoGroup).toBeVisible();
 		await expect(personalInfoGroup.getByText(new RegExp(`Name.*${firstName} ${lastName}`, 'i'))).toBeVisible();
 
 		// Verify: "Billing Addresses" group is visible and contains address data
-		const billingAddressGroup = page.getByRole('group', { name: 'Billing Addresses' });
+		const billingAddressGroup = page.getByTestId('billing-addresses');
 		await expect(billingAddressGroup).toBeVisible();
 		await expect(billingAddressGroup.getByText(/Street/i)).toBeVisible();
 		await expect(billingAddressGroup.getByText(/Billing City/i)).toBeVisible();
@@ -180,12 +180,12 @@ test.describe('Customer Management - Read Operations', () => {
 		await expect(page).toHaveURL(/\/customers\/[\w-]+/);
 
 		// Verify: "Personal Information" section displays customer name
-		const personalInfoGroup = page.getByRole('group', { name: 'Personal Information' });
+		const personalInfoGroup = page.getByTestId('personal-information');
 		await expect(personalInfoGroup).toBeVisible();
 		await expect(personalInfoGroup.getByText(new RegExp(`Name.*${firstName} ${lastName}`, 'i'))).toBeVisible();
 
 		// Verify: "Shipping Addresses" group is visible and contains address data
-		const shippingAddressGroup = page.getByRole('group', { name: 'Shipping Addresses' });
+		const shippingAddressGroup = page.getByTestId('shipping-addresses');
 		await expect(shippingAddressGroup).toBeVisible();
 		await expect(shippingAddressGroup.getByText(/Street/i)).toBeVisible();
 		await expect(shippingAddressGroup.getByText(/Shipping City/i)).toBeVisible();
@@ -244,19 +244,19 @@ test.describe('Customer Management - Read Operations', () => {
 		await expect(page).toHaveURL(/\/customers\/[\w-]+/);
 
 		// Verify: "Personal Information" section displays customer name
-		const personalInfoGroup = page.getByRole('group', { name: 'Personal Information' });
+		const personalInfoGroup = page.getByTestId('personal-information');
 		await expect(personalInfoGroup).toBeVisible();
 		await expect(personalInfoGroup.getByText(new RegExp(`Name.*${firstName} ${lastName}`, 'i'))).toBeVisible();
 
 		// Verify: "Billing Addresses" group displays billing address
-		const billingAddressGroup = page.getByRole('group', { name: 'Billing Addresses' });
+		const billingAddressGroup = page.getByTestId('billing-addresses');
 		await expect(billingAddressGroup).toBeVisible();
 		await expect(billingAddressGroup.getByText(/Street.*123 Billing St/i)).toBeVisible();
 		await expect(billingAddressGroup.getByText(/City.*Billing City/i)).toBeVisible();
 		await expect(billingAddressGroup.getByText(/Zip Code.*12345/i)).toBeVisible();
 
 		// Verify: "Shipping Addresses" group displays shipping address
-		const shippingAddressGroup = page.getByRole('group', { name: 'Shipping Addresses' });
+		const shippingAddressGroup = page.getByTestId('shipping-addresses');
 		await expect(shippingAddressGroup).toBeVisible();
 		await expect(shippingAddressGroup.getByText(/Street.*456 Shipping Ave/i)).toBeVisible();
 		await expect(shippingAddressGroup.getByText(/City.*Shipping Town/i)).toBeVisible();
@@ -287,7 +287,7 @@ test.describe('Customer Management - Read Operations', () => {
 		await expect(page.getByRole('table')).toBeVisible();
 
 		// Verify: User remains authenticated
-		await expect(page.getByRole('heading', { name: /Hello, testuser/i, level: 3 })).toBeVisible();
+		await expect(page.locator('div').filter({ hasText: /^👋 testuser$/ })).toBeVisible();
 	});
 
 	test('Direct URL Access to Customer Details', async ({ page }) => {
@@ -308,8 +308,7 @@ test.describe('Customer Management - Read Operations', () => {
 		await expect(page).toHaveURL(/\/customers\/[\w-]+/);
 
 		// Verify: Correct customer information is displayed
-		await expect(page.getByRole('heading', { name: 'Customer Details', level: 2 })).toBeVisible();
-		await expect(page.getByRole('group', { name: 'Personal Information' })).toBeVisible();
+		await expect(page.getByRole('heading', { name: 'Personal Information', level: 2 })).toBeVisible();
 
 		// Verify: "Back to Overview" link works correctly
 		const backLink = page.getByRole('link', { name: 'Back to Overview' });
@@ -333,6 +332,6 @@ test.describe('Customer Management - Read Operations', () => {
 		await expect(page).not.toHaveURL(/error/);
 
 		// Verify: User remains authenticated
-		await expect(page.getByRole('heading', { name: /Hello, testuser/i, level: 3 })).toBeVisible();
+		await expect(page.locator('div').filter({ hasText: /^👋 testuser$/ })).toBeVisible();
 	});
 });

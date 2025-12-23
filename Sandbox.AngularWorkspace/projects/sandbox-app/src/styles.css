@@ -48,6 +48,9 @@
 	--color-border-light: #f3f4f6;
 	--color-border-focus: #3b82f6;
 
+	/* Color Scheme */
+	color-scheme: light;
+
 	/* Spacing System */
 	--space-1: 0.25rem;
 	--space-2: 0.5rem;
@@ -101,6 +104,64 @@
 	/* Layout */
 	--container-max-width: 1280px;
 	--header-height: 4rem;
+}
+
+/* Dark Theme */
+[data-theme='dark'] {
+	/* Adjusted Primary Colors for Dark Mode */
+	--color-primary: #60a5fa;
+	--color-primary-light: #93c5fd;
+	--color-primary-dark: #3b82f6;
+	--color-primary-subtle: #1e3a8a;
+
+	--color-success: #34d399;
+	--color-success-light: #6ee7b7;
+	--color-success-subtle: #064e3b;
+
+	--color-error: #f87171;
+	--color-error-light: #fca5a5;
+	--color-error-subtle: #7f1d1d;
+
+	--color-warning: #fbbf24;
+	--color-warning-light: #fcd34d;
+	--color-warning-subtle: #78350f;
+
+	/* Neutral Colors Inverted */
+	--color-gray-50: #1f2937;
+	--color-gray-100: #374151;
+	--color-gray-200: #4b5563;
+	--color-gray-300: #6b7280;
+	--color-gray-400: #9ca3af;
+	--color-gray-500: #d1d5db;
+	--color-gray-600: #e5e7eb;
+	--color-gray-700: #f3f4f6;
+	--color-gray-800: #f9fafb;
+	--color-gray-900: #ffffff;
+
+	/* Background & Surface Colors */
+	--color-background: #0f172a;
+	--color-surface: #1e293b;
+	--color-surface-hover: #334155;
+
+	/* Text Colors */
+	--color-text-primary: #f1f5f9;
+	--color-text-secondary: #cbd5e1;
+	--color-text-tertiary: #94a3b8;
+	--color-text-on-primary: #0f172a;
+
+	/* Border & Divider */
+	--color-border: #334155;
+	--color-border-light: #1e293b;
+	--color-border-focus: #60a5fa;
+
+	/* Color Scheme */
+	color-scheme: dark;
+
+	/* Shadows adjusted for dark mode */
+	--shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.3);
+	--shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.4), 0 2px 4px -2px rgb(0 0 0 / 0.4);
+	--shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.4), 0 4px 6px -4px rgb(0 0 0 / 0.4);
+	--shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.4), 0 8px 10px -6px rgb(0 0 0 / 0.4);
 }
 
 /* Reset & Base Styles */
@@ -202,7 +263,7 @@ select {
 	font-family: inherit;
 	line-height: var(--line-height-normal);
 	color: var(--color-text-primary);
-	background-color: var(--color-white);
+	background-color: var(--color-surface);
 	border: 1px solid var(--color-border);
 	border-radius: var(--radius-md);
 	transition: all var(--transition-fast);
@@ -240,7 +301,7 @@ input[type='tel']:disabled,
 input[type='url']:disabled,
 textarea:disabled,
 select:disabled {
-	background-color: var(--color-gray-100);
+	background-color: var(--color-surface);
 	cursor: not-allowed;
 	opacity: 0.6;
 }
@@ -315,7 +376,7 @@ button:disabled,
 
 button[type='button'],
 button.secondary {
-	background-color: var(--color-white);
+	background-color: var(--color-surface);
 	color: var(--color-text-primary);
 	border-color: var(--color-border);
 }
@@ -324,6 +385,7 @@ button[type='button']:hover:not(:disabled),
 button.secondary:hover:not(:disabled) {
 	background-color: var(--color-surface-hover);
 	border-color: var(--color-gray-400);
+	color: var(--color-text-primary);
 }
 
 /* Fieldsets & Legends */
@@ -345,7 +407,7 @@ legend {
 table {
 	width: 100%;
 	border-collapse: collapse;
-	background-color: var(--color-white);
+	background-color: var(--color-background);
 	border-radius: var(--radius-lg);
 	overflow: hidden;
 	box-shadow: var(--shadow-sm);
@@ -372,6 +434,7 @@ td {
 }
 
 tbody tr {
+	background-color: var(--color-background);
 	transition: background-color var(--transition-fast);
 }
 
@@ -385,7 +448,7 @@ tbody tr:last-child td {
 
 /* Cards */
 .card {
-	background-color: var(--color-white);
+	background-color: var(--color-background);
 	border: 1px solid var(--color-border);
 	border-radius: var(--radius-lg);
 	padding: var(--space-6);
@@ -516,6 +579,7 @@ tbody tr:last-child td {
 	border-top-color: var(--color-primary);
 	border-radius: var(--radius-full);
 	animation: spin 0.6s linear infinite;
+	background-color: transparent;
 }
 
 @keyframes spin {

@@ -121,6 +121,7 @@ redis.WithRedisInsight(p => p.WithParentRelationship(redis))
 
 var migrations = builder.AddProject<Projects.Sandbox_Migrations>("migrations")
     .WithReference(database)
+    .WithReference(redis)
     .WaitFor(database)
     .WithParentRelationship(database);
 

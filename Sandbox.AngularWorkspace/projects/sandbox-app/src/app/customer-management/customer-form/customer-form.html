@@ -6,7 +6,7 @@
 			<div class="alert alert-error">{{ error.message }}</div>
 		}
 
-		@if (customerForm().touched() && customerForm().invalid()) {
+		@if (customerForm().touched() && customerForm().errorSummary().length > 0) {
 			<div class="validation-summary">
 				<h3 class="validation-title">Please fix the following errors:</h3>
 				<ul class="validation-list">
