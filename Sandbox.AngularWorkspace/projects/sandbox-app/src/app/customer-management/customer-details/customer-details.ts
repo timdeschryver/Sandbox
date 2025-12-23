@@ -3,10 +3,11 @@ import { RouterLink } from '@angular/router';
 import { Customers } from '@sandbox-app/customer-management/customer-management';
 import { stronglyTypedIdAttribute } from '@sandbox-app/shared/functions';
 import { CustomerId } from '@sandbox-app/customer-management/models';
+import { InfoCard } from '@sandbox-app/shared/components/info-card/info-cardt';
 
 @Component({
 	selector: 'sandbox-customer-details',
-	imports: [RouterLink],
+	imports: [RouterLink, InfoCard],
 	templateUrl: './customer-details.html',
 	styleUrl: './customer-details.css',
 	changeDetection: ChangeDetectionStrategy.OnPush,

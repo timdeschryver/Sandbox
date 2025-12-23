@@ -6,7 +6,9 @@
 
 	<ng-template let-customer [sandboxTableBody]="customers()">
 		<td class="customer-name">
-			<span class="name-text">{{ customer.firstName }} {{ customer.lastName }}</span>
+			<span class="name-text" [title]="`${customer.firstName} ${customer.lastName}`">
+				{{ customer.firstName }} {{ customer.lastName }}
+			</span>
 		</td>
 		<td class="actions-cell">
 			<a class="view-details-link" [routerLink]="[customer.id]">

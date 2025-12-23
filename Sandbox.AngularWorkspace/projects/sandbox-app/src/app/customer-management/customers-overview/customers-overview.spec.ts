@@ -4,6 +4,7 @@ import { render, screen } from '@testing-library/angular';
 import { type CustomerOverviewResponse } from '@sandbox-app/customer-management/models';
 import CustomersOverview from './customers-overview';
 import { TestBed } from '@angular/core/testing';
+import { stripUtilAttributes } from '@sandbox-app/test/test-utils';
 
 it('renders the component with customers table', async () => {
 	const mockCustomers: CustomerOverviewResponse[] = [
@@ -18,8 +19,10 @@ it('renders the component with customers table', async () => {
 	expect(screen.getByRole('row', { name: /John Doe/i })).toBeInTheDocument();
 	expect(screen.getByRole('row', { name: /Jane Smith/i })).toBeInTheDocument();
 
-	expect(container).toMatchSnapshot();
+	const cleanContainer = stripUtilAttributes(container);
+	expect(cleanContainer).toMatchSnapshot();
 });
+
 async function setup() {
 	const { fixture, container } = await render(CustomersOverview, {
 		removeAngularAttributes: true,

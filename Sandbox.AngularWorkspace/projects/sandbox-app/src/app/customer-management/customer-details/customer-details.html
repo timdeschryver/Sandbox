@@ -23,9 +23,33 @@
 		</div>
 
 		<div class="details-content">
-			<div class="info-card" data-testid="personal-information">
-				<div class="card-header">
+			<sandbox-info-card title="Personal Information" testId="personal-information">
+				<svg
+					icon
+					xmlns="http://www.w3.org/2000/svg"
+					width="20"
+					height="20"
+					viewBox="0 0 24 24"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="2"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					class="section-icon"
+				>
+					<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+					<circle cx="12" cy="7" r="4" />
+				</svg>
+				<div class="info-row">
+					<span class="info-label">Full Name</span>
+					<span class="info-value">{{ customer.firstName }} {{ customer.lastName }}</span>
+				</div>
+			</sandbox-info-card>
+
+			@if (customer.billingAddresses.length > 0) {
+				<sandbox-info-card title="Billing Addresses" testId="billing-addresses">
 					<svg
+						icon
 						xmlns="http://www.w3.org/2000/svg"
 						width="20"
 						height="20"
@@ -37,39 +61,10 @@
 						stroke-linejoin="round"
 						class="section-icon"
 					>
-						<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-						<circle cx="12" cy="7" r="4" />
+						<rect x="2" y="5" width="20" height="14" rx="2" />
+						<line x1="2" y1="10" x2="22" y2="10" />
 					</svg>
-					<h2 class="card-title">Personal Information</h2>
-				</div>
-				<div class="info-row">
-					<span class="info-label">Full Name</span>
-					<span class="info-value">{{ customer.firstName }} {{ customer.lastName }}</span>
-				</div>
-			</div>
-
-			@if (customer.billingAddresses.length > 0) {
-				<div class="info-card" data-testid="billing-addresses">
-					<div class="card-header">
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							width="20"
-							height="20"
-							viewBox="0 0 24 24"
-							fill="none"
-							stroke="currentColor"
-							stroke-width="2"
-							stroke-linecap="round"
-							stroke-linejoin="round"
-							class="section-icon"
-						>
-							<rect x="2" y="5" width="20" height="14" rx="2" />
-							<line x1="2" y1="10" x2="22" y2="10" />
-						</svg>
-						<h2 class="card-title">Billing Addresses</h2>
-						<span class="badge">{{ customer.billingAddresses.length }}</span>
-					</div>
-
+					<span badge class="badge">{{ customer.billingAddresses.length }}</span>
 					<div class="addresses-grid">
 						@for (billingAddress of customer.billingAddresses; track billingAddress.id) {
 							<div class="address-card">
@@ -88,30 +83,27 @@
 							</div>
 						}
 					</div>
-				</div>
+				</sandbox-info-card>
 			}
 
 			@if (customer.shippingAddresses.length > 0) {
-				<div class="info-card" data-testid="shipping-addresses">
-					<div class="card-header">
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							width="20"
-							height="20"
-							viewBox="0 0 24 24"
-							fill="none"
-							stroke="currentColor"
-							stroke-width="2"
-							stroke-linecap="round"
-							stroke-linejoin="round"
-							class="section-icon"
-						>
-							<path d="M16 3h5v5M4 20L21 3M21 16v5h-5M15 15l6 6M4 4l5 5" />
-						</svg>
-						<h2 class="card-title">Shipping Addresses</h2>
-						<span class="badge">{{ customer.shippingAddresses.length }}</span>
-					</div>
-
+				<sandbox-info-card title="Shipping Addresses" testId="shipping-addresses">
+					<svg
+						icon
+						xmlns="http://www.w3.org/2000/svg"
+						width="20"
+						height="20"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						class="section-icon"
+					>
+						<path d="M16 3h5v5M4 20L21 3M21 16v5h-5M15 15l6 6M4 4l5 5" />
+					</svg>
+					<span badge class="badge">{{ customer.shippingAddresses.length }}</span>
 					<div class="addresses-grid">
 						@for (shippingAddress of customer.shippingAddresses; track shippingAddress.id) {
 							<div class="address-card">
@@ -136,7 +128,7 @@
 							</div>
 						}
 					</div>
-				</div>
+				</sandbox-info-card>
 			}
 		</div>
 	} @else if (customer.error()) {

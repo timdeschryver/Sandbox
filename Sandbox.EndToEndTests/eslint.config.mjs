@@ -6,6 +6,9 @@ import playwright from 'eslint-plugin-playwright';
 import eslintConfigPrettier from 'eslint-config-prettier';
 
 export default tseslint.config(
+	{
+		ignores: ['playwright-report', 'test-results'],
+	},
 	eslint.configs.recommended,
 	tseslint.configs.recommended,
 	playwright.configs['flat/recommended'],

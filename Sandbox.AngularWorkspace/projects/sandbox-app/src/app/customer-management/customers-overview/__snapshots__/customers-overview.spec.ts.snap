@@ -1,68 +1,47 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`renders the component with customers table 1`] = `
-<div
-  _nghost-a-c4255509664=""
->
+<div>
   <div
-    _ngcontent-a-c4255509664=""
     class="customers-overview"
   >
     <div
-      _ngcontent-a-c4255509664=""
       class="page-header"
     >
       <h1
-        _ngcontent-a-c4255509664=""
         class="page-title"
       >
         Customers
       </h1>
     </div>
     <div
-      _ngcontent-a-c4255509664=""
       class="content-layout"
     >
       <div
-        _ngcontent-a-c4255509664=""
         class="customers-section"
       >
-        <sandbox-customers-list
-          _ngcontent-a-c4255509664=""
-          _nghost-a-c79407822=""
-        >
+        <sandbox-customers-list>
           <sandbox-table
-            _ngcontent-a-c79407822=""
-            _nghost-a-c2582154357=""
             class="customers-table"
           >
             <div
-              _ngcontent-a-c2582154357=""
               class="table-container"
             >
               <!--container-->
               <table
-                _ngcontent-a-c2582154357=""
                 class="data-table"
               >
-                <thead
-                  _ngcontent-a-c2582154357=""
-                >
-                  <tr
-                    _ngcontent-a-c2582154357=""
-                  >
+                <thead>
+                  <tr>
                     <th
-                      _ngcontent-a-c2582154357=""
                       class="refresh-column"
                     >
                       <button
-                        _ngcontent-a-c2582154357=""
                         class="refresh-button"
                         title="Refresh data"
                         type="button"
                       >
                         <svg
-                          _ngcontent-a-c2582154357=""
                           fill="none"
                           height="16"
                           stroke="currentColor"
@@ -74,62 +53,47 @@ exports[`renders the component with customers table 1`] = `
                           xmlns="http://www.w3.org/2000/svg"
                         >
                           <path
-                            _ngcontent-a-c2582154357=""
                             d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2"
                           />
                         </svg>
                       </button>
                     </th>
-                    <th
-                      _ngcontent-a-c79407822=""
-                    >
+                    <th>
                       Name
                     </th>
                     <th
-                      _ngcontent-a-c79407822=""
                       class="actions-column"
                     />
                     <!--container-->
                   </tr>
                 </thead>
                 <!--container-->
-                <tbody
-                  _ngcontent-a-c2582154357=""
-                >
-                  <tr
-                    _ngcontent-a-c2582154357=""
-                  >
+                <tbody>
+                  <tr>
                     <td
-                      _ngcontent-a-c2582154357=""
                       class="empty-cell"
                     />
                     <td
-                      _ngcontent-a-c79407822=""
                       class="customer-name"
                     >
                       <span
-                        _ngcontent-a-c79407822=""
                         class="name-text"
+                        title="John Doe"
                       >
-                        John Doe
+                         John Doe 
                       </span>
                     </td>
                     <td
-                      _ngcontent-a-c79407822=""
                       class="actions-cell"
                     >
                       <a
-                        _ngcontent-a-c79407822=""
                         class="view-details-link"
                         href="/a8574564-ef6f-42da-9393-67d7e466e8c8"
                       >
-                        <span
-                          _ngcontent-a-c79407822=""
-                        >
+                        <span>
                           View Details
                         </span>
                         <svg
-                          _ngcontent-a-c79407822=""
                           fill="none"
                           height="16"
                           stroke="currentColor"
@@ -141,7 +105,6 @@ exports[`renders the component with customers table 1`] = `
                           xmlns="http://www.w3.org/2000/svg"
                         >
                           <path
-                            _ngcontent-a-c79407822=""
                             d="M5 12h14M12 5l7 7-7 7"
                           />
                         </svg>
@@ -149,40 +112,31 @@ exports[`renders the component with customers table 1`] = `
                     </td>
                     <!--container-->
                   </tr>
-                  <tr
-                    _ngcontent-a-c2582154357=""
-                  >
+                  <tr>
                     <td
-                      _ngcontent-a-c2582154357=""
                       class="empty-cell"
                     />
                     <td
-                      _ngcontent-a-c79407822=""
                       class="customer-name"
                     >
                       <span
-                        _ngcontent-a-c79407822=""
                         class="name-text"
+                        title="Jane Smith"
                       >
-                        Jane Smith
+                         Jane Smith 
                       </span>
                     </td>
                     <td
-                      _ngcontent-a-c79407822=""
                       class="actions-cell"
                     >
                       <a
-                        _ngcontent-a-c79407822=""
                         class="view-details-link"
                         href="/d654bad5-19e1-4728-b019-37d30358524f"
                       >
-                        <span
-                          _ngcontent-a-c79407822=""
-                        >
+                        <span>
                           View Details
                         </span>
                         <svg
-                          _ngcontent-a-c79407822=""
                           fill="none"
                           height="16"
                           stroke="currentColor"
@@ -194,7 +148,6 @@ exports[`renders the component with customers table 1`] = `
                           xmlns="http://www.w3.org/2000/svg"
                         >
                           <path
-                            _ngcontent-a-c79407822=""
                             d="M5 12h14M12 5l7 7-7 7"
                           />
                         </svg>
@@ -215,24 +168,17 @@ exports[`renders the component with customers table 1`] = `
         </sandbox-customers-list>
       </div>
       <div
-        _ngcontent-a-c4255509664=""
         class="form-section"
       >
-        <sandbox-customer-form
-          _ngcontent-a-c4255509664=""
-          _nghost-a-c4170786670=""
-        >
+        <sandbox-customer-form>
           <form
-            _ngcontent-a-c4170786670=""
             class="customer-form"
             novalidate=""
           >
             <div
-              _ngcontent-a-c4170786670=""
               class="form-card"
             >
               <h2
-                _ngcontent-a-c4170786670=""
                 class="form-title"
               >
                 Create Customer
@@ -240,30 +186,23 @@ exports[`renders the component with customers table 1`] = `
               <!--container-->
               <!--container-->
               <fieldset
-                _ngcontent-a-c4170786670=""
                 class="form-fieldset"
               >
-                <legend
-                  _ngcontent-a-c4170786670=""
-                >
+                <legend>
                   Customer Information
                 </legend>
                 <div
-                  _ngcontent-a-c4170786670=""
                   class="form-row"
                 >
                   <div
-                    _ngcontent-a-c4170786670=""
                     class="form-group"
                   >
                     <label
-                      _ngcontent-a-c4170786670=""
                       for="a.form0.firstName"
                     >
                       First Name
                     </label>
                     <input
-                      _ngcontent-a-c4170786670=""
                       aria-describedby="error-a.form0.firstName"
                       aria-invalid="true"
                       id="a.form0.firstName"
@@ -272,11 +211,8 @@ exports[`renders the component with customers table 1`] = `
                       required=""
                       type="text"
                     />
-                    <form-validation-field-errors
-                      _nghost-a-c71381843=""
-                    >
+                    <form-validation-field-errors>
                       <div
-                        _ngcontent-a-c71381843=""
                         hidden=""
                         id="error-a.form0.firstName"
                       >
@@ -287,17 +223,14 @@ exports[`renders the component with customers table 1`] = `
                     <!--container-->
                   </div>
                   <div
-                    _ngcontent-a-c4170786670=""
                     class="form-group"
                   >
                     <label
-                      _ngcontent-a-c4170786670=""
                       for="a.form0.lastName"
                     >
                       Last Name
                     </label>
                     <input
-                      _ngcontent-a-c4170786670=""
                       aria-describedby="error-a.form0.lastName"
                       aria-invalid="true"
                       id="a.form0.lastName"
@@ -306,11 +239,8 @@ exports[`renders the component with customers table 1`] = `
                       required=""
                       type="text"
                     />
-                    <form-validation-field-errors
-                      _nghost-a-c71381843=""
-                    >
+                    <form-validation-field-errors>
                       <div
-                        _ngcontent-a-c71381843=""
                         hidden=""
                         id="error-a.form0.lastName"
                       >
@@ -323,20 +253,15 @@ exports[`renders the component with customers table 1`] = `
                 </div>
               </fieldset>
               <div
-                _ngcontent-a-c4170786670=""
                 class="checkbox-group"
               >
                 <input
-                  _ngcontent-a-c4170786670=""
                   id="hasBillingAddress"
                   name="a.form0.hasBillingAddress"
                   type="checkbox"
                 />
-                <form-validation-field-errors
-                  _nghost-a-c71381843=""
-                >
+                <form-validation-field-errors>
                   <div
-                    _ngcontent-a-c71381843=""
                     hidden=""
                     id="error-a.form0.hasBillingAddress"
                   >
@@ -345,7 +270,6 @@ exports[`renders the component with customers table 1`] = `
                 </form-validation-field-errors>
                 <!--container-->
                 <label
-                  _ngcontent-a-c4170786670=""
                   class="checkbox-label"
                   for="hasBillingAddress"
                 >
@@ -354,20 +278,15 @@ exports[`renders the component with customers table 1`] = `
               </div>
               <!--container-->
               <div
-                _ngcontent-a-c4170786670=""
                 class="checkbox-group"
               >
                 <input
-                  _ngcontent-a-c4170786670=""
                   id="hasShippingAddress"
                   name="a.form0.hasShippingAddress"
                   type="checkbox"
                 />
-                <form-validation-field-errors
-                  _nghost-a-c71381843=""
-                >
+                <form-validation-field-errors>
                   <div
-                    _ngcontent-a-c71381843=""
                     hidden=""
                     id="error-a.form0.hasShippingAddress"
                   >
@@ -376,7 +295,6 @@ exports[`renders the component with customers table 1`] = `
                 </form-validation-field-errors>
                 <!--container-->
                 <label
-                  _ngcontent-a-c4170786670=""
                   class="checkbox-label"
                   for="hasShippingAddress"
                 >
@@ -385,17 +303,14 @@ exports[`renders the component with customers table 1`] = `
               </div>
               <!--container-->
               <div
-                _ngcontent-a-c4170786670=""
                 class="form-actions"
               >
                 <button
-                  _ngcontent-a-c4170786670=""
                   class="submit-button"
                   type="submit"
                 >
                   <!--container-->
                   <svg
-                    _ngcontent-a-c4170786670=""
                     fill="none"
                     height="18"
                     stroke="currentColor"
@@ -407,33 +322,27 @@ exports[`renders the component with customers table 1`] = `
                     xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
-                      _ngcontent-a-c4170786670=""
                       d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"
                     />
                     <circle
-                      _ngcontent-a-c4170786670=""
                       cx="9"
                       cy="7"
                       r="4"
                     />
                     <line
-                      _ngcontent-a-c4170786670=""
                       x1="19"
                       x2="19"
                       y1="8"
                       y2="14"
                     />
                     <line
-                      _ngcontent-a-c4170786670=""
                       x1="22"
                       x2="16"
                       y1="11"
                       y2="11"
                     />
                   </svg>
-                  <span
-                    _ngcontent-a-c4170786670=""
-                  >
+                  <span>
                     Create Customer
                   </span>
                   <!--container-->

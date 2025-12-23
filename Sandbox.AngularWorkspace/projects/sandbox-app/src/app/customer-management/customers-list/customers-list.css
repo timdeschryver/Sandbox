@@ -5,10 +5,17 @@
 .customer-name {
 	font-weight: 500;
 	color: var(--color-text-primary);
+	max-width: 300px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 }
 
 .name-text {
 	display: inline-block;
+	max-width: 100%;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
 .actions-column {

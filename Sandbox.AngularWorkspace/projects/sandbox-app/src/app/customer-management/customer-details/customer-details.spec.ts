@@ -7,6 +7,7 @@ import { type CustomerDetailsResponse } from '@sandbox-app/customer-management/m
 import CustomerDetails from './customer-details';
 import { generateUuid } from '@sandbox-app/shared/functions';
 import { inputBinding, signal } from '@angular/core';
+import { stripUtilAttributes } from '@sandbox-app/test/test-utils';
 
 it('renders customer details when data is loaded', async () => {
 	const { mockRequest } = await setup();
@@ -24,21 +25,16 @@ it('renders customer details when data is loaded', async () => {
 
 	const billingAddresses = screen.queryByTestId('billing-addresses');
 	expect(billingAddresses).toBeInTheDocument();
-	expect(billingAddresses).toMatchInlineSnapshot(`
-		<div
-		  _ngcontent-a-c2324101917=""
-		  class="info-card"
-		  data-testid="billing-addresses"
-		>
+	expect(stripUtilAttributes(billingAddresses)).toMatchInlineSnapshot(`
+		<div>
 		  <div
-		    _ngcontent-a-c2324101917=""
 		    class="card-header"
 		  >
 		    <svg
-		      _ngcontent-a-c2324101917=""
 		      class="section-icon"
 		      fill="none"
 		      height="20"
+		      icon=""
 		      stroke="currentColor"
 		      stroke-linecap="round"
 		      stroke-linejoin="round"
@@ -48,7 +44,6 @@ it('renders customer details when data is loaded', async () => {
 		      xmlns="http://www.w3.org/2000/svg"
 		    >
 		      <rect
-		        _ngcontent-a-c2324101917=""
 		        height="14"
 		        rx="2"
 		        width="20"
@@ -56,7 +51,6 @@ it('renders customer details when data is loaded', async () => {
 		        y="5"
 		      />
 		      <line
-		        _ngcontent-a-c2324101917=""
 		        x1="2"
 		        x2="22"
 		        y1="10"
@@ -64,72 +58,60 @@ it('renders customer details when data is loaded', async () => {
 		      />
 		    </svg>
 		    <h2
-		      _ngcontent-a-c2324101917=""
 		      class="card-title"
 		    >
 		      Billing Addresses
 		    </h2>
 		    <span
-		      _ngcontent-a-c2324101917=""
+		      badge=""
 		      class="badge"
 		    >
 		      1
 		    </span>
 		  </div>
 		  <div
-		    _ngcontent-a-c2324101917=""
 		    class="addresses-grid"
 		  >
 		    <div
-		      _ngcontent-a-c2324101917=""
 		      class="address-card"
 		    >
 		      <div
-		        _ngcontent-a-c2324101917=""
 		        class="address-row"
 		      >
 		        <span
-		          _ngcontent-a-c2324101917=""
 		          class="address-label"
 		        >
 		          Street
 		        </span>
 		        <span
-		          _ngcontent-a-c2324101917=""
 		          class="address-value"
 		        >
 		          123 Billing St
 		        </span>
 		      </div>
 		      <div
-		        _ngcontent-a-c2324101917=""
 		        class="address-row"
 		      >
 		        <span
-		          _ngcontent-a-c2324101917=""
 		          class="address-label"
 		        >
 		          City
 		        </span>
 		        <span
-		          _ngcontent-a-c2324101917=""
 		          class="address-value"
 		        >
 		          Bill City
 		        </span>
 		      </div>
 		      <div
-		        _ngcontent-a-c2324101917=""
 		        class="address-row"
 		      >
 		        <span
-		          _ngcontent-a-c2324101917=""
 		          class="address-label"
 		        >
 		          Zip Code
 		        </span>
 		        <span
-		          _ngcontent-a-c2324101917=""
 		          class="address-value"
 		        >
 		          12345
@@ -142,21 +124,16 @@ it('renders customer details when data is loaded', async () => {
 	`);
 
 	const shippingAddresses = screen.queryByTestId('shipping-addresses');
-	expect(shippingAddresses).toMatchInlineSnapshot(`
-		<div
-		  _ngcontent-a-c2324101917=""
-		  class="info-card"
-		  data-testid="shipping-addresses"
-		>
+	expect(stripUtilAttributes(shippingAddresses)).toMatchInlineSnapshot(`
+		<div>
 		  <div
-		    _ngcontent-a-c2324101917=""
 		    class="card-header"
 		  >
 		    <svg
-		      _ngcontent-a-c2324101917=""
 		      class="section-icon"
 		      fill="none"
 		      height="20"
+		      icon=""
 		      stroke="currentColor"
 		      stroke-linecap="round"
 		      stroke-linejoin="round"
@@ -166,94 +143,78 @@ it('renders customer details when data is loaded', async () => {
 		      xmlns="http://www.w3.org/2000/svg"
 		    >
 		      <path
-		        _ngcontent-a-c2324101917=""
 		        d="M16 3h5v5M4 20L21 3M21 16v5h-5M15 15l6 6M4 4l5 5"
 		      />
 		    </svg>
 		    <h2
-		      _ngcontent-a-c2324101917=""
 		      class="card-title"
 		    >
 		      Shipping Addresses
 		    </h2>
 		    <span
-		      _ngcontent-a-c2324101917=""
+		      badge=""
 		      class="badge"
 		    >
 		      2
 		    </span>
 		  </div>
 		  <div
-		    _ngcontent-a-c2324101917=""
 		    class="addresses-grid"
 		  >
 		    <div
-		      _ngcontent-a-c2324101917=""
 		      class="address-card"
 		    >
 		      <div
-		        _ngcontent-a-c2324101917=""
 		        class="address-row"
 		      >
 		        <span
-		          _ngcontent-a-c2324101917=""
 		          class="address-label"
 		        >
 		          Street
 		        </span>
 		        <span
-		          _ngcontent-a-c2324101917=""
 		          class="address-value"
 		        >
 		          456 Shipping Ave
 		        </span>
 		      </div>
 		      <div
-		        _ngcontent-a-c2324101917=""
 		        class="address-row"
 		      >
 		        <span
-		          _ngcontent-a-c2324101917=""
 		          class="address-label"
 		        >
 		          City
 		        </span>
 		        <span
-		          _ngcontent-a-c2324101917=""
 		          class="address-value"
 		        >
 		          Ship City
 		        </span>
 		      </div>
 		      <div
-		        _ngcontent-a-c2324101917=""
 		        class="address-row"
 		      >
 		        <span
-		          _ngcontent-a-c2324101917=""
 		          class="address-label"
 		        >
 		          Zip Code
 		        </span>
 		        <span
-		          _ngcontent-a-c2324101917=""
 		          class="address-value"
 		        >
 		          67890
 		        </span>
 		      </div>
 		      <div
-		        _ngcontent-a-c2324101917=""
 		        class="address-note"
 		      >
 		        <span
-		          _ngcontent-a-c2324101917=""
 		          class="note-label"
 		        >
 		          Note
 		        </span>
 		        <p
-		          _ngcontent-a-c2324101917=""
 		          class="note-text"
 		        >
 		          Leave at door
@@ -262,55 +223,45 @@ it('renders customer details when data is loaded', async () => {
 		      <!--container-->
 		    </div>
 		    <div
-		      _ngcontent-a-c2324101917=""
 		      class="address-card"
 		    >
 		      <div
-		        _ngcontent-a-c2324101917=""
 		        class="address-row"
 		      >
 		        <span
-		          _ngcontent-a-c2324101917=""
 		          class="address-label"
 		        >
 		          Street
 		        </span>
 		        <span
-		          _ngcontent-a-c2324101917=""
 		          class="address-value"
 		        >
 		          789 Delivery Rd
 		        </span>
 		      </div>
 		      <div
-		        _ngcontent-a-c2324101917=""
 		        class="address-row"
 		      >
 		        <span
-		          _ngcontent-a-c2324101917=""
 		          class="address-label"
 		        >
 		          City
 		        </span>
 		        <span
-		          _ngcontent-a-c2324101917=""
 		          class="address-value"
 		        >
 		          Deliver Town
 		        </span>
 		      </div>
 		      <div
-		        _ngcontent-a-c2324101917=""
 		        class="address-row"
 		      >
 		        <span
-		          _ngcontent-a-c2324101917=""
 		          class="address-label"
 		        >
 		          Zip Code
 		        </span>
 		        <span
-		          _ngcontent-a-c2324101917=""
 		          class="address-value"
 		        >
 		          54321

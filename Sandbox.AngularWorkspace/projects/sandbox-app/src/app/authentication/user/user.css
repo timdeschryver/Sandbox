@@ -1,0 +1,23 @@
+.user-page {
+	width: 100%;
+	max-width: 800px;
+	margin: 0 auto;
+}
+
+.user-details {
+	background-color: var(--color-surface);
+	border: 1px solid var(--color-border-light);
+	border-radius: var(--radius-md);
+	padding: var(--space-6);
+	overflow: auto;
+}
+
+.json-display {
+	font-family: var(--font-mono);
+	font-size: var(--font-size-sm);
+	color: var(--color-text-primary);
+	line-height: var(--line-height-relaxed);
+	margin: 0;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+}
