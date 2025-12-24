@@ -118,6 +118,9 @@ jobs:
         env:
           SOPS_AGE_KEY: ${{ secrets.SOPS_AGE_KEY }}
 
+      - name: Trust .NET dev certificates
+        run: dotnet dev-certs https --trust
+
       - name: E2E test frontend projects
         run: pnpm --filter="sandbox.e2e" test
         env:
