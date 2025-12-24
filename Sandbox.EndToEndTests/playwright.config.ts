@@ -54,14 +54,12 @@ export default defineConfig({
 	],
 
 	/* Run your local dev server before starting the tests */
-	webServer: process.env.CI
-		? undefined
-		: {
-				cwd: '..',
-				command: 'dotnet run --project ./Sandbox.AppHost',
-				url: config.applicationUrl,
-				reuseExistingServer: true,
-				timeout: 60000 * 5,
-				ignoreHTTPSErrors: true,
-			},
+	webServer: {
+		cwd: '..',
+		command: 'dotnet run --project ./Sandbox.AppHost',
+		url: config.applicationUrl,
+		reuseExistingServer: !process.env.CI,
+		timeout: 60000 * 5,
+		ignoreHTTPSErrors: true,
+	},
 });
