@@ -1,0 +1,112 @@
+.table-container {
+	position: relative;
+	background-color: var(--color-background);
+	border: 1px solid var(--color-border);
+	border-radius: var(--radius-lg);
+	overflow: hidden;
+	box-shadow: var(--shadow-sm);
+}
+
+.table-loading-overlay {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	backdrop-filter: blur(2px);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	z-index: 10;
+}
+
+[data-theme='dark'] .table-loading-overlay {
+	background-color: rgba(15, 23, 42, 0.9);
+}
+
+.loading-content {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: var(--space-3);
+	background-color: transparent;
+}
+
+.loading-text {
+	font-size: var(--font-size-sm);
+	color: var(--color-text-secondary);
+	font-weight: 500;
+}
+
+.data-table {
+	box-shadow: none;
+}
+
+.refresh-column {
+	width: 3rem;
+	padding: var(--space-4) var(--space-4);
+}
+
+.refresh-button {
+	padding: var(--space-2);
+	background-color: transparent;
+	color: var(--color-text-secondary);
+	border: 1px solid var(--color-border);
+	border-radius: var(--radius-md);
+	cursor: pointer;
+	transition: all var(--transition-fast);
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.refresh-button:hover {
+	background-color: var(--color-surface-hover);
+	color: var(--color-primary);
+	border-color: var(--color-primary);
+	transform: rotate(180deg);
+}
+
+.refresh-button:active {
+	transform: rotate(180deg) translateY(1px);
+}
+
+.empty-cell {
+	width: 3rem;
+	padding: var(--space-4) var(--space-4);
+}
+
+.empty-state,
+.loading-state,
+.error-state {
+	padding: var(--space-16) var(--space-6);
+	text-align: center;
+	background-color: var(--color-background);
+}
+
+.empty-state-content,
+.loading-state-content,
+.error-state-content {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: var(--space-4);
+	background-color: transparent;
+}
+
+.empty-state-content svg,
+.error-state-content svg {
+	color: var(--color-gray-300);
+}
+
+.empty-state-content p,
+.error-state-content p {
+	margin: 0;
+	color: var(--color-text-secondary);
+	font-size: var(--font-size-base);
+}
+
+.loading-state-content span {
+	color: var(--color-text-secondary);
+	font-size: var(--font-size-sm);
+}

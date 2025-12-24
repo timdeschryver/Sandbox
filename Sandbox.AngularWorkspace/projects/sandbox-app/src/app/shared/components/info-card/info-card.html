@@ -1,0 +1,8 @@
+<div class="info-card" [attr.data-testid]="testId()">
+	<div class="card-header mb-4">
+		<ng-content select="[icon]" />
+		<h2 class="card-title">{{ title() }}</h2>
+		<ng-content select="[badge]" />
+	</div>
+	<ng-content />
+</div>

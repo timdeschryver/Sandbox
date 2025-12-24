@@ -29,7 +29,7 @@ public static class GetCustomers
         var result = await cache.GetOrCreateCustomersAsync(
             async ct =>
             {
-                await Task.Delay(RandomNumberGenerator.GetInt32(0, 250), ct);
+                await Task.Delay(RandomNumberGenerator.GetInt32(0, 1000), ct);
                 return await customers
                     .Select(c => new Response(c.Id, c.Name.FirstName, c.Name.LastName))
                     .ToListAsync(ct);

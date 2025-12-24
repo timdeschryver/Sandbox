@@ -1,0 +1,54 @@
+.customers-table {
+	width: 100%;
+}
+
+.customer-name {
+	font-weight: 500;
+	color: var(--color-text-primary);
+	max-width: 300px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.name-text {
+	display: inline-block;
+	max-width: 100%;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.actions-column {
+	width: 12rem;
+	text-align: right;
+}
+
+.actions-cell {
+	text-align: right;
+}
+
+.view-details-link {
+	display: inline-flex;
+	align-items: center;
+	gap: var(--space-2);
+	padding: var(--space-2) var(--space-4);
+	font-size: var(--font-size-sm);
+	font-weight: 500;
+	color: var(--color-primary);
+	background-color: var(--color-primary-subtle);
+	border-radius: var(--radius-md);
+	transition: all var(--transition-fast);
+}
+
+.view-details-link:hover {
+	background-color: var(--color-primary);
+	color: var(--color-white);
+}
+
+.view-details-link svg {
+	transition: transform var(--transition-fast);
+}
+
+.view-details-link:hover svg {
+	transform: translateX(2px);
+}

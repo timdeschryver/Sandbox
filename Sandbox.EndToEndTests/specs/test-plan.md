@@ -562,7 +562,7 @@ The Sandbox application is a customer management system built with Angular 20 an
 - Page title is "Customers"
 - "Customers" heading (h2) is displayed
 - Customer table is visible with columns:
-  - Refresh icon column (🔃 button)
+  - Refresh icon column (Refresh data button)
   - Name column
   - Actions column (View Details link)
 - All existing customers are listed in the table
@@ -587,7 +587,7 @@ The Sandbox application is a customer management system built with Angular 20 an
 
 1. Navigate to http://localhost:5165/customers
 2. Note the current list of customers
-3. Click the refresh button (🔃) in the table header
+3. Click the refresh button (Refresh data) in the table header
 
 **Expected Results:**
 

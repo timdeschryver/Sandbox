@@ -1,0 +1,33 @@
+.info-card {
+	background-color: var(--color-background);
+	border: 1px solid var(--color-border);
+	border-radius: var(--radius-lg);
+	padding: var(--space-6);
+	box-shadow: var(--shadow-sm);
+	transition: box-shadow var(--transition-base);
+}
+
+.info-card:hover {
+	box-shadow: var(--shadow-md);
+}
+
+.card-header {
+	display: flex;
+	align-items: center;
+	gap: var(--space-3);
+	/* Use .mb-4 utility class instead */
+	padding-bottom: var(--space-4);
+	border-bottom: 1px solid var(--color-border-light);
+}
+
+.section-icon {
+	color: var(--color-primary);
+}
+
+.card-title {
+	font-size: var(--font-size-xl);
+	font-weight: 600;
+	color: var(--color-text-primary);
+	margin: 0;
+	flex: 1;
+}

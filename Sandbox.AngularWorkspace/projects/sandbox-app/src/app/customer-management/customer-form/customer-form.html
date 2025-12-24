@@ -1,66 +1,91 @@
-<form novalidate (submit.preventDefault)="onSubmit()">
-	<h2>Create Customer</h2>
+<form novalidate class="customer-form" (submit.preventDefault)="onSubmit()">
+	<div class="form-card">
+		<h2 class="form-title">Create Customer</h2>
 
-	@for (error of customerForm().errors(); track $index) {
-		<div>{{ error.message }}</div>
-	}
-
-	@if (customerForm().touched() && customerForm().invalid()) {
-		<h3>Validation summary:</h3>
-		<ul>
-			@for (error of customerForm().errorSummary(); track $index) {
-				<li>{{ error | validationMessage: true }}</li>
-			}
-		</ul>
-	}
-
-	<fieldset>
-		<legend>Customer Information</legend>
-		<div>
-			<label [for]="customerForm.firstName().name()">First Name</label>
-			<input type="text" [id]="customerForm.firstName().name()" [field]="customerForm.firstName" />
-		</div>
-
-		<div>
-			<label [for]="customerForm.lastName().name()">Last Name</label>
-			<input type="text" [id]="customerForm.lastName().name()" [field]="customerForm.lastName" />
-		</div>
-	</fieldset>
-
-	<div>
-		<input type="checkbox" id="hasBillingAddress" [field]="customerForm.hasBillingAddress" />
-		<label for="hasBillingAddress">Add Billing Address</label>
-	</div>
-
-	@if (!customerForm.billingAddress().hidden()) {
-		<fieldset>
-			<legend>Billing Address</legend>
-			<sandbox-customer-address [address]="customerForm.billingAddress" />
-		</fieldset>
-	}
-
-	<div>
-		<input type="checkbox" id="hasShippingAddress" [field]="customerForm.hasShippingAddress" />
-		<label for="hasShippingAddress">Add Shipping Address</label>
-	</div>
-
-	@if (!customerForm.shippingAddress().hidden()) {
-		<fieldset>
-			<legend>Shipping Address</legend>
-			<sandbox-customer-address [address]="customerForm.shippingAddress">
-				<div>
-					<label for="note">Note</label>
-					<textarea id="note" [field]="customerForm.shippingAddress.note"></textarea>
-				</div>
-			</sandbox-customer-address>
-		</fieldset>
-	}
-
-	<button type="submit" [disabled]="customerForm().submitting()">
-		@if (customerForm().submitting()) {
-			Creating Customer
-		} @else {
-			Create Customer
+		@for (error of customerForm().errors(); track $index) {
+			<sandbox-alert type="error">{{ error.message }}</sandbox-alert>
 		}
-	</button>
+
+		@if (customerForm().touched() && customerForm().errorSummary().length > 0) {
+			<div class="validation-summary mb-6">
+				<h3 class="validation-title">Please fix the following errors:</h3>
+				<ul class="validation-list">
+					@for (error of customerForm().errorSummary(); track $index) {
+						<li class="validation-item">{{ error | validationMessage: true }}</li>
+					}
+				</ul>
+			</div>
+		}
+
+		<fieldset class="form-fieldset mb-6">
+			<legend>Customer Information</legend>
+			<div class="form-row">
+				<div class="form-group">
+					<label [for]="customerForm.firstName().name()">First Name</label>
+					<input type="text" [id]="customerForm.firstName().name()" [field]="customerForm.firstName" />
+				</div>
+
+				<div class="form-group">
+					<label [for]="customerForm.lastName().name()">Last Name</label>
+					<input type="text" [id]="customerForm.lastName().name()" [field]="customerForm.lastName" />
+				</div>
+			</div>
+		</fieldset>
+
+		<div class="checkbox-group">
+			<input type="checkbox" id="hasBillingAddress" [field]="customerForm.hasBillingAddress" />
+			<label for="hasBillingAddress" class="checkbox-label">Add Billing Address</label>
+		</div>
+
+		@if (!customerForm.billingAddress().hidden()) {
+			<fieldset class="form-fieldset address-fieldset">
+				<legend>Billing Address</legend>
+				<sandbox-customer-address [address]="customerForm.billingAddress" />
+			</fieldset>
+		}
+
+		<div class="checkbox-group">
+			<input type="checkbox" id="hasShippingAddress" [field]="customerForm.hasShippingAddress" />
+			<label for="hasShippingAddress" class="checkbox-label">Add Shipping Address</label>
+		</div>
+
+		@if (!customerForm.shippingAddress().hidden()) {
+			<fieldset class="form-fieldset address-fieldset mb-6">
+				<legend>Shipping Address</legend>
+				<sandbox-customer-address [address]="customerForm.shippingAddress">
+					<div class="form-group">
+						<label for="note">Note</label>
+						<textarea id="note" [field]="customerForm.shippingAddress.note"></textarea>
+					</div>
+				</sandbox-customer-address>
+			</fieldset>
+		}
+
+		<div class="form-actions">
+			<button type="submit" class="button" [disabled]="customerForm().submitting()">
+				@if (customerForm().submitting()) {
+					<div class="loading"></div>
+					<span>Creating Customer...</span>
+				} @else {
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						width="18"
+						height="18"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+					>
+						<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+						<circle cx="9" cy="7" r="4" />
+						<line x1="19" y1="8" x2="19" y2="14" />
+						<line x1="22" y1="11" x2="16" y2="11" />
+					</svg>
+					<span>Create Customer</span>
+				}
+			</button>
+		</div>
+	</div>
 </form>

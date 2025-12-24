@@ -37,11 +37,9 @@ public class CustomerManagementModule : IModule
         builder.Services.AddTransient(sp => sp.GetRequiredService<CustomerDbContext>().Set<Customer>().AsNoTracking());
 
         builder.Services.AddFusionCache("Customers")
+            .TryWithAutoSetup()
             .WithCacheKeyPrefixByCacheName()
-            .WithRegisteredSerializer()
-            .WithRegisteredDistributedCache()
-            .WithRegisteredBackplane()
-            .AsKeyedHybridCache("Customers");
+            .AsKeyedHybridCacheByCacheName();
 
         return builder;
     }

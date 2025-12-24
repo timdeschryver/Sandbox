@@ -1,81 +1,20 @@
-<svg width="1280" height="640" viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
-    <defs>
-        <linearGradient id="boxGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" style="stop-color:#6B46C1;stop-opacity:1" />
-            <stop offset="100%" style="stop-color:#00D9FF;stop-opacity:1" />
-        </linearGradient>
-        <linearGradient id="particleGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" style="stop-color:#00D9FF;stop-opacity:0.8" />
-            <stop offset="100%" style="stop-color:#6B46C1;stop-opacity:0.4" />
-        </linearGradient>
-    </defs>
-
-    <g transform="translate(100, 0)">
-        <!-- Main sandbox box (3D cube effect) -->
-        <g id="sandbox-box">
-            <!-- Back face -->
-            <path d="M 60 80 L 100 60 L 140 80 L 100 100 Z" fill="url(#boxGradient)" opacity="0.6" />
-
-            <!-- Left face -->
-            <path d="M 60 80 L 60 140 L 100 160 L 100 100 Z" fill="url(#boxGradient)" opacity="0.8" />
-
-            <!-- Right face -->
-            <path d="M 100 100 L 100 160 L 140 140 L 140 80 Z" fill="url(#boxGradient)" opacity="1" />
-
-            <!-- Top opening -->
-            <path d="M 60 80 L 100 60 L 140 80 L 100 100 Z" fill="none" stroke="url(#boxGradient)"
-                stroke-width="2" />
-        </g>
-
-        <!-- Particles/sand flowing out (representing modularity and experimentation) -->
-        <g id="particles">
-            <!-- Large particles -->
-            <circle cx="75" cy="50" r="4" fill="url(#particleGradient)">
-                <animate attributeName="cy" values="50;45;50" dur="2s" repeatCount="indefinite" />
-                <animate attributeName="opacity" values="0.8;1;0.8" dur="2s"
-                    repeatCount="indefinite" />
-            </circle>
-            <circle cx="100" cy="40" r="5" fill="url(#particleGradient)">
-                <animate attributeName="cy" values="40;33;40" dur="2.5s" repeatCount="indefinite" />
-                <animate attributeName="opacity" values="1;0.7;1" dur="2.5s"
-                    repeatCount="indefinite" />
-            </circle>
-            <circle cx="125" cy="52" r="3.5" fill="url(#particleGradient)">
-                <animate attributeName="cy" values="52;47;52" dur="1.8s" repeatCount="indefinite" />
-                <animate attributeName="opacity" values="0.7;1;0.7" dur="1.8s"
-                    repeatCount="indefinite" />
-            </circle>
-
-            <!-- Medium particles -->
-            <circle cx="85" cy="55" r="2.5" fill="#00D9FF" opacity="0.6">
-                <animate attributeName="cy" values="55;50;55" dur="2.2s" repeatCount="indefinite" />
-            </circle>
-            <circle cx="110" cy="48" r="3" fill="#6B46C1" opacity="0.5">
-                <animate attributeName="cy" values="48;42;48" dur="2.8s" repeatCount="indefinite" />
-            </circle>
-            <circle cx="95" cy="45" r="2" fill="#00D9FF" opacity="0.7">
-                <animate attributeName="cy" values="45;39;45" dur="2.3s" repeatCount="indefinite" />
-            </circle>
-
-            <!-- Small particles -->
-            <circle cx="70" cy="58" r="1.5" fill="#6B46C1" opacity="0.4">
-                <animate attributeName="cy" values="58;54;58" dur="2s" repeatCount="indefinite" />
-            </circle>
-            <circle cx="115" cy="55" r="1.5" fill="#00D9FF" opacity="0.5">
-                <animate attributeName="cy" values="55;50;55" dur="2.4s" repeatCount="indefinite" />
-            </circle>
-            <circle cx="105" cy="50" r="2" fill="#6B46C1" opacity="0.6">
-                <animate attributeName="cy" values="50;45;50" dur="2.6s" repeatCount="indefinite" />
-            </circle>
-            <circle cx="130" cy="60" r="1.5" fill="#00D9FF" opacity="0.4">
-                <animate attributeName="cy" values="60;56;60" dur="1.9s" repeatCount="indefinite" />
-            </circle>
-        </g>
-
-        <!-- Text -->
-        <text x="100" y="185" font-family="Arial, sans-serif" font-size="24" font-weight="bold"
-            text-anchor="middle" fill="url(#boxGradient)">
-            SANDBOX
-        </text>
-    </g>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 640" fill="none">
+  <!-- Background -->
+  <rect width="1280" height="640" fill="#2563eb" opacity="0.08" rx="16"/>
+  
+  <!-- Mountain peaks (centered and scaled) -->
+  <path d="M 340 360 L 460 200 L 540 280 L 640 160 L 740 260 L 820 220 L 940 360 Z" fill="#2563eb" opacity="0.3"/>
+  <path d="M 340 360 L 460 200 L 540 280 L 640 160 L 740 260 L 820 220 L 940 360 Z" fill="none" stroke="#2563eb" stroke-width="6" stroke-linejoin="round"/>
+  
+  <!-- Mountain shadow/depth -->
+  <path d="M 460 200 L 540 280 L 640 160 L 640 360 L 460 360 Z" fill="#1e40af" opacity="0.4"/>
+  <path d="M 640 160 L 740 260 L 820 220 L 820 360 L 640 360 Z" fill="#3b82f6" opacity="0.3"/>
+  
+  <!-- Sand base -->
+  <path d="M 340 360 L 340 400 Q 640 385, 940 400 L 940 360 Z" fill="#2563eb" opacity="0.2"/>
+  
+  <!-- "Sandbox" text -->
+  <text x="640" y="500" font-family="system-ui, -apple-system, sans-serif" font-size="72" font-weight="600" fill="#2563eb" text-anchor="middle">
+    Sandbox
+  </text>
 </svg>

@@ -1,15 +1,33 @@
-<header *sandboxAnonymous>
-	<nav>
-		<a href="/bff/login">Login</a> | <a routerLink="/user">Current User</a> |
-		<a routerLink="/customers">Customers</a>
-	</nav>
-</header>
-<header *sandboxAuthenticated>
-	<div>
-		<h3>👋 Hello, {{ user()?.name }}</h3>
+<header *sandboxAnonymous class="header">
+	<div class="header-container">
+		<div class="header-brand">
+			<img ngSrc="logo.svg" width="32" height="32" alt="Sandbox Logo" class="logo" />
+			<h1 class="header-title"><a routerLink="/">Sandbox</a></h1>
+		</div>
+		<nav class="header-nav">
+			<a routerLink="/user" routerLinkActive="nav-link-active" class="nav-link">Profile</a>
+			<a routerLink="/customers" routerLinkActive="nav-link-active" class="nav-link">Customers</a>
+			<sandbox-theme-toggle />
+			<a href="/bff/login" class="nav-link nav-link-primary">Login</a>
+		</nav>
 	</div>
-	<nav>
-		<a routerLink="/customers">Customers</a> | <a routerLink="/user">Current User</a> |
-		<a href="/bff/logout">Logout</a>
-	</nav>
+</header>
+
+<header *sandboxAuthenticated class="header header-authenticated">
+	<div class="header-container">
+		<div class="header-brand">
+			<img ngSrc="logo.svg" width="32" height="32" alt="Sandbox Logo" class="logo" />
+			<h1 class="header-title"><a routerLink="/">Sandbox</a></h1>
+		</div>
+		<nav class="header-nav">
+			<a routerLink="/customers" routerLinkActive="nav-link-active" class="nav-link">Customers</a>
+			<a routerLink="/user" routerLinkActive="nav-link-active" class="nav-link">Profile</a>
+			<span class="header-divider"></span>
+			<sandbox-theme-toggle />
+			<div class="header-user">
+				<span class="user-greeting">👋 {{ user()?.name }}</span>
+			</div>
+			<a href="/bff/logout" class="nav-link nav-link-logout">Logout</a>
+		</nav>
+	</div>
 </header>

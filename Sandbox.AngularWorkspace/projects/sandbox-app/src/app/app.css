@@ -1,0 +1,11 @@
+.main-content {
+	min-height: calc(100vh - var(--header-height));
+	padding: var(--space-8) 0;
+	background-color: var(--color-surface);
+}
+
+@media (max-width: 768px) {
+	.main-content {
+		padding: var(--space-6) 0;
+	}
+}

@@ -1,6 +1,6 @@
 ---
 description: 'Angular project coding and best practices instructions'
-applyTo: '**/*.ts, **/*.html'
+applyTo: '**/*.ts,**/*.html'
 ---
 
 # Angular Instructions
@@ -44,6 +44,11 @@ For the correct syntax refer to https://angular.dev/context/llm-files/llms-full.
 ## Code Organization
 
 - Use TypeScript path mapping for clean, relative-path-free imports
+
+## Styling
+
+- Use CSS variables for theming and dynamic styles
+- Prefer CSS for component styles, do not use scss or less
 
 ## Error Handling
 

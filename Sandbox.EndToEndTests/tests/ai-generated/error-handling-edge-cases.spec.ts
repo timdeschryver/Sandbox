@@ -42,8 +42,8 @@ test.describe('Error Handling and Edge Cases', () => {
 		await expect(lastNameTextbox).toHaveValue('User');
 
 		// Verify: Application remains stable
-		await expect(page.getByRole('heading', { name: 'Customers', level: 2 })).toBeVisible();
-		await expect(page.getByRole('heading', { name: /Hello, testuser/i, level: 3 })).toBeVisible();
+		await expect(page.getByRole('heading', { name: 'Customers', level: 1 })).toBeVisible();
+		await expect(page.locator('div').filter({ hasText: /^👋 testuser$/ })).toBeVisible();
 
 		// Clean up: Remove route interception
 		await page.unroute('**/api/customers');
@@ -55,7 +55,7 @@ test.describe('Error Handling and Edge Cases', () => {
 
 		// 1. Navigate to http://localhost:5165/customers
 		await page.goto('/customers');
-		await expect(page.getByRole('heading', { name: 'Customers', level: 2 })).toBeVisible();
+		await expect(page.getByRole('heading', { name: 'Customers', level: 1 })).toBeVisible();
 
 		// 2. Simulate session expiration by clearing cookies
 		await context.clearCookies();
@@ -116,8 +116,8 @@ test.describe('Error Handling and Edge Cases', () => {
 		await viewDetailsLink.click();
 
 		// Verify: Customer details page displays characters correctly
-		await expect(page.getByText(new RegExp(firstName))).toBeVisible();
-		await expect(page.getByText(new RegExp(lastName))).toBeVisible();
+		await expect(page.getByRole('heading', { name: new RegExp(firstName) })).toBeVisible();
+		await expect(page.getByRole('heading', { name: new RegExp(lastName) })).toBeVisible();
 		await expect(page.getByText(/St\. John's Rd\./)).toBeVisible();
 		await expect(page.getByText(/São Paulo/)).toBeVisible();
 
@@ -145,8 +145,8 @@ test.describe('Error Handling and Edge Cases', () => {
 		await page.getByRole('button', { name: 'Create Customer' }).click();
 
 		// Verify: Application doesn't crash or hang
-		await expect(page.getByRole('heading', { name: 'Customers', level: 2 })).toBeVisible();
-		await expect(page.getByRole('heading', { name: /Hello, testuser/i, level: 3 })).toBeVisible();
+		await expect(page.getByRole('heading', { name: 'Customers', level: 1 })).toBeVisible();
+		await expect(page.locator('div').filter({ hasText: /^👋 testuser$/ })).toBeVisible();
 
 		// Verify: No database errors occur (implicitly tested by stable UI)
 	});

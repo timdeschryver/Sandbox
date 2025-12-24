@@ -1,13 +1,34 @@
-<div>
+<div class="table-container">
 	@if (resource().hasValue() && resource().isLoading()) {
-		<div>Refreshing data...</div>
+		<div class="table-loading-overlay">
+			<div class="loading-content">
+				<div class="loading"></div>
+				<span class="loading-text">Refreshing data...</span>
+			</div>
+		</div>
 	}
 
-	<table>
+	<table class="data-table">
 		@if (headerTemplate()) {
 			<thead>
 				<tr>
-					<th><button type="button" (click)="refresh()">🔃</button></th>
+					<th class="refresh-column">
+						<button type="button" class="refresh-button" title="Refresh data" (click)="refresh()">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								width="16"
+								height="16"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="currentColor"
+								stroke-width="2"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+							>
+								<path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2" />
+							</svg>
+						</button>
+					</th>
 					<ng-container *ngTemplateOutlet="headerTemplate()!" />
 				</tr>
 			</thead>
@@ -16,7 +37,7 @@
 			@if (resource().hasValue()) {
 				@for (row of resource().value(); track row.id) {
 					<tr>
-						<td></td>
+						<td class="empty-cell"></td>
 						<ng-container
 							*ngTemplateOutlet="
 								bodyTemplate()!;
@@ -35,16 +56,59 @@
 					</tr>
 				} @empty {
 					<tr>
-						<td colspan="100%">No data available.</td>
+						<td colspan="100%" class="empty-state">
+							<div class="empty-state-content">
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									width="48"
+									height="48"
+									viewBox="0 0 24 24"
+									fill="none"
+									stroke="currentColor"
+									stroke-width="1"
+									stroke-linecap="round"
+									stroke-linejoin="round"
+								>
+									<path d="M3 3h18v18H3zM21 9H3M21 15H3M12 3v18" />
+								</svg>
+								<p>No data available</p>
+							</div>
+						</td>
 					</tr>
 				}
 			} @else if (resource().isLoading()) {
 				<tr>
-					<td colspan="100%">Loading...</td>
+					<td colspan="100%" class="loading-state">
+						<div class="loading-state-content">
+							<div class="loading"></div>
+							<span>Loading data...</span>
+						</div>
+					</td>
 				</tr>
 			} @else if (resource().error()) {
-				<div>{{ $any(resource().error()).error?.title ?? 'An unexpected error occurred, please try again.' }}</div>
-				<button type="button" (click)="refresh()">Retry</button>
+				<tr>
+					<td colspan="100%" class="error-state">
+						<div class="error-state-content">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								width="48"
+								height="48"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="currentColor"
+								stroke-width="1"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+							>
+								<circle cx="12" cy="12" r="10" />
+								<line x1="12" y1="8" x2="12" y2="12" />
+								<line x1="12" y1="16" x2="12.01" y2="16" />
+							</svg>
+							<p>{{ $any(resource().error()).error?.title ?? 'An unexpected error occurred.' }}</p>
+							<button type="button" class="button mt-2" (click)="refresh()">Try Again</button>
+						</div>
+					</td>
+				</tr>
 			}
 		</tbody>
 
