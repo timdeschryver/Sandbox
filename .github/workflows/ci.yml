@@ -52,7 +52,7 @@ jobs:
           customSettings: 'minimumCoverageThresholds:lineCoverage=70'
 
       - name: Upload .NET coverage report artifact
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         if: ${{ !cancelled() }}
         with:
           name: CoverageReport
@@ -127,7 +127,7 @@ jobs:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
 
       - name: Upload E2E Results Artifact
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         if: ${{ !cancelled() }}
         with:
           name: playwright-report
