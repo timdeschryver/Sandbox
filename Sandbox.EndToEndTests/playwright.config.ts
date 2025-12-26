@@ -61,5 +61,10 @@ export default defineConfig({
 		reuseExistingServer: !process.env.CI,
 		timeout: 60000 * 5,
 		ignoreHTTPSErrors: true,
+		stdout: 'pipe',
+		stderr: 'pipe',
+		wait: {
+			stdout: /Login to the dashboard/i,
+		},
 	},
 });
