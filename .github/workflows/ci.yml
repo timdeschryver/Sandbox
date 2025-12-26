@@ -51,14 +51,14 @@ jobs:
           tag: '${{ github.run_number }}_${{ github.run_id }}'
           customSettings: 'minimumCoverageThresholds:lineCoverage=70'
 
-      - name: Report Coverage
+      - name: Upload .NET coverage report artifact
         uses: actions/upload-artifact@v6
         if: ${{ !cancelled() }}
         with:
           name: CoverageReport
           path: coveragereport
 
-      - name: Add comment to PR
+      - name: Report .NET Coverage
         if: github.event_name == 'pull_request'
         run: gh pr comment $PR_NUMBER --edit-last --create-if-none --body-file coveragereport/SummaryGithub.md
         env:
@@ -93,13 +93,13 @@ jobs:
       - name: Unit test all frontend projects
         run: pnpm --filter="!sandbox.e2e" test --coverage
 
-      - name: 'Upload Coverage'
+      - name: Upload Vitest coverage report artifact
         uses: actions/upload-artifact@v5
         with:
           name: coverage-frontend
           path: Sandbox.AngularWorkspace/coverage/sandbox-app
 
-      - name: Report Coverage
+      - name: Report Vitest Coverage
         if: ${{ !cancelled() }}
         uses: davelosert/vitest-coverage-report-action@v2
         with:
