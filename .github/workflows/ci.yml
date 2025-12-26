@@ -104,7 +104,8 @@ jobs:
         uses: davelosert/vitest-coverage-report-action@v2
         with:
           threshold-icons: "{0: '🔴', 50: '🟠', 70: '🟢'}"
-          json-summary-compare-path: Sandbox.AngularWorkspace/coverage/sandbox-app/coverage-summary.json
+          json-summary-path: Sandbox.AngularWorkspace/coverage/sandbox-app/coverage-summary.json
+          json-final-path: Sandbox.AngularWorkspace/coverage/sandbox-app/coverage-final.json
 
   e2e:
     runs-on: ubuntu-latest
