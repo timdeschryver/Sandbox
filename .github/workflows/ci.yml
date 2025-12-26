@@ -90,11 +90,18 @@ jobs:
       - name: Unit test all frontend projects
         run: pnpm --filter="!sandbox.e2e" test --coverage
 
+      - name: 'Upload Coverage'
+        uses: actions/upload-artifact@v5
+        with:
+          name: coverage-frontend
+          path: Sandbox.AngularWorkspace/coverage/sandbox-app
+
       - name: Report Coverage
         if: ${{ !cancelled() }}
         uses: davelosert/vitest-coverage-report-action@v2
         with:
           threshold-icons: "{0: '🔴', 50: '🟠', 70: '🟢'}"
+          json-summary-compare-path: Sandbox.AngularWorkspace/coverage/sandbox-app/coverage-summary.json
 
   e2e:
     runs-on: ubuntu-latest
