@@ -88,7 +88,7 @@ jobs:
         run: pnpm run -r lint
 
       - name: Unit test all frontend projects
-        run: pnpm --filter="!sandbox.e2e" test
+        run: pnpm --filter="!sandbox.e2e" test --coverage
 
       - name: Report Coverage
         if: ${{ !cancelled() }}
