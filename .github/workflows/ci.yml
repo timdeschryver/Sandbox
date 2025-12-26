@@ -107,6 +107,7 @@ jobs:
           threshold-icons: "{0: '🔴', 50: '🟠', 70: '🟢'}"
           json-summary-path: Sandbox.AngularWorkspace/coverage/sandbox-app/coverage-summary.json
           json-final-path: Sandbox.AngularWorkspace/coverage/sandbox-app/coverage-final.json
+          comment-on: 'file-coverage-mode'
 
   e2e:
     runs-on: ubuntu-latest
