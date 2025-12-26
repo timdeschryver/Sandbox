@@ -34,11 +34,12 @@
 	//			"protocol": "https"
 	//		}
 	// }
-	"onCreateCommand": "dotnet tool install -g Microsoft.OpenApi.Kiota --prerelease && dotnet tool install -g Verify.Cli && curl -sSL https://aspire.dev/install.sh | bash",
+	"onCreateCommand": "curl -sSL https://aspire.dev/install.sh | bash",
 	"postCreateCommand": {
+		"dotnet-tools": "dotnet tool install -g Microsoft.OpenApi.Kiota --prerelease && dotnet tool install -g Verify.Cli --prelease",
 		"dotnet": "dotnet restore",
 		"certs": "dotnet dev-certs https --trust",
-		"pnpm": "pnpm install --frozen-lockfile --prefer-offline && pnpm --filter='sandbox.e2e' exec playwright install --with-deps"
+		"pnpm": "pnpm install --frozen-lockfile --prefer-offline && pnpm -r exec playwright install --with-deps"
 	},
 	// Configure tool-specific properties.
 	"customizations": {
