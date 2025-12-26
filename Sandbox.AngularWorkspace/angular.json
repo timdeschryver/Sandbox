@@ -69,7 +69,7 @@
 					"builder": "@angular/build:unit-test",
 					"options": {
 						"providersFile": "projects/sandbox-app/src/test-providers.ts",
-						"setupFiles": ["projects/sandbox-app/src/test-setup.ts"]
+						"runnerConfig": "projects/sandbox-app/vitest.config.ts"
 					}
 				},
 				"lint": {

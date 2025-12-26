@@ -58,7 +58,7 @@ jobs:
           name: CoverageReport
           path: coveragereport
 
-      - name: Add comment to PR
+      - name: Report .NET Coverage
         if: github.event_name == 'pull_request'
         run: gh pr comment $PR_NUMBER --edit-last --create-if-none --body-file coveragereport/SummaryGithub.md
         env:
@@ -81,6 +81,9 @@ jobs:
 
       - uses: ./.github/actions/setup-pnpm
 
+      - name: Install Playwright Browsers
+        run: pnpm --filter='sandbox.e2e' exec playwright install --with-deps
+
       - name: Build Angular workspace
         run: pnpm --filter="sandbox.angular-workspace" build
 
@@ -88,7 +91,23 @@ jobs:
         run: pnpm run -r lint
 
       - name: Unit test all frontend projects
-        run: pnpm --filter="!sandbox.e2e" test
+        run: pnpm --filter="!sandbox.e2e" test --coverage
+
+      - name: Upload Vitest coverage report artifact
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v5
+        with:
+          name: coverage-frontend
+          path: Sandbox.AngularWorkspace/coverage/sandbox-app
+
+      - name: Report Vitest Coverage
+        if: github.event_name == 'pull_request'
+        uses: davelosert/vitest-coverage-report-action@v2
+        with:
+          threshold-icons: "{0: '🔴', 50: '🟠', 70: '🟢'}"
+          json-summary-path: Sandbox.AngularWorkspace/coverage/sandbox-app/coverage-summary.json
+          json-final-path: Sandbox.AngularWorkspace/coverage/sandbox-app/coverage-final.json
+          file-coverage-mode: 'all'
 
   e2e:
     runs-on: ubuntu-latest
