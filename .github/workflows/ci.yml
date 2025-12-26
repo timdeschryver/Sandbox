@@ -95,7 +95,7 @@ jobs:
 
       - name: Upload Vitest coverage report artifact
         if: ${{ !cancelled() }}
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: coverage-frontend
           path: Sandbox.AngularWorkspace/coverage/sandbox-app
