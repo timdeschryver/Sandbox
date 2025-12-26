@@ -81,6 +81,9 @@ jobs:
 
       - uses: ./.github/actions/setup-pnpm
 
+      - name: Install Playwright Browsers
+        run: pnpm --filter='sandbox.e2e' exec playwright install --with-deps
+
       - name: Build Angular workspace
         run: pnpm --filter="sandbox.angular-workspace" build
 
