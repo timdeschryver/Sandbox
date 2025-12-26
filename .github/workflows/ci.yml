@@ -51,7 +51,7 @@ jobs:
           tag: '${{ github.run_number }}_${{ github.run_id }}'
           customSettings: 'minimumCoverageThresholds:lineCoverage=70'
 
-      - name: Upload .NET coverage report artifact
+      - name: Report Coverage
         uses: actions/upload-artifact@v6
         if: ${{ !cancelled() }}
         with:
@@ -89,6 +89,12 @@ jobs:
 
       - name: Unit test all frontend projects
         run: pnpm --filter="!sandbox.e2e" test
+
+      - name: Report Coverage
+        if: ${{ !cancelled() }}
+        uses: davelosert/vitest-coverage-report-action@v2
+        with:
+          threshold-icons: "{0: '🔴', 50: '🟠', 70: '🟢'}"
 
   e2e:
     runs-on: ubuntu-latest

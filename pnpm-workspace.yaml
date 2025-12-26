@@ -56,4 +56,6 @@ catalogs:
 
   vitest:
     '@vitest/browser': '4.0.16'
+    '@vitest/browser-playwright': '4.0.16'
+    '@vitest/coverage-v8': '4.0.16'
     'vitest': '4.0.16'

@@ -39,8 +39,7 @@ export class ThemeService {
 	}
 
 	private getSystemTheme(): Theme {
-		// eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-		if (typeof window !== 'undefined' && window.matchMedia) {
+		if (typeof window !== 'undefined') {
 			return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
 		}
 		return 'light';
@@ -59,8 +58,7 @@ export class ThemeService {
 	}
 
 	private watchSystemTheme(): void {
-		// eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-		if (typeof window !== 'undefined' && window.matchMedia) {
+		if (typeof window !== 'undefined') {
 			const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
 
 			const handleChange = (e: MediaQueryListEvent) => {
