@@ -121,9 +121,6 @@ jobs:
         with:
           global-json-file: global.json
 
-      - name: Trust .NET dev certificates
-        run: dotnet dev-certs https --trust
-
       - uses: ./.github/actions/setup-pnpm
 
       - name: Install Playwright Browsers
