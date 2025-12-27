@@ -60,7 +60,7 @@ jobs:
 
       - name: Report .NET Coverage
         if: github.event_name == 'pull_request'
-        run: gh pr comment $PR_NUMBER --edit-last --create-if-none --body-file coveragereport/SummaryGithub.md
+        run: gh pr comment $PR_NUMBER --body-file coveragereport/SummaryGithub.md
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PR_NUMBER: ${{ github.event.number }}
@@ -108,6 +108,7 @@ jobs:
           json-summary-path: Sandbox.AngularWorkspace/coverage/sandbox-app/coverage-summary.json
           json-final-path: Sandbox.AngularWorkspace/coverage/sandbox-app/coverage-final.json
           file-coverage-mode: 'all'
+          name: 'Frontend Vitest Coverage'
 
   e2e:
     runs-on: ubuntu-latest
