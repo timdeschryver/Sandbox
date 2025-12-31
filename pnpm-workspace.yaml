@@ -6,7 +6,7 @@ catalog:
   '@stoplight/spectral-cli': '6.15.0'
   '@types/node': '24.10.4'
   'dotenv': '17.2.3'
-  'jsdom': '27.3.0'
+  'jsdom': '27.4.0'
   'prettier': '3.7.4'
   'run-script-os': '1.1.6'
   'rxjs': '~7.8.2'
