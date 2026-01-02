@@ -46,6 +46,7 @@
 		"@vitest/browser": "catalog:vitest",
 		"@vitest/browser-playwright": "catalog:vitest",
 		"@vitest/coverage-v8": "catalog:vitest",
+		"@vitest/ui": "catalog:vitest",
 		"angular-eslint": "catalog:eslint",
 		"eslint": "catalog:eslint",
 		"eslint-config-prettier": "catalog:eslint",
