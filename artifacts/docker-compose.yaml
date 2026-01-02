@@ -1,6 +1,6 @@
 services:
   keycloak:
-    image: 'quay.io/keycloak/keycloak:26.4@sha256:9409c59bdfb65dbffa20b11e6f18b8abb9281d480c7ca402f51ed3d5977e6007'
+    image: 'quay.io/keycloak/keycloak:26.4'
     command:
       - 'start'
       - '--import-realm'
@@ -8,6 +8,7 @@ services:
       KC_BOOTSTRAP_ADMIN_USERNAME: '${KEYCLOAKADMINUSERNAME}'
       KC_BOOTSTRAP_ADMIN_PASSWORD: '${KEYCLOAKADMINPASSWORD}'
       KC_HEALTH_ENABLED: 'true'
+      KC_FEATURES: 'opentelemetry'
     expose:
       - '8080'
       - '9000'
@@ -18,12 +19,12 @@ services:
         read_only: false
       - type: 'bind'
         target: '/opt/keycloak/data/import'
-        source: "D:\\Sandbox\\config\\keycloak\\realms"
+        source: '${KEYCLOAK_BINDMOUNT_0}'
         read_only: true
     networks:
       - 'aspire'
   minio:
-    image: 'docker.io/minio/minio:RELEASE.2025-04-22T22-12-26Z@sha256:a1ea29fa28355559ef137d71fc570e508a214ec84ff8083e39bc5428980b015e'
+    image: 'docker.io/minio/minio:RELEASE.2025-09-07T16-13-09Z'
     command:
       - 'server'
       - '/data'
@@ -44,7 +45,7 @@ services:
     networks:
       - 'aspire'
   minio-bucket-creator:
-    image: 'minio/mc:latest@sha256:a7fe349ef4bd8521fb8497f55c6042871b2ae640607cf99d9bede5e9bdf11727'
+    image: 'minio/mc:latest'
     command:
       - '-c'
       - ' /usr/bin/mc alias set myminio http://minio:9000 $$MinioUser $$MinioPassword; /usr/bin/mc mb myminio/loki; /usr/bin/mc anonymous set public myminio/loki; /usr/bin/mc mb myminio/tempo;  /usr/bin/mc anonymous set public myminio/tempo; exit 0;'
@@ -59,7 +60,7 @@ services:
     networks:
       - 'aspire'
   loki:
-    image: 'grafana/loki:latest@sha256:cd6e176883a90c21755f0315688668991634143423f75bdedfef41441b0fdc3c'
+    image: 'grafana/loki:latest'
     command:
       - '--config.file=/etc/loki/loki.yml'
       - '--config.expand-env=true'
@@ -71,7 +72,7 @@ services:
     volumes:
       - type: 'bind'
         target: '/etc/loki'
-        source: "D:\\Sandbox\\config\\loki"
+        source: '${LOKI_BINDMOUNT_0}'
         read_only: true
       - type: 'volume'
         target: '/loki'
@@ -80,10 +81,12 @@ services:
     depends_on:
       minio:
         condition: 'service_started'
+      minio-bucket-creator:
+        condition: 'service_completed_successfully'
     networks:
       - 'aspire'
   tempo:
-    image: 'grafana/tempo:latest@sha256:9d6b5103da6f370c9e165190461636ab75673b2bee2739540ce76c607a3fa6dd'
+    image: 'grafana/tempo:latest'
     command:
       - '--config.file=/etc/tempo/tempo.yml'
       - '--config.expand-env=true'
@@ -92,12 +95,12 @@ services:
       MINIO_USER: '${MINIOUSER}'
       MINIO_PASSWORD: '${MINIOPASSWORD}'
     expose:
-      - '3200'
       - '4317'
+      - '3200'
     volumes:
       - type: 'bind'
         target: '/etc/tempo'
-        source: "D:\\Sandbox\\config\\tempo"
+        source: '${TEMPO_BINDMOUNT_0}'
         read_only: true
       - type: 'volume'
         target: '/var/tempo'
@@ -106,10 +109,12 @@ services:
     depends_on:
       minio:
         condition: 'service_started'
+      minio-bucket-creator:
+        condition: 'service_completed_successfully'
     networks:
       - 'aspire'
   prometheus:
-    image: 'prom/prometheus:latest@sha256:2b6f734e372c1b4717008f7d0a0152316aedd4d13ae17ef1e3268dbfaf68041b'
+    image: 'prom/prometheus:latest'
     command:
       - '--web.enable-otlp-receiver'
       - '--web.enable-remote-write-receiver'
@@ -120,12 +125,12 @@ services:
     volumes:
       - type: 'bind'
         target: '/etc/prometheus'
-        source: "D:\\Sandbox\\config\\prometheus"
+        source: '${PROMETHEUS_BINDMOUNT_0}'
         read_only: true
     networks:
       - 'aspire'
   blackbox:
-    image: 'prom/blackbox-exporter:latest@sha256:e753ff9f3fc458d02cca5eddab5a77e1c175eee484a8925ac7d524f04366c2fc'
+    image: 'prom/blackbox-exporter:latest'
     command:
       - '--config.file=/etc/blackbox/blackbox.yml'
     expose:
@@ -133,12 +138,12 @@ services:
     volumes:
       - type: 'bind'
         target: '/etc/blackbox/'
-        source: "D:\\Sandbox\\config\\blackbox"
+        source: '${BLACKBOX_BINDMOUNT_0}'
         read_only: false
     networks:
       - 'aspire'
   grafana:
-    image: 'grafana/grafana:latest@sha256:2175aaa91c96733d86d31cf270d5310b278654b03f5718c59de12a865380a31f'
+    image: 'grafana/grafana:latest'
     environment:
       PROMETHEUS_ENDPOINT: 'http://prometheus:9090'
       LOKI_ENDPOINT: 'http://loki:3100'
@@ -151,11 +156,11 @@ services:
     volumes:
       - type: 'bind'
         target: '/etc/grafana'
-        source: "D:\\Sandbox\\config\\grafana\\config"
+        source: '${GRAFANA_BINDMOUNT_0}'
         read_only: true
       - type: 'bind'
         target: '/var/lib/grafana/dashboards'
-        source: "D:\\Sandbox\\config\\grafana\\dashboards"
+        source: '${GRAFANA_BINDMOUNT_1}'
         read_only: true
       - type: 'volume'
         target: '/var/lib/grafana'
@@ -164,8 +169,11 @@ services:
     networks:
       - 'aspire'
   otelcollector:
-    image: 'ghcr.io/open-telemetry/opentelemetry-collector-releases/opentelemetry-collector-contrib:latest@sha256:38c349c3b7a2fd7ea46700cde8fa13d35b699ef2ce245bdf34dae2a413512f76'
+    image: 'ghcr.io/open-telemetry/opentelemetry-collector-releases/opentelemetry-collector-contrib:latest'
     environment:
+      ASPIRE_OTLP_ENDPOINT: '${}'
+      ASPIRE_API_KEY: ''
+      ASPIRE_INSECURE: 'true'
       PROMETHEUS_ENDPOINT: 'http://prometheus:9090/api/v1/otlp'
       LOKI_ENDPOINT: 'http://loki:3100/otlp'
       TEMPO_URL: 'http://tempo:4317'
@@ -175,12 +183,12 @@ services:
     volumes:
       - type: 'bind'
         target: '/etc/otelcol-contrib/config.yaml'
-        source: "D:\\Sandbox\\config\\otel.yml"
+        source: '${OTELCOLLECTOR_BINDMOUNT_0}'
         read_only: false
     networks:
       - 'aspire'
   postgres:
-    image: 'docker.io/library/postgres:18.1@sha256:bfe50b2b0ddd9b55eadedd066fe24c7c6fe06626185b73358c480ea37868024d'
+    image: 'docker.io/library/postgres:17.6'
     environment:
       POSTGRES_HOST_AUTH_METHOD: 'scram-sha-256'
       POSTGRES_INITDB_ARGS: '--auth-host=scram-sha-256 --auth-local=scram-sha-256'
@@ -195,6 +203,24 @@ services:
         read_only: false
     networks:
       - 'aspire'
+  cache:
+    image: 'docker.io/library/redis:8.2'
+    command:
+      - '-c'
+      - 'redis-server --requirepass $$REDIS_PASSWORD --save 60 1'
+    entrypoint:
+      - '/bin/sh'
+    environment:
+      REDIS_PASSWORD: '${CACHE_PASSWORD}'
+    expose:
+      - '6379'
+    volumes:
+      - type: 'volume'
+        target: '/data'
+        source: 'sandbox.apphost-580edeb21e-cache-data'
+        read_only: false
+    networks:
+      - 'aspire'
   migrations:
     image: '${MIGRATIONS_IMAGE}'
     environment:
@@ -204,6 +230,18 @@ services:
       ASPNETCORE_FORWARDEDHEADERS_ENABLED: 'true'
       HTTP_PORTS: '${MIGRATIONS_PORT}'
       ConnectionStrings__sandbox-db: 'Host=postgres;Port=5432;Username=postgres;Password=${POSTGRES_PASSWORD};Database=sandbox-db'
+      SANDBOX_DB_HOST: 'postgres'
+      SANDBOX_DB_PORT: '5432'
+      SANDBOX_DB_USERNAME: 'postgres'
+      SANDBOX_DB_PASSWORD: '${POSTGRES_PASSWORD}'
+      SANDBOX_DB_URI: 'postgresql://postgres:${POSTGRES_PASSWORD}@postgres:5432/sandbox-db'
+      SANDBOX_DB_JDBCCONNECTIONSTRING: 'jdbc:postgresql://postgres:5432/sandbox-db'
+      SANDBOX_DB_DATABASENAME: 'sandbox-db'
+      ConnectionStrings__cache: 'cache:6379,password=${CACHE_PASSWORD}'
+      CACHE_HOST: 'cache'
+      CACHE_PORT: '6379'
+      CACHE_PASSWORD: '${CACHE_PASSWORD}'
+      CACHE_URI: 'redis://:${CACHE_PASSWORD}@cache:6379'
     expose:
       - '${MIGRATIONS_PORT}'
     depends_on:
@@ -220,8 +258,22 @@ services:
       ASPNETCORE_FORWARDEDHEADERS_ENABLED: 'true'
       HTTP_PORTS: '${APISERVICE_PORT}'
       ConnectionStrings__sandbox-db: 'Host=postgres;Port=5432;Username=postgres;Password=${POSTGRES_PASSWORD};Database=sandbox-db'
+      SANDBOX_DB_HOST: 'postgres'
+      SANDBOX_DB_PORT: '5432'
+      SANDBOX_DB_USERNAME: 'postgres'
+      SANDBOX_DB_PASSWORD: '${POSTGRES_PASSWORD}'
+      SANDBOX_DB_URI: 'postgresql://postgres:${POSTGRES_PASSWORD}@postgres:5432/sandbox-db'
+      SANDBOX_DB_JDBCCONNECTIONSTRING: 'jdbc:postgresql://postgres:5432/sandbox-db'
+      SANDBOX_DB_DATABASENAME: 'sandbox-db'
+      KEYCLOAK_HTTP: 'http://keycloak:8080'
       services__keycloak__http__0: 'http://keycloak:8080'
+      KEYCLOAK_MANAGEMENT: 'http://keycloak:9000'
       services__keycloak__management__0: 'http://keycloak:9000'
+      ConnectionStrings__cache: 'cache:6379,password=${CACHE_PASSWORD}'
+      CACHE_HOST: 'cache'
+      CACHE_PORT: '6379'
+      CACHE_PASSWORD: '${CACHE_PASSWORD}'
+      CACHE_URI: 'redis://:${CACHE_PASSWORD}@cache:6379'
     expose:
       - '${APISERVICE_PORT}'
     depends_on:
@@ -230,6 +282,8 @@ services:
       migrations:
         condition: 'service_started'
       keycloak:
+        condition: 'service_started'
+      cache:
         condition: 'service_started'
     networks:
       - 'aspire'
@@ -251,10 +305,16 @@ services:
       OTEL_DOTNET_EXPERIMENTAL_OTLP_RETRY: 'in_memory'
       ASPNETCORE_FORWARDEDHEADERS_ENABLED: 'true'
       HTTP_PORTS: '${GATEWAY_PORT}'
+      APISERVICE_HTTP: 'http://apiservice:${APISERVICE_PORT}'
       services__apiservice__http__0: 'http://apiservice:${APISERVICE_PORT}'
+      APISERVICE_HTTPS: 'https://apiservice:${APISERVICE_PORT}'
+      ANGULAR_FRONTEND_HTTP: 'http://angular-frontend:8000'
       services__angular-frontend__http__0: 'http://angular-frontend:8000'
+      OTELCOLLECTOR_HTTP: 'http://otelcollector:4318'
       services__otelcollector__http__0: 'http://otelcollector:4318'
+      KEYCLOAK_HTTP: 'http://keycloak:8080'
       services__keycloak__http__0: 'http://keycloak:8080'
+      KEYCLOAK_MANAGEMENT: 'http://keycloak:9000'
       services__keycloak__management__0: 'http://keycloak:9000'
       OpenIDConnectSettings__ClientSecret: '${OPENIDCONNECTSETTINGSCLIENTSECRET}'
     ports:
@@ -267,6 +327,25 @@ services:
       otelcollector:
         condition: 'service_started'
       keycloak:
+        condition: 'service_started'
+    networks:
+      - 'aspire'
+  data-api:
+    image: 'mcr.microsoft.com/azure-databases/data-api-builder:1.7.83-rc'
+    environment:
+      DAB_ENVIRONMENT: 'production'
+      ConnectionString: 'Host=postgres;Port=5432;Username=postgres;Password=${POSTGRES_PASSWORD};Database=sandbox-db'
+    expose:
+      - '5000'
+    volumes:
+      - type: 'bind'
+        target: '/App/dab-config.json'
+        source: '${DATA_API_BINDMOUNT_0}'
+        read_only: true
+    depends_on:
+      postgres:
+        condition: 'service_started'
+      migrations:
         condition: 'service_started'
     networks:
       - 'aspire'
@@ -285,4 +364,6 @@ volumes:
   sandbox.apphost-580edeb21e-grafana-data:
     driver: 'local'
   sandbox.apphost-580edeb21e-postgres-data:
+    driver: 'local'
+  sandbox.apphost-580edeb21e-cache-data:
     driver: 'local'
