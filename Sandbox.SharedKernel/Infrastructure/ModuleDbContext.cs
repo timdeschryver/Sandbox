@@ -51,8 +51,6 @@ public abstract class ModuleDbContext(DbContextOptions options, TimeProvider tim
 
     private static void SetGlobalQueryForSoftDelete<T>(ModelBuilder modelBuilder) where T : class, ISoftDelete
     {
-        // TODO: Add named query filter EF 10
-        // modelBuilder.Entity<T>().HasQueryFilter("SoftDeletionFilter", e => e.DeletedAt == null);
-        modelBuilder.Entity<T>().HasQueryFilter(e => e.DeletedAt == null);
+        modelBuilder.Entity<T>().HasQueryFilter(Constants.SoftDeleteFilter, e => e.DeletedAt == null);
     }
 }
