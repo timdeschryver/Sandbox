@@ -38,7 +38,7 @@ internal static partial class UserModule
 
             if (claimsChallenge != null)
             {
-                string jsonString = claimsChallenge.Replace("\\", "", StringComparison.Ordinal).Trim(['"']);
+                var jsonString = claimsChallenge.Replace("\\", "", StringComparison.Ordinal).Trim(['"']);
                 properties.Items["claims"] = jsonString;
             }
 

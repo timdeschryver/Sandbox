@@ -1,8 +1,8 @@
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using System.CodeDom.Compiler;
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Sandbox.SharedKernel.Infrastructure;
 
@@ -11,7 +11,8 @@ internal static class Extensions
     public static void ApplyStronglyTypedIdEfConvertersFromAssembly(this ModelConfigurationBuilder configurationBuilder, Assembly assembly)
     {
         ArgumentNullException.ThrowIfNull(assembly);
-        ArgumentNullException.ThrowIfNull(configurationBuilder); var types = assembly.GetTypes();
+        ArgumentNullException.ThrowIfNull(configurationBuilder);
+        var types = assembly.GetTypes();
 
         foreach (var type in types)
         {

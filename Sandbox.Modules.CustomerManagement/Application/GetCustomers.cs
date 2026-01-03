@@ -1,13 +1,13 @@
+using System.Security.Cryptography;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Hybrid;
+using Microsoft.Extensions.DependencyInjection;
+using Sandbox.Modules.CustomerManagement.Data;
 using Sandbox.Modules.CustomerManagement.Domain;
 using Sandbox.SharedKernel.StronglyTypedIds;
-using Microsoft.Extensions.DependencyInjection;
-using System.Security.Cryptography;
-using Sandbox.Modules.CustomerManagement.Data;
 
 namespace Sandbox.Modules.CustomerManagement.Application;
 
@@ -21,7 +21,7 @@ public static class GetCustomers
     /// </summary>
     /// <returns>A collection with all customers.</returns>
     public static async Task<Ok<List<Response>>> Query(
-        [AsParameters] Parameters parameters,
+        [AsParameters] Parameters _,
         [FromServices] IQueryable<Customer> customers,
         [FromKeyedServices("Customers")] HybridCache cache,
         CancellationToken cancellationToken)

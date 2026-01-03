@@ -1,7 +1,7 @@
+using System.Net;
 using Microsoft.AspNetCore.Mvc;
 using Sandbox.Modules.CustomerManagement.IntegrationTests.Setup;
 using Sandbox.SharedKernel.StronglyTypedIds;
-using System.Net;
 
 namespace Sandbox.Modules.CustomerManagement.IntegrationTests;
 

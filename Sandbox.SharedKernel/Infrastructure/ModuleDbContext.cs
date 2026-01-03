@@ -1,12 +1,12 @@
+using System.Reflection;
 using Microsoft.EntityFrameworkCore;
 using Sandbox.SharedKernel.Domain;
-using System.Reflection;
 
 namespace Sandbox.SharedKernel.Infrastructure;
 
 public abstract class ModuleDbContext(DbContextOptions options, TimeProvider timeProvider) : DbContext(options)
 {
-    private static readonly MethodInfo SetGlobalQueryForSoftDeleteMethod =
+    private static readonly MethodInfo s_setGlobalQueryForSoftDeleteMethod =
         typeof(ModuleDbContext).GetMethod(nameof(SetGlobalQueryForSoftDelete), BindingFlags.NonPublic | BindingFlags.Static)!;
 
     public abstract string Schema { get; }
@@ -43,7 +43,7 @@ public abstract class ModuleDbContext(DbContextOptions options, TimeProvider tim
         {
             if (typeof(ISoftDelete).IsAssignableFrom(entityType.ClrType))
             {
-                var method = SetGlobalQueryForSoftDeleteMethod.MakeGenericMethod(entityType.ClrType);
+                var method = s_setGlobalQueryForSoftDeleteMethod.MakeGenericMethod(entityType.ClrType);
                 method.Invoke(this, [modelBuilder]);
             }
         }

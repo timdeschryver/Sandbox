@@ -7,7 +7,7 @@ namespace Sandbox.Architectural.Tests;
 
 internal sealed partial class HandlerTests : ArchitecturalBaseTest
 {
-    private static readonly GivenClassesConjunction Endpoints = ArchRuleDefinition.Classes()
+    private static readonly GivenClassesConjunction s_endpoints = ArchRuleDefinition.Classes()
               .That()
               .Are(ApplicationLayer)
               .And()
@@ -21,7 +21,7 @@ internal sealed partial class HandlerTests : ArchitecturalBaseTest
     {
         await ArchRuleDefinition.Classes()
             .That()
-            .AreNestedIn(Endpoints)
+            .AreNestedIn(s_endpoints)
             .And()
             .HaveName("Command")
             .Or()
@@ -37,7 +37,7 @@ internal sealed partial class HandlerTests : ArchitecturalBaseTest
     [Retry(3)]
     public async Task Endpoints_implement_a_query_or_command()
     {
-        await Endpoints
+        await s_endpoints
             .Should()
             .FollowCustomCondition(clazz => clazz.GetMethodMembers().Any(m => m.NameContains("Query") || m.NameContains("Handle")), "have a Query or Handle method", "The endpoint needs to implement a Query or Handle method to process requests.")
             .Check(Architecture);
@@ -47,7 +47,7 @@ internal sealed partial class HandlerTests : ArchitecturalBaseTest
     [Retry(3)]
     public async Task QueryEndpoints_have_Parameters()
     {
-        await Endpoints
+        await s_endpoints
                .Should()
                .FollowCustomCondition(clazz =>
                {
@@ -65,7 +65,7 @@ internal sealed partial class HandlerTests : ArchitecturalBaseTest
     [Retry(3)]
     public async Task CommandEndpoints_have_Command()
     {
-        await Endpoints
+        await s_endpoints
             .Should()
             .FollowCustomCondition(clazz =>
             {

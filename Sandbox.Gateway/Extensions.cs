@@ -1,3 +1,5 @@
+using System.Security.Claims;
+using System.Threading.RateLimiting;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Authorization;
@@ -5,8 +7,6 @@ using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.Net.Http.Headers;
 using Sandbox.Gateway.Transformers;
-using System.Security.Claims;
-using System.Threading.RateLimiting;
 using Yarp.ReverseProxy.Transforms;
 
 namespace Sandbox.Gateway;
@@ -86,12 +86,11 @@ internal static class Extensions
                         }
                     });
 
-            builder.Services.AddAuthorization(options =>
-            {
-                options.DefaultPolicy = new AuthorizationPolicyBuilder(CookieAuthenticationDefaults.AuthenticationScheme)
+            builder.Services
+                .AddAuthorizationBuilder()
+                .SetDefaultPolicy(new AuthorizationPolicyBuilder(CookieAuthenticationDefaults.AuthenticationScheme)
                     .RequireAuthenticatedUser()
-                    .Build();
-            });
+                    .Build());
 
             return builder;
         }

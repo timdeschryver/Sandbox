@@ -14,12 +14,20 @@ jobs:
     steps:
       - uses: actions/checkout@v6
 
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v5
+        with:
+          global-json-file: global.json
+
       - uses: ./.github/actions/setup-pnpm
 
-      - name: Fix lint issues
+      - name: Fix Frontend lint issues
         run: pnpm -r lint --fix
 
-      - name: Format code
+      - name: Format Frontend code
         run: pnpm prettier --write .
+
+      - name: Format Backend code
+        run: dotnet format --severity info
 
       - uses: autofix-ci/action@635ffb0c9798bd160680f18fd73371e355b85f27

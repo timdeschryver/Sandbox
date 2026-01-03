@@ -6,7 +6,7 @@ namespace Sandbox.Modules.CustomerManagement.Data;
 internal static class CustomerCache
 {
     private const string CustomersCacheKey = "all";
-    private static readonly IReadOnlyList<string> CustomersTags = ["customers"];
+    private static readonly IReadOnlyList<string> s_customersTags = ["customers"];
 
     internal static async Task<List<GetCustomers.Response>> GetOrCreateCustomersAsync(
         this HybridCache cache,
@@ -19,13 +19,13 @@ internal static class CustomerCache
         return await cache.GetOrCreateAsync(
             CustomersCacheKey,
             async token => await factory(token),
-            tags: CustomersTags,
+            tags: s_customersTags,
             cancellationToken: cancellationToken);
     }
 
     internal static async Task InvalidateCustomersCacheAsync(this HybridCache cache, CancellationToken cancellationToken)
     {
         ArgumentNullException.ThrowIfNull(cache);
-        await cache.RemoveByTagAsync(CustomersTags, cancellationToken);
+        await cache.RemoveByTagAsync(s_customersTags, cancellationToken);
     }
 }

@@ -1,7 +1,7 @@
-using Yarp.ReverseProxy.Transforms;
 using System.Net.Http.Headers;
 using Duende.AccessTokenManagement.OpenIdConnect;
 using Sandbox.SharedKernel.Logging;
+using Yarp.ReverseProxy.Transforms;
 
 namespace Sandbox.Gateway.Transformers;
 

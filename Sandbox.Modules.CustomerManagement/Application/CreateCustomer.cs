@@ -1,14 +1,14 @@
-using Sandbox.Modules.CustomerManagement.Data;
-using Sandbox.Modules.CustomerManagement.Domain;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.HttpResults;
-using Sandbox.SharedKernel.Messages;
-using Microsoft.AspNetCore.Mvc;
-using Sandbox.SharedKernel.StronglyTypedIds;
-using Wolverine.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
 using System.Security.Cryptography;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Mvc;
+using Sandbox.Modules.CustomerManagement.Data;
+using Sandbox.Modules.CustomerManagement.Domain;
+using Sandbox.SharedKernel.Messages;
+using Sandbox.SharedKernel.StronglyTypedIds;
+using Wolverine.EntityFrameworkCore;
 
 namespace Sandbox.Modules.CustomerManagement.Application;
 

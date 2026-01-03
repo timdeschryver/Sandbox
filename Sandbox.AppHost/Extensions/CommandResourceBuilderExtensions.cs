@@ -1,6 +1,6 @@
 using System.Diagnostics;
-using Microsoft.Extensions.DependencyInjection;
 using Aspire.Hosting.JavaScript;
+using Microsoft.Extensions.DependencyInjection;
 using Sandbox.SharedKernel.Logging;
 
 namespace Sandbox.AppHost.Extensions;
@@ -61,7 +61,7 @@ internal static class CommandResourceBuilderExtensions
 
         while (!process.StandardOutput.EndOfStream)
         {
-            string line = await process.StandardOutput.ReadLineAsync() ?? string.Empty;
+            var line = await process.StandardOutput.ReadLineAsync() ?? string.Empty;
             logger.LogCommandOutput(line);
         }
 

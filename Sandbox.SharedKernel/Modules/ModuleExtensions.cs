@@ -1,15 +1,15 @@
-using Microsoft.AspNetCore.Builder;
 using System.Reflection;
+using Microsoft.AspNetCore.Builder;
 
 namespace Sandbox.SharedKernel.Modules;
 
 public static class ModuleExtensions
 {
-    private static readonly IModule[] Modules = DiscoverModules();
+    private static readonly IModule[] s_modules = DiscoverModules();
 
     public static WebApplicationBuilder AddModules(this WebApplicationBuilder services)
     {
-        foreach (var module in Modules)
+        foreach (var module in s_modules)
         {
             module.AddModule(services);
         }
@@ -19,7 +19,7 @@ public static class ModuleExtensions
 
     public static WebApplication UseModules(this WebApplication app)
     {
-        foreach (var module in Modules)
+        foreach (var module in s_modules)
         {
             module.UseModule(app);
         }
@@ -29,7 +29,7 @@ public static class ModuleExtensions
 
     private static IModule[] DiscoverModules()
     {
-        return Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory, "*.dll")
+        return [.. Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory, "*.dll")
             .Where(filePath => Path.GetFileName(filePath).StartsWith("Sandbox.", StringComparison.Ordinal))
             .Select(Assembly.LoadFrom)
             .SelectMany(assembly => assembly.GetTypes()
@@ -37,7 +37,6 @@ public static class ModuleExtensions
                                type is { IsInterface: false, IsAbstract: false }))
             .Select(type => (IModule)Activator.CreateInstance(type)!)
             .ToList()
-            .AsReadOnly()
-            .ToArray();
+            .AsReadOnly()];
     }
 }

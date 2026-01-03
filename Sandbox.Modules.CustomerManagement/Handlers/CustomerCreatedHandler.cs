@@ -1,9 +1,9 @@
-using Sandbox.SharedKernel.Messages;
-using Sandbox.SharedKernel.Logging;
 using Microsoft.Extensions.Caching.Hybrid;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Sandbox.Modules.CustomerManagement.Data;
+using Sandbox.SharedKernel.Logging;
+using Sandbox.SharedKernel.Messages;
 
 namespace Sandbox.Modules.CustomerManagement.Handlers;
 

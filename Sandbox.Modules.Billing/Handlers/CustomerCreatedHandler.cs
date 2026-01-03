@@ -1,6 +1,6 @@
 using Microsoft.Extensions.Logging;
-using Sandbox.SharedKernel.Messages;
 using Sandbox.SharedKernel.Logging;
+using Sandbox.SharedKernel.Messages;
 
 namespace Sandbox.Modules.Billing.Handlers;
 
