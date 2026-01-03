@@ -5,6 +5,11 @@ using Sandbox.ServiceDefaults;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.WebHost.ConfigureKestrel(serverOptions =>
+{
+    serverOptions.AddServerHeader = false;
+});
+
 builder.AddServiceDefaults();
 
 builder.AddReverseProxy();
