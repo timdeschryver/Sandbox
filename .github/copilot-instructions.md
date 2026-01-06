@@ -1,49 +1,54 @@
-# Copilot Instructions
+# Critical System Understanding: Sandbox Application
 
-This file contains the project's structure and provides the general commands.
+The Sandbox Application is a monorepo containing an a .NET backend and a Angular frontend. It has a comprehensive testing strategy including unit, integration, architecture, and end-to-end tests.
+
+## Architecture Foundation
+
+**Monorepo**: All backend and frontend code lives in a single repository, enabling easier cross-team collaboration, consistent tooling, and simplified dependency management.
+
+**Modular Monolith** + DDD: Clear bounded contexts. Each module implements IModule with separate schemas, DbContexts, and caching strategies. Always use TUnit for testing.
+
+**BFF Pattern**: Gateway uses YARP to proxy requests, managing authentication server-side. Frontend never touches tokens—only HttpOnly cookies. The gateway automatically transforms cookies to Bearer tokens for API calls.
+
+**Angular Frontend**: Modern Angular 21 app using standalone components, signals, and signal forms. Always Vitest for testing.
+
+**Aspire Orchestration**: Aspire hosts the modular monolith, managing service lifecycles, configurations, and dependencies.
+
+**Observability**: OpenTelemetry collector for metrics, traces, and logs across backend and frontend. Grafana (with loki, tempo, blackbox, prometheus) dashboards for visualization.
+
+### Technologies
+
+- **Backend**: .NET 10, Entity Framework Core, YARP, Vogen, TUnit, ArchUnitNET.
+- **Frontend**: Angular 21, TypeScript, no UI-library, Angular Testing Library, Vitest, Playwright.
 
 ## Core Commands
 
-### Build & Development
+### Development
 
-- **Start development**: `dotnet run --project ./Sandbox.AppHost` (starts entire Aspire application)
+- **Start development**: `dotnet run --project ./Sandbox.AppHost`
+
+### Build
+
+- **Build .NET**: `dotnet build`
 - **Build Angular**: `pnpm --filter="sandbox.angular-workspace" build`
-- **Watch Angular**: `pnpm --filter="sandbox.angular-workspace" watch`
-- **Start Angular dev**: `pnpm --filter="sandbox.angular-workspace" start` (uses run-script-os for cross-platform)
 
-### Testing
+### Test
 
 - **Run all .NET tests**: `dotnet test`
-- **Run all frontend tests**: `pnpm run -r test` (runs tests across all workspace projects)
-- **Run Angular tests**: `pnpm --filter="sandbox.angular-workspace" test` (uses Vitest)
-- **Run E2E tests**: `pnpm --filter="sandbox.e2e" test` (uses Playwright)
-- **E2E tests with UI**: `pnpm --filter="sandbox.e2e" test:ui`
-- **Single test file**: Use VS Code Test Explorer or `dotnet test --filter` for .NET
+- **Run Angular tests**: `pnpm --filter="sandbox.angular-workspace" test --watch=false --reporters=dot`
+- **Run End-to-end tests**: `pnpm --filter="sandbox.e2e" test --reporter=dot`
+- **Run all frontend tests**: `pnpm run -r test`
 
-### Linting & Formatting
+### Lint (and Format)
 
-- **Lint Angular**: `pnpm --filter="sandbox.angular-workspace" lint`
-- **Lint E2E**: `pnpm --filter="sandbox.e2e" lint`
-- **Format all**: `pnpm prettier --write .` (from root)
+- **Lint all frontend**: `pnpm -r lint`
+- **Format .NET**: `dotnet format --severity info`
+- **Format all**: `pnpm prettier --write .`
 
 ### Database Operations
 
-- **Run migrations**: Available via Aspire dashboard HTTP command "Reset Database"
-- **EF migrations**: `dotnet ef migrations add <name>` in relevant module project
-
-### Deployment
-
-- **Deploy to Azure**: `azd up` (requires Azure Developer CLI)
-- **Initialize Azure**: `azd init`
-
-## Architecture Overview
-
-### High-Level Structure
-
-- **Monorepo**: .NET backend + Angular frontend with shared tooling
-- **Domain-Driven Design**: Modular monolith with separate domain modules
-- **BFF Pattern**: API Gateway handles authentication and proxies to backend services
-- **Aspire Orchestration**: Local development and deployment orchestration
+- **EF migrations**: `dotnet ef migrations add <name> -project Sandbox.Migrations`.
+- Migrations are applied automatically at startup.
 
 ### Major Components
 
@@ -51,118 +56,60 @@ This file contains the project's structure and provides the general commands.
 
 - **`Sandbox.AppHost`**: Aspire application host for service orchestration
 - **`Sandbox.Gateway`**: YARP-based API gateway with BFF authentication (Keycloak)
-- **`Sandbox.ApiService`**: Main API service with 2 replicas
+- **`Sandbox.ApiService`**: Main API service, hosting the different domain modules
 - **`Sandbox.Migrations`**: Database migration service
 - **`Sandbox.ServiceDefaults`**: Shared service configurations
+- **`Sandbox.SharedKernel`**: Domain primitives as value objects (Vogen), shared contracts (messages), common utilities
+- **`Directory.Packages.props`**: Centralized package management
 
 #### Domain Modules
 
 - **`Sandbox.Modules.CustomerManagement`**: Customer domain with billing/shipping addresses
 - **`Sandbox.Modules.Billing`**: Billing domain module
-- **`Sandbox.SharedKernel`**: Domain primitives, strongly-typed IDs (Vogen), common utilities
 
-#### Frontend (Angular 21)
+#### Frontend
 
 - **`Sandbox.AngularWorkspace`**: Angular workspace with multiple projects
     - `sandbox-app`: Main application
     - `form-validation-lib`: Form validation library
     - `opentelemetry-lib`: OpenTelemetry instrumentation library
+- **`pnpm-workspace.yaml`**: Use pnpm workspaces with catalogs for package management. For commands, always use `pnpm` at the root level with filters when needed.
 
 #### Testing Projects
 
-- **`Sandbox.Architectural.Tests`**: Architecture compliance tests (ArchUnitNET)
-- **`Sandbox.IntegrationTests`**: Service integration tests (TUnit)
-- **`Sandbox.EndToEndTests`**: Playwright E2E tests with Keycloak authentication
 - **`Sandbox.Modules.*.Tests`**: Unit tests for each module (TUnit)
+- **`Sandbox.IntegrationTests`**: Service integration tests (TUnit) in combination with test containers
+- **`Sandbox.EndToEndTests`**: Playwright E2E tests with Keycloak authentication
+- **`Sandbox.AngularWorkspace`**: Vitest unit tests for Angular following the syntax `*.spec.ts`
+- **`Sandbox.Architectural.Tests`**: Architecture compliance tests (ArchUnitNET)
 
 ### Data Stores
 
 - **Primary Database**: PostgreSQL (with option to switch to SQL Server)
 - **Distributed Cache**: Redis with FusionCache hybrid L1/L2 caching and backplane for replica synchronization
-- **Session Storage**: Distributed memory cache for authentication
-- **Monitoring**: OpenTelemetry collector for metrics, traces, and logs
+- **Monitoring**: OpenTelemetry collector for metrics, traces, and logs.
 
-### External Services
-
-- **Azure**: Deployment target via Azure Developer CLI
-
-## Style Rules & Standards
-
-### .NET Code Style
-
-- **Testing Framework**: TUnit (not xUnit or NUnit)
-- **Test Naming**: Don't use "should" in test method names
-- **Test Structure**: Flat tests (no `describe` blocks), avoid `beforeEach`/`afterEach`
-- **Domain Classes**: Must have default constructors for EF Core
-- **Dependencies**: Use `Directory.Packages.props` for centralized package management
-- **Architecture**: Domain layer only depends on itself and strongly-typed IDs
-
-### Angular Code Style
-
-- **Testing**: Vitest + Angular Testing Library (not Jasmine/Karma)
-- **Signals**: Prefer signals for reactive state management
-- **Forms**: Use Signal Forms to create forms
-- **Accessibility**: Always consider from the start, use semantic HTML
-- **Structure**: Flat folder structure, keep files close to usage
-- **HTTP**: Use `httpResource` for data fetching with caching
-- **Error Handling**: Signal-based error states
-
-### TypeScript
-
-- **Package Manager**: pnpm
-- **ESLint**: Flat config with TypeScript ESLint, Prettier integration
-- **Node**: Requires Node.js, pnpm
-
-### General Conventions
-
-- **Comments**: English only, clarify non-obvious logic
-- **Flat Structure**: Keep related files close together
-- **Test Coverage**: Always provide tests for changes
-- **Magic Values**: Avoid in tests, use meaningful constants
-
-## Authentication Flow (BFF Pattern)
+## Security
 
 ### User Authentication
 
-1. **Login**: `/bff/login` → (Keycloak) OIDC flow
-2. **Session**: HTTP-only cookies (`__Sandbox`) with server-side token storage
-3. **API Calls**: Gateway automatically adds Bearer tokens to backend requests
-4. **Logout**: `/bff/logout` → clears both cookie and OIDC sessions
+- **Identity Provider**: Keycloak
+- **BFF Pattern**: with YARP
+- **Cookies**: for session management, no tokens in frontend storage
+- **Token Management**: Automatic token refresh in BFF layer, not exposed to frontend but used in API projects
 
 ### Security Features
 
+- **OWASP Top 10**: Always consider during development ( Broken Access Control, Insecure Design, Mishandling of Exceptional Conditions, etc.)
 - **CSRF Protection**: Custom antiforgery tokens via YARP transformers
-- **Cookie Security**: `SameSite=Strict`, `SecurePolicy=Always`
-- **Token Management**: Automatic refresh handled by `GetUserAccessTokenAsync()`
+- **Cookie Security**: Only secure, HttpOnly cookies for session tokens
 
-## Secret Management
+### Secret Management
 
-### SOPS Integration
+Use SOPS for encrypting sensitive configuration files.
+When a change is made to the appsettings, always update the encrypted version as well.
 
 - **Encrypted Config**: `config/appsettings.encrypted.json`
 - **Decrypt**: `sops --decrypt "config/appsettings.encrypted.json" > "Sandbox.AppHost/appsettings.json"`
 - **Encrypt**: `sops --encrypt "Sandbox.AppHost/appsettings.json" > "config/appsettings.encrypted.json"`
 - **Pattern**: Only fields matching `Secret|Password|Key|Token` are encrypted
-
-## Development Workflow
-
-### Prerequisites
-
-- .NET 10
-- Node.js 22+, pnpm 10+
-- Container tool (Docker/Podman)
-- Azure CLI (for deployment)
-
-### Local Development
-
-1. Start with `dotnet run --project ./Sandbox.AppHost`
-2. Access Aspire dashboard for service monitoring
-3. Use gateway URL for Angular app (proxies to backend)
-4. Monitor OpenTelemetry traces in real-time
-
-### Testing Strategy
-
-- **Unit Tests**: TUnit for .NET, Vitest for Angular
-- **Integration Tests**: TUnit with TestContainers for database
-- **E2E Tests**: Playwright with Keycloak authentication
-- **Architecture Tests**: ArchUnitNET for compliance validation
