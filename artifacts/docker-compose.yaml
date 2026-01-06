@@ -1,6 +1,6 @@
 services:
   keycloak:
-    image: 'quay.io/keycloak/keycloak:26.4'
+    image: 'quay.io/keycloak/keycloak:26.5@sha256:5fdd7cda82e58775ed124294c7e16fabc33166d38dfc4aabebda7d64e7a964bf'
     command:
       - 'start'
       - '--import-realm'
@@ -24,7 +24,7 @@ services:
     networks:
       - 'aspire'
   minio:
-    image: 'docker.io/minio/minio:RELEASE.2025-09-07T16-13-09Z'
+    image: 'docker.io/minio/minio:RELEASE.2025-09-07T16-13-09Z@sha256:14cea493d9a34af32f524e538b8346cf79f3321eff8e708c1e2960462bd8936e'
     command:
       - 'server'
       - '/data'
@@ -45,7 +45,7 @@ services:
     networks:
       - 'aspire'
   minio-bucket-creator:
-    image: 'minio/mc:latest'
+    image: 'minio/mc:latest@sha256:a7fe349ef4bd8521fb8497f55c6042871b2ae640607cf99d9bede5e9bdf11727'
     command:
       - '-c'
       - ' /usr/bin/mc alias set myminio http://minio:9000 $$MinioUser $$MinioPassword; /usr/bin/mc mb myminio/loki; /usr/bin/mc anonymous set public myminio/loki; /usr/bin/mc mb myminio/tempo;  /usr/bin/mc anonymous set public myminio/tempo; exit 0;'
@@ -60,7 +60,7 @@ services:
     networks:
       - 'aspire'
   loki:
-    image: 'grafana/loki:latest'
+    image: 'grafana/loki:latest@sha256:cd6e176883a90c21755f0315688668991634143423f75bdedfef41441b0fdc3c'
     command:
       - '--config.file=/etc/loki/loki.yml'
       - '--config.expand-env=true'
@@ -86,7 +86,7 @@ services:
     networks:
       - 'aspire'
   tempo:
-    image: 'grafana/tempo:latest'
+    image: 'grafana/tempo:latest@sha256:6b91939230c7f65558599eedcb74a5160dbd218a8a5310b1ed461a9c77c4cab8'
     command:
       - '--config.file=/etc/tempo/tempo.yml'
       - '--config.expand-env=true'
@@ -114,7 +114,7 @@ services:
     networks:
       - 'aspire'
   prometheus:
-    image: 'prom/prometheus:latest'
+    image: 'prom/prometheus:latest@sha256:3ea2ed3b8cdfe3ff78aa05473a7ad36b916bdf2464c83b06bcd37c1a67620233'
     command:
       - '--web.enable-otlp-receiver'
       - '--web.enable-remote-write-receiver'
@@ -130,7 +130,7 @@ services:
     networks:
       - 'aspire'
   blackbox:
-    image: 'prom/blackbox-exporter:latest'
+    image: 'prom/blackbox-exporter:latest@sha256:e753ff9f3fc458d02cca5eddab5a77e1c175eee484a8925ac7d524f04366c2fc'
     command:
       - '--config.file=/etc/blackbox/blackbox.yml'
     expose:
@@ -143,7 +143,7 @@ services:
     networks:
       - 'aspire'
   grafana:
-    image: 'grafana/grafana:latest'
+    image: 'grafana/grafana:latest@sha256:2175aaa91c96733d86d31cf270d5310b278654b03f5718c59de12a865380a31f'
     environment:
       PROMETHEUS_ENDPOINT: 'http://prometheus:9090'
       LOKI_ENDPOINT: 'http://loki:3100'
@@ -169,7 +169,7 @@ services:
     networks:
       - 'aspire'
   otelcollector:
-    image: 'ghcr.io/open-telemetry/opentelemetry-collector-releases/opentelemetry-collector-contrib:latest'
+    image: 'ghcr.io/open-telemetry/opentelemetry-collector-releases/opentelemetry-collector-contrib:latest@sha256:f051aff195ad50ed5ad9d95bcdd51d7258200c937def3797cf830366ed62e034'
     environment:
       ASPIRE_OTLP_ENDPOINT: '${}'
       ASPIRE_API_KEY: ''
@@ -188,7 +188,7 @@ services:
     networks:
       - 'aspire'
   postgres:
-    image: 'docker.io/library/postgres:17.6'
+    image: 'docker.io/library/postgres:18.1@sha256:bfe50b2b0ddd9b55eadedd066fe24c7c6fe06626185b73358c480ea37868024d'
     environment:
       POSTGRES_HOST_AUTH_METHOD: 'scram-sha-256'
       POSTGRES_INITDB_ARGS: '--auth-host=scram-sha-256 --auth-local=scram-sha-256'
@@ -204,7 +204,7 @@ services:
     networks:
       - 'aspire'
   cache:
-    image: 'docker.io/library/redis:8.2'
+    image: 'docker.io/library/redis:8.4@sha256:47200b04138293fae39737e50878a238b13ec0781083126b1b0c63cf5d992e8d'
     command:
       - '-c'
       - 'redis-server --requirepass $$REDIS_PASSWORD --save 60 1'
@@ -331,7 +331,7 @@ services:
     networks:
       - 'aspire'
   data-api:
-    image: 'mcr.microsoft.com/azure-databases/data-api-builder:1.7.83-rc'
+    image: 'mcr.microsoft.com/azure-databases/data-api-builder:1.7.83-rc@sha256:970dc3499443d136e4f83d17f2b4eba946333c8cb74f8d310eb5e37a25f9cd82'
     environment:
       DAB_ENVIRONMENT: 'production'
       ConnectionString: 'Host=postgres;Port=5432;Username=postgres;Password=${POSTGRES_PASSWORD};Database=sandbox-db'

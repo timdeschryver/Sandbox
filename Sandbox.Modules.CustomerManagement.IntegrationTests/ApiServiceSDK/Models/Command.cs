@@ -51,7 +51,7 @@ namespace ApiServiceSDK.Models
         /// <param name="parseNode">The parse node to use to read the discriminator value and create the object</param>
         public static global::ApiServiceSDK.Models.Command CreateFromDiscriminatorValue(IParseNode parseNode)
         {
-            _ = parseNode ?? throw new ArgumentNullException(nameof(parseNode));
+            if(ReferenceEquals(parseNode, null)) throw new ArgumentNullException(nameof(parseNode));
             return new global::ApiServiceSDK.Models.Command();
         }
         /// <summary>
@@ -74,7 +74,7 @@ namespace ApiServiceSDK.Models
         /// <param name="writer">Serialization writer to use to serialize this model</param>
         public virtual void Serialize(ISerializationWriter writer)
         {
-            _ = writer ?? throw new ArgumentNullException(nameof(writer));
+            if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
             writer.WriteObjectValue<global::ApiServiceSDK.Models.Command.Command_billingAddress>("billingAddress", BillingAddress);
             writer.WriteStringValue("firstName", FirstName);
             writer.WriteStringValue("lastName", LastName);
@@ -109,7 +109,7 @@ namespace ApiServiceSDK.Models
             /// <param name="parseNode">The parse node to use to read the discriminator value and create the object</param>
             public static global::ApiServiceSDK.Models.Command.Command_billingAddress CreateFromDiscriminatorValue(IParseNode parseNode)
             {
-                _ = parseNode ?? throw new ArgumentNullException(nameof(parseNode));
+                if(ReferenceEquals(parseNode, null)) throw new ArgumentNullException(nameof(parseNode));
                 var mappingValue = parseNode.GetChildNode("")?.GetStringValue();
                 var result = new global::ApiServiceSDK.Models.Command.Command_billingAddress();
                 if("BillingAddress".Equals(mappingValue, StringComparison.OrdinalIgnoreCase))
@@ -144,7 +144,7 @@ namespace ApiServiceSDK.Models
             /// <param name="writer">Serialization writer to use to serialize this model</param>
             public virtual void Serialize(ISerializationWriter writer)
             {
-                _ = writer ?? throw new ArgumentNullException(nameof(writer));
+                if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
                 if(BillingAddress != null)
                 {
                     writer.WriteObjectValue<global::ApiServiceSDK.Models.BillingAddress>(null, BillingAddress);
@@ -184,7 +184,7 @@ namespace ApiServiceSDK.Models
             /// <param name="parseNode">The parse node to use to read the discriminator value and create the object</param>
             public static global::ApiServiceSDK.Models.Command.Command_shippingAddress CreateFromDiscriminatorValue(IParseNode parseNode)
             {
-                _ = parseNode ?? throw new ArgumentNullException(nameof(parseNode));
+                if(ReferenceEquals(parseNode, null)) throw new ArgumentNullException(nameof(parseNode));
                 var mappingValue = parseNode.GetChildNode("")?.GetStringValue();
                 var result = new global::ApiServiceSDK.Models.Command.Command_shippingAddress();
                 if("".Equals(mappingValue, StringComparison.OrdinalIgnoreCase))
@@ -219,7 +219,7 @@ namespace ApiServiceSDK.Models
             /// <param name="writer">Serialization writer to use to serialize this model</param>
             public virtual void Serialize(ISerializationWriter writer)
             {
-                _ = writer ?? throw new ArgumentNullException(nameof(writer));
+                if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
                 if(CommandShippingAddressMember1 != null)
                 {
                     writer.WriteObjectValue<global::ApiServiceSDK.Models.Command_shippingAddressMember1>(null, CommandShippingAddressMember1);

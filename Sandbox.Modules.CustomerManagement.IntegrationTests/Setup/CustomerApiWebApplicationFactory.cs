@@ -15,8 +15,8 @@ namespace Sandbox.Modules.CustomerManagement.IntegrationTests.Setup;
 
 public class CustomerApiWebApplicationFactory : WebApplicationFactory<Program>, IAsyncInitializer, IAsyncDisposable
 {
-    private readonly PostgreSqlContainer _postgreSqlContainer = new PostgreSqlBuilder().Build();
-    private readonly RedisContainer _redisContainer = new RedisBuilder().Build();
+    private readonly PostgreSqlContainer _postgreSqlContainer = new PostgreSqlBuilder("postgres:17.6").Build();
+    private readonly RedisContainer _redisContainer = new RedisBuilder("redis:7.0").Build();
 
     public async Task InitializeAsync()
     {
