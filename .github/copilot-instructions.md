@@ -64,9 +64,9 @@ This file contains the project's structure and provides the general commands.
 #### Frontend (Angular 21)
 
 - **`Sandbox.AngularWorkspace`**: Angular workspace with multiple projects
-  - `sandbox-app`: Main application
-  - `form-validation-lib`: Form validation library
-  - `opentelemetry-lib`: OpenTelemetry instrumentation library
+    - `sandbox-app`: Main application
+    - `form-validation-lib`: Form validation library
+    - `opentelemetry-lib`: OpenTelemetry instrumentation library
 
 #### Testing Projects
 

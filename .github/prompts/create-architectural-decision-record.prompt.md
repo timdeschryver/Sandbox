@@ -2,26 +2,26 @@
 agent: 'agent'
 description: 'Create an Architectural Decision Record (ADR) document for AI-optimized decision documentation.'
 tools:
-  [
-    'search/changes',
-    'search/codebase',
-    'edit/editFiles',
-    'vscode/extensions',
-    'web/fetch',
-    'web/githubRepo',
-    'vscode/openSimpleBrowser',
-    'read/problems',
-    'execute/createAndRunTask',
-    'execute/runTask',
-    'read/getTaskOutput',
-    'azure-mcp/search',
-    'search/searchResults',
-    'read/terminalLastCommand',
-    'read/terminalSelection',
-    'execute/testFailure',
-    'search/usages',
-    'vscode/vscodeAPI',
-  ]
+    [
+        'search/changes',
+        'search/codebase',
+        'edit/editFiles',
+        'vscode/extensions',
+        'web/fetch',
+        'web/githubRepo',
+        'vscode/openSimpleBrowser',
+        'read/problems',
+        'execute/createAndRunTask',
+        'execute/runTask',
+        'read/getTaskOutput',
+        'azure-mcp/search',
+        'search/searchResults',
+        'read/terminalLastCommand',
+        'read/terminalSelection',
+        'execute/testFailure',
+        'search/usages',
+        'vscode/vscodeAPI',
+    ]
 ---
 
 # Create Architectural Decision Record

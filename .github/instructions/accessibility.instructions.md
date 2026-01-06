@@ -49,13 +49,13 @@ In addition to producing accessible code, GitHub Copilot and similar tools must 
 - Keyboard focus must be clearly visible at all times so that the user can visually determine which element has focus.
 - All interactive elements need to be keyboard operable. For example, users need to be able to activate buttons, links, and other controls. Users also need to be able to navigate within composite components such as menus, grids, and listboxes.
 - Static (non-interactive) elements, should not be in the tab order. These elements should not have a `tabindex` attribute.
-  - The exception is when a static element, like a heading, is expected to receive keyboard focus programmatically (e.g., via `element.focus()`), in which case it should have a `tabindex="-1"` attribute.
+    - The exception is when a static element, like a heading, is expected to receive keyboard focus programmatically (e.g., via `element.focus()`), in which case it should have a `tabindex="-1"` attribute.
 - Hidden elements must not be keyboard focusable.
 - Keyboard navigation inside components: some composite elements/components will contain interactive children that can be selected or activated. Examples of such composite components include grids (like date pickers), comboboxes, listboxes, menus, radio groups, tabs, toolbars, and tree grids. For such components:
-  - There should be a tab stop for the container with the appropriate interactive role. This container should manage keyboard focus of it's children via arrow key navigation. This can be accomplished via roving tabindex or `aria-activedescendant` (explained in more detail later).
-  - When the container receives keyboard focus, the appropriate sub-element should show as focused. This behavior depends on context. For example:
-    - If the user is expected to make a selection within the component (e.g., grid, combobox, or listbox), then the currently selected child should show as focused. Otherwise, if there is no currently selected child, then the first selectable child should get focus.
-    - Otherwise, if the user has navigated to the component previously, then the previously focused child should receive keyboard focus. Otherwise, the first interactive child should receive focus.
+    - There should be a tab stop for the container with the appropriate interactive role. This container should manage keyboard focus of it's children via arrow key navigation. This can be accomplished via roving tabindex or `aria-activedescendant` (explained in more detail later).
+    - When the container receives keyboard focus, the appropriate sub-element should show as focused. This behavior depends on context. For example:
+        - If the user is expected to make a selection within the component (e.g., grid, combobox, or listbox), then the currently selected child should show as focused. Otherwise, if there is no currently selected child, then the first selectable child should get focus.
+        - Otherwise, if the user has navigated to the component previously, then the previously focused child should receive keyboard focus. Otherwise, the first interactive child should receive focus.
 - Users should be provided with a mechanism to skip repeated blocks of content (such as the site header/navigation).
 - Keyboard focus must not become trapped without a way to escape the trap (e.g., by pressing the escape key to close a dialog).
 
@@ -99,9 +99,9 @@ When using roving tabindex to manage focus in a composite component, the element
 
 - On initial load of the composite component, set `tabindex="0"` on the element that will initially be included in the tab order and set `tabindex="-1"` on all other focusable elements it contains.
 - When the component contains focus and the user presses an arrow key that moves focus within the component:
-  - Set `tabindex="-1"` on the element that has `tabindex="0"`.
-  - Set `tabindex="0"` on the element that will become focused as a result of the key event.
-  - Set focus via `element.focus()` on the element that now has `tabindex="0"`.
+    - Set `tabindex="-1"` on the element that has `tabindex="0"`.
+    - Set `tabindex="0"` on the element that will become focused as a result of the key event.
+    - Set focus via `element.focus()` on the element that now has `tabindex="0"`.
 
 #### Managing focus in composites using aria-activedescendant
 
@@ -114,8 +114,8 @@ When using roving tabindex to manage focus in a composite component, the element
 - Prefer dark text on light backgrounds, or light text on dark backgrounds.
 - Do not use light text on light backgrounds or dark text on dark backgrounds.
 - The contrast of text against the background color must be at least 4.5:1. Large text, must be at least 3:1. All text must have sufficient contrast against it's background color.
-  - Large text is defined as 18.5px and bold, or 24px.
-  - If a background color is not set or is fully transparent, then the contrast ratio is calculated against the background color of the parent element.
+    - Large text is defined as 18.5px and bold, or 24px.
+    - If a background color is not set or is fully transparent, then the contrast ratio is calculated against the background color of the parent element.
 - Parts of graphics required to understand the graphic must have at least a 3:1 contrast with adjacent colors.
 - Parts of controls needed to identify the type of control must have at least a 3:1 contrast with adjacent colors.
 - Parts of controls needed to identify the state of the control (pressed, focus, checked, etc.) must have at least a 3:1 contrast with adjacent colors.
@@ -141,13 +141,13 @@ When using roving tabindex to manage focus in a composite component, the element
 - Labels for interactive elements must accurately describe the purpose of the element. E.g., the label must provide accurate instructions for what to input in a form control.
 - Headings must accurately describe the topic that they introduce.
 - Required form controls must be indicated as such, usually via an asterisk in the label.
-  - Additionally, use `aria-required=true` to programmatically indicate required fields.
+    - Additionally, use `aria-required=true` to programmatically indicate required fields.
 - Error messages must be provided for invalid form input.
-  - Error messages must describe how to fix the issue.
-    - Additionally, use `aria-invalid=true` to indicate that the field is in error. Remove this attribute when the error is removed.
-  - Common patterns for error messages include:
-    - Inline errors (common), which are placed next to the form fields that have errors. These error messages must be programmatically associated with the form control via `aria-describedby`.
-    - Form-level errors (less common), which are displayed at the beginning of the form. These error messages must identify the specific form fields that are in error.
+    - Error messages must describe how to fix the issue.
+        - Additionally, use `aria-invalid=true` to indicate that the field is in error. Remove this attribute when the error is removed.
+    - Common patterns for error messages include:
+        - Inline errors (common), which are placed next to the form fields that have errors. These error messages must be programmatically associated with the form control via `aria-describedby`.
+        - Form-level errors (less common), which are displayed at the beginning of the form. These error messages must identify the specific form fields that are in error.
 - Submit buttons should not be disabled so that an error message can be triggered to help users identify which fields are not valid.
 - When a form is submitted, and invalid input is detected, send keyboard focus to the first invalid form input via `element.focus()`.
 

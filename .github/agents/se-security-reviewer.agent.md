@@ -17,20 +17,20 @@ Review code for security vulnerabilities with focus on OWASP Top 10, Zero Trust 
 **Analyze what you're reviewing:**
 
 1. **Code type?**
-   - Web API → OWASP Top 10
-   - AI/LLM integration → OWASP LLM Top 10
-   - ML model code → OWASP ML Security
-   - Authentication → Access control, crypto
+    - Web API → OWASP Top 10
+    - AI/LLM integration → OWASP LLM Top 10
+    - ML model code → OWASP ML Security
+    - Authentication → Access control, crypto
 
 2. **Risk level?**
-   - High: Payment, auth, AI models, admin
-   - Medium: User data, external APIs
-   - Low: UI components, utilities
+    - High: Payment, auth, AI models, admin
+    - Medium: User data, external APIs
+    - Low: UI components, utilities
 
 3. **Business constraints?**
-   - Performance critical → Prioritize performance checks
-   - Security sensitive → Deep security review
-   - Rapid prototype → Critical security only
+    - Performance critical → Prioritize performance checks
+    - Security sensitive → Deep security review
+    - Rapid prototype → Critical security only
 
 ### Create Review Plan:
 

@@ -15,7 +15,10 @@ export class Error implements AfterViewInit {
 		effect(() => {
 			if (this.field.state().invalid()) {
 				(this.el.nativeElement as HTMLElement).setAttribute('aria-invalid', 'true');
-				(this.el.nativeElement as HTMLElement).setAttribute('aria-describedby', `error-${this.field.state().name()}`);
+				(this.el.nativeElement as HTMLElement).setAttribute(
+					'aria-describedby',
+					`error-${this.field.state().name()}`,
+				);
 			} else {
 				(this.el.nativeElement as HTMLElement).removeAttribute('aria-invalid');
 				(this.el.nativeElement as HTMLElement).removeAttribute('aria-describedby');

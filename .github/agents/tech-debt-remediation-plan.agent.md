@@ -2,36 +2,36 @@
 name: 'Writer: Technical Debt Remediation Planner'
 description: 'Generate technical debt remediation plans for code, tests, and documentation.'
 tools:
-  [
-    'search/changes',
-    'search/codebase',
-    'edit/editFiles',
-    'vscode/extensions',
-    'web/fetch',
-    'web/githubRepo',
-    'vscode/getProjectSetupInfo',
-    'vscode/installExtension',
-    'vscode/newWorkspace',
-    'vscode/runCommand',
-    'vscode/openSimpleBrowser',
-    'read/problems',
-    'execute/getTerminalOutput',
-    'execute/runInTerminal',
-    'read/terminalLastCommand',
-    'read/terminalSelection',
-    'execute/createAndRunTask',
-    'execute/runTask',
-    'read/getTaskOutput',
-    'execute/runTests',
-    'azure-mcp/search',
-    'search/searchResults',
-    'read/terminalLastCommand',
-    'read/terminalSelection',
-    'execute/testFailure',
-    'search/usages',
-    'vscode/vscodeAPI',
-    'github',
-  ]
+    [
+        'search/changes',
+        'search/codebase',
+        'edit/editFiles',
+        'vscode/extensions',
+        'web/fetch',
+        'web/githubRepo',
+        'vscode/getProjectSetupInfo',
+        'vscode/installExtension',
+        'vscode/newWorkspace',
+        'vscode/runCommand',
+        'vscode/openSimpleBrowser',
+        'read/problems',
+        'execute/getTerminalOutput',
+        'execute/runInTerminal',
+        'read/terminalLastCommand',
+        'read/terminalSelection',
+        'execute/createAndRunTask',
+        'execute/runTask',
+        'read/getTaskOutput',
+        'execute/runTests',
+        'azure-mcp/search',
+        'search/searchResults',
+        'read/terminalLastCommand',
+        'read/terminalSelection',
+        'execute/testFailure',
+        'search/usages',
+        'vscode/vscodeAPI',
+        'github',
+    ]
 ---
 
 # Technical Debt Remediation Plan
@@ -47,9 +47,9 @@ Create Markdown document with required sections:
 - **Ease of Remediation**: Implementation difficulty (1=trivial, 5=complex)
 - **Impact**: Effect on codebase quality (1=minimal, 5=critical). Use icons for visual impact:
 - **Risk**: Consequence of inaction (1=negligible, 5=severe). Use icons for visual impact:
-  - 🟢 Low Risk
-  - 🟡 Medium Risk
-  - 🔴 High Risk
+    - 🟢 Low Risk
+    - 🟡 Medium Risk
+    - 🔴 High Risk
 
 ### Required Sections
 

@@ -161,11 +161,11 @@ The Sandbox application is a customer management system built with Angular 20 an
 - `isAuthenticated` field shows `true`
 - `name` field shows "testuser"
 - `claims` array contains:
-  - `jti` (JWT ID)
-  - `sub` (Subject/User ID)
-  - `typ` (Token type)
-  - `sid` (Session ID)
-  - `name` (Username)
+    - `jti` (JWT ID)
+    - `sub` (Subject/User ID)
+    - `typ` (Token type)
+    - `sid` (Session ID)
+    - `name` (Username)
 - All claim values are present and properly formatted
 
 ---
@@ -217,14 +217,14 @@ The Sandbox application is a customer management system built with Angular 20 an
 
 1. Navigate to http://localhost:5165/customers
 2. In the "Create Customer" form:
-   - Enter "Jane" in the "First Name" field
-   - Enter "Smith" in the "Last Name" field
+    - Enter "Jane" in the "First Name" field
+    - Enter "Smith" in the "Last Name" field
 3. Check the "Add Billing Address" checkbox
 4. Verify "Billing Address" section becomes visible
 5. In the "Billing Address" section:
-   - Enter "123 Main Street" in the "Street" field
-   - Enter "Springfield" in the "City" field
-   - Enter "12345" in the "Zip Code" field
+    - Enter "123 Main Street" in the "Street" field
+    - Enter "Springfield" in the "City" field
+    - Enter "12345" in the "Zip Code" field
 6. Click the "Create Customer" button
 
 **Expected Results:**
@@ -251,15 +251,15 @@ The Sandbox application is a customer management system built with Angular 20 an
 
 1. Navigate to http://localhost:5165/customers
 2. In the "Create Customer" form:
-   - Enter "Robert" in the "First Name" field
-   - Enter "Brown" in the "Last Name" field
+    - Enter "Robert" in the "First Name" field
+    - Enter "Brown" in the "Last Name" field
 3. Check the "Add Shipping Address" checkbox
 4. Verify "Shipping Address" section becomes visible
 5. In the "Shipping Address" section:
-   - Enter "456 Oak Avenue" in the "Street" field
-   - Enter "Riverside" in the "City" field
-   - Enter "54321" in the "Zip Code" field
-   - Enter "Leave at front door" in the "Note" field (optional)
+    - Enter "456 Oak Avenue" in the "Street" field
+    - Enter "Riverside" in the "City" field
+    - Enter "54321" in the "Zip Code" field
+    - Enter "Leave at front door" in the "Note" field (optional)
 6. Click the "Create Customer" button
 
 **Expected Results:**
@@ -286,19 +286,19 @@ The Sandbox application is a customer management system built with Angular 20 an
 
 1. Navigate to http://localhost:5165/customers
 2. In the "Create Customer" form:
-   - Enter "Emily" in the "First Name" field
-   - Enter "Johnson" in the "Last Name" field
+    - Enter "Emily" in the "First Name" field
+    - Enter "Johnson" in the "Last Name" field
 3. Check the "Add Billing Address" checkbox
 4. In the "Billing Address" section:
-   - Enter "789 Elm Street" in the "Street" field
-   - Enter "Portland" in the "City" field
-   - Enter "97201" in the "Zip Code" field
+    - Enter "789 Elm Street" in the "Street" field
+    - Enter "Portland" in the "City" field
+    - Enter "97201" in the "Zip Code" field
 5. Check the "Add Shipping Address" checkbox
 6. In the "Shipping Address" section:
-   - Enter "321 Pine Road" in the "Street" field
-   - Enter "Seattle" in the "City" field
-   - Enter "98101" in the "Zip Code" field
-   - Enter "Delivery between 9-5 PM only" in the "Note" field
+    - Enter "321 Pine Road" in the "Street" field
+    - Enter "Seattle" in the "City" field
+    - Enter "98101" in the "Zip Code" field
+    - Enter "Delivery between 9-5 PM only" in the "Note" field
 7. Click the "Create Customer" button
 
 **Expected Results:**
@@ -334,14 +334,14 @@ The Sandbox application is a customer management system built with Angular 20 an
 
 - "Validation summary:" heading is displayed
 - Validation errors list includes:
-  - "ng.form0.firstName: Field is required"
-  - "ng.form0.lastName: Field is required"
-  - "ng.form0.billingAddress.street: Field is required"
-  - "ng.form0.billingAddress.city: Field is required"
-  - "ng.form0.billingAddress.zipCode: Field is required"
-  - "ng.form0.shippingAddress.street: Field is required"
-  - "ng.form0.shippingAddress.city: Field is required"
-  - "ng.form0.shippingAddress.zipCode: Field is required"
+    - "ng.form0.firstName: Field is required"
+    - "ng.form0.lastName: Field is required"
+    - "ng.form0.billingAddress.street: Field is required"
+    - "ng.form0.billingAddress.city: Field is required"
+    - "ng.form0.billingAddress.zipCode: Field is required"
+    - "ng.form0.shippingAddress.street: Field is required"
+    - "ng.form0.shippingAddress.city: Field is required"
+    - "ng.form0.shippingAddress.zipCode: Field is required"
 - Form does not submit (if Submit button is clicked)
 - No customer is created
 
@@ -361,21 +361,21 @@ The Sandbox application is a customer management system built with Angular 20 an
 
 1. Navigate to http://localhost:5165/customers
 2. In the "Create Customer" form:
-   - Enter "A" (1 character) in the "First Name" field
-   - Enter "B" (1 character) in the "Last Name" field
+    - Enter "A" (1 character) in the "First Name" field
+    - Enter "B" (1 character) in the "Last Name" field
 3. Check the "Add Billing Address" checkbox
 4. In the "Billing Address" section:
-   - Enter "St" (2 characters) in the "Street" field
-   - Enter "NY" (2 characters) in the "City" field
-   - Enter "12" (2 characters) in the "Zip Code" field
+    - Enter "St" (2 characters) in the "Street" field
+    - Enter "NY" (2 characters) in the "City" field
+    - Enter "12" (2 characters) in the "Zip Code" field
 5. Attempt to create the customer
 
 **Expected Results:**
 
 - Validation errors indicate minimum length requirements:
-  - Street must be at least 3 characters
-  - City must be at least 3 characters
-  - Zip Code must be between 3 and 5 characters (custom message displayed)
+    - Street must be at least 3 characters
+    - City must be at least 3 characters
+    - Zip Code must be between 3 and 5 characters (custom message displayed)
 - Form does not submit
 - No customer is created
 
@@ -395,13 +395,13 @@ The Sandbox application is a customer management system built with Angular 20 an
 
 1. Navigate to http://localhost:5165/customers
 2. In the "Create Customer" form:
-   - Enter "Michael" in the "First Name" field
-   - Enter "Williams" in the "Last Name" field
+    - Enter "Michael" in the "First Name" field
+    - Enter "Williams" in the "Last Name" field
 3. Check the "Add Billing Address" checkbox
 4. In the "Billing Address" section:
-   - Enter "100 Test Street" in the "Street" field
-   - Enter "Test City" in the "City" field
-   - Enter "123456" (6 characters) in the "Zip Code" field
+    - Enter "100 Test Street" in the "Street" field
+    - Enter "Test City" in the "City" field
+    - Enter "123456" (6 characters) in the "Zip Code" field
 5. Attempt to create the customer
 
 **Expected Results:**
@@ -426,12 +426,12 @@ The Sandbox application is a customer management system built with Angular 20 an
 
 1. Navigate to http://localhost:5165/customers
 2. Test with zip code "123" (minimum valid length):
-   - Enter "Test" in First Name
-   - Enter "User" in Last Name
-   - Check "Add Billing Address"
-   - Enter valid street and city (at least 3 characters each)
-   - Enter "123" in Zip Code
-   - Click "Create Customer"
+    - Enter "Test" in First Name
+    - Enter "User" in Last Name
+    - Check "Add Billing Address"
+    - Enter valid street and city (at least 3 characters each)
+    - Enter "123" in Zip Code
+    - Click "Create Customer"
 3. Verify customer is created
 4. Repeat test with zip code "12345" (maximum valid length)
 
@@ -457,14 +457,14 @@ The Sandbox application is a customer management system built with Angular 20 an
 
 1. Navigate to http://localhost:5165/customers
 2. In the "Create Customer" form:
-   - Enter "Sarah" in the "First Name" field
-   - Enter "Davis" in the "Last Name" field
+    - Enter "Sarah" in the "First Name" field
+    - Enter "Davis" in the "Last Name" field
 3. Check the "Add Shipping Address" checkbox
 4. In the "Shipping Address" section:
-   - Enter "200 Test Road" in the "Street" field
-   - Enter "Test Town" in the "City" field
-   - Enter "98765" in the "Zip Code" field
-   - Enter "Short" (5 characters) in the "Note" field
+    - Enter "200 Test Road" in the "Street" field
+    - Enter "Test Town" in the "City" field
+    - Enter "98765" in the "Zip Code" field
+    - Enter "Short" (5 characters) in the "Note" field
 5. Attempt to create the customer
 
 **Expected Results:**
@@ -562,9 +562,9 @@ The Sandbox application is a customer management system built with Angular 20 an
 - Page title is "Customers"
 - "Customers" heading (h2) is displayed
 - Customer table is visible with columns:
-  - Refresh icon column (Refresh data button)
-  - Name column
-  - Actions column (View Details link)
+    - Refresh icon column (Refresh data button)
+    - Name column
+    - Actions column (View Details link)
 - All existing customers are listed in the table
 - Each customer row displays full name (First Name + Last Name)
 - Each customer row has a "View Details" link
@@ -623,7 +623,7 @@ The Sandbox application is a customer management system built with Angular 20 an
 - "Customer Details" heading (h2) is displayed
 - "Back to Overview" link is visible
 - "Personal Information" group displays:
-  - Name: {First Name} {Last Name}
+    - Name: {First Name} {Last Name}
 - No billing address section is displayed
 - No shipping address section is displayed
 
@@ -650,9 +650,9 @@ The Sandbox application is a customer management system built with Angular 20 an
 - Navigate to customer details page
 - "Personal Information" section displays customer name
 - "Billing Addresses" group is visible and contains:
-  - Street: {entered street}
-  - City: {entered city}
-  - Zip Code: {entered zip code}
+    - Street: {entered street}
+    - City: {entered city}
+    - Zip Code: {entered zip code}
 - No shipping address section is displayed
 - All billing address data matches what was entered during creation
 
@@ -679,10 +679,10 @@ The Sandbox application is a customer management system built with Angular 20 an
 - Navigate to customer details page
 - "Personal Information" section displays customer name
 - "Shipping Addresses" group is visible and contains:
-  - Street: {entered street}
-  - City: {entered city}
-  - Zip Code: {entered zip code}
-  - Note: {entered note} (if provided)
+    - Street: {entered street}
+    - City: {entered city}
+    - Zip Code: {entered zip code}
+    - Note: {entered note} (if provided)
 - No billing address section is displayed
 - All shipping address data matches what was entered during creation
 
@@ -709,9 +709,9 @@ The Sandbox application is a customer management system built with Angular 20 an
 - Navigate to customer details page
 - "Personal Information" section displays customer name
 - "Billing Addresses" group displays:
-  - Street, City, Zip Code (billing)
+    - Street, City, Zip Code (billing)
 - "Shipping Addresses" group displays:
-  - Street, City, Zip Code, Note (shipping)
+    - Street, City, Zip Code, Note (shipping)
 - Both address sections are clearly separated
 - All data matches what was entered during creation
 
@@ -784,9 +784,9 @@ The Sandbox application is a customer management system built with Angular 20 an
 
 - Error handling occurs gracefully
 - Either:
-  - Error message is displayed (e.g., "Customer not found")
-  - 404 page is shown
-  - User is redirected to customers list
+    - Error message is displayed (e.g., "Customer not found")
+    - 404 page is shown
+    - User is redirected to customers list
 - Application does not crash
 - User remains authenticated
 
@@ -892,9 +892,9 @@ The Sandbox application is a customer management system built with Angular 20 an
 
 1. Navigate to http://localhost:5165/customers
 2. Resize browser window to various widths:
-   - Desktop (1920px)
-   - Tablet (768px)
-   - Mobile (375px)
+    - Desktop (1920px)
+    - Tablet (768px)
+    - Mobile (375px)
 3. Observe table layout and form display at each size
 
 **Expected Results:**
@@ -1006,13 +1006,13 @@ The Sandbox application is a customer management system built with Angular 20 an
 
 1. Navigate to http://localhost:5165/customers
 2. In the "Create Customer" form, enter:
-   - First Name: "O'Brien"
-   - Last Name: "Müller-Schmidt"
+    - First Name: "O'Brien"
+    - Last Name: "Müller-Schmidt"
 3. Check "Add Billing Address"
 4. In Billing Address:
-   - Street: "123 St. John's Rd., Apt #4"
-   - City: "São Paulo"
-   - Zip Code: "12-345"
+    - Street: "123 St. John's Rd., Apt #4"
+    - City: "São Paulo"
+    - Zip Code: "12-345"
 5. Submit the form
 
 **Expected Results:**
@@ -1039,9 +1039,9 @@ The Sandbox application is a customer management system built with Angular 20 an
 
 1. Navigate to http://localhost:5165/customers
 2. Enter very long strings (500+ characters) in:
-   - First Name field
-   - Last Name field
-   - Address fields (if no max length is enforced)
+    - First Name field
+    - Last Name field
+    - Address fields (if no max length is enforced)
 3. Attempt to submit the form
 
 **Expected Results:**
@@ -1213,8 +1213,8 @@ The Sandbox application is a customer management system built with Angular 20 an
 
 1. Navigate to http://localhost:5165/customers
 2. Attempt to create customer with XSS payload:
-   - First Name: `<script>alert('XSS')</script>`
-   - Last Name: `"><img src=x onerror=alert('XSS')>`
+    - First Name: `<script>alert('XSS')</script>`
+    - Last Name: `"><img src=x onerror=alert('XSS')>`
 3. Submit form
 4. View customer in list and details page
 
@@ -1242,8 +1242,8 @@ The Sandbox application is a customer management system built with Angular 20 an
 
 1. Navigate to http://localhost:5165/customers
 2. Attempt to create customer with SQL injection payload:
-   - First Name: `Robert'; DROP TABLE Customers; --`
-   - Last Name: `' OR '1'='1`
+    - First Name: `Robert'; DROP TABLE Customers; --`
+    - Last Name: `' OR '1'='1`
 3. Submit form
 4. Verify database integrity
 

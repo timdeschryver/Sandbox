@@ -11,12 +11,12 @@ Some buzzwords that are used:
 
 - [Aspire](https://learn.microsoft.com/en-us/dotnet/aspire/get-started/aspire-overview)
 - [.NET (Minimal) API](https://learn.microsoft.com/en-us/aspnet/core/fundamentals/minimal-apis/overview)
-  - [EF Core](https://learn.microsoft.com/en-us/ef/core/) (with Migrations)
+    - [EF Core](https://learn.microsoft.com/en-us/ef/core/) (with Migrations)
 - [Angular](https://angular.dev/)
 - [Redis](https://redis.io/) with [FusionCache](https://github.com/ZiggyCreatures/FusionCache) (distributed hybrid caching with backplane synchronization)
 - [OpenTelemetry](https://opentelemetry.io/)
-  - [Grafana](https://grafana.com/) Stack ([Tempo](https://grafana.com/docs/tempo/latest/), [Loki](https://grafana.com/docs/loki/latest/))
-  - [Prometheus](https://prometheus.io/) (and [Blackbox](https://github.com/prometheus/blackbox_exporter))
+    - [Grafana](https://grafana.com/) Stack ([Tempo](https://grafana.com/docs/tempo/latest/), [Loki](https://grafana.com/docs/loki/latest/))
+    - [Prometheus](https://prometheus.io/) (and [Blackbox](https://github.com/prometheus/blackbox_exporter))
 - [YARP](https://learn.microsoft.com/en-us/aspnet/core/fundamentals/servers/yarp/getting-started)
 - Containers
 - [Azure Developer CLI](https://learn.microsoft.com/en-us/azure/developer/azure-developer-cli/) (azd)
@@ -24,10 +24,10 @@ Some buzzwords that are used:
 - Secrets OPerationS ([SOPS](https://github.com/getsops/sops))
 - [Renovate](https://docs.renovatebot.com/) for automatic dependency updates
 - Testing
-  - Angular tests with [Vitest](https://vitest.dev/)
-  - .NET unit tests with [TUnit](https://tunit.dev/)
-  - .NET integration tests with [Testcontainers](https://testcontainers.com/)
-  - End-to-End Testing with [Playwright](https://playwright.dev/)
+    - Angular tests with [Vitest](https://vitest.dev/)
+    - .NET unit tests with [TUnit](https://tunit.dev/)
+    - .NET integration tests with [Testcontainers](https://testcontainers.com/)
+    - End-to-End Testing with [Playwright](https://playwright.dev/)
 
 ```mermaid
 graph TD
