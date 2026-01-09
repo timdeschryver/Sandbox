@@ -86,7 +86,7 @@ services:
     networks:
       - 'aspire'
   tempo:
-    image: 'grafana/tempo:latest@sha256:6b91939230c7f65558599eedcb74a5160dbd218a8a5310b1ed461a9c77c4cab8'
+    image: 'grafana/tempo:latest@sha256:db7c75e5df7bc5186747b4628ac11afa55048547b4d982fa8b6564b8cfc32047'
     command:
       - '--config.file=/etc/tempo/tempo.yml'
       - '--config.expand-env=true'
@@ -114,7 +114,7 @@ services:
     networks:
       - 'aspire'
   prometheus:
-    image: 'prom/prometheus:latest@sha256:3ea2ed3b8cdfe3ff78aa05473a7ad36b916bdf2464c83b06bcd37c1a67620233'
+    image: 'prom/prometheus:latest@sha256:1f0f50f06acaceb0f5670d2c8a658a599affe7b0d8e78b898c1035653849a702'
     command:
       - '--web.enable-otlp-receiver'
       - '--web.enable-remote-write-receiver'
