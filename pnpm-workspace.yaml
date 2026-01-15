@@ -4,7 +4,7 @@ packages:
 
 catalog:
   '@stoplight/spectral-cli': '6.15.0'
-  '@types/node': '24.10.4'
+  '@types/node': '24.10.7'
   'dotenv': '17.2.3'
   'jsdom': '27.4.0'
   'prettier': '3.7.4'
@@ -16,25 +16,25 @@ catalog:
 
 catalogs:
   angular:
-    '@angular/build': '21.0.4'
-    '@angular/cli': '21.0.4'
-    '@angular/common': '21.0.6'
+    '@angular/build': '21.0.5'
+    '@angular/cli': '21.0.5'
+    '@angular/common': '21.0.8'
     '@angular/compiler': '21.0.6'
-    '@angular/compiler-cli': '21.0.6'
+    '@angular/compiler-cli': '21.0.8'
     '@angular/core': '21.0.6'
-    '@angular/forms': '21.0.6'
-    '@angular/platform-browser': '21.0.6'
-    '@angular/router': '21.0.6'
+    '@angular/forms': '21.0.8'
+    '@angular/platform-browser': '21.0.8'
+    '@angular/router': '21.0.8'
     'ng-packagr': '21.0.1'
 
   opentelemetry:
     '@opentelemetry/auto-instrumentations-web': '0.54.0'
-    '@opentelemetry/context-zone': '2.2.0'
-    '@opentelemetry/exporter-trace-otlp-proto': '0.208.0'
-    '@opentelemetry/instrumentation': '0.208.0'
-    '@opentelemetry/resources': '2.2.0'
-    '@opentelemetry/sdk-trace-base': '2.2.0'
-    '@opentelemetry/sdk-trace-web': '2.2.0'
+    '@opentelemetry/context-zone': '2.3.0'
+    '@opentelemetry/exporter-trace-otlp-proto': '0.209.0'
+    '@opentelemetry/instrumentation': '0.209.0'
+    '@opentelemetry/resources': '2.3.0'
+    '@opentelemetry/sdk-trace-base': '2.3.0'
+    '@opentelemetry/sdk-trace-web': '2.3.0'
     '@opentelemetry/semantic-conventions': '1.38.0'
 
   testing-library:
@@ -47,16 +47,16 @@ catalogs:
     'eslint': '9.39.2'
     'angular-eslint': '21.1.0'
     'eslint-config-prettier': '10.1.8'
-    'eslint-plugin-playwright': '2.4.0'
-    'typescript-eslint': '8.52.0'
+    'eslint-plugin-playwright': '2.5.0'
+    'typescript-eslint': '8.53.0'
 
   playwright:
     '@playwright/test': '1.57.0'
     'playwright': '1.57.0'
 
   vitest:
-    '@vitest/browser': '4.0.16'
-    '@vitest/browser-playwright': '4.0.16'
-    '@vitest/coverage-v8': '4.0.16'
-    '@vitest/ui': '4.0.16'
-    'vitest': '4.0.16'
+    '@vitest/browser': '4.0.17'
+    '@vitest/browser-playwright': '4.0.17'
+    '@vitest/coverage-v8': '4.0.17'
+    '@vitest/ui': '4.0.17'
+    'vitest': '4.0.17'
