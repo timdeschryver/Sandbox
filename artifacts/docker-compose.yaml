@@ -1,6 +1,6 @@
 services:
   keycloak:
-    image: 'quay.io/keycloak/keycloak:26.5@sha256:5fdd7cda82e58775ed124294c7e16fabc33166d38dfc4aabebda7d64e7a964bf'
+    image: 'quay.io/keycloak/keycloak:26.5@sha256:b80a48090594367bd8cf6fe2019466ac4ea49de4d0830fb2a43256eda37b18f5'
     command:
       - 'start'
       - '--import-realm'
@@ -86,7 +86,7 @@ services:
     networks:
       - 'aspire'
   tempo:
-    image: 'grafana/tempo:latest@sha256:db7c75e5df7bc5186747b4628ac11afa55048547b4d982fa8b6564b8cfc32047'
+    image: 'grafana/tempo:latest@sha256:241476bbe7877819087763888b644b86e751ba1aa1644f2f6d8bc82f9e5cd5c6'
     command:
       - '--config.file=/etc/tempo/tempo.yml'
       - '--config.expand-env=true'
@@ -188,7 +188,7 @@ services:
     networks:
       - 'aspire'
   postgres:
-    image: 'docker.io/library/postgres:18.1@sha256:bfe50b2b0ddd9b55eadedd066fe24c7c6fe06626185b73358c480ea37868024d'
+    image: 'docker.io/library/postgres:18.1@sha256:2d417d4c88058c9707bd19d45f95c1db2b087507b89d44f669d43f596781614e'
     environment:
       POSTGRES_HOST_AUTH_METHOD: 'scram-sha-256'
       POSTGRES_INITDB_ARGS: '--auth-host=scram-sha-256 --auth-local=scram-sha-256'
@@ -204,7 +204,7 @@ services:
     networks:
       - 'aspire'
   cache:
-    image: 'docker.io/library/redis:8.4@sha256:47200b04138293fae39737e50878a238b13ec0781083126b1b0c63cf5d992e8d'
+    image: 'docker.io/library/redis:8.4@sha256:73dad4271642c5966db88db7a7585fae7cf10b685d1e48006f31e0294c29fdd7'
     command:
       - '-c'
       - 'redis-server --requirepass $$REDIS_PASSWORD --save 60 1'
