@@ -86,7 +86,7 @@ services:
     networks:
       - 'aspire'
   tempo:
-    image: 'grafana/tempo:latest@sha256:241476bbe7877819087763888b644b86e751ba1aa1644f2f6d8bc82f9e5cd5c6'
+    image: 'grafana/tempo:latest@sha256:7d7475c3c28ec6dc2691ffb336af403a3a7a39391a59a4b2d7b9326de83eb9bc'
     command:
       - '--config.file=/etc/tempo/tempo.yml'
       - '--config.expand-env=true'
@@ -188,7 +188,7 @@ services:
     networks:
       - 'aspire'
   postgres:
-    image: 'docker.io/library/postgres:18.1@sha256:2d417d4c88058c9707bd19d45f95c1db2b087507b89d44f669d43f596781614e'
+    image: 'docker.io/library/postgres:18.1@sha256:5773fe724c49c42a7a9ca70202e11e1dff21fb7235b335a73f39297d200b73a2'
     environment:
       POSTGRES_HOST_AUTH_METHOD: 'scram-sha-256'
       POSTGRES_INITDB_ARGS: '--auth-host=scram-sha-256 --auth-local=scram-sha-256'
