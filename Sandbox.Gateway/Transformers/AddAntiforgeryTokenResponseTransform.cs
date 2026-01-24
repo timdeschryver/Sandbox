@@ -1,10 +1,9 @@
 using Microsoft.AspNetCore.Antiforgery;
-using Sandbox.SharedKernel.Logging;
 using Yarp.ReverseProxy.Transforms;
 
 namespace Sandbox.Gateway.Transformers;
 
-internal sealed class AddAntiforgeryTokenResponseTransform(IAntiforgery antiforgery, ILogger<AddAntiforgeryTokenResponseTransform> logger) : ResponseTransform
+internal sealed partial class AddAntiforgeryTokenResponseTransform(IAntiforgery antiforgery, ILogger<AddAntiforgeryTokenResponseTransform> logger) : ResponseTransform
 {
     public override ValueTask ApplyAsync(ResponseTransformContext context)
     {
@@ -12,12 +11,6 @@ internal sealed class AddAntiforgeryTokenResponseTransform(IAntiforgery antiforg
         {
             return ValueTask.CompletedTask;
         }
-
-        if (context.HttpContext.Response.ContentType?.Contains("text/html", StringComparison.Ordinal) != true)
-        {
-            return ValueTask.CompletedTask;
-        }
-
         // Set cache headers before calling antiforgery to prevent override warning
         context.HttpContext.Response.Headers.CacheControl = "no-cache, no-store";
         context.HttpContext.Response.Headers.Pragma = "no-cache";
@@ -30,7 +23,14 @@ internal sealed class AddAntiforgeryTokenResponseTransform(IAntiforgery antiforg
             Secure = true,
             SameSite = SameSiteMode.Strict,
         });
-        logger.LogXsrfTokenAdded(context.HttpContext.Request.Path.Value);
+        LogXsrfTokenAdded(logger, context.HttpContext.Request.Path.Value);
         return ValueTask.CompletedTask;
     }
+
+    [LoggerMessage(
+        Level = LogLevel.Information,
+        Message = "XSRF token added to response for request path: {RequestPath}")]
+    private static partial void LogXsrfTokenAdded(
+        ILogger logger,
+        string? requestPath);
 }

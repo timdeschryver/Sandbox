@@ -1,11 +1,11 @@
 using System.Diagnostics;
 using Aspire.Hosting.JavaScript;
 using Microsoft.Extensions.DependencyInjection;
-using Sandbox.SharedKernel.Logging;
+using Microsoft.Extensions.Logging;
 
 namespace Sandbox.AppHost.Extensions;
 
-internal static class CommandResourceBuilderExtensions
+internal static partial class CommandResourceBuilderExtensions
 {
     public static IResourceBuilder<JavaScriptAppResource> WithPlaywrightRepeatCommand(this IResourceBuilder<JavaScriptAppResource> builder, int repeatCount = 25)
     {
@@ -62,9 +62,16 @@ internal static class CommandResourceBuilderExtensions
         while (!process.StandardOutput.EndOfStream)
         {
             var line = await process.StandardOutput.ReadLineAsync() ?? string.Empty;
-            logger.LogCommandOutput(line);
+            LogCommandOutput(logger, line);
         }
 
         return CommandResults.Success();
     }
+
+    [LoggerMessage(
+        Level = LogLevel.Information,
+        Message = "{Line}")]
+    private static partial void LogCommandOutput(
+        ILogger logger,
+        string line);
 }

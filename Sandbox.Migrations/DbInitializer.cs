@@ -2,12 +2,11 @@ using System.Diagnostics;
 using Microsoft.EntityFrameworkCore;
 using Sandbox.Modules.CustomerManagement.Data;
 using Sandbox.Modules.CustomerManagement.Domain;
-using Sandbox.SharedKernel.Logging;
 using Sandbox.SharedKernel.StronglyTypedIds;
 
 namespace Sandbox.Migrations;
 
-internal class DbInitializer(IServiceProvider serviceProvider, ILogger<DbInitializer> logger) : BackgroundService
+internal partial class DbInitializer(IServiceProvider serviceProvider, ILogger<DbInitializer> logger) : BackgroundService
 {
     public const string ActivitySourceName = "Migrations";
 
@@ -31,12 +30,12 @@ internal class DbInitializer(IServiceProvider serviceProvider, ILogger<DbInitial
 
         await SeedAsync(dbContext, cancellationToken);
 
-        logger.LogDatabaseInitializationCompleted(sw.ElapsedMilliseconds);
+        LogDatabaseInitializationCompleted(logger, sw.ElapsedMilliseconds);
     }
 
     private async Task SeedAsync(DbContext dbContext, CancellationToken cancellationToken)
     {
-        logger.LogSeedingDatabase();
+        LogSeedingDatabase(logger);
 
         await SeedCustomers(dbContext, cancellationToken);
     }
@@ -56,4 +55,16 @@ internal class DbInitializer(IServiceProvider serviceProvider, ILogger<DbInitial
             await dbContext.SaveChangesAsync(cancellationToken);
         }
     }
+
+    [LoggerMessage(
+        Level = LogLevel.Information,
+        Message = "Database initialization completed after {ElapsedMilliseconds}ms")]
+    private static partial void LogDatabaseInitializationCompleted(
+        ILogger logger,
+        long elapsedMilliseconds);
+
+    [LoggerMessage(
+        Level = LogLevel.Information,
+        Message = "Seeding database")]
+    private static partial void LogSeedingDatabase(ILogger logger);
 }
