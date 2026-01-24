@@ -17,10 +17,8 @@ public class BillingModule : IModule
         ArgumentNullException.ThrowIfNull(builder);
 
         builder.Services.AddDbContext<BillingDbContext>(opt =>
-            opt.UseNpgsql(builder.Configuration.GetConnectionString("sandbox-db")));
-        builder.EnrichSqlServerDbContext<BillingDbContext>(configureSettings =>
         {
-            configureSettings.DisableRetry = true;
+            opt.UseNpgsql(builder.Configuration.GetConnectionString("sandbox-db"));
         });
 
         return builder;

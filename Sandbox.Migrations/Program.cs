@@ -17,7 +17,6 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.AddServiceDefaults();
 
-
 builder.Services
     .AddFusionCache("Customers")
     .WithCacheKeyPrefixByCacheName()

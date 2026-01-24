@@ -12,7 +12,6 @@ builder.WebHost.ConfigureKestrel(serverOptions =>
 
 builder.AddServiceDefaults();
 
-builder.AddReverseProxy();
 builder.AddAuthenticationSchemes();
 builder.AddRateLimiting();
 

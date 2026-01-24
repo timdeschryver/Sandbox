@@ -28,10 +28,8 @@ public class CustomerManagementModule : IModule
         });
 
         builder.Services.AddDbContext<CustomerDbContext>(opt =>
-            opt.UseNpgsql(builder.Configuration.GetConnectionString("sandbox-db")));
-        builder.EnrichSqlServerDbContext<CustomerDbContext>(configureSettings =>
         {
-            configureSettings.DisableRetry = true;
+            opt.UseNpgsql(builder.Configuration.GetConnectionString("sandbox-db"));
         });
 
         builder.Services.AddTransient(sp => sp.GetRequiredService<CustomerDbContext>().Set<Customer>().AsNoTracking());

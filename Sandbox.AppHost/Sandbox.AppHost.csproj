@@ -20,7 +20,6 @@
     <PackageReference Include="Aspire.Hosting.JavaScript" />
     <PackageReference Include="Aspire.Hosting.PostgreSQL" />
     <PackageReference Include="Aspire.Hosting.Redis" />
-    <PackageReference Include="Aspire.Hosting.SqlServer" />
     <PackageReference Include="CommunityToolkit.Aspire.Hosting.Azure.DataApiBuilder" />
     <PackageReference Include="CommunityToolkit.Aspire.Hosting.Minio" />
   </ItemGroup>
