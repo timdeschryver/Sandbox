@@ -151,7 +151,8 @@ var apiService = builder.AddProject<Projects.Sandbox_ApiService>("apiservice")
     .WaitFor(redis)
     .WithUrls(context =>
     {
-        context.Urls.Add(new() { Url = "/scalar", DisplayText = "OpenAPI Specification", Endpoint = context.GetEndpoint("http") });
+        context.Urls.Clear();
+        context.Urls.Add(new() { Url = "/api-docs", DisplayText = "OpenAPI Specification", Endpoint = context.GetEndpoint("https") });
     });
 
 var angularApplication = builder
@@ -160,6 +161,10 @@ var angularApplication = builder
     .WithRunScript("start")
     .WithHttpEndpoint(env: "PORT")
     .WithEnvironment("APPLICATION", "sandbox-app")
+    .WithUrlForEndpoint("http", url =>
+    {
+        url.DisplayLocation = UrlDisplayLocation.DetailsOnly;
+    })
     .PublishAsDockerFile(configure: resource =>
     {
         resource.WithDockerfile("../", stage: "sandbox-app");
@@ -175,9 +180,10 @@ var gateway = builder.AddProject<Projects.Sandbox_Gateway>("gateway")
     .WaitFor(angularApplication)
     .WaitFor(openTelemetryCollector)
     .WaitFor(keycloak)
-    .WithUrlForEndpoint("https", url =>
+    .WithUrls(context =>
     {
-        url.DisplayText = "Open application";
+        context.Urls.Clear();
+        context.Urls.Add(new() { Url = "/", DisplayText = "Open Application", Endpoint = context.GetEndpoint("https") });
     })
     .WithExternalHttpEndpoints();
 

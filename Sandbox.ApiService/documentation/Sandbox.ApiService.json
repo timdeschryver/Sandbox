@@ -12,7 +12,7 @@
   },
   "servers": [
     {
-      "url": "http://localhost:5499"
+      "url": "https://localhost:7333"
     }
   ],
   "paths": {

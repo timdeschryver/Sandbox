@@ -11,19 +11,17 @@ builder.WebHost.ConfigureKestrel(serverOptions =>
 });
 
 builder.AddServiceDefaults();
-
 builder.AddAuthenticationSchemes();
 builder.AddRateLimiting();
+builder.AddReverseProxy();
 
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddOpenIdConnectAccessTokenManagement();
-
 builder.Services.AddAntiforgery(options =>
 {
     options.HeaderName = "X-XSRF-TOKEN";
     options.Cookie.SameSite = SameSiteMode.Strict;
 });
-
 builder.Services.AddProblemDetails();
 
 var app = builder.Build();

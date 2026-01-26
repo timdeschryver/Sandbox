@@ -12,7 +12,6 @@
 		"start:win32": "ng serve %APPLICATION% --port %PORT%",
 		"start:default": "ng serve $APPLICATION --port $PORT",
 		"build": "ng build sandbox-app",
-		"watch": "ng build --watch --configuration development",
 		"test": "ng test",
 		"lint": "ng lint"
 	},

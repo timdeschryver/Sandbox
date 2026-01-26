@@ -24,7 +24,7 @@ app.UseModules();
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
-    app.MapScalarApiReference(options =>
+    app.MapScalarApiReference("api-docs", options =>
     {
         options.WithTitle("Sandbox API");
     });

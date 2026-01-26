@@ -1,26 +1,18 @@
 {
 	"servers": {
-		"aspire-dashboard": {
-			"type": "http",
-			"url": "http://localhost:15258/mcp",
-			"headers": {
-				"x-mcp-api-key": "35ee4f28b300a674f28812b1cbc91cbe"
-			}
+		"aspire": {
+			"type": "stdio",
+			"command": "aspire",
+			"args": ["mcp", "start"]
+		},
+		"playwright": {
+			"type": "stdio",
+			"command": "npx",
+			"args": ["-y", "@playwright/mcp@latest"]
 		},
 		"data-api-builder": {
 			"type": "http",
 			"url": "http://localhost:5000/mcp"
-		},
-		"playwright": {
-			"command": "npx",
-			"args": ["-y", "@playwright/mcp@latest"],
-			"cwd": "${workspaceFolder}/Sandbox.EndToEndTests"
-		},
-		"playwright-test": {
-			"type": "stdio",
-			"command": "npx",
-			"args": ["playwright", "run-test-mcp-server"],
-			"cwd": "${workspaceFolder}/Sandbox.EndToEndTests"
 		},
 		"github": {
 			"type": "http",
