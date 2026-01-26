@@ -6,6 +6,7 @@ using Scalar.AspNetCore;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.AddServiceDefaults();
+builder.AddSecurity();
 builder.AddAuthentication();
 builder.AddOpenApi();
 builder.AddErrorHandling();
@@ -20,6 +21,7 @@ app.UseExceptionHandler();
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseModules();
+app.UseSecurityHeaders();
 
 if (app.Environment.IsDevelopment())
 {

@@ -12,6 +12,8 @@ namespace Sandbox.ApiService;
 
 internal static class Extensions
 {
+    private static HeaderPolicyCollection? s_headerApiPolicy;
+
     extension(WebApplicationBuilder builder)
     {
         public WebApplicationBuilder AddAuthentication()
@@ -38,7 +40,7 @@ internal static class Extensions
             {
                 openApi.AddDocumentTransformer((document, _, _) =>
                 {
-                    document.Servers = [new OpenApiServer { Url = "http://localhost:5499" }];
+                    document.Servers = [new OpenApiServer { Url = "https://localhost:7333" }];
                     document.Info = new OpenApiInfo
                     {
                         Title = "Sandbox API Reference",
@@ -134,5 +136,52 @@ internal static class Extensions
             });
             return builder;
         }
+
+        public WebApplicationBuilder AddSecurity()
+        {
+            builder.Services.AddSecurityHeaderPolicies()
+                .SetPolicySelector(ctx => GetApiHeaderPolicyCollection(builder.Environment.IsDevelopment()));
+            return builder;
+        }
+    }
+
+    internal static HeaderPolicyCollection GetApiHeaderPolicyCollection(bool isDev)
+    {
+        if (s_headerApiPolicy is not null)
+        {
+            return s_headerApiPolicy;
+        }
+
+        s_headerApiPolicy = new HeaderPolicyCollection()
+            .AddFrameOptionsDeny()
+            .AddContentTypeOptionsNoSniff()
+            .AddReferrerPolicyStrictOriginWhenCrossOrigin()
+            .AddCrossOriginOpenerPolicy(builder => builder.SameOrigin())
+            .AddCrossOriginEmbedderPolicy(builder => builder.RequireCorp())
+            .AddCrossOriginResourcePolicy(builder => builder.SameOrigin())
+            .RemoveServerHeader()
+            .AddPermissionsPolicyWithDefaultSecureDirectives();
+
+        s_headerApiPolicy.AddContentSecurityPolicy(builder =>
+        {
+            builder.AddObjectSrc().None();
+            builder.AddBlockAllMixedContent();
+            builder.AddImgSrc().None();
+            builder.AddFormAction().None();
+            builder.AddFontSrc().None();
+            builder.AddStyleSrc().None();
+            builder.AddScriptSrc().None();
+            builder.AddScriptSrcElem().None();
+            builder.AddBaseUri().Self();
+            builder.AddFrameAncestors().None();
+            builder.AddCustomDirective("require-trusted-types-for", "'script'");
+        });
+
+        if (!isDev)
+        {
+            s_headerApiPolicy.AddStrictTransportSecurityMaxAgeIncludeSubDomainsAndPreload();
+        }
+
+        return s_headerApiPolicy;
     }
 }
