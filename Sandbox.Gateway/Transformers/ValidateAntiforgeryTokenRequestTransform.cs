@@ -8,6 +8,7 @@ internal sealed partial class ValidateAntiforgeryTokenRequestTransform(IAntiforg
     public override async ValueTask ApplyAsync(RequestTransformContext context)
     {
         if (context.HttpContext.Request.Method == HttpMethod.Get.Method ||
+            context.HttpContext.Request.Method == HttpMethod.Connect.Method ||
             context.HttpContext.Request.Method == HttpMethod.Head.Method ||
             context.HttpContext.Request.Method == HttpMethod.Options.Method ||
             context.HttpContext.Request.Method == HttpMethod.Trace.Method)
