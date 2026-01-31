@@ -137,12 +137,16 @@
     "schemas": {
       "BillingAddress": {
         "required": [
+          "id",
           "street",
           "city",
           "zipCode"
         ],
         "type": "object",
         "properties": {
+          "id": {
+            "$ref": "#/components/schemas/CustomerAddressId"
+          },
           "street": {
             "type": "string"
           },
@@ -193,12 +197,15 @@
         },
         "additionalProperties": false
       },
+      "CustomerAddressId": { },
       "CustomerId": { },
       "Response": {
         "required": [
           "id",
           "firstName",
-          "lastName"
+          "lastName",
+          "billingAddresses",
+          "shippingAddresses"
         ],
         "type": "object",
         "properties": {
@@ -210,12 +217,25 @@
           },
           "lastName": {
             "type": "string"
+          },
+          "billingAddresses": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/BillingAddress"
+            }
+          },
+          "shippingAddresses": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ShippingAddress"
+            }
           }
         },
         "additionalProperties": false
       },
       "ShippingAddress": {
         "required": [
+          "id",
           "street",
           "city",
           "zipCode",
@@ -223,6 +243,9 @@
         ],
         "type": "object",
         "properties": {
+          "id": {
+            "$ref": "#/components/schemas/CustomerAddressId"
+          },
           "street": {
             "type": "string"
           },
@@ -233,10 +256,7 @@
             "type": "string"
           },
           "note": {
-            "type": [
-              "null",
-              "string"
-            ]
+            "type": "string"
           }
         },
         "additionalProperties": false
