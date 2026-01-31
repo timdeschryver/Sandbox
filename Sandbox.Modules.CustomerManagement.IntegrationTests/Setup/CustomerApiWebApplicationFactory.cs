@@ -53,7 +53,7 @@ public class CustomerApiWebApplicationFactory : WebApplicationFactory<Program>, 
                 options =>
                     options.UseNpgsql(
                         _postgreSqlContainer.GetConnectionString(),
-                        x => x.MigrationsAssembly(typeof(migrations.Program).Assembly.GetName().Name)
+                        x => x.MigrationsAssembly(typeof(migrations.Program).Assembly)
                 )
             );
         });
