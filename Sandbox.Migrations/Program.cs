@@ -34,7 +34,7 @@ builder.Services.AddDbContext<CustomerDbContext>(
         {
             optionsBuilder.EnableRetryOnFailure();
 
-            optionsBuilder.MigrationsAssembly(typeof(DbInitializer).Assembly.GetName().Name);
+            optionsBuilder.MigrationsAssembly(typeof(DbInitializer).Assembly);
         });
     });
 
