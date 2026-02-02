@@ -13,9 +13,9 @@
     <PackageVersion Include="Aspire.Npgsql.EntityFrameworkCore.PostgreSQL" Version="13.1.0" />
     <PackageVersion Include="Aspire.StackExchange.Redis" Version="13.1.0" />
     <PackageVersion Include="Aspire.StackExchange.Redis.DistributedCaching" Version="13.1.0" />
-    <PackageVersion Include="CommunityToolkit.Aspire.Hosting.Azure.DataApiBuilder" Version="13.1.0" />
-    <PackageVersion Include="CommunityToolkit.Aspire.Hosting.Minio" Version="13.1.0" />
-    <PackageVersion Include="Duende.AccessTokenManagement.OpenIdConnect" Version="4.1.0" />
+    <PackageVersion Include="CommunityToolkit.Aspire.Hosting.Azure.DataApiBuilder" Version="13.1.1" />
+    <PackageVersion Include="CommunityToolkit.Aspire.Hosting.Minio" Version="13.1.1" />
+    <PackageVersion Include="Duende.AccessTokenManagement.OpenIdConnect" Version="4.1.1" />
     <PackageVersion Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="10.0.2" />
     <PackageVersion Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="10.0.2" />
     <PackageVersion Include="Microsoft.AspNetCore.OpenApi" Version="10.0.2" />
@@ -30,7 +30,7 @@
     <PackageVersion Include="Microsoft.Extensions.ServiceDiscovery" Version="10.2.0" />
     <PackageVersion Include="Microsoft.Extensions.ServiceDiscovery.Yarp" Version="10.2.0" />
     <PackageVersion Include="Microsoft.Extensions.TimeProvider.Testing" Version="10.2.0" />
-    <PackageVersion Include="Microsoft.Kiota.Bundle" Version="1.21.1" />
+    <PackageVersion Include="Microsoft.Kiota.Bundle" Version="1.21.2" />
     <PackageVersion Include="Microsoft.Testing.Extensions.CodeCoverage" Version="18.3.2" />
     <PackageVersion Include="Microsoft.Testing.Extensions.TrxReport" Version="2.0.2" />
     <PackageVersion Include="Microsoft.AspNetCore.Mvc.Testing" Version="10.0.2" />
@@ -38,20 +38,20 @@
     <PackageVersion Include="Respawn" Version="7.0.0" />
     <PackageVersion Include="Testcontainers.PostgreSql" Version="4.10.0" />
     <PackageVersion Include="NSubstitute" Version="5.3.0" />
-    <PackageVersion Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="1.14.0" />
-    <PackageVersion Include="OpenTelemetry.Extensions.Hosting" Version="1.14.0" />
-    <PackageVersion Include="OpenTelemetry.Instrumentation.AspNetCore" Version="1.14.0" />
-    <PackageVersion Include="OpenTelemetry.Instrumentation.Http" Version="1.14.0" />
-    <PackageVersion Include="OpenTelemetry.Instrumentation.Runtime" Version="1.14.0" />
-    <PackageVersion Include="Scalar.AspNetCore" Version="2.12.7" />
+    <PackageVersion Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="1.15.0" />
+    <PackageVersion Include="OpenTelemetry.Extensions.Hosting" Version="1.15.0" />
+    <PackageVersion Include="OpenTelemetry.Instrumentation.AspNetCore" Version="1.15.0" />
+    <PackageVersion Include="OpenTelemetry.Instrumentation.Http" Version="1.15.0" />
+    <PackageVersion Include="OpenTelemetry.Instrumentation.Runtime" Version="1.15.0" />
+    <PackageVersion Include="Scalar.AspNetCore" Version="2.12.30" />
     <PackageVersion Include="Testcontainers.Redis" Version="4.10.0" />
-    <PackageVersion Include="Verify.TUnit" Version="31.9.4" />
+    <PackageVersion Include="Verify.TUnit" Version="31.10.0" />
     <PackageVersion Include="Vogen" Version="8.0.4" />
-    <PackageVersion Include="TngTech.ArchUnitNET" Version="0.13.1" />
-    <PackageVersion Include="TUnit" Version="1.11.28" />
-    <PackageVersion Include="WolverineFx" Version="5.10.0" />
-    <PackageVersion Include="WolverineFx.EntityFrameworkCore" Version="5.10.0" />
-    <PackageVersion Include="WolverineFx.Postgresql" Version="5.10.0" />
+    <PackageVersion Include="TngTech.ArchUnitNET" Version="0.13.2" />
+    <PackageVersion Include="TUnit" Version="1.12.111" />
+    <PackageVersion Include="WolverineFx" Version="5.13.0" />
+    <PackageVersion Include="WolverineFx.EntityFrameworkCore" Version="5.13.0" />
+    <PackageVersion Include="WolverineFx.Postgresql" Version="5.13.0" />
     <PackageVersion Include="Yarp.ReverseProxy" Version="2.3.0" />
     <PackageVersion Include="Microsoft.Build.Tasks.Core" Version="18.0.2" />
     <PackageVersion Include="ZiggyCreatures.FusionCache" Version="2.5.0" />
