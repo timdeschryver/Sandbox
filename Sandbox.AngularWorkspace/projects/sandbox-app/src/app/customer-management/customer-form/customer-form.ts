@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject, output, signal } from '@angular/core';
 import {
-	Field,
+	FormField,
 	type OneOrMany,
 	type ValidationError,
 	type WithOptionalField,
@@ -23,7 +23,7 @@ import { Alert } from '@sandbox-app/shared/components/alert/alert';
 
 @Component({
 	selector: 'sandbox-customer-form',
-	imports: [Field, CustomerAddress, formValidation, Alert],
+	imports: [FormField, CustomerAddress, formValidation, Alert],
 	templateUrl: './customer-form.html',
 	styleUrl: './customer-form.css',
 	changeDetection: ChangeDetectionStrategy.OnPush,

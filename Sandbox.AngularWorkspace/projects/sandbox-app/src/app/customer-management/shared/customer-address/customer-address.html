@@ -1,16 +1,16 @@
 <div class="form-group">
 	<label [for]="address().street().name()">Street</label>
-	<input type="text" [id]="address().street().name()" [field]="address().street" />
+	<input type="text" [id]="address().street().name()" [formField]="address().street" />
 </div>
 
 <div class="form-group">
 	<label [for]="address().city().name()">City</label>
-	<input type="text" [id]="address().city().name()" [field]="address().city" />
+	<input type="text" [id]="address().city().name()" [formField]="address().city" />
 </div>
 
 <div class="form-group">
 	<label [for]="address().zipCode().name()">Zip Code</label>
-	<input type="text" [id]="address().zipCode().name()" [field]="address().zipCode" />
+	<input type="text" [id]="address().zipCode().name()" [formField]="address().zipCode" />
 </div>
 
 <ng-content />

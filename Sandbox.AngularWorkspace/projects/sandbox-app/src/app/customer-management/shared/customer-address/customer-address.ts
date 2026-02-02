@@ -1,11 +1,11 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
-import { Field, type FieldTree } from '@angular/forms/signals';
+import { type FieldTree, FormField } from '@angular/forms/signals';
 import { formValidation } from '@form-validation';
 import { type Address } from '@sandbox-app/customer-management/models';
 
 @Component({
 	selector: 'sandbox-customer-address',
-	imports: [Field, formValidation],
+	imports: [FormField, formValidation],
 	templateUrl: './customer-address.html',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
