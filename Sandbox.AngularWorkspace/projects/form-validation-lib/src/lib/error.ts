@@ -4,7 +4,7 @@ import { FormField } from '@angular/forms/signals';
 
 @Directive({
 	// eslint-disable-next-line @angular-eslint/directive-selector
-	selector: '[field]',
+	selector: '[formField]',
 })
 export class Error implements AfterViewInit {
 	private el = inject(ElementRef);
