@@ -17,6 +17,7 @@ internal sealed partial class HandlerTests : ArchitecturalBaseTest
 
     [Test]
     [Retry(3)]
+    [NotInParallel]
     public async Task Command_and_queries_are_immutable_and_record_types()
     {
         await ArchRuleDefinition.Classes()
@@ -35,6 +36,7 @@ internal sealed partial class HandlerTests : ArchitecturalBaseTest
 
     [Test]
     [Retry(3)]
+    [NotInParallel]
     public async Task Endpoints_implement_a_query_or_command()
     {
         await s_endpoints
@@ -45,6 +47,7 @@ internal sealed partial class HandlerTests : ArchitecturalBaseTest
 
     [Test]
     [Retry(3)]
+    [NotInParallel]
     public async Task QueryEndpoints_have_Parameters()
     {
         await s_endpoints
@@ -63,6 +66,7 @@ internal sealed partial class HandlerTests : ArchitecturalBaseTest
 
     [Test]
     [Retry(3)]
+    [NotInParallel]
     public async Task CommandEndpoints_have_Command()
     {
         await s_endpoints

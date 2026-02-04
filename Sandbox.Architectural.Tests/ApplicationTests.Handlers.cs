@@ -8,6 +8,7 @@ internal sealed partial class HandlerTests : ArchitecturalBaseTest
 {
     [Test]
     [Retry(3)]
+    [NotInParallel]
     public async Task Handlers_reside_in_handler_namespace_with_a_Handle_method()
     {
         await ArchRuleDefinition.Classes()

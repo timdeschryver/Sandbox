@@ -8,6 +8,7 @@ internal sealed class DomainLayerReferencesTests : ArchitecturalBaseTest
 {
     [Test]
     [Retry(3)]
+    [NotInParallel]
     public async Task Domain_does_not_reference_application_or_data()
     {
         await ArchRuleDefinition.Types()
@@ -21,6 +22,7 @@ internal sealed class DomainLayerReferencesTests : ArchitecturalBaseTest
 
     [Test]
     [Retry(3)]
+    [NotInParallel]
     public async Task Domain_classes_have_empty_ctor()
     {
         await ArchRuleDefinition.Classes()
