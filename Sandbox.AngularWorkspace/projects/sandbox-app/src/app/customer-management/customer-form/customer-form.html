@@ -22,18 +22,18 @@
 			<div class="form-row">
 				<div class="form-group">
 					<label [for]="customerForm.firstName().name()">First Name</label>
-					<input type="text" [id]="customerForm.firstName().name()" [field]="customerForm.firstName" />
+					<input type="text" [id]="customerForm.firstName().name()" [formField]="customerForm.firstName" />
 				</div>
 
 				<div class="form-group">
 					<label [for]="customerForm.lastName().name()">Last Name</label>
-					<input type="text" [id]="customerForm.lastName().name()" [field]="customerForm.lastName" />
+					<input type="text" [id]="customerForm.lastName().name()" [formField]="customerForm.lastName" />
 				</div>
 			</div>
 		</fieldset>
 
 		<div class="checkbox-group">
-			<input type="checkbox" id="hasBillingAddress" [field]="customerForm.hasBillingAddress" />
+			<input type="checkbox" id="hasBillingAddress" [formField]="customerForm.hasBillingAddress" />
 			<label for="hasBillingAddress" class="checkbox-label">Add Billing Address</label>
 		</div>
 
@@ -45,7 +45,7 @@
 		}
 
 		<div class="checkbox-group">
-			<input type="checkbox" id="hasShippingAddress" [field]="customerForm.hasShippingAddress" />
+			<input type="checkbox" id="hasShippingAddress" [formField]="customerForm.hasShippingAddress" />
 			<label for="hasShippingAddress" class="checkbox-label">Add Shipping Address</label>
 		</div>
 
@@ -55,7 +55,7 @@
 				<sandbox-customer-address [address]="customerForm.shippingAddress">
 					<div class="form-group">
 						<label for="note">Note</label>
-						<textarea id="note" [field]="customerForm.shippingAddress.note"></textarea>
+						<textarea id="note" [formField]="customerForm.shippingAddress.note"></textarea>
 					</div>
 				</sandbox-customer-address>
 			</fieldset>

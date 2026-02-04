@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
 import { ValidationMessagePipe } from './validation-message.pipe';
-import { type Field } from '@angular/forms/signals';
+import { type FormField } from '@angular/forms/signals';
 
 @Component({
 	selector: 'form-validation-field-errors',
@@ -16,7 +16,7 @@ import { type Field } from '@angular/forms/signals';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FieldErrors {
-	public readonly field = input.required<Field<unknown>>();
+	public readonly field = input.required<FormField<unknown>>();
 	public readonly describedby = input.required<string>();
 
 	protected readonly showError = computed(() => {
