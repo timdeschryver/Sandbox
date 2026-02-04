@@ -1,4 +1,5 @@
 using System.Net;
+using System.Runtime.CompilerServices;
 using Microsoft.AspNetCore.Mvc;
 using Sandbox.Modules.CustomerManagement.IntegrationTests.Setup;
 using Sandbox.SharedKernel.StronglyTypedIds;
@@ -12,11 +13,9 @@ public class CustomerApiTests
     public CustomerApiTests(CustomerApiWebApplicationFactory webAppFactory)
     {
         _webAppFactory = webAppFactory;
-        VerifierSettings.ScrubMember("Id");
     }
 
     [Test]
-    [NotInParallel]
     public async Task CreateCustomer_WithValidData_Returns_CreatedResponse()
     {
         var apiClient = _webAppFactory.CreateApiClient();
@@ -50,7 +49,6 @@ public class CustomerApiTests
     }
 
     [Test]
-    [NotInParallel]
     public async Task CreateCustomer_WithMinimalData_Returns_CreatedResponse()
     {
         var apiClient = _webAppFactory.CreateApiClient();
@@ -67,7 +65,6 @@ public class CustomerApiTests
     }
 
     [Test]
-    [NotInParallel]
     public async Task CreateCustomer_WithInvalidData_Returns_BadRequestProblemDetails()
     {
         var apiClient = _webAppFactory.CreateApiClient();
@@ -91,7 +88,6 @@ public class CustomerApiTests
     }
 
     [Test]
-    [NotInParallel]
     public async Task CreateCustomer_WithUnknownProperty_Returns_BadRequestProblemDetails()
     {
         using var client = _webAppFactory.CreateClient();
@@ -113,7 +109,6 @@ public class CustomerApiTests
     }
 
     [Test]
-    [NotInParallel]
     public async Task GetCustomers_Returns_OkWithCustomersList()
     {
         var apiClient = _webAppFactory.CreateApiClient();
@@ -141,7 +136,6 @@ public class CustomerApiTests
     }
 
     [Test]
-    [NotInParallel]
     public async Task GetCustomer_WithValidId_Returns_OkWithCustomer()
     {
         var apiClient = _webAppFactory.CreateApiClient();
@@ -174,7 +168,6 @@ public class CustomerApiTests
     }
 
     [Test]
-    [NotInParallel]
     public async Task GetCustomer_WithNonExistentId_Returns_NotFound()
     {
         var apiClient = _webAppFactory.CreateApiClient();
@@ -193,7 +186,6 @@ public class CustomerApiTests
     }
 
     [Test]
-    [NotInParallel]
     public async Task RemovedCustomer_IsNotIncluded()
     {
         var apiClient = _webAppFactory.CreateApiClient();
