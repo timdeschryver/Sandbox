@@ -7,13 +7,9 @@ using Sandbox.SharedKernel.StronglyTypedIds;
 namespace Sandbox.Modules.CustomerManagement.IntegrationTests;
 
 [ClassDataSource<CustomerApiWebApplicationFactory>(Shared = SharedType.None)]
-public class CustomerApiTests
+public class CustomerApiTests(CustomerApiWebApplicationFactory webAppFactory)
 {
-    private readonly CustomerApiWebApplicationFactory _webAppFactory;
-    public CustomerApiTests(CustomerApiWebApplicationFactory webAppFactory)
-    {
-        _webAppFactory = webAppFactory;
-    }
+    private readonly CustomerApiWebApplicationFactory _webAppFactory = webAppFactory;
 
     [Test]
     public async Task CreateCustomer_WithValidData_Returns_CreatedResponse()
