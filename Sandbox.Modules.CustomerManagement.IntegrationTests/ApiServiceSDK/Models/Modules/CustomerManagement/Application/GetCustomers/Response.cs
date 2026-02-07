@@ -5,21 +5,13 @@ using Microsoft.Kiota.Abstractions.Serialization;
 using System.Collections.Generic;
 using System.IO;
 using System;
-namespace ApiServiceSDK.Models
+namespace ApiServiceSDK.Models.Modules.CustomerManagement.Application.GetCustomers
 {
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     #pragma warning disable CS1591
     public partial class Response : IParsable
     #pragma warning restore CS1591
     {
-        /// <summary>The billingAddresses property</summary>
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public List<global::ApiServiceSDK.Models.BillingAddress>? BillingAddresses { get; set; }
-#nullable restore
-#else
-        public List<global::ApiServiceSDK.Models.BillingAddress> BillingAddresses { get; set; }
-#endif
         /// <summary>The firstName property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -44,23 +36,15 @@ namespace ApiServiceSDK.Models
 #else
         public string LastName { get; set; }
 #endif
-        /// <summary>The shippingAddresses property</summary>
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public List<global::ApiServiceSDK.Models.ShippingAddress>? ShippingAddresses { get; set; }
-#nullable restore
-#else
-        public List<global::ApiServiceSDK.Models.ShippingAddress> ShippingAddresses { get; set; }
-#endif
         /// <summary>
         /// Creates a new instance of the appropriate class based on discriminator value
         /// </summary>
-        /// <returns>A <see cref="global::ApiServiceSDK.Models.Response"/></returns>
+        /// <returns>A <see cref="global::ApiServiceSDK.Models.Modules.CustomerManagement.Application.GetCustomers.Response"/></returns>
         /// <param name="parseNode">The parse node to use to read the discriminator value and create the object</param>
-        public static global::ApiServiceSDK.Models.Response CreateFromDiscriminatorValue(IParseNode parseNode)
+        public static global::ApiServiceSDK.Models.Modules.CustomerManagement.Application.GetCustomers.Response CreateFromDiscriminatorValue(IParseNode parseNode)
         {
             if(ReferenceEquals(parseNode, null)) throw new ArgumentNullException(nameof(parseNode));
-            return new global::ApiServiceSDK.Models.Response();
+            return new global::ApiServiceSDK.Models.Modules.CustomerManagement.Application.GetCustomers.Response();
         }
         /// <summary>
         /// The deserialization information for the current model
@@ -70,11 +54,9 @@ namespace ApiServiceSDK.Models
         {
             return new Dictionary<string, Action<IParseNode>>
             {
-                { "billingAddresses", n => { BillingAddresses = n.GetCollectionOfObjectValues<global::ApiServiceSDK.Models.BillingAddress>(global::ApiServiceSDK.Models.BillingAddress.CreateFromDiscriminatorValue)?.AsList(); } },
                 { "firstName", n => { FirstName = n.GetStringValue(); } },
                 { "id", n => { Id = n.GetObjectValue<UntypedNode>(UntypedNode.CreateFromDiscriminatorValue); } },
                 { "lastName", n => { LastName = n.GetStringValue(); } },
-                { "shippingAddresses", n => { ShippingAddresses = n.GetCollectionOfObjectValues<global::ApiServiceSDK.Models.ShippingAddress>(global::ApiServiceSDK.Models.ShippingAddress.CreateFromDiscriminatorValue)?.AsList(); } },
             };
         }
         /// <summary>
@@ -84,11 +66,9 @@ namespace ApiServiceSDK.Models
         public virtual void Serialize(ISerializationWriter writer)
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
-            writer.WriteCollectionOfObjectValues<global::ApiServiceSDK.Models.BillingAddress>("billingAddresses", BillingAddresses);
             writer.WriteStringValue("firstName", FirstName);
             writer.WriteObjectValue<UntypedNode>("id", Id);
             writer.WriteStringValue("lastName", LastName);
-            writer.WriteCollectionOfObjectValues<global::ApiServiceSDK.Models.ShippingAddress>("shippingAddresses", ShippingAddresses);
         }
     }
 }

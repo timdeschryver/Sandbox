@@ -5,11 +5,11 @@ using Microsoft.Kiota.Abstractions.Serialization;
 using System.Collections.Generic;
 using System.IO;
 using System;
-namespace ApiServiceSDK.Models
+namespace ApiServiceSDK.Models.Modules.CustomerManagement.Application.CreateCustomer
 {
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     #pragma warning disable CS1591
-    public partial class ShippingAddress : IParsable
+    public partial class BillingAddress : IParsable
     #pragma warning restore CS1591
     {
         /// <summary>The city property</summary>
@@ -19,22 +19,6 @@ namespace ApiServiceSDK.Models
 #nullable restore
 #else
         public string City { get; set; }
-#endif
-        /// <summary>The id property</summary>
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public UntypedNode? Id { get; set; }
-#nullable restore
-#else
-        public UntypedNode Id { get; set; }
-#endif
-        /// <summary>The note property</summary>
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public string? Note { get; set; }
-#nullable restore
-#else
-        public string Note { get; set; }
 #endif
         /// <summary>The street property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
@@ -55,12 +39,12 @@ namespace ApiServiceSDK.Models
         /// <summary>
         /// Creates a new instance of the appropriate class based on discriminator value
         /// </summary>
-        /// <returns>A <see cref="global::ApiServiceSDK.Models.ShippingAddress"/></returns>
+        /// <returns>A <see cref="global::ApiServiceSDK.Models.Modules.CustomerManagement.Application.CreateCustomer.BillingAddress"/></returns>
         /// <param name="parseNode">The parse node to use to read the discriminator value and create the object</param>
-        public static global::ApiServiceSDK.Models.ShippingAddress CreateFromDiscriminatorValue(IParseNode parseNode)
+        public static global::ApiServiceSDK.Models.Modules.CustomerManagement.Application.CreateCustomer.BillingAddress CreateFromDiscriminatorValue(IParseNode parseNode)
         {
             if(ReferenceEquals(parseNode, null)) throw new ArgumentNullException(nameof(parseNode));
-            return new global::ApiServiceSDK.Models.ShippingAddress();
+            return new global::ApiServiceSDK.Models.Modules.CustomerManagement.Application.CreateCustomer.BillingAddress();
         }
         /// <summary>
         /// The deserialization information for the current model
@@ -71,8 +55,6 @@ namespace ApiServiceSDK.Models
             return new Dictionary<string, Action<IParseNode>>
             {
                 { "city", n => { City = n.GetStringValue(); } },
-                { "id", n => { Id = n.GetObjectValue<UntypedNode>(UntypedNode.CreateFromDiscriminatorValue); } },
-                { "note", n => { Note = n.GetStringValue(); } },
                 { "street", n => { Street = n.GetStringValue(); } },
                 { "zipCode", n => { ZipCode = n.GetStringValue(); } },
             };
@@ -85,8 +67,6 @@ namespace ApiServiceSDK.Models
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
             writer.WriteStringValue("city", City);
-            writer.WriteObjectValue<UntypedNode>("id", Id);
-            writer.WriteStringValue("note", Note);
             writer.WriteStringValue("street", Street);
             writer.WriteStringValue("zipCode", ZipCode);
         }

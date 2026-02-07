@@ -1,7 +1,6 @@
 using Vogen;
 
-// TODO: re-enable after https://github.com/SteveDunn/Vogen/issues/844, also refactor the reflection in integration tests
-// [assembly: VogenDefaults(openApiSchemaCustomizations: OpenApiSchemaCustomizations.GenerateOpenApiMappingExtensionMethod)]
+[assembly: VogenDefaults(openApiSchemaCustomizations: OpenApiSchemaCustomizations.GenerateOpenApiMappingExtensionMethod)]
 namespace Sandbox.SharedKernel.StronglyTypedIds;
 
 [ValueObject<Guid>(conversions: Conversions.SystemTextJson | Conversions.EfCoreValueConverter)]

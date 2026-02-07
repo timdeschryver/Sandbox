@@ -13,7 +13,7 @@ namespace Sandbox.Modules.CustomerManagement.Application;
 
 public static class GetCustomers
 {
-    public sealed record Parameters();
+    public sealed record Request();
     public sealed record Response(CustomerId Id, string FirstName, string LastName);
 
     /// <summary>
@@ -21,7 +21,7 @@ public static class GetCustomers
     /// </summary>
     /// <returns>A collection with all customers.</returns>
     public static async Task<Ok<List<Response>>> Query(
-        [AsParameters] Parameters _,
+        [AsParameters] Request _,
         [FromServices] IQueryable<Customer> customers,
         [FromKeyedServices("Customers")] HybridCache cache,
         CancellationToken cancellationToken)

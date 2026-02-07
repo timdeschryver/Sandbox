@@ -13,20 +13,20 @@ namespace Sandbox.Modules.CustomerManagement.Application;
 
 public static class DeleteCustomer
 {
-    public sealed record Command([FromRoute] CustomerId CustomerId);
+    public sealed record Request([FromRoute] CustomerId CustomerId);
 
     /// <summary>
     /// Soft delete a customer by id.
     /// </summary>
     /// <returns>No content if successful, not found if customer doesn't exist.</returns>
     public static async Task<Results<NoContent, NotFound>> Handle(
-        [AsParameters] Command command,
+        [AsParameters] Request request,
         [NotNull][FromServices] IDbContextOutbox<CustomerDbContext> outbox,
         CancellationToken cancellationToken)
     {
         var customer = await outbox.DbContext
             .Set<Customer>()
-            .SingleOrDefaultAsync(c => c.Id == command.CustomerId, cancellationToken);
+            .SingleOrDefaultAsync(c => c.Id == request.CustomerId, cancellationToken);
 
         if (customer is null)
         {

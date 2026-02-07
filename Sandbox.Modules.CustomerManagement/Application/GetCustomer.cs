@@ -1,3 +1,4 @@
+using System.Collections.ObjectModel;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
@@ -9,35 +10,35 @@ namespace Sandbox.Modules.CustomerManagement.Application;
 
 public static class GetCustomer
 {
-    public sealed record Parameters([FromRoute] CustomerId CustomerId);
-    public sealed record Response(CustomerId Id, string FirstName, string LastName, IEnumerable<BillingAddress> BillingAddresses, IEnumerable<ShippingAddress> ShippingAddresses);
-    public sealed record BillingAddress(CustomerAddressId Id, string Street, string City, string ZipCode);
-    public sealed record ShippingAddress(CustomerAddressId Id, string Street, string City, string ZipCode, string Note);
+    public sealed record Request([FromRoute] CustomerId CustomerId);
+    public sealed record Response(CustomerId Id, string FirstName, string LastName, ReadOnlyCollection<ResponseBillingAddress> BillingAddresses, ReadOnlyCollection<ResponseShippingAddress> ShippingAddresses);
+    public sealed record ResponseBillingAddress(CustomerAddressId Id, string Street, string City, string ZipCode);
+    public sealed record ResponseShippingAddress(CustomerAddressId Id, string Street, string City, string ZipCode, string Note);
 
     /// <summary>
     /// Get a customer by id.
     /// </summary>
     /// <returns>The requested customer.</returns>
     public static async Task<Results<Ok<Response>, NotFound>> Query(
-       [AsParameters] Parameters parameters,
+       [AsParameters] Request request,
        [FromServices] IQueryable<Customer> customers,
        CancellationToken cancellationToken)
     {
-        ArgumentNullException.ThrowIfNull(parameters);
+        ArgumentNullException.ThrowIfNull(request);
 
         var customer = await customers
             .Select(c => new Response(
                 c.Id,
                 c.Name.FirstName,
                 c.Name.LastName,
-                c.BillingAddresses.Select(b => new BillingAddress(b.Id, b.Address.Street, b.Address.City, b.Address.ZipCode)),
-                c.ShippingAddresses.Select(s => new ShippingAddress(s.Id, s.Address.Street, s.Address.City, s.Address.ZipCode, s.Note))
+                new ReadOnlyCollection<ResponseBillingAddress>(c.BillingAddresses.Select(b => new ResponseBillingAddress(b.Id, b.Address.Street, b.Address.City, b.Address.ZipCode)).ToList()),
+                new ReadOnlyCollection<ResponseShippingAddress>(c.ShippingAddresses.Select(s => new ResponseShippingAddress(s.Id, s.Address.Street, s.Address.City, s.Address.ZipCode, s.Note)).ToList())
             )
             {
                 Id = c.Id,
             })
             .AsSplitQuery()
-            .SingleOrDefaultAsync(c => c.Id == parameters.CustomerId, cancellationToken);
+            .SingleOrDefaultAsync(c => c.Id == request.CustomerId, cancellationToken);
 
         return customer switch
         {

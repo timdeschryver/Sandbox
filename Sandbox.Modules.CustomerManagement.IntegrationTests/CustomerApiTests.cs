@@ -1,5 +1,4 @@
 using System.Net;
-using System.Runtime.CompilerServices;
 using Microsoft.AspNetCore.Mvc;
 using Sandbox.Modules.CustomerManagement.IntegrationTests.Setup;
 using Sandbox.SharedKernel.StronglyTypedIds;
@@ -16,22 +15,22 @@ public class CustomerApiTests(CustomerApiWebApplicationFactory webAppFactory)
     {
         var apiClient = _webAppFactory.CreateApiClient();
 
-        var response = await apiClient.Customers.PostAsync(new ApiServiceSDK.Models.Command()
+        var response = await apiClient.Customers.PostAsync(new ApiServiceSDK.Models.Modules.CustomerManagement.Application.CreateCustomer.Request()
         {
             FirstName = "John",
             LastName = "Doe",
-            BillingAddress = new ApiServiceSDK.Models.Command.Command_billingAddress()
+            BillingAddress = new ApiServiceSDK.Models.Modules.CustomerManagement.Application.CreateCustomer.Request.Request_billingAddress()
             {
-                BillingAddress = new ApiServiceSDK.Models.BillingAddress()
+                BillingAddress = new ApiServiceSDK.Models.Modules.CustomerManagement.Application.CreateCustomer.BillingAddress()
                 {
                     Street = "123 Main St",
                     City = "Anytown",
                     ZipCode = "12345"
                 }
             },
-            ShippingAddress = new ApiServiceSDK.Models.Command.Command_shippingAddress()
+            ShippingAddress = new ApiServiceSDK.Models.Modules.CustomerManagement.Application.CreateCustomer.Request.Request_shippingAddress()
             {
-                ShippingAddress = new ApiServiceSDK.Models.ShippingAddress()
+                ShippingAddress = new ApiServiceSDK.Models.Modules.CustomerManagement.Application.CreateCustomer.ShippingAddress()
                 {
                     Street = "456 Oak Ave",
                     City = "Somewhere",
@@ -49,7 +48,7 @@ public class CustomerApiTests(CustomerApiWebApplicationFactory webAppFactory)
     {
         var apiClient = _webAppFactory.CreateApiClient();
 
-        var response = await apiClient.Customers.PostAsync(new ApiServiceSDK.Models.Command()
+        var response = await apiClient.Customers.PostAsync(new ApiServiceSDK.Models.Modules.CustomerManagement.Application.CreateCustomer.Request()
         {
             FirstName = "Jane",
             LastName = "Smith",
@@ -67,7 +66,7 @@ public class CustomerApiTests(CustomerApiWebApplicationFactory webAppFactory)
 
         try
         {
-            await apiClient.Customers.PostAsync(new ApiServiceSDK.Models.Command()
+            await apiClient.Customers.PostAsync(new ApiServiceSDK.Models.Modules.CustomerManagement.Application.CreateCustomer.Request()
             {
                 FirstName = "A",
                 LastName = "B",
@@ -109,14 +108,14 @@ public class CustomerApiTests(CustomerApiWebApplicationFactory webAppFactory)
     {
         var apiClient = _webAppFactory.CreateApiClient();
 
-        await apiClient.Customers.PostAsync(new ApiServiceSDK.Models.Command()
+        await apiClient.Customers.PostAsync(new ApiServiceSDK.Models.Modules.CustomerManagement.Application.CreateCustomer.Request()
         {
             FirstName = "Test",
             LastName = "User",
             BillingAddress = null,
             ShippingAddress = null
         });
-        await apiClient.Customers.PostAsync(new ApiServiceSDK.Models.Command()
+        await apiClient.Customers.PostAsync(new ApiServiceSDK.Models.Modules.CustomerManagement.Application.CreateCustomer.Request()
         {
             FirstName = "Test 2",
             LastName = "User 2",
@@ -136,13 +135,13 @@ public class CustomerApiTests(CustomerApiWebApplicationFactory webAppFactory)
     {
         var apiClient = _webAppFactory.CreateApiClient();
 
-        var createResponse = await apiClient.Customers.PostAsync(new ApiServiceSDK.Models.Command()
+        var createResponse = await apiClient.Customers.PostAsync(new ApiServiceSDK.Models.Modules.CustomerManagement.Application.CreateCustomer.Request()
         {
             FirstName = "Individual",
             LastName = "Customer",
-            BillingAddress = new ApiServiceSDK.Models.Command.Command_billingAddress()
+            BillingAddress = new ApiServiceSDK.Models.Modules.CustomerManagement.Application.CreateCustomer.Request.Request_billingAddress()
             {
-                BillingAddress = new ApiServiceSDK.Models.BillingAddress()
+                BillingAddress = new ApiServiceSDK.Models.Modules.CustomerManagement.Application.CreateCustomer.BillingAddress()
                 {
                     Street = "789 Pine Rd",
                     City = "Elsewhere",
@@ -186,7 +185,7 @@ public class CustomerApiTests(CustomerApiWebApplicationFactory webAppFactory)
     {
         var apiClient = _webAppFactory.CreateApiClient();
 
-        var createResponse = await apiClient.Customers.PostAsync(new ApiServiceSDK.Models.Command()
+        var createResponse = await apiClient.Customers.PostAsync(new ApiServiceSDK.Models.Modules.CustomerManagement.Application.CreateCustomer.Request()
         {
             FirstName = "Jane",
             LastName = "Smith",

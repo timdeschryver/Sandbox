@@ -32,7 +32,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/Response"
+                    "$ref": "#/components/schemas/Sandbox.Modules.CustomerManagement.Application.GetCustomers.Response"
                   }
                 }
               }
@@ -51,7 +51,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Command"
+                "$ref": "#/components/schemas/Sandbox.Modules.CustomerManagement.Application.CreateCustomer.Request"
               }
             }
           },
@@ -63,7 +63,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/CustomerId"
+                  "$ref": "#/components/schemas/Sandbox.SharedKernel.StronglyTypedIds.CustomerId"
                 }
               }
             }
@@ -85,7 +85,7 @@
             "in": "path",
             "required": true,
             "schema": {
-              "$ref": "#/components/schemas/CustomerId"
+              "$ref": "#/components/schemas/Sandbox.SharedKernel.StronglyTypedIds.CustomerId"
             }
           }
         ],
@@ -95,7 +95,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Response"
+                  "$ref": "#/components/schemas/Sandbox.Modules.CustomerManagement.Application.GetCustomer.Response"
                 }
               }
             }
@@ -118,7 +118,7 @@
             "in": "path",
             "required": true,
             "schema": {
-              "$ref": "#/components/schemas/CustomerId"
+              "$ref": "#/components/schemas/Sandbox.SharedKernel.StronglyTypedIds.CustomerId"
             }
           }
         ],
@@ -135,18 +135,14 @@
   },
   "components": {
     "schemas": {
-      "BillingAddress": {
+      "Sandbox.Modules.CustomerManagement.Application.CreateCustomer.BillingAddress": {
         "required": [
-          "id",
           "street",
           "city",
           "zipCode"
         ],
         "type": "object",
         "properties": {
-          "id": {
-            "$ref": "#/components/schemas/CustomerAddressId"
-          },
           "street": {
             "type": "string"
           },
@@ -159,7 +155,7 @@
         },
         "additionalProperties": false
       },
-      "Command": {
+      "Sandbox.Modules.CustomerManagement.Application.CreateCustomer.Request": {
         "required": [
           "firstName",
           "lastName",
@@ -180,7 +176,7 @@
                 "type": "null"
               },
               {
-                "$ref": "#/components/schemas/BillingAddress"
+                "$ref": "#/components/schemas/Sandbox.Modules.CustomerManagement.Application.CreateCustomer.BillingAddress"
               }
             ]
           },
@@ -190,16 +186,41 @@
                 "type": "null"
               },
               {
-                "$ref": "#/components/schemas/ShippingAddress"
+                "$ref": "#/components/schemas/Sandbox.Modules.CustomerManagement.Application.CreateCustomer.ShippingAddress"
               }
             ]
           }
         },
         "additionalProperties": false
       },
-      "CustomerAddressId": { },
-      "CustomerId": { },
-      "Response": {
+      "Sandbox.Modules.CustomerManagement.Application.CreateCustomer.ShippingAddress": {
+        "required": [
+          "street",
+          "city",
+          "zipCode",
+          "note"
+        ],
+        "type": "object",
+        "properties": {
+          "street": {
+            "type": "string"
+          },
+          "city": {
+            "type": "string"
+          },
+          "zipCode": {
+            "type": "string"
+          },
+          "note": {
+            "type": [
+              "null",
+              "string"
+            ]
+          }
+        },
+        "additionalProperties": false
+      },
+      "Sandbox.Modules.CustomerManagement.Application.GetCustomer.Response": {
         "required": [
           "id",
           "firstName",
@@ -210,7 +231,7 @@
         "type": "object",
         "properties": {
           "id": {
-            "$ref": "#/components/schemas/CustomerId"
+            "$ref": "#/components/schemas/Sandbox.SharedKernel.StronglyTypedIds.CustomerId"
           },
           "firstName": {
             "type": "string"
@@ -221,19 +242,43 @@
           "billingAddresses": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/BillingAddress"
+              "$ref": "#/components/schemas/Sandbox.Modules.CustomerManagement.Application.GetCustomer.ResponseBillingAddress"
             }
           },
           "shippingAddresses": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/ShippingAddress"
+              "$ref": "#/components/schemas/Sandbox.Modules.CustomerManagement.Application.GetCustomer.ResponseShippingAddress"
             }
           }
         },
         "additionalProperties": false
       },
-      "ShippingAddress": {
+      "Sandbox.Modules.CustomerManagement.Application.GetCustomer.ResponseBillingAddress": {
+        "required": [
+          "id",
+          "street",
+          "city",
+          "zipCode"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "$ref": "#/components/schemas/Sandbox.SharedKernel.StronglyTypedIds.CustomerAddressId"
+          },
+          "street": {
+            "type": "string"
+          },
+          "city": {
+            "type": "string"
+          },
+          "zipCode": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Sandbox.Modules.CustomerManagement.Application.GetCustomer.ResponseShippingAddress": {
         "required": [
           "id",
           "street",
@@ -244,7 +289,7 @@
         "type": "object",
         "properties": {
           "id": {
-            "$ref": "#/components/schemas/CustomerAddressId"
+            "$ref": "#/components/schemas/Sandbox.SharedKernel.StronglyTypedIds.CustomerAddressId"
           },
           "street": {
             "type": "string"
@@ -260,7 +305,29 @@
           }
         },
         "additionalProperties": false
-      }
+      },
+      "Sandbox.Modules.CustomerManagement.Application.GetCustomers.Response": {
+        "required": [
+          "id",
+          "firstName",
+          "lastName"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "$ref": "#/components/schemas/Sandbox.SharedKernel.StronglyTypedIds.CustomerId"
+          },
+          "firstName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Sandbox.SharedKernel.StronglyTypedIds.CustomerAddressId": { },
+      "Sandbox.SharedKernel.StronglyTypedIds.CustomerId": { }
     },
     "securitySchemes": {
       "Bearer": {

@@ -17,15 +17,13 @@ internal sealed partial class HandlerTests : ArchitecturalBaseTest
 
     [Test]
     [Retry(3)]
-    public async Task Command_and_queries_are_immutable_and_record_types()
+    public async Task All_request_are_immutable_and_record_types()
     {
         await ArchRuleDefinition.Classes()
             .That()
             .AreNestedIn(s_endpoints)
             .And()
-            .HaveName("Command")
-            .Or()
-            .HaveName("Parameters")
+            .HaveName("Request")
             .Should()
             .BeImmutable()
             .AndShould()
@@ -35,7 +33,7 @@ internal sealed partial class HandlerTests : ArchitecturalBaseTest
 
     [Test]
     [Retry(3)]
-    public async Task Endpoints_implement_a_query_or_command()
+    public async Task Endpoints_implement_a_handle_or_query()
     {
         await s_endpoints
             .Should()
@@ -45,7 +43,7 @@ internal sealed partial class HandlerTests : ArchitecturalBaseTest
 
     [Test]
     [Retry(3)]
-    public async Task QueryEndpoints_have_Parameters()
+    public async Task QueryEndpoints_have_a_request()
     {
         await s_endpoints
                .Should()
@@ -54,28 +52,28 @@ internal sealed partial class HandlerTests : ArchitecturalBaseTest
                    var query = clazz.GetMethodMembers().SingleOrDefault(m => m.NameContains("Query"));
                    if (query != null)
                    {
-                       return query.Parameters.Any(p => p.NameEquals("Parameters"));
+                       return query.Parameters.Any(p => p.NameEquals("Request"));
                    }
                    return true;
-               }, "have parameters input", "The Query endpoint needs to have parameters as an input.")
+               }, "have a Request input", "The Query endpoint needs to have a Request input.")
                .Check(Architecture);
     }
 
     [Test]
     [Retry(3)]
-    public async Task CommandEndpoints_have_Command()
+    public async Task CommandEndpoints_have_a_Request()
     {
         await s_endpoints
             .Should()
             .FollowCustomCondition(clazz =>
             {
-                var command = clazz.GetMethodMembers().SingleOrDefault(m => m.NameContains("Handle"));
-                if (command != null)
+                var handle = clazz.GetMethodMembers().SingleOrDefault(m => m.NameContains("Handle"));
+                if (handle != null)
                 {
-                    return command.Parameters.Any(p => p.NameEquals("Command"));
+                    return handle.Parameters.Any(p => p.NameEquals("Request"));
                 }
                 return true;
-            }, "have a Command input", "The Command endpoint needs to have a Command input.")
+            }, "have a Request input", "The Command endpoint needs to have a Request input.")
             .Check(Architecture);
     }
 }
