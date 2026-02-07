@@ -218,7 +218,7 @@ internal static class Extensions
             // }
 
             // transform the typename based on the provided delegate
-            string? transformedTypeName = typeSchemaTransformer(context.JsonTypeInfo.Type);
+            var transformedTypeName = typeSchemaTransformer(context.JsonTypeInfo.Type);
 
             // Scalar - decorate the models section
             // schema.Annotations["x-schema-id"] = transformedTypeName;
