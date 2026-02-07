@@ -1,4 +1,4 @@
-FROM node:24-slim@sha256:bf22df20270b654c4e9da59d8d4a3516cce6ba2852e159b27288d645b7a7eedc AS base
+FROM node:24-slim@sha256:4660b1ca8b28d6d1906fd644abe34b2ed81d15434d26d845ef0aced307cf4b6f AS base
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
 RUN corepack enable
@@ -15,7 +15,7 @@ RUN pnpm run -r build
 RUN pnpm deploy --filter=./Sandbox.AngularWorkspace --prod /prod/sandbox-app
 RUN ls /prod/sandbox-app
 
-FROM nginx:alpine@sha256:4870c12cd2ca986de501a804b4f506ad3875a0b1874940ba0a2c7f763f1855b2 AS sandbox-app
+FROM nginx:alpine@sha256:5878d06ae4c83d73285438255f705bb3f9a736f41cd24876ed25bb33faf76c7d AS sandbox-app
 COPY --from=build /prod/sandbox-app/default.conf.template /etc/nginx/templates/default.conf.template
 COPY --from=build /prod/sandbox-app/dist/sandbox-app/browser /usr/share/nginx/html
 EXPOSE 80
