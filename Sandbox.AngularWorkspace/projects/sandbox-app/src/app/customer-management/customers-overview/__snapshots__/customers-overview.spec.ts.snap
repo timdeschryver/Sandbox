@@ -3,201 +3,54 @@
 exports[`renders the component with customers table 1`] = `
 <div>
   <div
-    class="customers-overview"
+    class="w-full"
   >
     <div
-      class="page-header mb-8"
+      class="mb-8"
     >
       <h1
-        class="page-title"
+        class="text-3xl font-semibold text-gray-900 dark:text-gray-100 m-0"
       >
         Customers
       </h1>
     </div>
     <div
-      class="content-layout"
+      class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start"
     >
       <div
-        class="customers-section"
-      >
-        <sandbox-customers-list>
-          <sandbox-table
-            class="customers-table"
-          >
-            <div
-              class="table-container"
-            >
-              <!--container-->
-              <table
-                class="data-table"
-              >
-                <thead>
-                  <tr>
-                    <th
-                      class="refresh-column"
-                    >
-                      <button
-                        class="refresh-button"
-                        title="Refresh data"
-                        type="button"
-                      >
-                        <svg
-                          fill="none"
-                          height="16"
-                          stroke="currentColor"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          viewBox="0 0 24 24"
-                          width="16"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2"
-                          />
-                        </svg>
-                      </button>
-                    </th>
-                    <th>
-                      Name
-                    </th>
-                    <th
-                      class="actions-column"
-                    />
-                    <!--container-->
-                  </tr>
-                </thead>
-                <!--container-->
-                <tbody>
-                  <tr>
-                    <td
-                      class="empty-cell"
-                    />
-                    <td
-                      class="customer-name"
-                    >
-                      <span
-                        class="name-text"
-                        title="John Doe"
-                      >
-                         John Doe 
-                      </span>
-                    </td>
-                    <td
-                      class="actions-cell"
-                    >
-                      <a
-                        class="view-details-link"
-                        href="/a8574564-ef6f-42da-9393-67d7e466e8c8"
-                      >
-                        <span>
-                          View Details
-                        </span>
-                        <svg
-                          fill="none"
-                          height="16"
-                          stroke="currentColor"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          viewBox="0 0 24 24"
-                          width="16"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M5 12h14M12 5l7 7-7 7"
-                          />
-                        </svg>
-                      </a>
-                    </td>
-                    <!--container-->
-                  </tr>
-                  <tr>
-                    <td
-                      class="empty-cell"
-                    />
-                    <td
-                      class="customer-name"
-                    >
-                      <span
-                        class="name-text"
-                        title="Jane Smith"
-                      >
-                         Jane Smith 
-                      </span>
-                    </td>
-                    <td
-                      class="actions-cell"
-                    >
-                      <a
-                        class="view-details-link"
-                        href="/d654bad5-19e1-4728-b019-37d30358524f"
-                      >
-                        <span>
-                          View Details
-                        </span>
-                        <svg
-                          fill="none"
-                          height="16"
-                          stroke="currentColor"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          viewBox="0 0 24 24"
-                          width="16"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M5 12h14M12 5l7 7-7 7"
-                          />
-                        </svg>
-                      </a>
-                    </td>
-                    <!--container-->
-                  </tr>
-                  <!--container-->
-                  <!--container-->
-                  <!--container-->
-                  <!--container-->
-                  <!--container-->
-                </tbody>
-                <!--container-->
-              </table>
-            </div>
-          </sandbox-table>
-        </sandbox-customers-list>
-      </div>
-      <div
-        class="form-section"
+        class="w-full lg:order-2"
       >
         <sandbox-customer-form>
           <form
-            class="customer-form"
+            class="w-full"
             novalidate=""
           >
             <div
-              class="form-card"
+              class="bg-white dark:bg-slate-950 border border-gray-200 dark:border-slate-800 rounded-lg p-8 shadow-sm"
             >
               <h2
-                class="form-title"
+                class="text-2xl font-semibold text-gray-900 dark:text-gray-100 m-0 mb-6 pb-4 border-b border-gray-100 dark:border-slate-900"
               >
-                Create Customer
+                 Create Customer 
               </h2>
               <!--container-->
               <!--container-->
               <fieldset
-                class="form-fieldset mb-6"
+                class="border border-gray-300 dark:border-slate-700 rounded-lg p-6 mb-6"
               >
-                <legend>
+                <legend
+                  class="text-lg font-semibold text-gray-900 dark:text-gray-100 px-3"
+                >
                   Customer Information
                 </legend>
                 <div
-                  class="form-row"
+                  class="grid grid-cols-1 md:grid-cols-2 gap-5"
                 >
                   <div
-                    class="form-group"
+                    class="flex flex-col mb-5 last:mb-0"
                   >
                     <label
+                      class="block text-sm font-medium text-gray-900 dark:text-gray-100 mb-2"
                       for="a.form0.firstName"
                     >
                       First Name
@@ -205,6 +58,7 @@ exports[`renders the component with customers table 1`] = `
                     <input
                       aria-describedby="error-a.form0.firstName"
                       aria-invalid="true"
+                      class="w-full px-4 py-3 text-base font-sans leading-normal text-gray-900 dark:text-gray-100 bg-gray-50 dark:bg-slate-900 border border-gray-300 dark:border-slate-700 rounded-md transition-all hover:border-gray-400 dark:hover:border-slate-600 focus:outline-none focus:border-primary-600 dark:focus:border-primary-400 focus:ring-4 focus:ring-primary-50 dark:focus:ring-primary-950/50 disabled:bg-gray-100 dark:disabled:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-60"
                       id="a.form0.firstName"
                       maxlength="255"
                       name="a.form0.firstName"
@@ -213,6 +67,7 @@ exports[`renders the component with customers table 1`] = `
                     />
                     <form-validation-field-errors>
                       <div
+                        class="text-red-600"
                         hidden=""
                         id="error-a.form0.firstName"
                       >
@@ -223,9 +78,10 @@ exports[`renders the component with customers table 1`] = `
                     <!--container-->
                   </div>
                   <div
-                    class="form-group"
+                    class="flex flex-col mb-5 last:mb-0"
                   >
                     <label
+                      class="block text-sm font-medium text-gray-900 dark:text-gray-100 mb-2"
                       for="a.form0.lastName"
                     >
                       Last Name
@@ -233,6 +89,7 @@ exports[`renders the component with customers table 1`] = `
                     <input
                       aria-describedby="error-a.form0.lastName"
                       aria-invalid="true"
+                      class="w-full px-4 py-3 text-base font-sans leading-normal text-gray-900 dark:text-gray-100 bg-gray-50 dark:bg-slate-900 border border-gray-300 dark:border-slate-700 rounded-md transition-all hover:border-gray-400 dark:hover:border-slate-600 focus:outline-none focus:border-primary-600 dark:focus:border-primary-400 focus:ring-4 focus:ring-primary-50 dark:focus:ring-primary-950/50 disabled:bg-gray-100 dark:disabled:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-60"
                       id="a.form0.lastName"
                       maxlength="255"
                       name="a.form0.lastName"
@@ -241,6 +98,7 @@ exports[`renders the component with customers table 1`] = `
                     />
                     <form-validation-field-errors>
                       <div
+                        class="text-red-600"
                         hidden=""
                         id="error-a.form0.lastName"
                       >
@@ -253,15 +111,17 @@ exports[`renders the component with customers table 1`] = `
                 </div>
               </fieldset>
               <div
-                class="checkbox-group"
+                class="flex items-center gap-3 p-4 rounded-md mb-5 transition-colors hover:bg-gray-100 dark:hover:bg-slate-900"
               >
                 <input
+                  class="w-5 h-5 cursor-pointer rounded border-gray-300 dark:border-slate-700 transition-all hover:border-gray-400 dark:hover:border-slate-600 focus:outline-none focus:border-primary-600 dark:focus:border-primary-400 focus:ring-4 focus:ring-primary-50 dark:focus:ring-primary-950/50 accent-primary-600 m-0"
                   id="hasBillingAddress"
                   name="a.form0.hasBillingAddress"
                   type="checkbox"
                 />
                 <form-validation-field-errors>
                   <div
+                    class="text-red-600"
                     hidden=""
                     id="error-a.form0.hasBillingAddress"
                   >
@@ -270,7 +130,7 @@ exports[`renders the component with customers table 1`] = `
                 </form-validation-field-errors>
                 <!--container-->
                 <label
-                  class="checkbox-label"
+                  class="m-0 font-medium cursor-pointer select-none text-gray-900 dark:text-gray-100"
                   for="hasBillingAddress"
                 >
                   Add Billing Address
@@ -278,15 +138,17 @@ exports[`renders the component with customers table 1`] = `
               </div>
               <!--container-->
               <div
-                class="checkbox-group"
+                class="flex items-center gap-3 p-4 rounded-md mb-5 transition-colors hover:bg-gray-100 dark:hover:bg-slate-900"
               >
                 <input
+                  class="w-5 h-5 cursor-pointer rounded border-gray-300 dark:border-slate-700 transition-all hover:border-gray-400 dark:hover:border-slate-600 focus:outline-none focus:border-primary-600 dark:focus:border-primary-400 focus:ring-4 focus:ring-primary-50 dark:focus:ring-primary-950/50 accent-primary-600 m-0"
                   id="hasShippingAddress"
                   name="a.form0.hasShippingAddress"
                   type="checkbox"
                 />
                 <form-validation-field-errors>
                   <div
+                    class="text-red-600"
                     hidden=""
                     id="error-a.form0.hasShippingAddress"
                   >
@@ -295,7 +157,7 @@ exports[`renders the component with customers table 1`] = `
                 </form-validation-field-errors>
                 <!--container-->
                 <label
-                  class="checkbox-label"
+                  class="m-0 font-medium cursor-pointer select-none text-gray-900 dark:text-gray-100"
                   for="hasShippingAddress"
                 >
                   Add Shipping Address
@@ -303,10 +165,10 @@ exports[`renders the component with customers table 1`] = `
               </div>
               <!--container-->
               <div
-                class="form-actions"
+                class="flex justify-end pt-6 border-t border-gray-100 dark:border-slate-900 mt-6"
               >
                 <button
-                  class="button"
+                  class="inline-flex items-center justify-center gap-2 px-6 py-3 text-base font-medium font-sans leading-normal text-white bg-primary-500 border border-transparent rounded-md cursor-pointer transition-all whitespace-nowrap hover:bg-primary-700 hover:shadow-sm focus-visible:outline-2 focus-visible:outline-primary-600 focus-visible:outline-offset-2 active:translate-y-px disabled:opacity-50 disabled:cursor-not-allowed"
                   type="submit"
                 >
                   <!--container-->
@@ -351,6 +213,165 @@ exports[`renders the component with customers table 1`] = `
             </div>
           </form>
         </sandbox-customer-form>
+      </div>
+      <div
+        class="w-full lg:order-1"
+      >
+        <sandbox-customers-list>
+          <sandbox-table
+            class="w-full"
+          >
+            <div
+              class="relative bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-700 rounded-lg overflow-hidden shadow-sm"
+            >
+              <table
+                class="w-full border-collapse bg-white dark:bg-slate-900 shadow-none"
+              >
+                <thead
+                  class="bg-primary-50 dark:bg-primary-950"
+                >
+                  <tr>
+                    <th
+                      class="w-12 px-4 py-4 border-b border-gray-200 dark:border-slate-800"
+                    >
+                      <button
+                        class="p-2 bg-transparent text-primary-600 dark:text-primary-400 border border-primary-200 dark:border-primary-900 rounded-md cursor-pointer transition-all inline-flex items-center justify-center hover:bg-primary-100 dark:hover:bg-primary-900 hover:text-primary-700 dark:hover:text-primary-300 hover:border-primary-300 dark:hover:border-primary-800 hover:rotate-180 active:rotate-180 active:translate-y-px"
+                        title="Refresh data"
+                        type="button"
+                      >
+                        <svg
+                          fill="none"
+                          height="16"
+                          stroke="currentColor"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          viewBox="0 0 24 24"
+                          width="16"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2"
+                          />
+                        </svg>
+                      </button>
+                    </th>
+                    <th
+                      class="px-6 py-4 text-left text-sm font-semibold text-gray-600 dark:text-gray-400 uppercase tracking-wide border-b border-r border-gray-200 dark:border-slate-800"
+                    >
+                       Name 
+                    </th>
+                    <th
+                      class="w-48 text-right px-6 py-4 text-sm font-semibold text-gray-600 dark:text-gray-400 uppercase tracking-wide border-b border-gray-200 dark:border-slate-800"
+                    />
+                    <!--container-->
+                  </tr>
+                </thead>
+                <!--container-->
+                <tbody>
+                  <!--container-->
+                  <tr
+                    class="transition-colors hover:bg-primary-50 dark:hover:bg-primary-950/50"
+                  >
+                    <td
+                      class="w-12 px-4 py-4 border-b border-gray-200 dark:border-slate-800"
+                    />
+                    <td
+                      class="px-6 py-4 border-b border-r border-gray-200 dark:border-slate-800 font-medium text-gray-900 dark:text-gray-100 max-w-xs overflow-hidden text-ellipsis whitespace-nowrap"
+                    >
+                      <span
+                        class="inline-block max-w-full overflow-hidden text-ellipsis"
+                        title="John Doe"
+                      >
+                         John Doe 
+                      </span>
+                    </td>
+                    <td
+                      class="px-6 py-4 border-b border-gray-200 dark:border-slate-800 text-right"
+                    >
+                      <a
+                        class="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-950 rounded-md transition-all hover:bg-primary-500 dark:hover:bg-primary-500 hover:text-white group"
+                        href="/a8574564-ef6f-42da-9393-67d7e466e8c8"
+                      >
+                        <span>
+                          View Details
+                        </span>
+                        <svg
+                          class="transition-transform group-hover:translate-x-0.5"
+                          fill="none"
+                          height="16"
+                          stroke="currentColor"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          viewBox="0 0 24 24"
+                          width="16"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M5 12h14M12 5l7 7-7 7"
+                          />
+                        </svg>
+                      </a>
+                    </td>
+                    <!--container-->
+                  </tr>
+                  <tr
+                    class="transition-colors hover:bg-primary-50 dark:hover:bg-primary-950/50"
+                  >
+                    <td
+                      class="w-12 px-4 py-4 border-b border-gray-200 dark:border-slate-800"
+                    />
+                    <td
+                      class="px-6 py-4 border-b border-r border-gray-200 dark:border-slate-800 font-medium text-gray-900 dark:text-gray-100 max-w-xs overflow-hidden text-ellipsis whitespace-nowrap"
+                    >
+                      <span
+                        class="inline-block max-w-full overflow-hidden text-ellipsis"
+                        title="Jane Smith"
+                      >
+                         Jane Smith 
+                      </span>
+                    </td>
+                    <td
+                      class="px-6 py-4 border-b border-gray-200 dark:border-slate-800 text-right"
+                    >
+                      <a
+                        class="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-950 rounded-md transition-all hover:bg-primary-500 dark:hover:bg-primary-500 hover:text-white group"
+                        href="/d654bad5-19e1-4728-b019-37d30358524f"
+                      >
+                        <span>
+                          View Details
+                        </span>
+                        <svg
+                          class="transition-transform group-hover:translate-x-0.5"
+                          fill="none"
+                          height="16"
+                          stroke="currentColor"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          viewBox="0 0 24 24"
+                          width="16"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M5 12h14M12 5l7 7-7 7"
+                          />
+                        </svg>
+                      </a>
+                    </td>
+                    <!--container-->
+                  </tr>
+                  <!--container-->
+                  <!--container-->
+                  <!--container-->
+                  <!--container-->
+                </tbody>
+                <!--container-->
+              </table>
+            </div>
+          </sandbox-table>
+        </sandbox-customers-list>
       </div>
     </div>
   </div>

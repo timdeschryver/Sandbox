@@ -20,6 +20,9 @@ npm-debug.log
 yarn-error.log
 .env
 
+# Vitest
+__screenshots__/
+
 # IDE
 # JetBrains
 .idea/

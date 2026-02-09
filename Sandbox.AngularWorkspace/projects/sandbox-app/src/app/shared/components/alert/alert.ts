@@ -16,9 +16,10 @@ export class Alert {
 			error: 'bg-red-50 dark:bg-red-950/30 border-l-red-500 text-red-700 dark:text-red-300',
 			success: 'bg-green-50 dark:bg-green-950/30 border-l-green-500 text-green-700 dark:text-green-300',
 			warning: 'bg-yellow-50 dark:bg-yellow-950/30 border-l-yellow-500 text-yellow-700 dark:text-yellow-300',
-			info: 'bg-primary-50 dark:bg-primary-950/30 border-l-primary-500 text-primary-700 dark:text-primary-300',
+			info: 'bg-blue-50 dark:bg-blue-950/30 border-l-blue-500 text-blue-700 dark:text-blue-300',
 		};
 
-		return `${baseClasses} ${typeClasses[this.type()]}`;
+		const typeClass = typeClasses[this.type()];
+		return `${baseClasses} ${typeClass}`;
 	});
 }
