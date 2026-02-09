@@ -1,9 +1,14 @@
-<div class="customer-details">
+<div class="w-full animate-[fadeIn_0.3s_ease-in-out]">
 	@if (customer.hasValue() && customer.value(); as customer) {
-		<div class="details-header mb-8">
-			<div class="header-content">
-				<h1 class="customer-name">{{ customer.firstName }} {{ customer.lastName }}</h1>
-				<a routerLink=".." class="back-link">
+		<div class="mb-8">
+			<div class="flex items-center justify-between gap-6 flex-wrap">
+				<h1 class="text-3xl font-semibold text-gray-900 dark:text-gray-100 m-0">
+					{{ customer.firstName }} {{ customer.lastName }}
+				</h1>
+				<a
+					routerLink=".."
+					class="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-600 dark:text-gray-400 bg-gray-50 dark:bg-slate-900 border border-gray-300 dark:border-slate-700 rounded-md transition-all hover:text-primary-600 dark:hover:text-primary-400 hover:border-primary-600 dark:hover:border-primary-400 hover:bg-primary-50 dark:hover:bg-primary-950 group"
+				>
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
 						width="16"
@@ -14,6 +19,7 @@
 						stroke-width="2"
 						stroke-linecap="round"
 						stroke-linejoin="round"
+						class="transition-transform group-hover:-translate-x-0.5"
 					>
 						<path d="M19 12H5M12 19l-7-7 7-7" />
 					</svg>
@@ -22,7 +28,7 @@
 			</div>
 		</div>
 
-		<div class="details-content">
+		<div class="flex flex-col gap-6">
 			<sandbox-info-card title="Personal Information" testId="personal-information">
 				<svg
 					icon
@@ -35,14 +41,16 @@
 					stroke-width="2"
 					stroke-linecap="round"
 					stroke-linejoin="round"
-					class="section-icon"
+					class="text-primary-600 dark:text-primary-400"
 				>
 					<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
 					<circle cx="12" cy="7" r="4" />
 				</svg>
-				<div class="info-row">
-					<span class="info-label">Full Name</span>
-					<span class="info-value">{{ customer.firstName }} {{ customer.lastName }}</span>
+				<div class="flex items-baseline gap-4 py-3">
+					<span class="text-sm font-medium text-gray-600 dark:text-gray-400 min-w-[120px]">Full Name</span>
+					<span class="text-base font-medium text-gray-900 dark:text-gray-100"
+						>{{ customer.firstName }} {{ customer.lastName }}</span
+					>
 				</div>
 			</sandbox-info-card>
 
@@ -59,26 +67,47 @@
 						stroke-width="2"
 						stroke-linecap="round"
 						stroke-linejoin="round"
-						class="section-icon"
+						class="text-primary-600 dark:text-primary-400"
 					>
 						<rect x="2" y="5" width="20" height="14" rx="2" />
 						<line x1="2" y1="10" x2="22" y2="10" />
 					</svg>
-					<span badge class="badge">{{ customer.billingAddresses.length }}</span>
-					<div class="addresses-grid">
+					<span
+						badge
+						class="inline-flex items-center justify-center min-w-[1.75rem] h-7 px-2 text-xs font-semibold text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-950 rounded-full"
+						>{{ customer.billingAddresses.length }}</span
+					>
+					<div class="grid grid-cols-1 md:grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-5">
 						@for (billingAddress of customer.billingAddresses; track billingAddress.id) {
-							<div class="address-card">
-								<div class="address-row">
-									<span class="address-label">Street</span>
-									<span class="address-value">{{ billingAddress.street }}</span>
+							<div
+								class="bg-gray-50 dark:bg-slate-900 border border-gray-100 dark:border-slate-800 rounded-md p-5 transition-all hover:bg-gray-100 dark:hover:bg-slate-800 hover:border-gray-200 dark:hover:border-slate-700 hover:shadow-sm"
+							>
+								<div class="flex justify-between items-baseline gap-3 py-2">
+									<span
+										class="text-xs font-medium text-gray-600 dark:text-gray-400 uppercase tracking-wide"
+										>Street</span
+									>
+									<span class="text-sm font-medium text-gray-900 dark:text-gray-100 text-right">{{
+										billingAddress.street
+									}}</span>
 								</div>
-								<div class="address-row">
-									<span class="address-label">City</span>
-									<span class="address-value">{{ billingAddress.city }}</span>
+								<div class="flex justify-between items-baseline gap-3 py-2">
+									<span
+										class="text-xs font-medium text-gray-600 dark:text-gray-400 uppercase tracking-wide"
+										>City</span
+									>
+									<span class="text-sm font-medium text-gray-900 dark:text-gray-100 text-right">{{
+										billingAddress.city
+									}}</span>
 								</div>
-								<div class="address-row">
-									<span class="address-label">Zip Code</span>
-									<span class="address-value">{{ billingAddress.zipCode }}</span>
+								<div class="flex justify-between items-baseline gap-3 py-2">
+									<span
+										class="text-xs font-medium text-gray-600 dark:text-gray-400 uppercase tracking-wide"
+										>Zip Code</span
+									>
+									<span class="text-sm font-medium text-gray-900 dark:text-gray-100 text-right">{{
+										billingAddress.zipCode
+									}}</span>
 								</div>
 							</div>
 						}
@@ -99,30 +128,56 @@
 						stroke-width="2"
 						stroke-linecap="round"
 						stroke-linejoin="round"
-						class="section-icon"
+						class="text-primary-600 dark:text-primary-400"
 					>
 						<path d="M16 3h5v5M4 20L21 3M21 16v5h-5M15 15l6 6M4 4l5 5" />
 					</svg>
-					<span badge class="badge">{{ customer.shippingAddresses.length }}</span>
-					<div class="addresses-grid">
+					<span
+						badge
+						class="inline-flex items-center justify-center min-w-[1.75rem] h-7 px-2 text-xs font-semibold text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-950 rounded-full"
+						>{{ customer.shippingAddresses.length }}</span
+					>
+					<div class="grid grid-cols-1 md:grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-5">
 						@for (shippingAddress of customer.shippingAddresses; track shippingAddress.id) {
-							<div class="address-card">
-								<div class="address-row">
-									<span class="address-label">Street</span>
-									<span class="address-value">{{ shippingAddress.street }}</span>
+							<div
+								class="bg-gray-50 dark:bg-slate-900 border border-gray-100 dark:border-slate-800 rounded-md p-5 transition-all hover:bg-gray-100 dark:hover:bg-slate-800 hover:border-gray-200 dark:hover:border-slate-700 hover:shadow-sm"
+							>
+								<div class="flex justify-between items-baseline gap-3 py-2">
+									<span
+										class="text-xs font-medium text-gray-600 dark:text-gray-400 uppercase tracking-wide"
+										>Street</span
+									>
+									<span class="text-sm font-medium text-gray-900 dark:text-gray-100 text-right">{{
+										shippingAddress.street
+									}}</span>
 								</div>
-								<div class="address-row">
-									<span class="address-label">City</span>
-									<span class="address-value">{{ shippingAddress.city }}</span>
+								<div class="flex justify-between items-baseline gap-3 py-2">
+									<span
+										class="text-xs font-medium text-gray-600 dark:text-gray-400 uppercase tracking-wide"
+										>City</span
+									>
+									<span class="text-sm font-medium text-gray-900 dark:text-gray-100 text-right">{{
+										shippingAddress.city
+									}}</span>
 								</div>
-								<div class="address-row">
-									<span class="address-label">Zip Code</span>
-									<span class="address-value">{{ shippingAddress.zipCode }}</span>
+								<div class="flex justify-between items-baseline gap-3 py-2">
+									<span
+										class="text-xs font-medium text-gray-600 dark:text-gray-400 uppercase tracking-wide"
+										>Zip Code</span
+									>
+									<span class="text-sm font-medium text-gray-900 dark:text-gray-100 text-right">{{
+										shippingAddress.zipCode
+									}}</span>
 								</div>
 								@if (shippingAddress.note) {
-									<div class="address-note">
-										<span class="note-label">Note</span>
-										<p class="note-text">{{ shippingAddress.note }}</p>
+									<div class="mt-4 pt-4 border-t border-gray-100 dark:border-slate-800">
+										<span
+											class="block text-xs font-medium text-gray-600 dark:text-gray-400 uppercase tracking-wide mb-2"
+											>Note</span
+										>
+										<p class="text-sm text-gray-900 dark:text-gray-100 leading-relaxed m-0">
+											{{ shippingAddress.note }}
+										</p>
 									</div>
 								}
 							</div>
@@ -132,8 +187,10 @@
 			}
 		</div>
 	} @else if (customer.error()) {
-		<div class="error-container">
-			<div class="error-content">
+		<div
+			class="flex items-center justify-center min-h-100 bg-white dark:bg-slate-950 border border-gray-200 dark:border-slate-800 rounded-lg p-8"
+		>
+			<div class="flex flex-col items-center gap-4 text-center max-w-md">
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
 					width="64"
@@ -144,16 +201,21 @@
 					stroke-width="1"
 					stroke-linecap="round"
 					stroke-linejoin="round"
+					class="text-red-500"
 				>
 					<circle cx="12" cy="12" r="10" />
 					<line x1="12" y1="8" x2="12" y2="12" />
 					<line x1="12" y1="16" x2="12.01" y2="16" />
 				</svg>
-				<h2 class="error-title">Unable to Load Customer</h2>
-				<p class="error-message">
+				<h2 class="text-xl font-semibold text-gray-900 dark:text-gray-100 m-0">Unable to Load Customer</h2>
+				<p class="text-base text-gray-600 dark:text-gray-400 m-0">
 					{{ $any(customer.error())?.error?.title || 'An unexpected error occurred. Please try again.' }}
 				</p>
-				<button type="button" class="button mt-2" (click)="customer.reload()">
+				<button
+					type="button"
+					class="inline-flex items-center justify-center gap-2 px-6 py-3 text-base font-medium text-white bg-primary-500 border border-transparent rounded-md cursor-pointer transition-all whitespace-nowrap hover:bg-primary-700 hover:shadow-sm focus-visible:outline-2 focus-visible:outline-primary-600 focus-visible:outline-offset-2 active:translate-y-px disabled:opacity-50 disabled:cursor-not-allowed mt-2"
+					(click)="customer.reload()"
+				>
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
 						width="16"
@@ -172,10 +234,14 @@
 			</div>
 		</div>
 	} @else {
-		<div class="loading-container">
-			<div class="loading-content">
-				<div class="loading"></div>
-				<p class="loading-text">Loading customer details...</p>
+		<div
+			class="flex items-center justify-center min-h-[400px] bg-white dark:bg-slate-950 border border-gray-200 dark:border-slate-800 rounded-lg p-8"
+		>
+			<div class="flex flex-col items-center gap-4 text-center max-w-md">
+				<div
+					class="inline-block w-5 h-5 border-2 border-gray-300 dark:border-gray-600 border-t-primary-600 dark:border-t-primary-400 rounded-full animate-spin"
+				></div>
+				<p class="text-base text-gray-600 dark:text-gray-400 m-0">Loading customer details...</p>
 			</div>
 		</div>
 	}

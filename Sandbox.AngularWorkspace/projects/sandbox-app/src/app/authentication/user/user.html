@@ -1,4 +1,4 @@
-<div class="user-page">
+<div class="w-full">
 	<sandbox-info-card title="User Profile">
 		<svg
 			icon
@@ -11,13 +11,15 @@
 			stroke-width="2"
 			stroke-linecap="round"
 			stroke-linejoin="round"
-			class="section-icon"
+			class="text-primary-600 dark:text-primary-400"
 		>
 			<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
 			<circle cx="12" cy="7" r="4" />
 		</svg>
-		<div class="user-details">
-			<pre class="json-display">{{ user() | json }}</pre>
+		<div class="p-4 bg-gray-50 dark:bg-slate-900 rounded-md">
+			<pre class="m-0 p-0 font-mono text-sm text-gray-900 dark:text-gray-100 whitespace-pre-wrap">{{
+				user() | json
+			}}</pre>
 		</div>
 	</sandbox-info-card>
 </div>

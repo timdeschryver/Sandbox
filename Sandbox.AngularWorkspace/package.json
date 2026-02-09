@@ -30,7 +30,10 @@
 		"@opentelemetry/sdk-trace-base": "catalog:opentelemetry",
 		"@opentelemetry/sdk-trace-web": "catalog:opentelemetry",
 		"@opentelemetry/semantic-conventions": "catalog:opentelemetry",
+		"@tailwindcss/postcss": "^4.1.18",
+		"postcss": "^8.5.6",
 		"rxjs": "catalog:",
+		"tailwindcss": "^4.1.18",
 		"tslib": "catalog:",
 		"zod": "catalog:"
 	},

@@ -1,19 +1,17 @@
-<div class="table-container">
-	@if (resource().hasValue() && resource().isLoading()) {
-		<div class="table-loading-overlay">
-			<div class="loading-content">
-				<div class="loading"></div>
-				<span class="loading-text">Refreshing data...</span>
-			</div>
-		</div>
-	}
-
-	<table class="data-table">
+<div
+	class="relative bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-700 rounded-lg overflow-hidden shadow-sm"
+>
+	<table class="w-full border-collapse bg-white dark:bg-slate-900 shadow-none">
 		@if (headerTemplate()) {
-			<thead>
+			<thead class="bg-primary-50 dark:bg-primary-950">
 				<tr>
-					<th class="refresh-column">
-						<button type="button" class="refresh-button" title="Refresh data" (click)="refresh()">
+					<th class="w-12 px-4 py-4 border-b border-gray-200 dark:border-slate-800">
+						<button
+							type="button"
+							class="p-2 bg-transparent text-primary-600 dark:text-primary-400 border border-primary-200 dark:border-primary-900 rounded-md cursor-pointer transition-all inline-flex items-center justify-center hover:bg-primary-100 dark:hover:bg-primary-900 hover:text-primary-700 dark:hover:text-primary-300 hover:border-primary-300 dark:hover:border-primary-800 hover:rotate-180 active:rotate-180 active:translate-y-px"
+							title="Refresh data"
+							(click)="refresh()"
+						>
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
 								width="16"
@@ -36,10 +34,23 @@
 			</thead>
 		}
 		<tbody>
-			@if (resource().hasValue()) {
+			@if (resource().isLoading()) {
+				@for (_ of [1, 2, 3]; track $index) {
+					<tr class="border-b border-gray-100 dark:border-slate-800 last:border-b-0">
+						<td colspan="100%" class="px-4 py-4">
+							<div class="flex gap-4 w-full">
+								<div class="h-5 bg-gray-200 dark:bg-slate-700 rounded animate-pulse w-1/4"></div>
+								<div class="h-5 bg-gray-200 dark:bg-slate-700 rounded animate-pulse w-1/3"></div>
+								<div class="h-5 bg-gray-200 dark:bg-slate-700 rounded animate-pulse w-1/4"></div>
+								<div class="h-5 bg-gray-200 dark:bg-slate-700 rounded animate-pulse w-1/6"></div>
+							</div>
+						</td>
+					</tr>
+				}
+			} @else if (resource().hasValue()) {
 				@for (row of resource().value(); track row.id) {
-					<tr>
-						<td class="empty-cell"></td>
+					<tr class="transition-colors hover:bg-primary-50 dark:hover:bg-primary-950/50">
+						<td class="w-12 px-4 py-4 border-b border-gray-200 dark:border-slate-800"></td>
 						<ng-container
 							*ngTemplateOutlet="
 								bodyTemplate()!;
@@ -58,8 +69,8 @@
 					</tr>
 				} @empty {
 					<tr>
-						<td colspan="100%" class="empty-state">
-							<div class="empty-state-content">
+						<td colspan="100%" class="py-16 px-6 text-center">
+							<div class="flex flex-col items-center gap-4 bg-transparent">
 								<svg
 									xmlns="http://www.w3.org/2000/svg"
 									width="48"
@@ -70,27 +81,19 @@
 									stroke-width="1"
 									stroke-linecap="round"
 									stroke-linejoin="round"
+									class="text-gray-300 dark:text-slate-700"
 								>
 									<path d="M3 3h18v18H3zM21 9H3M21 15H3M12 3v18" />
 								</svg>
-								<p>No data available</p>
+								<p class="m-0 text-gray-600 dark:text-gray-400 text-base">No data available</p>
 							</div>
 						</td>
 					</tr>
 				}
-			} @else if (resource().isLoading()) {
-				<tr>
-					<td colspan="100%" class="loading-state">
-						<div class="loading-state-content">
-							<div class="loading"></div>
-							<span>Loading data...</span>
-						</div>
-					</td>
-				</tr>
 			} @else if (resource().error()) {
 				<tr>
-					<td colspan="100%" class="error-state">
-						<div class="error-state-content">
+					<td colspan="100%" class="py-16 px-6 text-center">
+						<div class="flex flex-col items-center gap-4 bg-transparent">
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
 								width="48"
@@ -101,13 +104,22 @@
 								stroke-width="1"
 								stroke-linecap="round"
 								stroke-linejoin="round"
+								class="text-gray-300 dark:text-slate-700"
 							>
 								<circle cx="12" cy="12" r="10" />
 								<line x1="12" y1="8" x2="12" y2="12" />
 								<line x1="12" y1="16" x2="12.01" y2="16" />
 							</svg>
-							<p>{{ $any(resource().error()).error?.title ?? 'An unexpected error occurred.' }}</p>
-							<button type="button" class="button mt-2" (click)="refresh()">Try Again</button>
+							<p class="m-0 text-gray-600 dark:text-gray-400 text-base">
+								{{ $any(resource().error()).error?.title ?? 'An unexpected error occurred.' }}
+							</p>
+							<button
+								type="button"
+								class="inline-flex items-center justify-center gap-2 px-6 py-3 text-base font-medium text-white bg-primary-500 border border-transparent rounded-md cursor-pointer transition-all whitespace-nowrap hover:bg-primary-700 hover:shadow-sm focus-visible:outline-2 focus-visible:outline-primary-600 focus-visible:outline-offset-2 active:translate-y-px disabled:opacity-50 disabled:cursor-not-allowed mt-2"
+								(click)="refresh()"
+							>
+								Try Again
+							</button>
 						</div>
 					</td>
 				</tr>

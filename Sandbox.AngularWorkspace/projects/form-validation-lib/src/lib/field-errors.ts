@@ -6,13 +6,12 @@ import { type FormField } from '@angular/forms/signals';
 	selector: 'form-validation-field-errors',
 	imports: [ValidationMessagePipe],
 	template: `
-		<div [id]="describedby()" [hidden]="!showError()">
+		<div class="text-red-600" [id]="describedby()" [hidden]="!showError()">
 			@for (error of field().state().errors(); track $index) {
 				{{ error | validationMessage: false }}
 			}
 		</div>
 	`,
-	styles: ':host { color: var(--color-error) }',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FieldErrors {

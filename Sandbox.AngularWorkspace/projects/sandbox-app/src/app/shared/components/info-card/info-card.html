@@ -1,7 +1,10 @@
-<div class="info-card" [attr.data-testid]="testId()">
-	<div class="card-header mb-4">
+<div
+	class="bg-white dark:bg-slate-950 border border-gray-200 dark:border-slate-800 rounded-lg p-6 shadow-sm transition-shadow hover:shadow-md"
+	[attr.data-testid]="testId()"
+>
+	<div class="flex items-center gap-3 mb-4 pb-4 border-b border-gray-100 dark:border-slate-900">
 		<ng-content select="[icon]" />
-		<h2 class="card-title">{{ title() }}</h2>
+		<h2 class="text-xl font-semibold text-gray-900 dark:text-gray-100 m-0 flex-1">{{ title() }}</h2>
 		<ng-content select="[badge]" />
 	</div>
 	<ng-content />

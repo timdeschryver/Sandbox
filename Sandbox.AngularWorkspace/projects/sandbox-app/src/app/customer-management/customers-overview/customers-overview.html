@@ -1,15 +1,15 @@
-<div class="customers-overview">
-	<div class="page-header mb-8">
-		<h1 class="page-title">Customers</h1>
+<div class="w-full">
+	<div class="mb-8">
+		<h1 class="text-3xl font-semibold text-gray-900 dark:text-gray-100 m-0">Customers</h1>
 	</div>
 
-	<div class="content-layout">
-		<div class="customers-section">
-			<sandbox-customers-list [customers]="customers" />
+	<div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+		<div class="w-full lg:order-2">
+			<sandbox-customer-form (customerCreated)="customerCreated()" />
 		</div>
 
-		<div class="form-section">
-			<sandbox-customer-form (customerCreated)="customerCreated()" />
+		<div class="w-full lg:order-1">
+			<sandbox-customers-list [customers]="customers" />
 		</div>
 	</div>
 </div>

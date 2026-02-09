@@ -78,7 +78,7 @@ public class CustomerApiTests(CustomerApiWebApplicationFactory webAppFactory)
         }
         catch (Microsoft.Kiota.Abstractions.ApiException ex)
         {
-            await Assert.That(ex.ResponseStatusCode).IsEqualTo(400);
+            await Assert.That(ex.ResponseStatusCode).IsEqualTo(StatusCodes.Status400BadRequest);
         }
     }
 
@@ -176,7 +176,7 @@ public class CustomerApiTests(CustomerApiWebApplicationFactory webAppFactory)
         }
         catch (Microsoft.Kiota.Abstractions.ApiException ex)
         {
-            await Assert.That(ex.ResponseStatusCode).IsEqualTo(404);
+            await Assert.That(ex.ResponseStatusCode).IsEqualTo(StatusCodes.Status404NotFound);
         }
     }
 
@@ -206,7 +206,7 @@ public class CustomerApiTests(CustomerApiWebApplicationFactory webAppFactory)
         }
         catch (Microsoft.Kiota.Abstractions.ApiException ex)
         {
-            await Assert.That(ex.ResponseStatusCode).IsEqualTo(404);
+            await Assert.That(ex.ResponseStatusCode).IsEqualTo(StatusCodes.Status404NotFound);
         }
     }
 }
