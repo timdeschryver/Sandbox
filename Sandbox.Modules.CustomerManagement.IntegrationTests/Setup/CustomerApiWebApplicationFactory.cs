@@ -1,7 +1,6 @@
 extern alias migrations;
 using ApiServiceSDK;
 using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Kiota.Abstractions.Authentication;
 using Microsoft.Kiota.Http.HttpClientLibrary;
@@ -12,7 +11,7 @@ using TUnit.Core.Interfaces;
 
 namespace Sandbox.Modules.CustomerManagement.IntegrationTests.Setup;
 
-public class CustomerApiWebApplicationFactory : TestWebApplicationFactory<Program>, IAsyncInitializer, IAsyncDisposable
+public class CustomerApiWebApplicationFactory : TestWebApplicationFactory<Program>, IAsyncInitializer
 {
     [ClassDataSource<DatabaseContainer>(Shared = SharedType.PerTestSession)]
     public DatabaseContainer Database { get; init; } = null!;
@@ -50,16 +49,6 @@ public class CustomerApiWebApplicationFactory : TestWebApplicationFactory<Progra
         });
 
         builder.UseEnvironment("IntegrationTest");
-    }
-
-    [After(HookType.Test)]
-    public async Task CleanupTable()
-    {
-        using var scope = Server.Services.CreateScope();
-        var dbContext = scope.ServiceProvider.GetRequiredService<CustomerDbContext>();
-
-        var customers = await dbContext.Set<Customer>().ToListAsync();
-        dbContext.Set<Customer>().RemoveRange(customers);
     }
 
     public static ApiClient CreateApiClient(HttpClient httpClient)
