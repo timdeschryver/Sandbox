@@ -1,5 +1,4 @@
 extern alias migrations;
-
 using ApiServiceSDK;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc.Testing;
@@ -7,9 +6,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Kiota.Abstractions.Authentication;
 using Microsoft.Kiota.Http.HttpClientLibrary;
 using Sandbox.Modules.CustomerManagement.Data;
-using TUnit.Core.Interfaces;
-using TUnit.AspNetCore;
 using Sandbox.Modules.CustomerManagement.Domain;
+using TUnit.AspNetCore;
+using TUnit.Core.Interfaces;
 
 namespace Sandbox.Modules.CustomerManagement.IntegrationTests.Setup;
 
