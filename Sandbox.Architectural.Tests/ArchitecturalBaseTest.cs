@@ -8,10 +8,7 @@ namespace Sandbox.Architectural.Tests;
 public abstract class ArchitecturalBaseTest
 {
     protected static readonly System.Reflection.Assembly CustomerManagementAssembly = typeof(Modules.CustomerManagement.CustomerManagementModule).Assembly;
-    protected static readonly System.Reflection.Assembly CustomerManagementTestsAssembly = typeof(Modules.CustomerManagement.Tests.CustomerTests).Assembly;
-    protected static readonly System.Reflection.Assembly CustomerManagementIntegrationTestsAssembly = typeof(Modules.CustomerManagement.IntegrationTests.CustomerApiTests).Assembly;
     protected static readonly System.Reflection.Assembly BillingAssembly = typeof(Modules.Billing.BillingModule).Assembly;
-    protected static readonly System.Reflection.Assembly BillingTestsAssembly = typeof(Modules.Billing.Tests.PlaceholderTest).Assembly;
     protected static readonly System.Reflection.Assembly SharedKernelAssembly = typeof(SharedKernel.Modules.IModule).Assembly;
 
     protected static readonly IObjectProvider<IType> DomainLayer =
@@ -30,10 +27,7 @@ public abstract class ArchitecturalBaseTest
     protected static readonly Architecture Architecture = new ArchLoader()
         .LoadAssemblies(
             CustomerManagementAssembly,
-            CustomerManagementTestsAssembly,
             BillingAssembly,
-            BillingTestsAssembly,
-            SharedKernelAssembly,
-            CustomerManagementIntegrationTestsAssembly)
+            SharedKernelAssembly)
         .Build();
 }

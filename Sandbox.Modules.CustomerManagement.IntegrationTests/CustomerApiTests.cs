@@ -2,18 +2,16 @@ using System.Net;
 using Microsoft.AspNetCore.Mvc;
 using Sandbox.Modules.CustomerManagement.IntegrationTests.Setup;
 using Sandbox.SharedKernel.StronglyTypedIds;
+using TUnit.AspNetCore;
 
 namespace Sandbox.Modules.CustomerManagement.IntegrationTests;
 
-[ClassDataSource<CustomerApiWebApplicationFactory>(Shared = SharedType.None)]
-public class CustomerApiTests(CustomerApiWebApplicationFactory webAppFactory)
+public class CustomerApiTests : WebApplicationTest<CustomerApiWebApplicationFactory, Program>
 {
-    private readonly CustomerApiWebApplicationFactory _webAppFactory = webAppFactory;
-
     [Test]
     public async Task CreateCustomer_WithValidData_Returns_CreatedResponse()
     {
-        var apiClient = _webAppFactory.CreateApiClient();
+        var apiClient = CustomerApiWebApplicationFactory.CreateApiClient(Factory.CreateClient());
 
         var response = await apiClient.Customers.PostAsync(new ApiServiceSDK.Models.Modules.CustomerManagement.Application.CreateCustomer.Request()
         {
@@ -46,7 +44,7 @@ public class CustomerApiTests(CustomerApiWebApplicationFactory webAppFactory)
     [Test]
     public async Task CreateCustomer_WithMinimalData_Returns_CreatedResponse()
     {
-        var apiClient = _webAppFactory.CreateApiClient();
+        var apiClient = CustomerApiWebApplicationFactory.CreateApiClient(Factory.CreateClient());
 
         var response = await apiClient.Customers.PostAsync(new ApiServiceSDK.Models.Modules.CustomerManagement.Application.CreateCustomer.Request()
         {
@@ -62,7 +60,7 @@ public class CustomerApiTests(CustomerApiWebApplicationFactory webAppFactory)
     [Test]
     public async Task CreateCustomer_WithInvalidData_Returns_BadRequestProblemDetails()
     {
-        var apiClient = _webAppFactory.CreateApiClient();
+        var apiClient = CustomerApiWebApplicationFactory.CreateApiClient(Factory.CreateClient());
 
         try
         {
@@ -85,7 +83,7 @@ public class CustomerApiTests(CustomerApiWebApplicationFactory webAppFactory)
     [Test]
     public async Task CreateCustomer_WithUnknownProperty_Returns_BadRequestProblemDetails()
     {
-        using var client = _webAppFactory.CreateClient();
+        using var client = Factory.CreateClient();
 
         // For this test, we'll send a raw HTTP request with unknown property since Kiota's typed client
         // won't allow unknown properties by design. This test verifies server-side validation.
@@ -106,7 +104,7 @@ public class CustomerApiTests(CustomerApiWebApplicationFactory webAppFactory)
     [Test]
     public async Task GetCustomers_Returns_OkWithCustomersList()
     {
-        var apiClient = _webAppFactory.CreateApiClient();
+        var apiClient = CustomerApiWebApplicationFactory.CreateApiClient(Factory.CreateClient());
 
         await apiClient.Customers.PostAsync(new ApiServiceSDK.Models.Modules.CustomerManagement.Application.CreateCustomer.Request()
         {
@@ -133,7 +131,7 @@ public class CustomerApiTests(CustomerApiWebApplicationFactory webAppFactory)
     [Test]
     public async Task GetCustomer_WithValidId_Returns_OkWithCustomer()
     {
-        var apiClient = _webAppFactory.CreateApiClient();
+        var apiClient = CustomerApiWebApplicationFactory.CreateApiClient(Factory.CreateClient());
 
         var createResponse = await apiClient.Customers.PostAsync(new ApiServiceSDK.Models.Modules.CustomerManagement.Application.CreateCustomer.Request()
         {
@@ -165,7 +163,7 @@ public class CustomerApiTests(CustomerApiWebApplicationFactory webAppFactory)
     [Test]
     public async Task GetCustomer_WithNonExistentId_Returns_NotFound()
     {
-        var apiClient = _webAppFactory.CreateApiClient();
+        var apiClient = CustomerApiWebApplicationFactory.CreateApiClient(Factory.CreateClient());
 
         var nonExistentId = CustomerId.New();
 
@@ -183,7 +181,7 @@ public class CustomerApiTests(CustomerApiWebApplicationFactory webAppFactory)
     [Test]
     public async Task RemovedCustomer_IsNotIncluded()
     {
-        var apiClient = _webAppFactory.CreateApiClient();
+        var apiClient = CustomerApiWebApplicationFactory.CreateApiClient(Factory.CreateClient());
 
         var createResponse = await apiClient.Customers.PostAsync(new ApiServiceSDK.Models.Modules.CustomerManagement.Application.CreateCustomer.Request()
         {

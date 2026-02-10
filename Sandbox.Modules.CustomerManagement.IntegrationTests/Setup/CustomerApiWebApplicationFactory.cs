@@ -7,22 +7,22 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Kiota.Abstractions.Authentication;
 using Microsoft.Kiota.Http.HttpClientLibrary;
 using Sandbox.Modules.CustomerManagement.Data;
-using Testcontainers.PostgreSql;
-using Testcontainers.Redis;
 using TUnit.Core.Interfaces;
+using TUnit.AspNetCore;
+using Sandbox.Modules.CustomerManagement.Domain;
 
 namespace Sandbox.Modules.CustomerManagement.IntegrationTests.Setup;
 
-public class CustomerApiWebApplicationFactory : WebApplicationFactory<Program>, IAsyncInitializer, IAsyncDisposable
+public class CustomerApiWebApplicationFactory : TestWebApplicationFactory<Program>, IAsyncInitializer, IAsyncDisposable
 {
-    private readonly PostgreSqlContainer _postgreSqlContainer = new PostgreSqlBuilder("postgres:17.6").Build();
-    private readonly RedisContainer _redisContainer = new RedisBuilder("redis:7.0").Build();
+    [ClassDataSource<DatabaseContainer>(Shared = SharedType.PerTestSession)]
+    public DatabaseContainer Database { get; init; } = null!;
+
+    [ClassDataSource<CacheContainer>(Shared = SharedType.PerTestSession)]
+    public CacheContainer Cache { get; init; } = null!;
 
     public async Task InitializeAsync()
     {
-        await _postgreSqlContainer.StartAsync();
-        await _redisContainer.StartAsync();
-
         _ = Server;
 
         using var scope = Server.Services.CreateScope();
@@ -30,19 +30,11 @@ public class CustomerApiWebApplicationFactory : WebApplicationFactory<Program>, 
         await dbContext.Database.MigrateAsync();
     }
 
-    public override async ValueTask DisposeAsync()
-    {
-        await base.DisposeAsync();
-        await _postgreSqlContainer.DisposeAsync();
-        await _redisContainer.DisposeAsync();
-        GC.SuppressFinalize(this);
-    }
-
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
         ArgumentNullException.ThrowIfNull(builder);
-        builder.UseSetting("ConnectionStrings:sandbox-db", _postgreSqlContainer.GetConnectionString());
-        builder.UseSetting("ConnectionStrings:cache", _redisContainer.GetConnectionString());
+        builder.UseSetting("ConnectionStrings:sandbox-db", Database.Container.GetConnectionString());
+        builder.UseSetting("ConnectionStrings:cache", Cache.Container.GetConnectionString());
 
         builder.ConfigureServices(services =>
         {
@@ -52,7 +44,7 @@ public class CustomerApiWebApplicationFactory : WebApplicationFactory<Program>, 
             services.AddDbContext<CustomerDbContext>(
                 options =>
                     options.UseNpgsql(
-                        _postgreSqlContainer.GetConnectionString(),
+                        Database.Container.GetConnectionString(),
                         x => x.MigrationsAssembly(typeof(migrations.Program).Assembly)
                 )
             );
@@ -61,11 +53,20 @@ public class CustomerApiWebApplicationFactory : WebApplicationFactory<Program>, 
         builder.UseEnvironment("IntegrationTest");
     }
 
-    public ApiClient CreateApiClient()
+    [After(HookType.Test)]
+    public async Task CleanupTable()
     {
-        var client = CreateClient();
+        using var scope = Server.Services.CreateScope();
+        var dbContext = scope.ServiceProvider.GetRequiredService<CustomerDbContext>();
+
+        var customers = await dbContext.Set<Customer>().ToListAsync();
+        dbContext.Set<Customer>().RemoveRange(customers);
+    }
+
+    public static ApiClient CreateApiClient(HttpClient httpClient)
+    {
         var authProvider = new AnonymousAuthenticationProvider();
-        using var adapter = new HttpClientRequestAdapter(authProvider, httpClient: client);
+        using var adapter = new HttpClientRequestAdapter(authProvider, httpClient: httpClient);
         return new ApiClient(adapter);
     }
 }

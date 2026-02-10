@@ -11,6 +11,7 @@
         <PackageReference Include="Testcontainers.PostgreSql" />
         <PackageReference Include="Testcontainers.Redis" />
         <PackageReference Include="TUnit" />
+        <PackageReference Include="TUnit.AspNetCore" />
         <PackageReference Include="Verify.TUnit" />
     </ItemGroup>
     <ItemGroup>
