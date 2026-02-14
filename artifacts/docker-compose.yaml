@@ -1,6 +1,6 @@
 services:
   keycloak:
-    image: 'quay.io/keycloak/keycloak:26.5@sha256:fb31a59deb46f746f2aaa25adc5da39ceccac4fd22d36a519562b0bf02e8df20'
+    image: 'quay.io/keycloak/keycloak:26.5@sha256:5a236ae4dd8ece77490115bace15a11a4d15e9cbcf58a490b95a7da2cd71d32a'
     command:
       - 'start'
       - '--import-realm'
@@ -86,7 +86,7 @@ services:
     networks:
       - 'aspire'
   tempo:
-    image: 'grafana/tempo:latest@sha256:847855db7c056b64c2cb1aec877e414cb0e8647eb7ebe4cff3bd5d9779ee2f6e'
+    image: 'grafana/tempo:latest@sha256:c37f6993294883d1bb00df5a6b1f3cea7526a7b324100aace216117ac1cf93b8'
     command:
       - '--config.file=/etc/tempo/tempo.yml'
       - '--config.expand-env=true'
@@ -143,7 +143,7 @@ services:
     networks:
       - 'aspire'
   grafana:
-    image: 'grafana/grafana:latest@sha256:ba93c9d192e58b23e064c7f501d453426ccf4a85065bf25b705ab1e98602bfb1'
+    image: 'grafana/grafana:latest@sha256:9e1e77ade304069aee3196e9a4f210830e96e80ce9a2640891eccc324b152faf'
     environment:
       PROMETHEUS_ENDPOINT: 'http://prometheus:9090'
       LOKI_ENDPOINT: 'http://loki:3100'
@@ -188,7 +188,7 @@ services:
     networks:
       - 'aspire'
   postgres:
-    image: 'docker.io/library/postgres:18.1@sha256:1090bc3a8ccfb0b55f78a494d76f8d603434f7e4553543d6e807bc7bd6bbd17f'
+    image: 'docker.io/library/postgres:18.2@sha256:b6b4d0b75c699a2c94dfc5a94fe09f38630f3b67ab0e1653ede1b7ac8e13c197'
     environment:
       POSTGRES_HOST_AUTH_METHOD: 'scram-sha-256'
       POSTGRES_INITDB_ARGS: '--auth-host=scram-sha-256 --auth-local=scram-sha-256'
@@ -204,7 +204,7 @@ services:
     networks:
       - 'aspire'
   cache:
-    image: 'docker.io/library/redis:8.4@sha256:c22af04bb576503bf16b3e34a1fd2fd82de0f765afd866d2e380145e0af30d78'
+    image: 'docker.io/library/redis:8.6@sha256:7b6fb55d8b0adcd77269dc52b3cfffe5f59ca5d43dec3c90dbe18aacce7942e1'
     command:
       - '-c'
       - 'redis-server --requirepass $$REDIS_PASSWORD --save 60 1'
