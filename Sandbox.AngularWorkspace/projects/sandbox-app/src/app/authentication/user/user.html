@@ -1,5 +1,25 @@
 <div class="w-full">
-	<sandbox-info-card title="User Profile">
+	<div class="mb-8">
+		<div class="flex items-center gap-3">
+			<div class="w-10 h-10 rounded-md bg-primary-600 flex items-center justify-center">
+				<svg
+					width="20"
+					height="20"
+					viewBox="0 0 24 24"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="2"
+					class="text-white"
+				>
+					<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+					<circle cx="12" cy="7" r="4" />
+				</svg>
+			</div>
+			<h1 class="text-2xl font-semibold text-gray-900 dark:text-gray-100 m-0">User Profile</h1>
+		</div>
+	</div>
+
+	<sandbox-info-card title="Profile Information">
 		<svg
 			icon
 			xmlns="http://www.w3.org/2000/svg"
@@ -11,13 +31,13 @@
 			stroke-width="2"
 			stroke-linecap="round"
 			stroke-linejoin="round"
-			class="text-primary-600 dark:text-primary-400"
+			class="text-white"
 		>
 			<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
 			<circle cx="12" cy="7" r="4" />
 		</svg>
-		<div class="p-4 bg-gray-50 dark:bg-slate-900 rounded-md">
-			<pre class="m-0 p-0 font-mono text-sm text-gray-900 dark:text-gray-100 whitespace-pre-wrap">{{
+		<div class="p-4 bg-gray-50 dark:bg-slate-900 rounded-md border border-gray-200 dark:border-slate-800">
+			<pre class="m-0 p-0 font-mono text-xs text-gray-900 dark:text-gray-100 whitespace-pre-wrap overflow-auto">{{
 				user() | json
 			}}</pre>
 		</div>

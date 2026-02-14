@@ -59,11 +59,13 @@ internal static partial class CommandResourceBuilderExtensions
         var process = Process.Start(processStartInfo) ?? throw new InvalidOperationException("Failed to start process");
         await process.StandardInput.WriteLineAsync($"{command} & exit");
 
+#pragma warning disable CA2024 // Do not use 'StreamReader.EndOfStream' in async methods
         while (!process.StandardOutput.EndOfStream)
         {
             var line = await process.StandardOutput.ReadLineAsync() ?? string.Empty;
             LogCommandOutput(logger, line);
         }
+#pragma warning restore CA2024 // Do not use 'StreamReader.EndOfStream' in async methods
 
         return CommandResults.Success();
     }

@@ -1,25 +1,40 @@
-<div class="w-full animate-[fadeIn_0.3s_ease-in-out]">
+<div class="w-full">
 	@if (customer.hasValue() && customer.value(); as customer) {
 		<div class="mb-8">
 			<div class="flex items-center justify-between gap-6 flex-wrap">
-				<h1 class="text-3xl font-semibold text-gray-900 dark:text-gray-100 m-0">
-					{{ customer.firstName }} {{ customer.lastName }}
-				</h1>
+				<div class="flex items-center gap-3">
+					<div class="w-10 h-10 rounded-md bg-primary-600 flex items-center justify-center">
+						<svg
+							width="20"
+							height="20"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="2"
+							class="text-white"
+						>
+							<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+							<circle cx="12" cy="7" r="4" />
+						</svg>
+					</div>
+					<h1 class="text-2xl font-semibold text-gray-900 dark:text-gray-100 m-0">
+						{{ customer.firstName }} {{ customer.lastName }}
+					</h1>
+				</div>
 				<a
 					routerLink=".."
-					class="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-600 dark:text-gray-400 bg-gray-50 dark:bg-slate-900 border border-gray-300 dark:border-slate-700 rounded-md transition-all hover:text-primary-600 dark:hover:text-primary-400 hover:border-primary-600 dark:hover:border-primary-400 hover:bg-primary-50 dark:hover:bg-primary-950 group"
+					class="inline-flex items-center gap-2 px-3 py-1.5 text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-slate-900 border border-gray-300 dark:border-slate-700 rounded-md transition-colors hover:bg-gray-50 dark:hover:bg-slate-800"
 				>
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
-						width="16"
-						height="16"
+						width="14"
+						height="14"
 						viewBox="0 0 24 24"
 						fill="none"
 						stroke="currentColor"
 						stroke-width="2"
 						stroke-linecap="round"
 						stroke-linejoin="round"
-						class="transition-transform group-hover:-translate-x-0.5"
 					>
 						<path d="M19 12H5M12 19l-7-7 7-7" />
 					</svg>
@@ -41,14 +56,16 @@
 					stroke-width="2"
 					stroke-linecap="round"
 					stroke-linejoin="round"
-					class="text-primary-600 dark:text-primary-400"
+					class="text-white"
 				>
 					<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
 					<circle cx="12" cy="7" r="4" />
 				</svg>
-				<div class="flex items-baseline gap-4 py-3">
-					<span class="text-sm font-medium text-gray-600 dark:text-gray-400 min-w-[120px]">Full Name</span>
-					<span class="text-base font-medium text-gray-900 dark:text-gray-100"
+				<div
+					class="flex items-center gap-4 py-3 px-4 bg-gray-50 dark:bg-slate-900 rounded-md border border-gray-200 dark:border-slate-800"
+				>
+					<span class="text-sm font-medium text-gray-700 dark:text-gray-300 min-w-[100px]"> Full Name </span>
+					<span class="text-base font-semibold text-gray-900 dark:text-gray-100"
 						>{{ customer.firstName }} {{ customer.lastName }}</span
 					>
 				</div>
@@ -67,44 +84,51 @@
 						stroke-width="2"
 						stroke-linecap="round"
 						stroke-linejoin="round"
-						class="text-primary-600 dark:text-primary-400"
+						class="text-white"
 					>
 						<rect x="2" y="5" width="20" height="14" rx="2" />
 						<line x1="2" y1="10" x2="22" y2="10" />
 					</svg>
 					<span
 						badge
-						class="inline-flex items-center justify-center min-w-[1.75rem] h-7 px-2 text-xs font-semibold text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-950 rounded-full"
+						class="inline-flex items-center justify-center min-w-[1.5rem] h-6 px-2 text-xs font-medium text-white bg-primary-600 rounded-full"
 						>{{ customer.billingAddresses.length }}</span
 					>
-					<div class="grid grid-cols-1 md:grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-5">
+					<div class="grid grid-cols-1 md:grid-cols-[repeat(auto-fill,minmax(280px,1fr))] gap-4">
 						@for (billingAddress of customer.billingAddresses; track billingAddress.id) {
 							<div
-								class="bg-gray-50 dark:bg-slate-900 border border-gray-100 dark:border-slate-800 rounded-md p-5 transition-all hover:bg-gray-100 dark:hover:bg-slate-800 hover:border-gray-200 dark:hover:border-slate-700 hover:shadow-sm"
+								class="bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-800 rounded-md p-4"
 							>
-								<div class="flex justify-between items-baseline gap-3 py-2">
+								<div
+									class="flex justify-between items-start gap-3 py-2 border-b border-gray-100 dark:border-slate-800"
+								>
 									<span
-										class="text-xs font-medium text-gray-600 dark:text-gray-400 uppercase tracking-wide"
-										>Street</span
+										class="text-xs font-medium text-gray-600 dark:text-gray-400 uppercase tracking-wider"
 									>
+										Street
+									</span>
 									<span class="text-sm font-medium text-gray-900 dark:text-gray-100 text-right">{{
 										billingAddress.street
 									}}</span>
 								</div>
-								<div class="flex justify-between items-baseline gap-3 py-2">
+								<div
+									class="flex justify-between items-start gap-3 py-2 border-b border-gray-100 dark:border-slate-800"
+								>
 									<span
-										class="text-xs font-medium text-gray-600 dark:text-gray-400 uppercase tracking-wide"
-										>City</span
+										class="text-xs font-medium text-gray-600 dark:text-gray-400 uppercase tracking-wider"
 									>
+										City
+									</span>
 									<span class="text-sm font-medium text-gray-900 dark:text-gray-100 text-right">{{
 										billingAddress.city
 									}}</span>
 								</div>
-								<div class="flex justify-between items-baseline gap-3 py-2">
+								<div class="flex justify-between items-start gap-3 py-2">
 									<span
-										class="text-xs font-medium text-gray-600 dark:text-gray-400 uppercase tracking-wide"
-										>Zip Code</span
+										class="text-xs font-medium text-gray-600 dark:text-gray-400 uppercase tracking-wider"
 									>
+										Zip Code
+									</span>
 									<span class="text-sm font-medium text-gray-900 dark:text-gray-100 text-right">{{
 										billingAddress.zipCode
 									}}</span>
@@ -128,54 +152,64 @@
 						stroke-width="2"
 						stroke-linecap="round"
 						stroke-linejoin="round"
-						class="text-primary-600 dark:text-primary-400"
+						class="text-white"
 					>
 						<path d="M16 3h5v5M4 20L21 3M21 16v5h-5M15 15l6 6M4 4l5 5" />
 					</svg>
 					<span
 						badge
-						class="inline-flex items-center justify-center min-w-[1.75rem] h-7 px-2 text-xs font-semibold text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-950 rounded-full"
+						class="inline-flex items-center justify-center min-w-[1.5rem] h-6 px-2 text-xs font-medium text-white bg-primary-600 rounded-full"
 						>{{ customer.shippingAddresses.length }}</span
 					>
-					<div class="grid grid-cols-1 md:grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-5">
+					<div class="grid grid-cols-1 md:grid-cols-[repeat(auto-fill,minmax(280px,1fr))] gap-4">
 						@for (shippingAddress of customer.shippingAddresses; track shippingAddress.id) {
 							<div
-								class="bg-gray-50 dark:bg-slate-900 border border-gray-100 dark:border-slate-800 rounded-md p-5 transition-all hover:bg-gray-100 dark:hover:bg-slate-800 hover:border-gray-200 dark:hover:border-slate-700 hover:shadow-sm"
+								class="bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-800 rounded-md p-4"
 							>
-								<div class="flex justify-between items-baseline gap-3 py-2">
+								<div
+									class="flex justify-between items-start gap-3 py-2 border-b border-gray-100 dark:border-slate-800"
+								>
 									<span
-										class="text-xs font-medium text-gray-600 dark:text-gray-400 uppercase tracking-wide"
-										>Street</span
+										class="text-xs font-medium text-gray-600 dark:text-gray-400 uppercase tracking-wider"
 									>
+										Street
+									</span>
 									<span class="text-sm font-medium text-gray-900 dark:text-gray-100 text-right">{{
 										shippingAddress.street
 									}}</span>
 								</div>
-								<div class="flex justify-between items-baseline gap-3 py-2">
+								<div
+									class="flex justify-between items-start gap-3 py-2 border-b border-gray-100 dark:border-slate-800"
+								>
 									<span
-										class="text-xs font-medium text-gray-600 dark:text-gray-400 uppercase tracking-wide"
-										>City</span
+										class="text-xs font-medium text-gray-600 dark:text-gray-400 uppercase tracking-wider"
 									>
+										City
+									</span>
 									<span class="text-sm font-medium text-gray-900 dark:text-gray-100 text-right">{{
 										shippingAddress.city
 									}}</span>
 								</div>
-								<div class="flex justify-between items-baseline gap-3 py-2">
+								<div class="flex justify-between items-start gap-3 py-2">
 									<span
-										class="text-xs font-medium text-gray-600 dark:text-gray-400 uppercase tracking-wide"
-										>Zip Code</span
+										class="text-xs font-medium text-gray-600 dark:text-gray-400 uppercase tracking-wider"
 									>
+										Zip Code
+									</span>
 									<span class="text-sm font-medium text-gray-900 dark:text-gray-100 text-right">{{
 										shippingAddress.zipCode
 									}}</span>
 								</div>
 								@if (shippingAddress.note) {
-									<div class="mt-4 pt-4 border-t border-gray-100 dark:border-slate-800">
+									<div class="mt-4 pt-4 border-t border-gray-200 dark:border-slate-800">
 										<span
-											class="block text-xs font-medium text-gray-600 dark:text-gray-400 uppercase tracking-wide mb-2"
-											>Note</span
+											class="text-xs font-medium text-gray-600 dark:text-gray-400 uppercase tracking-wider mb-2 block"
 										>
-										<p class="text-sm text-gray-900 dark:text-gray-100 leading-relaxed m-0">
+											Note
+										</span>
+										<p
+											class="text-sm text-gray-900 dark:text-gray-100 leading-relaxed m-0 p-3 bg-gray-50 dark:bg-slate-800 rounded-md border border-gray-200 dark:border-slate-700"
+										>
 											{{ shippingAddress.note }}
 										</p>
 									</div>
@@ -188,38 +222,37 @@
 		</div>
 	} @else if (customer.error()) {
 		<div
-			class="flex items-center justify-center min-h-100 bg-white dark:bg-slate-950 border border-gray-200 dark:border-slate-800 rounded-lg p-8"
+			class="flex items-center justify-center min-h-[400px] bg-white dark:bg-slate-950 border border-red-200 dark:border-red-800 rounded-lg p-12"
 		>
 			<div class="flex flex-col items-center gap-4 text-center max-w-md">
-				<svg
-					xmlns="http://www.w3.org/2000/svg"
-					width="64"
-					height="64"
-					viewBox="0 0 24 24"
-					fill="none"
-					stroke="currentColor"
-					stroke-width="1"
-					stroke-linecap="round"
-					stroke-linejoin="round"
-					class="text-red-500"
-				>
-					<circle cx="12" cy="12" r="10" />
-					<line x1="12" y1="8" x2="12" y2="12" />
-					<line x1="12" y1="16" x2="12.01" y2="16" />
-				</svg>
-				<h2 class="text-xl font-semibold text-gray-900 dark:text-gray-100 m-0">Unable to Load Customer</h2>
-				<p class="text-base text-gray-600 dark:text-gray-400 m-0">
+				<div class="w-16 h-16 rounded-lg bg-red-50 dark:bg-red-950/30 flex items-center justify-center">
+					<svg
+						width="32"
+						height="32"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+						class="text-red-600 dark:text-red-400"
+					>
+						<path
+							d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+						/>
+					</svg>
+				</div>
+				<h2 class="text-lg font-semibold text-gray-900 dark:text-gray-100 m-0">Unable to Load Customer</h2>
+				<p class="text-sm text-gray-600 dark:text-gray-400 m-0">
 					{{ $any(customer.error())?.error?.title || 'An unexpected error occurred. Please try again.' }}
 				</p>
 				<button
 					type="button"
-					class="inline-flex items-center justify-center gap-2 px-6 py-3 text-base font-medium text-white bg-primary-500 border border-transparent rounded-md cursor-pointer transition-all whitespace-nowrap hover:bg-primary-700 hover:shadow-sm focus-visible:outline-2 focus-visible:outline-primary-600 focus-visible:outline-offset-2 active:translate-y-px disabled:opacity-50 disabled:cursor-not-allowed mt-2"
+					class="inline-flex items-center justify-center gap-2 px-4 py-2 text-sm font-medium text-white bg-primary-600 border-0 rounded-md cursor-pointer transition-colors whitespace-nowrap hover:bg-primary-700 focus-visible:outline-2 focus-visible:outline-primary-600 focus-visible:outline-offset-2 mt-2"
 					(click)="customer.reload()"
 				>
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
-						width="16"
-						height="16"
+						width="14"
+						height="14"
 						viewBox="0 0 24 24"
 						fill="none"
 						stroke="currentColor"
@@ -235,13 +268,15 @@
 		</div>
 	} @else {
 		<div
-			class="flex items-center justify-center min-h-[400px] bg-white dark:bg-slate-950 border border-gray-200 dark:border-slate-800 rounded-lg p-8"
+			class="flex items-center justify-center min-h-[400px] bg-white dark:bg-slate-950 border border-gray-200 dark:border-slate-800 rounded-lg p-12"
 		>
 			<div class="flex flex-col items-center gap-4 text-center max-w-md">
-				<div
-					class="inline-block w-5 h-5 border-2 border-gray-300 dark:border-gray-600 border-t-primary-600 dark:border-t-primary-400 rounded-full animate-spin"
-				></div>
-				<p class="text-base text-gray-600 dark:text-gray-400 m-0">Loading customer details...</p>
+				<div class="relative">
+					<div
+						class="w-12 h-12 border-2 border-gray-200 dark:border-slate-700 border-t-primary-600 rounded-full animate-spin"
+					></div>
+				</div>
+				<p class="text-sm font-medium text-gray-600 dark:text-gray-400 m-0">Loading customer details...</p>
 			</div>
 		</div>
 	}

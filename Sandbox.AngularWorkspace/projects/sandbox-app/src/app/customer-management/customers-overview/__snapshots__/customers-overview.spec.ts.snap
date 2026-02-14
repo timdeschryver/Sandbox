@@ -8,11 +8,43 @@ exports[`renders the component with customers table 1`] = `
     <div
       class="mb-8"
     >
-      <h1
-        class="text-3xl font-semibold text-gray-900 dark:text-gray-100 m-0"
+      <div
+        class="flex items-center gap-3"
       >
-        Customers
-      </h1>
+        <div
+          class="w-10 h-10 rounded-md bg-primary-600 flex items-center justify-center"
+        >
+          <svg
+            class="text-white"
+            fill="none"
+            height="20"
+            stroke="currentColor"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+            width="20"
+          >
+            <path
+              d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"
+            />
+            <circle
+              cx="9"
+              cy="7"
+              r="4"
+            />
+            <path
+              d="M23 21v-2a4 4 0 0 0-3-3.87"
+            />
+            <path
+              d="M16 3.13a4 4 0 0 1 0 7.75"
+            />
+          </svg>
+        </div>
+        <h1
+          class="text-2xl font-semibold text-gray-900 dark:text-gray-100 m-0"
+        >
+          Customers
+        </h1>
+      </div>
     </div>
     <div
       class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start"
@@ -26,31 +58,69 @@ exports[`renders the component with customers table 1`] = `
             novalidate=""
           >
             <div
-              class="bg-white dark:bg-slate-950 border border-gray-200 dark:border-slate-800 rounded-lg p-8 shadow-sm"
+              class="bg-white dark:bg-slate-950 border border-gray-200 dark:border-slate-800 rounded-lg p-6 shadow-sm"
             >
-              <h2
-                class="text-2xl font-semibold text-gray-900 dark:text-gray-100 m-0 mb-6 pb-4 border-b border-gray-100 dark:border-slate-900"
+              <div
+                class="flex items-center gap-3 mb-6 pb-4 border-b border-gray-200 dark:border-slate-800"
               >
-                 Create Customer 
-              </h2>
+                <div
+                  class="w-8 h-8 rounded-md bg-primary-600 flex items-center justify-center"
+                >
+                  <svg
+                    class="text-white"
+                    fill="none"
+                    height="16"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    viewBox="0 0 24 24"
+                    width="16"
+                  >
+                    <path
+                      d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"
+                    />
+                    <circle
+                      cx="9"
+                      cy="7"
+                      r="4"
+                    />
+                    <line
+                      x1="19"
+                      x2="19"
+                      y1="8"
+                      y2="14"
+                    />
+                    <line
+                      x1="22"
+                      x2="16"
+                      y1="11"
+                      y2="11"
+                    />
+                  </svg>
+                </div>
+                <h2
+                  class="text-lg font-semibold text-gray-900 dark:text-gray-100 m-0"
+                >
+                  Create Customer
+                </h2>
+              </div>
               <!--container-->
               <!--container-->
               <fieldset
-                class="border border-gray-300 dark:border-slate-700 rounded-lg p-6 mb-6"
+                class="border border-gray-200 dark:border-slate-800 rounded-md p-4 mb-4 bg-white dark:bg-slate-900"
               >
                 <legend
-                  class="text-lg font-semibold text-gray-900 dark:text-gray-100 px-3"
+                  class="text-sm font-medium text-gray-900 dark:text-gray-100 px-2"
                 >
                   Customer Information
                 </legend>
                 <div
-                  class="grid grid-cols-1 md:grid-cols-2 gap-5"
+                  class="grid grid-cols-1 md:grid-cols-2 gap-4"
                 >
                   <div
-                    class="flex flex-col mb-5 last:mb-0"
+                    class="flex flex-col"
                   >
                     <label
-                      class="block text-sm font-medium text-gray-900 dark:text-gray-100 mb-2"
+                      class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
                       for="a.form0.firstName"
                     >
                       First Name
@@ -58,10 +128,11 @@ exports[`renders the component with customers table 1`] = `
                     <input
                       aria-describedby="error-a.form0.firstName"
                       aria-invalid="true"
-                      class="w-full px-4 py-3 text-base font-sans leading-normal text-gray-900 dark:text-gray-100 bg-gray-50 dark:bg-slate-900 border border-gray-300 dark:border-slate-700 rounded-md transition-all hover:border-gray-400 dark:hover:border-slate-600 focus:outline-none focus:border-primary-600 dark:focus:border-primary-400 focus:ring-4 focus:ring-primary-50 dark:focus:ring-primary-950/50 disabled:bg-gray-100 dark:disabled:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-60"
+                      class="w-full px-3 py-2 text-sm font-sans leading-normal text-gray-900 dark:text-gray-100 bg-white dark:bg-slate-900 border border-gray-300 dark:border-slate-700 rounded-md transition-colors hover:border-gray-400 dark:hover:border-slate-600 focus:outline-none focus:border-primary-500 dark:focus:border-primary-500 focus:ring-2 focus:ring-primary-100 dark:focus:ring-primary-950/50 disabled:bg-gray-100 dark:disabled:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-60 placeholder:text-gray-400"
                       id="a.form0.firstName"
                       maxlength="255"
                       name="a.form0.firstName"
+                      placeholder="John"
                       required=""
                       type="text"
                     />
@@ -78,10 +149,10 @@ exports[`renders the component with customers table 1`] = `
                     <!--container-->
                   </div>
                   <div
-                    class="flex flex-col mb-5 last:mb-0"
+                    class="flex flex-col"
                   >
                     <label
-                      class="block text-sm font-medium text-gray-900 dark:text-gray-100 mb-2"
+                      class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
                       for="a.form0.lastName"
                     >
                       Last Name
@@ -89,10 +160,11 @@ exports[`renders the component with customers table 1`] = `
                     <input
                       aria-describedby="error-a.form0.lastName"
                       aria-invalid="true"
-                      class="w-full px-4 py-3 text-base font-sans leading-normal text-gray-900 dark:text-gray-100 bg-gray-50 dark:bg-slate-900 border border-gray-300 dark:border-slate-700 rounded-md transition-all hover:border-gray-400 dark:hover:border-slate-600 focus:outline-none focus:border-primary-600 dark:focus:border-primary-400 focus:ring-4 focus:ring-primary-50 dark:focus:ring-primary-950/50 disabled:bg-gray-100 dark:disabled:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-60"
+                      class="w-full px-3 py-2 text-sm font-sans leading-normal text-gray-900 dark:text-gray-100 bg-white dark:bg-slate-900 border border-gray-300 dark:border-slate-700 rounded-md transition-colors hover:border-gray-400 dark:hover:border-slate-600 focus:outline-none focus:border-primary-500 dark:focus:border-primary-500 focus:ring-2 focus:ring-primary-100 dark:focus:ring-primary-950/50 disabled:bg-gray-100 dark:disabled:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-60 placeholder:text-gray-400"
                       id="a.form0.lastName"
                       maxlength="255"
                       name="a.form0.lastName"
+                      placeholder="Doe"
                       required=""
                       type="text"
                     />
@@ -111,10 +183,10 @@ exports[`renders the component with customers table 1`] = `
                 </div>
               </fieldset>
               <div
-                class="flex items-center gap-3 p-4 rounded-md mb-5 transition-colors hover:bg-gray-100 dark:hover:bg-slate-900"
+                class="flex items-center gap-3 p-3 rounded-md mb-4 transition-colors hover:bg-gray-50 dark:hover:bg-slate-900 cursor-pointer"
               >
                 <input
-                  class="w-5 h-5 cursor-pointer rounded border-gray-300 dark:border-slate-700 transition-all hover:border-gray-400 dark:hover:border-slate-600 focus:outline-none focus:border-primary-600 dark:focus:border-primary-400 focus:ring-4 focus:ring-primary-50 dark:focus:ring-primary-950/50 accent-primary-600 m-0"
+                  class="w-4 h-4 cursor-pointer rounded border border-gray-300 dark:border-slate-700 transition-colors hover:border-gray-400 dark:hover:border-slate-600 focus:outline-none focus:border-primary-500 dark:focus:border-primary-500 focus:ring-2 focus:ring-primary-100 dark:focus:ring-primary-950/50 accent-primary-600 m-0"
                   id="hasBillingAddress"
                   name="a.form0.hasBillingAddress"
                   type="checkbox"
@@ -130,7 +202,7 @@ exports[`renders the component with customers table 1`] = `
                 </form-validation-field-errors>
                 <!--container-->
                 <label
-                  class="m-0 font-medium cursor-pointer select-none text-gray-900 dark:text-gray-100"
+                  class="m-0 text-sm font-medium cursor-pointer select-none text-gray-900 dark:text-gray-100"
                   for="hasBillingAddress"
                 >
                   Add Billing Address
@@ -138,10 +210,10 @@ exports[`renders the component with customers table 1`] = `
               </div>
               <!--container-->
               <div
-                class="flex items-center gap-3 p-4 rounded-md mb-5 transition-colors hover:bg-gray-100 dark:hover:bg-slate-900"
+                class="flex items-center gap-3 p-3 rounded-md mb-4 transition-colors hover:bg-gray-50 dark:hover:bg-slate-900 cursor-pointer"
               >
                 <input
-                  class="w-5 h-5 cursor-pointer rounded border-gray-300 dark:border-slate-700 transition-all hover:border-gray-400 dark:hover:border-slate-600 focus:outline-none focus:border-primary-600 dark:focus:border-primary-400 focus:ring-4 focus:ring-primary-50 dark:focus:ring-primary-950/50 accent-primary-600 m-0"
+                  class="w-4 h-4 cursor-pointer rounded border border-gray-300 dark:border-slate-700 transition-colors hover:border-gray-400 dark:hover:border-slate-600 focus:outline-none focus:border-primary-500 dark:focus:border-primary-500 focus:ring-2 focus:ring-primary-100 dark:focus:ring-primary-950/50 accent-primary-600 m-0"
                   id="hasShippingAddress"
                   name="a.form0.hasShippingAddress"
                   type="checkbox"
@@ -157,7 +229,7 @@ exports[`renders the component with customers table 1`] = `
                 </form-validation-field-errors>
                 <!--container-->
                 <label
-                  class="m-0 font-medium cursor-pointer select-none text-gray-900 dark:text-gray-100"
+                  class="m-0 text-sm font-medium cursor-pointer select-none text-gray-900 dark:text-gray-100"
                   for="hasShippingAddress"
                 >
                   Add Shipping Address
@@ -165,22 +237,22 @@ exports[`renders the component with customers table 1`] = `
               </div>
               <!--container-->
               <div
-                class="flex justify-end pt-6 border-t border-gray-100 dark:border-slate-900 mt-6"
+                class="flex justify-end pt-6 border-t border-gray-200 dark:border-slate-800 mt-6"
               >
                 <button
-                  class="inline-flex items-center justify-center gap-2 px-6 py-3 text-base font-medium font-sans leading-normal text-white bg-primary-500 border border-transparent rounded-md cursor-pointer transition-all whitespace-nowrap hover:bg-primary-700 hover:shadow-sm focus-visible:outline-2 focus-visible:outline-primary-600 focus-visible:outline-offset-2 active:translate-y-px disabled:opacity-50 disabled:cursor-not-allowed"
+                  class="inline-flex items-center justify-center gap-2 px-4 py-2 text-sm font-medium text-white bg-primary-600 border-0 rounded-md cursor-pointer transition-colors whitespace-nowrap hover:bg-primary-700 focus-visible:outline-2 focus-visible:outline-primary-600 focus-visible:outline-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
                   type="submit"
                 >
                   <!--container-->
                   <svg
                     fill="none"
-                    height="18"
+                    height="16"
                     stroke="currentColor"
                     stroke-linecap="round"
                     stroke-linejoin="round"
                     stroke-width="2"
                     viewBox="0 0 24 24"
-                    width="18"
+                    width="16"
                     xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
@@ -222,20 +294,20 @@ exports[`renders the component with customers table 1`] = `
             class="w-full"
           >
             <div
-              class="relative bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-700 rounded-lg overflow-hidden shadow-sm"
+              class="relative bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-800 rounded-lg overflow-hidden shadow-sm"
             >
               <table
-                class="w-full border-collapse bg-white dark:bg-slate-900 shadow-none"
+                class="w-full border-collapse bg-transparent shadow-none"
               >
                 <thead
-                  class="bg-primary-50 dark:bg-primary-950"
+                  class="bg-gray-50 dark:bg-slate-900 border-b border-gray-200 dark:border-slate-800"
                 >
                   <tr>
                     <th
-                      class="w-12 px-4 py-4 border-b border-gray-200 dark:border-slate-800"
+                      class="w-16 px-6 py-3"
                     >
                       <button
-                        class="p-2 bg-transparent text-primary-600 dark:text-primary-400 border border-primary-200 dark:border-primary-900 rounded-md cursor-pointer transition-all inline-flex items-center justify-center hover:bg-primary-100 dark:hover:bg-primary-900 hover:text-primary-700 dark:hover:text-primary-300 hover:border-primary-300 dark:hover:border-primary-800 hover:rotate-180 active:rotate-180 active:translate-y-px"
+                        class="p-2 bg-white dark:bg-slate-800 text-gray-600 dark:text-gray-400 border border-gray-300 dark:border-slate-700 rounded-md cursor-pointer transition-colors inline-flex items-center justify-center hover:bg-gray-50 dark:hover:bg-slate-700 hover:text-gray-900 dark:hover:text-gray-100"
                         title="Refresh data"
                         type="button"
                       >
@@ -257,12 +329,12 @@ exports[`renders the component with customers table 1`] = `
                       </button>
                     </th>
                     <th
-                      class="px-6 py-4 text-left text-sm font-semibold text-gray-600 dark:text-gray-400 uppercase tracking-wide border-b border-r border-gray-200 dark:border-slate-800"
+                      class="px-6 py-3 text-left text-xs font-medium text-gray-700 dark:text-gray-300 uppercase tracking-wider border-b border-r border-gray-200 dark:border-slate-800"
                     >
                        Name 
                     </th>
                     <th
-                      class="w-48 text-right px-6 py-4 text-sm font-semibold text-gray-600 dark:text-gray-400 uppercase tracking-wide border-b border-gray-200 dark:border-slate-800"
+                      class="w-48 text-right px-6 py-3 text-xs font-medium text-gray-700 dark:text-gray-300 uppercase tracking-wider border-b border-gray-200 dark:border-slate-800"
                     />
                     <!--container-->
                   </tr>
@@ -271,13 +343,13 @@ exports[`renders the component with customers table 1`] = `
                 <tbody>
                   <!--container-->
                   <tr
-                    class="transition-colors hover:bg-primary-50 dark:hover:bg-primary-950/50"
+                    class="transition-colors hover:bg-gray-50 dark:hover:bg-slate-900/50 border-b border-gray-100 dark:border-slate-800 last:border-b-0"
                   >
                     <td
-                      class="w-12 px-4 py-4 border-b border-gray-200 dark:border-slate-800"
+                      class="w-16 px-6 py-4"
                     />
                     <td
-                      class="px-6 py-4 border-b border-r border-gray-200 dark:border-slate-800 font-medium text-gray-900 dark:text-gray-100 max-w-xs overflow-hidden text-ellipsis whitespace-nowrap"
+                      class="px-6 py-4 border-b border-r border-gray-100 dark:border-slate-800 text-sm font-medium text-gray-900 dark:text-gray-100 max-w-xs overflow-hidden text-ellipsis whitespace-nowrap"
                     >
                       <span
                         class="inline-block max-w-full overflow-hidden text-ellipsis"
@@ -287,25 +359,24 @@ exports[`renders the component with customers table 1`] = `
                       </span>
                     </td>
                     <td
-                      class="px-6 py-4 border-b border-gray-200 dark:border-slate-800 text-right"
+                      class="px-6 py-4 border-b border-gray-100 dark:border-slate-800 text-right"
                     >
                       <a
-                        class="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-950 rounded-md transition-all hover:bg-primary-500 dark:hover:bg-primary-500 hover:text-white group"
+                        class="inline-flex items-center gap-2 px-3 py-2.5 text-sm font-medium text-primary-700 dark:text-primary-400 bg-white dark:bg-slate-900 border border-gray-300 dark:border-slate-700 rounded-md transition-colors hover:bg-gray-50 dark:hover:bg-slate-800 hover:text-primary-800 dark:hover:text-primary-300"
                         href="/a8574564-ef6f-42da-9393-67d7e466e8c8"
                       >
                         <span>
                           View Details
                         </span>
                         <svg
-                          class="transition-transform group-hover:translate-x-0.5"
                           fill="none"
-                          height="16"
+                          height="14"
                           stroke="currentColor"
                           stroke-linecap="round"
                           stroke-linejoin="round"
                           stroke-width="2"
                           viewBox="0 0 24 24"
-                          width="16"
+                          width="14"
                           xmlns="http://www.w3.org/2000/svg"
                         >
                           <path
@@ -317,13 +388,13 @@ exports[`renders the component with customers table 1`] = `
                     <!--container-->
                   </tr>
                   <tr
-                    class="transition-colors hover:bg-primary-50 dark:hover:bg-primary-950/50"
+                    class="transition-colors hover:bg-gray-50 dark:hover:bg-slate-900/50 border-b border-gray-100 dark:border-slate-800 last:border-b-0"
                   >
                     <td
-                      class="w-12 px-4 py-4 border-b border-gray-200 dark:border-slate-800"
+                      class="w-16 px-6 py-4"
                     />
                     <td
-                      class="px-6 py-4 border-b border-r border-gray-200 dark:border-slate-800 font-medium text-gray-900 dark:text-gray-100 max-w-xs overflow-hidden text-ellipsis whitespace-nowrap"
+                      class="px-6 py-4 border-b border-r border-gray-100 dark:border-slate-800 text-sm font-medium text-gray-900 dark:text-gray-100 max-w-xs overflow-hidden text-ellipsis whitespace-nowrap"
                     >
                       <span
                         class="inline-block max-w-full overflow-hidden text-ellipsis"
@@ -333,25 +404,24 @@ exports[`renders the component with customers table 1`] = `
                       </span>
                     </td>
                     <td
-                      class="px-6 py-4 border-b border-gray-200 dark:border-slate-800 text-right"
+                      class="px-6 py-4 border-b border-gray-100 dark:border-slate-800 text-right"
                     >
                       <a
-                        class="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-950 rounded-md transition-all hover:bg-primary-500 dark:hover:bg-primary-500 hover:text-white group"
+                        class="inline-flex items-center gap-2 px-3 py-2.5 text-sm font-medium text-primary-700 dark:text-primary-400 bg-white dark:bg-slate-900 border border-gray-300 dark:border-slate-700 rounded-md transition-colors hover:bg-gray-50 dark:hover:bg-slate-800 hover:text-primary-800 dark:hover:text-primary-300"
                         href="/d654bad5-19e1-4728-b019-37d30358524f"
                       >
                         <span>
                           View Details
                         </span>
                         <svg
-                          class="transition-transform group-hover:translate-x-0.5"
                           fill="none"
-                          height="16"
+                          height="14"
                           stroke="currentColor"
                           stroke-linecap="round"
                           stroke-linejoin="round"
                           stroke-width="2"
                           viewBox="0 0 24 24"
-                          width="16"
+                          width="14"
                           xmlns="http://www.w3.org/2000/svg"
                         >
                           <path

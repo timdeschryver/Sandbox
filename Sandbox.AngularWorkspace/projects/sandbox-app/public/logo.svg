@@ -1,23 +1,30 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 640" fill="none">
-  <!-- Background -->
-  <rect width="1280" height="640" fill="#2563eb" opacity="0.08" rx="16" />
+<svg width="480" height="360" viewBox="0 0 480 360" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <style>
+    .primary { stroke: #64748b; fill: none; }
+    .fill-primary { fill: #64748b; }
+    .text { fill: #64748b; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; font-weight: 600; letter-spacing: 6px; }
+  </style>
 
-  <!-- Mountain peaks (centered and scaled) -->
-  <path d="M 340 360 L 460 200 L 540 280 L 640 160 L 740 260 L 820 220 L 940 360 Z" fill="#2563eb"
-    opacity="0.3" />
-  <path d="M 340 360 L 460 200 L 540 280 L 640 160 L 740 260 L 820 220 L 940 360 Z" fill="none"
-    stroke="#2563eb" stroke-width="6" stroke-linejoin="round" />
+    <!-- Isometric Sandbox Cube -->
+    <g class="primary" stroke-width="3">
+        <!-- Top -->
+        <polygon points="160,110 240,80 320,110 240,140" />
 
-  <!-- Mountain shadow/depth -->
-  <path d="M 460 200 L 540 280 L 640 160 L 640 360 L 460 360 Z" fill="#1e40af" opacity="0.4" />
-  <path d="M 640 160 L 740 260 L 820 220 L 820 360 L 640 360 Z" fill="#3b82f6" opacity="0.3" />
+        <!-- Left Side -->
+        <polygon points="160,110 240,140 240,210 160,180" />
 
-  <!-- Sand base -->
-  <path d="M 340 360 L 340 400 Q 640 385, 940 400 L 940 360 Z" fill="#2563eb" opacity="0.2" />
+        <!-- Right Side -->
+        <polygon points="240,140 320,110 320,180 240,210" />
+    </g>
 
-  <!-- "Sandbox" text -->
-  <text x="640" y="500" font-family="system-ui, -apple-system, sans-serif" font-size="72"
-    font-weight="600" fill="#2563eb" text-anchor="middle">
-    Sandbox
-  </text>
+    <!-- Sand Waves -->
+    <g class="primary" stroke-width="3">
+        <path d="M185 120 Q215 105 240 120 T295 120" />
+        <path d="M185 135 Q215 120 240 135 T295 135" />
+    </g>
+
+    <!-- Text -->
+    <text x="240" y="300" text-anchor="middle" font-size="40" class="text">
+        SANDBOX
+    </text>
 </svg>

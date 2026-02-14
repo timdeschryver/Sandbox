@@ -1,58 +1,92 @@
 <form novalidate class="w-full" (submit.preventDefault)="onSubmit()">
-	<div class="bg-white dark:bg-slate-950 border border-gray-200 dark:border-slate-800 rounded-lg p-8 shadow-sm">
-		<h2
-			class="text-2xl font-semibold text-gray-900 dark:text-gray-100 m-0 mb-6 pb-4 border-b border-gray-100 dark:border-slate-900"
-		>
-			Create Customer
-		</h2>
+	<div class="bg-white dark:bg-slate-950 border border-gray-200 dark:border-slate-800 rounded-lg p-6 shadow-sm">
+		<div class="flex items-center gap-3 mb-6 pb-4 border-b border-gray-200 dark:border-slate-800">
+			<div class="w-8 h-8 rounded-md bg-primary-600 flex items-center justify-center">
+				<svg
+					width="16"
+					height="16"
+					viewBox="0 0 24 24"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="2"
+					class="text-white"
+				>
+					<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+					<circle cx="9" cy="7" r="4" />
+					<line x1="19" y1="8" x2="19" y2="14" />
+					<line x1="22" y1="11" x2="16" y2="11" />
+				</svg>
+			</div>
+			<h2 class="text-lg font-semibold text-gray-900 dark:text-gray-100 m-0">Create Customer</h2>
+		</div>
 
 		@for (error of customerForm().errors(); track $index) {
 			<sandbox-alert type="error">{{ error.message }}</sandbox-alert>
 		}
 
 		@if (customerForm().touched() && customerForm().errorSummary().length > 0) {
-			<div class="bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-900 rounded-md p-4 mb-6">
-				<h3 class="text-base font-semibold text-red-700 dark:text-red-300 m-0 mb-3">
-					Please fix the following errors:
-				</h3>
-				<ul class="list-none m-0 p-0">
-					@for (error of customerForm().errorSummary(); track $index) {
-						<li
-							class="text-red-700 dark:text-red-300 text-sm py-1 pl-5 relative before:content-['•'] before:absolute before:left-2 before:font-bold"
+			<div class="bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-800 rounded-md p-4 mb-6">
+				<div class="flex items-start gap-3">
+					<div class="w-8 h-8 rounded-md bg-red-500 flex items-center justify-center flex-shrink-0">
+						<svg
+							width="16"
+							height="16"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="2"
+							class="text-white"
 						>
-							{{ error | validationMessage: true }}
-						</li>
-					}
-				</ul>
+							<path
+								d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+							/>
+						</svg>
+					</div>
+					<div class="flex-1">
+						<h3 class="text-sm font-medium text-red-700 dark:text-red-300 m-0 mb-2">
+							Please fix the following errors:
+						</h3>
+						<ul class="list-none m-0 p-0 space-y-2">
+							@for (error of customerForm().errorSummary(); track $index) {
+								<li class="flex items-start gap-2 text-red-700 dark:text-red-300 text-sm">
+									<span class="text-red-500 mt-0.5">•</span>
+									<span>{{ error | validationMessage: true }}</span>
+								</li>
+							}
+						</ul>
+					</div>
+				</div>
 			</div>
 		}
 
-		<fieldset class="border border-gray-300 dark:border-slate-700 rounded-lg p-6 mb-6">
-			<legend class="text-lg font-semibold text-gray-900 dark:text-gray-100 px-3">Customer Information</legend>
-			<div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-				<div class="flex flex-col mb-5 last:mb-0">
+		<fieldset class="border border-gray-200 dark:border-slate-800 rounded-md p-4 mb-4 bg-white dark:bg-slate-900">
+			<legend class="text-sm font-medium text-gray-900 dark:text-gray-100 px-2">Customer Information</legend>
+			<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+				<div class="flex flex-col">
 					<label
-						class="block text-sm font-medium text-gray-900 dark:text-gray-100 mb-2"
+						class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
 						[for]="customerForm.firstName().name()"
 						>First Name</label
 					>
 					<input
-						class="w-full px-4 py-3 text-base font-sans leading-normal text-gray-900 dark:text-gray-100 bg-gray-50 dark:bg-slate-900 border border-gray-300 dark:border-slate-700 rounded-md transition-all hover:border-gray-400 dark:hover:border-slate-600 focus:outline-none focus:border-primary-600 dark:focus:border-primary-400 focus:ring-4 focus:ring-primary-50 dark:focus:ring-primary-950/50 disabled:bg-gray-100 dark:disabled:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-60"
+						class="w-full px-3 py-2 text-sm font-sans leading-normal text-gray-900 dark:text-gray-100 bg-white dark:bg-slate-900 border border-gray-300 dark:border-slate-700 rounded-md transition-colors hover:border-gray-400 dark:hover:border-slate-600 focus:outline-none focus:border-primary-500 dark:focus:border-primary-500 focus:ring-2 focus:ring-primary-100 dark:focus:ring-primary-950/50 disabled:bg-gray-100 dark:disabled:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-60 placeholder:text-gray-400"
 						type="text"
+						placeholder="John"
 						[id]="customerForm.firstName().name()"
 						[formField]="customerForm.firstName"
 					/>
 				</div>
 
-				<div class="flex flex-col mb-5 last:mb-0">
+				<div class="flex flex-col">
 					<label
-						class="block text-sm font-medium text-gray-900 dark:text-gray-100 mb-2"
+						class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
 						[for]="customerForm.lastName().name()"
 						>Last Name</label
 					>
 					<input
-						class="w-full px-4 py-3 text-base font-sans leading-normal text-gray-900 dark:text-gray-100 bg-gray-50 dark:bg-slate-900 border border-gray-300 dark:border-slate-700 rounded-md transition-all hover:border-gray-400 dark:hover:border-slate-600 focus:outline-none focus:border-primary-600 dark:focus:border-primary-400 focus:ring-4 focus:ring-primary-50 dark:focus:ring-primary-950/50 disabled:bg-gray-100 dark:disabled:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-60"
+						class="w-full px-3 py-2 text-sm font-sans leading-normal text-gray-900 dark:text-gray-100 bg-white dark:bg-slate-900 border border-gray-300 dark:border-slate-700 rounded-md transition-colors hover:border-gray-400 dark:hover:border-slate-600 focus:outline-none focus:border-primary-500 dark:focus:border-primary-500 focus:ring-2 focus:ring-primary-100 dark:focus:ring-primary-950/50 disabled:bg-gray-100 dark:disabled:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-60 placeholder:text-gray-400"
 						type="text"
+						placeholder="Doe"
 						[id]="customerForm.lastName().name()"
 						[formField]="customerForm.lastName"
 					/>
@@ -61,59 +95,60 @@
 		</fieldset>
 
 		<div
-			class="flex items-center gap-3 p-4 rounded-md mb-5 transition-colors hover:bg-gray-100 dark:hover:bg-slate-900"
+			class="flex items-center gap-3 p-3 rounded-md mb-4 transition-colors hover:bg-gray-50 dark:hover:bg-slate-900 cursor-pointer"
 		>
 			<input
-				class="w-5 h-5 cursor-pointer rounded border-gray-300 dark:border-slate-700 transition-all hover:border-gray-400 dark:hover:border-slate-600 focus:outline-none focus:border-primary-600 dark:focus:border-primary-400 focus:ring-4 focus:ring-primary-50 dark:focus:ring-primary-950/50 accent-primary-600 m-0"
+				class="w-4 h-4 cursor-pointer rounded border border-gray-300 dark:border-slate-700 transition-colors hover:border-gray-400 dark:hover:border-slate-600 focus:outline-none focus:border-primary-500 dark:focus:border-primary-500 focus:ring-2 focus:ring-primary-100 dark:focus:ring-primary-950/50 accent-primary-600 m-0"
 				type="checkbox"
 				id="hasBillingAddress"
 				[formField]="customerForm.hasBillingAddress"
 			/>
 			<label
 				for="hasBillingAddress"
-				class="m-0 font-medium cursor-pointer select-none text-gray-900 dark:text-gray-100"
+				class="m-0 text-sm font-medium cursor-pointer select-none text-gray-900 dark:text-gray-100"
 				>Add Billing Address</label
 			>
 		</div>
 
 		@if (!customerForm.billingAddress().hidden()) {
 			<fieldset
-				class="border border-gray-300 dark:border-slate-700 rounded-lg p-6 mb-6 bg-white dark:bg-slate-950"
+				class="border border-gray-200 dark:border-slate-800 rounded-md p-4 mb-4 bg-white dark:bg-slate-900"
 			>
-				<legend class="text-lg font-semibold text-gray-900 dark:text-gray-100 px-3">Billing Address</legend>
+				<legend class="text-sm font-medium text-gray-900 dark:text-gray-100 px-2">Billing Address</legend>
 				<sandbox-customer-address [address]="customerForm.billingAddress" />
 			</fieldset>
 		}
 
 		<div
-			class="flex items-center gap-3 p-4 rounded-md mb-5 transition-colors hover:bg-gray-100 dark:hover:bg-slate-900"
+			class="flex items-center gap-3 p-3 rounded-md mb-4 transition-colors hover:bg-gray-50 dark:hover:bg-slate-900 cursor-pointer"
 		>
 			<input
-				class="w-5 h-5 cursor-pointer rounded border-gray-300 dark:border-slate-700 transition-all hover:border-gray-400 dark:hover:border-slate-600 focus:outline-none focus:border-primary-600 dark:focus:border-primary-400 focus:ring-4 focus:ring-primary-50 dark:focus:ring-primary-950/50 accent-primary-600 m-0"
+				class="w-4 h-4 cursor-pointer rounded border border-gray-300 dark:border-slate-700 transition-colors hover:border-gray-400 dark:hover:border-slate-600 focus:outline-none focus:border-primary-500 dark:focus:border-primary-500 focus:ring-2 focus:ring-primary-100 dark:focus:ring-primary-950/50 accent-primary-600 m-0"
 				type="checkbox"
 				id="hasShippingAddress"
 				[formField]="customerForm.hasShippingAddress"
 			/>
 			<label
 				for="hasShippingAddress"
-				class="m-0 font-medium cursor-pointer select-none text-gray-900 dark:text-gray-100"
+				class="m-0 text-sm font-medium cursor-pointer select-none text-gray-900 dark:text-gray-100"
 				>Add Shipping Address</label
 			>
 		</div>
 
 		@if (!customerForm.shippingAddress().hidden()) {
 			<fieldset
-				class="border border-gray-300 dark:border-slate-700 rounded-lg p-6 mb-6 bg-white dark:bg-slate-950"
+				class="border border-gray-200 dark:border-slate-800 rounded-md p-4 mb-4 bg-white dark:bg-slate-900"
 			>
-				<legend class="text-lg font-semibold text-gray-900 dark:text-gray-100 px-3">Shipping Address</legend>
+				<legend class="text-sm font-medium text-gray-900 dark:text-gray-100 px-2">Shipping Address</legend>
 				<sandbox-customer-address [address]="customerForm.shippingAddress">
-					<div class="flex flex-col mb-5 last:mb-0">
-						<label class="block text-sm font-medium text-gray-900 dark:text-gray-100 mb-2" for="note"
+					<div class="flex flex-col">
+						<label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2" for="note"
 							>Note</label
 						>
 						<textarea
-							class="w-full px-4 py-3 text-base font-sans leading-normal text-gray-900 dark:text-gray-100 bg-gray-50 dark:bg-slate-900 border border-gray-300 dark:border-slate-700 rounded-md transition-all hover:border-gray-400 dark:hover:border-slate-600 focus:outline-none focus:border-primary-600 dark:focus:border-primary-400 focus:ring-4 focus:ring-primary-50 dark:focus:ring-primary-950/50 disabled:bg-gray-100 dark:disabled:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-60 resize-y min-h-25"
+							class="w-full px-3 py-2 text-sm font-sans leading-normal text-gray-900 dark:text-gray-100 bg-white dark:bg-slate-900 border border-gray-300 dark:border-slate-700 rounded-md transition-colors hover:border-gray-400 dark:hover:border-slate-600 focus:outline-none focus:border-primary-500 dark:focus:border-primary-500 focus:ring-2 focus:ring-primary-100 dark:focus:ring-primary-950/50 disabled:bg-gray-100 dark:disabled:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-60 resize-y min-h-32 placeholder:text-gray-400"
 							id="note"
+							placeholder="Add any special delivery instructions..."
 							[formField]="customerForm.shippingAddress.note"
 						></textarea>
 					</div>
@@ -121,22 +156,22 @@
 			</fieldset>
 		}
 
-		<div class="flex justify-end pt-6 border-t border-gray-100 dark:border-slate-900 mt-6">
+		<div class="flex justify-end pt-6 border-t border-gray-200 dark:border-slate-800 mt-6">
 			<button
-				class="inline-flex items-center justify-center gap-2 px-6 py-3 text-base font-medium font-sans leading-normal text-white bg-primary-500 border border-transparent rounded-md cursor-pointer transition-all whitespace-nowrap hover:bg-primary-700 hover:shadow-sm focus-visible:outline-2 focus-visible:outline-primary-600 focus-visible:outline-offset-2 active:translate-y-px disabled:opacity-50 disabled:cursor-not-allowed"
+				class="inline-flex items-center justify-center gap-2 px-4 py-2 text-sm font-medium text-white bg-primary-600 border-0 rounded-md cursor-pointer transition-colors whitespace-nowrap hover:bg-primary-700 focus-visible:outline-2 focus-visible:outline-primary-600 focus-visible:outline-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
 				type="submit"
 				[disabled]="customerForm().submitting()"
 			>
 				@if (customerForm().submitting()) {
 					<div
-						class="inline-block w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"
+						class="inline-block w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"
 					></div>
-					<span>Creating Customer...</span>
+					<span>Creating...</span>
 				} @else {
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
-						width="18"
-						height="18"
+						width="16"
+						height="16"
 						viewBox="0 0 24 24"
 						fill="none"
 						stroke="currentColor"

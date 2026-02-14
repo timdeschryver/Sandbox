@@ -2,6 +2,7 @@
 	"recommendations": [
 		// Angular development
 		"angular.ng-template",
+		"bradlc.vscode-tailwindcss",
 
 		// .NET development
 		"ms-dotnettools.csdevkit",
