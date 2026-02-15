@@ -5,10 +5,5 @@
 	"editor.codeActionsOnSave": {
 		"source.fixAll.eslint": "always"
 	},
-	"eslint.workingDirectories": [{ "mode": "auto" }],
-	"github.copilot.chat.commitMessageGeneration.instructions": [
-		{
-			"file": ".github/instructions/conventional-commit.instructions.md"
-		}
-	]
+	"eslint.workingDirectories": [{ "mode": "auto" }]
 }

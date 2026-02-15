@@ -28,30 +28,30 @@ graph TB
 
     subgraph "Aspire Orchestration"
         AppHost[Sandbox.AppHost<br/>Aspire Host]
-        
+
         subgraph "Frontend Layer"
             Angular[Angular App<br/>Standalone Components<br/>Signals & Signal Forms]
         end
-        
+
         subgraph "Gateway Layer - BFF Pattern"
             Gateway[Sandbox.Gateway<br/>YARP Reverse Proxy<br/>Cookie → Bearer Token]
         end
-        
+
         subgraph "API Layer"
             ApiService[Sandbox.ApiService<br/>Modular Monolith]
-            
+
             subgraph "Domain Modules"
                 CustomerMgmt[CustomerManagement<br/>Module]
                 Billing[Billing<br/>Module]
             end
         end
-        
+
         subgraph "Data Layer"
             Migrations[Sandbox.Migrations<br/>EF Core Migrations]
             Postgres[(PostgreSQL<br/>Modular Schemas)]
             Redis[(Redis<br/>Distributed Cache<br/>FusionCache L2)]
         end
-        
+
         subgraph "Observability"
             OTel[OpenTelemetry<br/>Collector]
             Grafana[Grafana Stack<br/>Loki, Tempo<br/>Prometheus]
@@ -67,21 +67,21 @@ graph TB
     Angular -->|HttpOnly Cookies| Gateway
     Gateway -->|OIDC/OAuth2| Keycloak
     Gateway -->|Bearer Token| ApiService
-    
+
     ApiService --> CustomerMgmt
     ApiService --> Billing
     CustomerMgmt --> Postgres
     Billing --> Postgres
     CustomerMgmt -.->|L1/L2 Cache| Redis
     Billing -.->|L1/L2 Cache| Redis
-    
+
     Migrations -->|Apply Migrations| Postgres
-    
+
     ApiService -.->|Traces/Metrics/Logs| OTel
     Gateway -.->|Traces/Metrics/Logs| OTel
     Angular -.->|Traces/Metrics/Logs| OTel
     OTel --> Grafana
-    
+
     AppHost -.->|Orchestrates| Gateway
     AppHost -.->|Orchestrates| ApiService
     AppHost -.->|Orchestrates| Angular
@@ -89,7 +89,7 @@ graph TB
     AppHost -.->|Orchestrates| Postgres
     AppHost -.->|Orchestrates| Redis
     AppHost -.->|Orchestrates| OTel
-    
+
     CustomerMgmt -.->|Uses| SharedKernel
     Billing -.->|Uses| SharedKernel
     ApiService -.->|Uses| ServiceDefaults
@@ -149,18 +149,18 @@ sequenceDiagram
     Note over User,OTel: Authenticated API Request Flow
     User->>Browser: Trigger action (e.g., Get Customer)
     Browser->>Gateway: GET /api/customers/123<br/>(Cookie: session=xxx)
-    
+
     Gateway->>Gateway: Validate session cookie
     Gateway->>Gateway: Extract Bearer token from session
     Gateway->>Gateway: Apply CSRF protection
-    
+
     Gateway->>API: GET /api/customers/123<br/>(Authorization: Bearer xxx)
-    
+
     API->>API: Validate JWT token
     API->>API: Route to module
-    
+
     API->>Module: Handle request
-    
+
     Module->>Cache: Check L1 (memory) cache
     alt Cache Hit
         Cache-->>Module: Return cached data
@@ -175,16 +175,16 @@ sequenceDiagram
             Module->>Cache: Update L1 + L2 cache
         end
     end
-    
+
     Module->>Module: Apply business logic
     Module-->>API: Return response
-    
+
     API->>OTel: Send trace/metrics
     API-->>Gateway: 200 OK + JSON
-    
+
     Gateway->>OTel: Send trace/metrics
     Gateway-->>Browser: 200 OK + JSON
-    
+
     Browser->>OTel: Send trace/metrics
     Browser-->>User: Display data
 

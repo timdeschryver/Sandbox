@@ -6,3 +6,4 @@ coverage
 *-lock.json
 test-results
 **/documentation/*.json
+./github/skills

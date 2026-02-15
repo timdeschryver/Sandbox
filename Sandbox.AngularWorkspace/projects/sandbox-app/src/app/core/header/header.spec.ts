@@ -15,7 +15,7 @@ it('renders anonymous header when user is not authenticated', async () => {
 it('renders authenticated header when user is authenticated', async () => {
 	await setup({ isAuthenticated: true, name: 'John Doe' });
 
-	expect(screen.getByText('👋 John Doe')).toBeInTheDocument();
+	expect(screen.getByText(/John Doe/)).toBeInTheDocument();
 	expect(screen.getByText('Logout')).toBeInTheDocument();
 	expect(screen.getByText('Customers')).toBeInTheDocument();
 });

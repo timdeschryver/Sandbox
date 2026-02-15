@@ -1,12 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
   <PropertyGroup>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <OpenApiDocumentsDirectory>$(MSBuildProjectDirectory)/documentation</OpenApiDocumentsDirectory>
+    <OpenApiDocumentsDirectory>$(MSBuildProjectDirectory)/../docs/openapi</OpenApiDocumentsDirectory>
     <UserSecretsId>96e0eff7-9fd6-49bc-bdb0-0a048d064a0a</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Sandbox.Modules.CustomerManagement\Sandbox.Modules.CustomerManagement.csproj" />
+    <ProjectReference
+      Include="..\Sandbox.Modules.CustomerManagement\Sandbox.Modules.CustomerManagement.csproj" />
     <ProjectReference Include="..\Sandbox.Modules.Billing\Sandbox.Modules.Billing.csproj" />
     <ProjectReference Include="..\Sandbox.ServiceDefaults\Sandbox.ServiceDefaults.csproj" />
     <ProjectReference Include="..\Sandbox.SharedKernel\Sandbox.SharedKernel.csproj" />

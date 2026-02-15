@@ -1,28 +1,31 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
-    <PropertyGroup>
-        <NoWarn>CA1707;</NoWarn>
-    </PropertyGroup>
+  <PropertyGroup>
+    <NoWarn>CA1707;</NoWarn>
+  </PropertyGroup>
 
-    <ItemGroup>
-        <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" />
-        <PackageReference Include="Microsoft.Kiota.Bundle" />
-        <PackageReference Include="Microsoft.Testing.Extensions.CodeCoverage" />
-        <PackageReference Include="Microsoft.Testing.Extensions.TrxReport" />
-        <PackageReference Include="Testcontainers.PostgreSql" />
-        <PackageReference Include="Testcontainers.Redis" />
-        <PackageReference Include="TUnit" />
-        <PackageReference Include="TUnit.AspNetCore" />
-        <PackageReference Include="Verify.TUnit" />
-    </ItemGroup>
-    <ItemGroup>
-        <ProjectReference Include="..\Sandbox.ApiService\Sandbox.ApiService.csproj" />
-        <ProjectReference Include="..\Sandbox.Migrations\Sandbox.Migrations.csproj">
-            <Aliases>migrations</Aliases>
-        </ProjectReference>
-        <ProjectReference Include="..\Sandbox.Modules.CustomerManagement\Sandbox.Modules.CustomerManagement.csproj" />
-    </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" />
+    <PackageReference Include="Microsoft.Kiota.Bundle" />
+    <PackageReference Include="Microsoft.Testing.Extensions.CodeCoverage" />
+    <PackageReference Include="Microsoft.Testing.Extensions.TrxReport" />
+    <PackageReference Include="Testcontainers.PostgreSql" />
+    <PackageReference Include="Testcontainers.Redis" />
+    <PackageReference Include="TUnit" />
+    <PackageReference Include="TUnit.AspNetCore" />
+    <PackageReference Include="Verify.TUnit" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Sandbox.ApiService\Sandbox.ApiService.csproj" />
+    <ProjectReference Include="..\Sandbox.Migrations\Sandbox.Migrations.csproj">
+      <Aliases>migrations</Aliases>
+    </ProjectReference>
+    <ProjectReference
+      Include="..\Sandbox.Modules.CustomerManagement\Sandbox.Modules.CustomerManagement.csproj" />
+  </ItemGroup>
 
-    <Target Name="GenerateClient" AfterTargets="Build" Condition="$(Configuration)=='Debug'">
-        <Exec Command="kiota generate -l CSharp --output ./ApiServiceSDK --namespace-name ApiServiceSDK --class-name ApiClient --openapi ../Sandbox.ApiService/documentation/Sandbox.ApiService.json --clean-output" WorkingDirectory="$(ProjectDir)" />
-    </Target>
+  <Target Name="GenerateClient" AfterTargets="Build" Condition="$(Configuration)=='Debug'">
+    <Exec
+      Command="kiota generate -l CSharp --output ./ApiServiceSDK --namespace-name ApiServiceSDK --class-name ApiClient --openapi ../docs/openapi/Sandbox.ApiService.json --clean-output"
+      WorkingDirectory="$(ProjectDir)" />
+  </Target>
 </Project>
