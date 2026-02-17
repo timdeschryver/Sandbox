@@ -37,14 +37,26 @@ export default defineConfig({
 			teardown: 'teardown',
 		},
 		{
-			name: 'chromium',
+			name: 'chromium-authenticated',
+			testIgnore: '**/*unauthenticated*.test.ts',
 			use: { ...devices['Desktop Chrome'], storageState: '.state/auth-state.json' },
 			dependencies: ['setup'],
 		},
 		{
-			name: 'firefox',
+			name: 'firefox-authenticated',
+			testIgnore: '**/*unauthenticated*.test.ts',
 			use: { ...devices['Desktop Firefox'], storageState: '.state/auth-state.json' },
 			dependencies: ['setup'],
+		},
+		{
+			name: 'chromium-unauthenticated',
+			testMatch: '**/*unauthenticated*.test.ts',
+			use: { ...devices['Desktop Chrome'] },
+		},
+		{
+			name: 'firefox-unauthenticated',
+			testMatch: '**/*unauthenticated*.test.ts',
+			use: { ...devices['Desktop Firefox'] },
 		},
 		{
 			name: 'teardown',

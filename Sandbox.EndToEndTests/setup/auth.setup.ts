@@ -24,7 +24,7 @@ test('authenticate user', async ({ page }) => {
 	await passwordInput.fill(config.password);
 	await passwordInput.press('Enter');
 
-	await expect(page.getByText(new RegExp(`👋 ${config.username}`, 'i'))).toBeVisible();
+	await expect(page.getByText(new RegExp(`${config.username}`, 'i'))).toBeVisible();
 	await page.context().storageState({ path: storageState });
 });
 

@@ -8,7 +8,6 @@ obj/
 *.cache
 packages/
 .vs/
-TestResults/
 CoverageReport/
 
 # Angular
@@ -22,6 +21,10 @@ yarn-error.log
 
 # Vitest
 __screenshots__/
+
+# Playwright
+test-results/
+.playwright-cli/
 
 # IDE
 # JetBrains
