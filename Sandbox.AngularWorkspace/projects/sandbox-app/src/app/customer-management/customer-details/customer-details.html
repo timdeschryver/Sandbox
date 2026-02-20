@@ -1,283 +1,265 @@
 <div class="w-full">
 	@if (customer.hasValue() && customer.value(); as customer) {
-		<div class="mb-8">
-			<div class="flex items-center justify-between gap-6 flex-wrap">
-				<div class="flex items-center gap-3">
-					<div class="w-10 h-10 rounded-md bg-primary-600 flex items-center justify-center">
-						<svg
-							width="20"
-							height="20"
-							viewBox="0 0 24 24"
-							fill="none"
-							stroke="currentColor"
-							stroke-width="2"
-							class="text-white"
-						>
-							<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-							<circle cx="12" cy="7" r="4" />
-						</svg>
-					</div>
-					<h1 class="text-2xl font-semibold text-gray-900 dark:text-gray-100 m-0">
-						{{ customer.firstName }} {{ customer.lastName }}
-					</h1>
-				</div>
-				<a
-					routerLink=".."
-					class="inline-flex items-center gap-2 px-3 py-1.5 text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-slate-900 border border-gray-300 dark:border-slate-700 rounded-md transition-colors hover:bg-gray-50 dark:hover:bg-slate-800"
-				>
+	<div class="mb-8">
+		<div class="flex flex-wrap items-center justify-between gap-6">
+			<div class="flex items-center gap-3">
+				<div class="bg-primary-600 flex h-10 w-10 items-center justify-center rounded-md">
 					<svg
-						xmlns="http://www.w3.org/2000/svg"
-						width="14"
-						height="14"
+						width="20"
+						height="20"
 						viewBox="0 0 24 24"
 						fill="none"
 						stroke="currentColor"
 						stroke-width="2"
-						stroke-linecap="round"
-						stroke-linejoin="round"
+						class="text-white"
 					>
-						<path d="M19 12H5M12 19l-7-7 7-7" />
+						<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+						<circle cx="12" cy="7" r="4" />
 					</svg>
-					<span>Back to Overview</span>
-				</a>
+				</div>
+				<h1 class="m-0 text-2xl font-semibold text-gray-900 dark:text-gray-100">
+					{{ customer.firstName }} {{ customer.lastName }}
+				</h1>
 			</div>
-		</div>
-
-		<div class="flex flex-col gap-6">
-			<sandbox-info-card title="Personal Information" testId="personal-information">
+			<a
+				routerLink=".."
+				class="inline-flex items-center gap-2 rounded-md border border-gray-300 bg-white px-3 py-1.5 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50 dark:border-slate-700 dark:bg-slate-900 dark:text-gray-300 dark:hover:bg-slate-800"
+			>
 				<svg
-					icon
 					xmlns="http://www.w3.org/2000/svg"
-					width="20"
-					height="20"
+					width="14"
+					height="14"
 					viewBox="0 0 24 24"
 					fill="none"
 					stroke="currentColor"
 					stroke-width="2"
 					stroke-linecap="round"
 					stroke-linejoin="round"
-					class="text-white"
 				>
-					<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-					<circle cx="12" cy="7" r="4" />
+					<path d="M19 12H5M12 19l-7-7 7-7" />
 				</svg>
-				<div
-					class="flex items-center gap-4 py-3 px-4 bg-gray-50 dark:bg-slate-900 rounded-md border border-gray-200 dark:border-slate-800"
-				>
-					<span class="text-sm font-medium text-gray-700 dark:text-gray-300 min-w-[100px]"> Full Name </span>
-					<span class="text-base font-semibold text-gray-900 dark:text-gray-100"
-						>{{ customer.firstName }} {{ customer.lastName }}</span
-					>
-				</div>
-			</sandbox-info-card>
-
-			@if (customer.billingAddresses.length > 0) {
-				<sandbox-info-card title="Billing Addresses" testId="billing-addresses">
-					<svg
-						icon
-						xmlns="http://www.w3.org/2000/svg"
-						width="20"
-						height="20"
-						viewBox="0 0 24 24"
-						fill="none"
-						stroke="currentColor"
-						stroke-width="2"
-						stroke-linecap="round"
-						stroke-linejoin="round"
-						class="text-white"
-					>
-						<rect x="2" y="5" width="20" height="14" rx="2" />
-						<line x1="2" y1="10" x2="22" y2="10" />
-					</svg>
-					<span
-						badge
-						class="inline-flex items-center justify-center min-w-[1.5rem] h-6 px-2 text-xs font-medium text-white bg-primary-600 rounded-full"
-						>{{ customer.billingAddresses.length }}</span
-					>
-					<div class="grid grid-cols-1 md:grid-cols-[repeat(auto-fill,minmax(280px,1fr))] gap-4">
-						@for (billingAddress of customer.billingAddresses; track billingAddress.id) {
-							<div
-								class="bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-800 rounded-md p-4"
-							>
-								<div
-									class="flex justify-between items-start gap-3 py-2 border-b border-gray-100 dark:border-slate-800"
-								>
-									<span
-										class="text-xs font-medium text-gray-600 dark:text-gray-400 uppercase tracking-wider"
-									>
-										Street
-									</span>
-									<span class="text-sm font-medium text-gray-900 dark:text-gray-100 text-right">{{
-										billingAddress.street
-									}}</span>
-								</div>
-								<div
-									class="flex justify-between items-start gap-3 py-2 border-b border-gray-100 dark:border-slate-800"
-								>
-									<span
-										class="text-xs font-medium text-gray-600 dark:text-gray-400 uppercase tracking-wider"
-									>
-										City
-									</span>
-									<span class="text-sm font-medium text-gray-900 dark:text-gray-100 text-right">{{
-										billingAddress.city
-									}}</span>
-								</div>
-								<div class="flex justify-between items-start gap-3 py-2">
-									<span
-										class="text-xs font-medium text-gray-600 dark:text-gray-400 uppercase tracking-wider"
-									>
-										Zip Code
-									</span>
-									<span class="text-sm font-medium text-gray-900 dark:text-gray-100 text-right">{{
-										billingAddress.zipCode
-									}}</span>
-								</div>
-							</div>
-						}
-					</div>
-				</sandbox-info-card>
-			}
-
-			@if (customer.shippingAddresses.length > 0) {
-				<sandbox-info-card title="Shipping Addresses" testId="shipping-addresses">
-					<svg
-						icon
-						xmlns="http://www.w3.org/2000/svg"
-						width="20"
-						height="20"
-						viewBox="0 0 24 24"
-						fill="none"
-						stroke="currentColor"
-						stroke-width="2"
-						stroke-linecap="round"
-						stroke-linejoin="round"
-						class="text-white"
-					>
-						<path d="M16 3h5v5M4 20L21 3M21 16v5h-5M15 15l6 6M4 4l5 5" />
-					</svg>
-					<span
-						badge
-						class="inline-flex items-center justify-center min-w-[1.5rem] h-6 px-2 text-xs font-medium text-white bg-primary-600 rounded-full"
-						>{{ customer.shippingAddresses.length }}</span
-					>
-					<div class="grid grid-cols-1 md:grid-cols-[repeat(auto-fill,minmax(280px,1fr))] gap-4">
-						@for (shippingAddress of customer.shippingAddresses; track shippingAddress.id) {
-							<div
-								class="bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-800 rounded-md p-4"
-							>
-								<div
-									class="flex justify-between items-start gap-3 py-2 border-b border-gray-100 dark:border-slate-800"
-								>
-									<span
-										class="text-xs font-medium text-gray-600 dark:text-gray-400 uppercase tracking-wider"
-									>
-										Street
-									</span>
-									<span class="text-sm font-medium text-gray-900 dark:text-gray-100 text-right">{{
-										shippingAddress.street
-									}}</span>
-								</div>
-								<div
-									class="flex justify-between items-start gap-3 py-2 border-b border-gray-100 dark:border-slate-800"
-								>
-									<span
-										class="text-xs font-medium text-gray-600 dark:text-gray-400 uppercase tracking-wider"
-									>
-										City
-									</span>
-									<span class="text-sm font-medium text-gray-900 dark:text-gray-100 text-right">{{
-										shippingAddress.city
-									}}</span>
-								</div>
-								<div class="flex justify-between items-start gap-3 py-2">
-									<span
-										class="text-xs font-medium text-gray-600 dark:text-gray-400 uppercase tracking-wider"
-									>
-										Zip Code
-									</span>
-									<span class="text-sm font-medium text-gray-900 dark:text-gray-100 text-right">{{
-										shippingAddress.zipCode
-									}}</span>
-								</div>
-								@if (shippingAddress.note) {
-									<div class="mt-4 pt-4 border-t border-gray-200 dark:border-slate-800">
-										<span
-											class="text-xs font-medium text-gray-600 dark:text-gray-400 uppercase tracking-wider mb-2 block"
-										>
-											Note
-										</span>
-										<p
-											class="text-sm text-gray-900 dark:text-gray-100 leading-relaxed m-0 p-3 bg-gray-50 dark:bg-slate-800 rounded-md border border-gray-200 dark:border-slate-700"
-										>
-											{{ shippingAddress.note }}
-										</p>
-									</div>
-								}
-							</div>
-						}
-					</div>
-				</sandbox-info-card>
-			}
+				<span>Back to Overview</span>
+			</a>
 		</div>
-	} @else if (customer.error()) {
-		<div
-			class="flex items-center justify-center min-h-[400px] bg-white dark:bg-slate-950 border border-red-200 dark:border-red-800 rounded-lg p-12"
-		>
-			<div class="flex flex-col items-center gap-4 text-center max-w-md">
-				<div class="w-16 h-16 rounded-lg bg-red-50 dark:bg-red-950/30 flex items-center justify-center">
-					<svg
-						width="32"
-						height="32"
-						viewBox="0 0 24 24"
-						fill="none"
-						stroke="currentColor"
-						stroke-width="2"
-						class="text-red-600 dark:text-red-400"
-					>
-						<path
-							d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
-						/>
-					</svg>
-				</div>
-				<h2 class="text-lg font-semibold text-gray-900 dark:text-gray-100 m-0">Unable to Load Customer</h2>
-				<p class="text-sm text-gray-600 dark:text-gray-400 m-0">
-					{{ $any(customer.error())?.error?.title || 'An unexpected error occurred. Please try again.' }}
-				</p>
-				<button
-					type="button"
-					class="inline-flex items-center justify-center gap-2 px-4 py-2 text-sm font-medium text-white bg-primary-600 border-0 rounded-md cursor-pointer transition-colors whitespace-nowrap hover:bg-primary-700 focus-visible:outline-2 focus-visible:outline-primary-600 focus-visible:outline-offset-2 mt-2"
-					(click)="customer.reload()"
+	</div>
+
+	<div class="flex flex-col gap-6">
+		<sandbox-info-card title="Personal Information" testId="personal-information">
+			<svg
+				icon
+				xmlns="http://www.w3.org/2000/svg"
+				width="20"
+				height="20"
+				viewBox="0 0 24 24"
+				fill="none"
+				stroke="currentColor"
+				stroke-width="2"
+				stroke-linecap="round"
+				stroke-linejoin="round"
+				class="text-white"
+			>
+				<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+				<circle cx="12" cy="7" r="4" />
+			</svg>
+			<div
+				class="flex items-center gap-4 rounded-md border border-gray-200 bg-gray-50 px-4 py-3 dark:border-slate-800 dark:bg-slate-900"
+			>
+				<span class="min-w-[100px] text-sm font-medium text-gray-700 dark:text-gray-300"> Full Name </span>
+				<span class="text-base font-semibold text-gray-900 dark:text-gray-100"
+					>{{ customer.firstName }} {{ customer.lastName }}</span
 				>
-					<svg
-						xmlns="http://www.w3.org/2000/svg"
-						width="14"
-						height="14"
-						viewBox="0 0 24 24"
-						fill="none"
-						stroke="currentColor"
-						stroke-width="2"
-						stroke-linecap="round"
-						stroke-linejoin="round"
-					>
-						<path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2" />
-					</svg>
-					<span>Try Again</span>
-				</button>
 			</div>
-		</div>
-	} @else {
-		<div
-			class="flex items-center justify-center min-h-[400px] bg-white dark:bg-slate-950 border border-gray-200 dark:border-slate-800 rounded-lg p-12"
-		>
-			<div class="flex flex-col items-center gap-4 text-center max-w-md">
-				<div class="relative">
+		</sandbox-info-card>
+
+		@if (customer.billingAddresses.length > 0) {
+		<sandbox-info-card title="Billing Addresses" testId="billing-addresses">
+			<svg
+				icon
+				xmlns="http://www.w3.org/2000/svg"
+				width="20"
+				height="20"
+				viewBox="0 0 24 24"
+				fill="none"
+				stroke="currentColor"
+				stroke-width="2"
+				stroke-linecap="round"
+				stroke-linejoin="round"
+				class="text-white"
+			>
+				<rect x="2" y="5" width="20" height="14" rx="2" />
+				<line x1="2" y1="10" x2="22" y2="10" />
+			</svg>
+			<span
+				badge
+				class="bg-primary-600 inline-flex h-6 min-w-[1.5rem] items-center justify-center rounded-full px-2 text-xs font-medium text-white"
+				>{{ customer.billingAddresses.length }}</span
+			>
+			<div class="grid grid-cols-1 gap-4 md:grid-cols-[repeat(auto-fill,minmax(280px,1fr))]">
+				@for (billingAddress of customer.billingAddresses; track billingAddress.id) {
+				<div class="rounded-md border border-gray-200 bg-white p-4 dark:border-slate-800 dark:bg-slate-900">
 					<div
-						class="w-12 h-12 border-2 border-gray-200 dark:border-slate-700 border-t-primary-600 rounded-full animate-spin"
-					></div>
+						class="flex items-start justify-between gap-3 border-b border-gray-100 py-2 dark:border-slate-800"
+					>
+						<span class="text-xs font-medium tracking-wider text-gray-600 uppercase dark:text-gray-400">
+							Street
+						</span>
+						<span class="text-right text-sm font-medium text-gray-900 dark:text-gray-100"
+							>{{ billingAddress.street }}</span
+						>
+					</div>
+					<div
+						class="flex items-start justify-between gap-3 border-b border-gray-100 py-2 dark:border-slate-800"
+					>
+						<span class="text-xs font-medium tracking-wider text-gray-600 uppercase dark:text-gray-400">
+							City
+						</span>
+						<span class="text-right text-sm font-medium text-gray-900 dark:text-gray-100"
+							>{{ billingAddress.city }}</span
+						>
+					</div>
+					<div class="flex items-start justify-between gap-3 py-2">
+						<span class="text-xs font-medium tracking-wider text-gray-600 uppercase dark:text-gray-400">
+							Zip Code
+						</span>
+						<span class="text-right text-sm font-medium text-gray-900 dark:text-gray-100"
+							>{{ billingAddress.zipCode }}</span
+						>
+					</div>
 				</div>
-				<p class="text-sm font-medium text-gray-600 dark:text-gray-400 m-0">Loading customer details...</p>
+				}
 			</div>
+		</sandbox-info-card>
+		} @if (customer.shippingAddresses.length > 0) {
+		<sandbox-info-card title="Shipping Addresses" testId="shipping-addresses">
+			<svg
+				icon
+				xmlns="http://www.w3.org/2000/svg"
+				width="20"
+				height="20"
+				viewBox="0 0 24 24"
+				fill="none"
+				stroke="currentColor"
+				stroke-width="2"
+				stroke-linecap="round"
+				stroke-linejoin="round"
+				class="text-white"
+			>
+				<path d="M16 3h5v5M4 20L21 3M21 16v5h-5M15 15l6 6M4 4l5 5" />
+			</svg>
+			<span
+				badge
+				class="bg-primary-600 inline-flex h-6 min-w-[1.5rem] items-center justify-center rounded-full px-2 text-xs font-medium text-white"
+				>{{ customer.shippingAddresses.length }}</span
+			>
+			<div class="grid grid-cols-1 gap-4 md:grid-cols-[repeat(auto-fill,minmax(280px,1fr))]">
+				@for (shippingAddress of customer.shippingAddresses; track shippingAddress.id) {
+				<div class="rounded-md border border-gray-200 bg-white p-4 dark:border-slate-800 dark:bg-slate-900">
+					<div
+						class="flex items-start justify-between gap-3 border-b border-gray-100 py-2 dark:border-slate-800"
+					>
+						<span class="text-xs font-medium tracking-wider text-gray-600 uppercase dark:text-gray-400">
+							Street
+						</span>
+						<span class="text-right text-sm font-medium text-gray-900 dark:text-gray-100"
+							>{{ shippingAddress.street }}</span
+						>
+					</div>
+					<div
+						class="flex items-start justify-between gap-3 border-b border-gray-100 py-2 dark:border-slate-800"
+					>
+						<span class="text-xs font-medium tracking-wider text-gray-600 uppercase dark:text-gray-400">
+							City
+						</span>
+						<span class="text-right text-sm font-medium text-gray-900 dark:text-gray-100"
+							>{{ shippingAddress.city }}</span
+						>
+					</div>
+					<div class="flex items-start justify-between gap-3 py-2">
+						<span class="text-xs font-medium tracking-wider text-gray-600 uppercase dark:text-gray-400">
+							Zip Code
+						</span>
+						<span class="text-right text-sm font-medium text-gray-900 dark:text-gray-100"
+							>{{ shippingAddress.zipCode }}</span
+						>
+					</div>
+					@if (shippingAddress.note) {
+					<div class="mt-4 border-t border-gray-200 pt-4 dark:border-slate-800">
+						<span
+							class="mb-2 block text-xs font-medium tracking-wider text-gray-600 uppercase dark:text-gray-400"
+						>
+							Note
+						</span>
+						<p
+							class="m-0 rounded-md border border-gray-200 bg-gray-50 p-3 text-sm leading-relaxed text-gray-900 dark:border-slate-700 dark:bg-slate-800 dark:text-gray-100"
+						>
+							{{ shippingAddress.note }}
+						</p>
+					</div>
+					}
+				</div>
+				}
+			</div>
+		</sandbox-info-card>
+		}
+	</div>
+	} @else if (customer.error()) {
+	<div
+		class="flex min-h-[400px] items-center justify-center rounded-lg border border-red-200 bg-white p-12 dark:border-red-800 dark:bg-slate-950"
+	>
+		<div class="flex max-w-md flex-col items-center gap-4 text-center">
+			<div class="flex h-16 w-16 items-center justify-center rounded-lg bg-red-50 dark:bg-red-950/30">
+				<svg
+					width="32"
+					height="32"
+					viewBox="0 0 24 24"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="2"
+					class="text-red-600 dark:text-red-400"
+				>
+					<path
+						d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+					/>
+				</svg>
+			</div>
+			<h2 class="m-0 text-lg font-semibold text-gray-900 dark:text-gray-100">Unable to Load Customer</h2>
+			<p class="m-0 text-sm text-gray-600 dark:text-gray-400">
+				{{ $any(customer.error())?.error?.title || 'An unexpected error occurred. Please try again.' }}
+			</p>
+			<button
+				type="button"
+				class="bg-primary-600 hover:bg-primary-700 focus-visible:outline-primary-600 mt-2 inline-flex cursor-pointer items-center justify-center gap-2 rounded-md border-0 px-4 py-2 text-sm font-medium whitespace-nowrap text-white transition-colors focus-visible:outline-2 focus-visible:outline-offset-2"
+				(click)="customer.reload()"
+			>
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					width="14"
+					height="14"
+					viewBox="0 0 24 24"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="2"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+				>
+					<path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2" />
+				</svg>
+				<span>Try Again</span>
+			</button>
 		</div>
+	</div>
+	} @else {
+	<div
+		class="flex min-h-[400px] items-center justify-center rounded-lg border border-gray-200 bg-white p-12 dark:border-slate-800 dark:bg-slate-950"
+	>
+		<div class="flex max-w-md flex-col items-center gap-4 text-center">
+			<div class="relative">
+				<div
+					class="border-t-primary-600 h-12 w-12 animate-spin rounded-full border-2 border-gray-200 dark:border-slate-700"
+				></div>
+			</div>
+			<p class="m-0 text-sm font-medium text-gray-600 dark:text-gray-400">Loading customer details...</p>
+		</div>
+	</div>
 	}
 </div>

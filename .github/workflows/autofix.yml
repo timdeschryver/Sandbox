@@ -25,7 +25,7 @@ jobs:
         run: pnpm -r lint --fix
 
       - name: Format Frontend code
-        run: pnpm prettier --write .
+        run: pnpm -r prettier . --write
 
       - name: Format Backend code
         run: dotnet format --severity info

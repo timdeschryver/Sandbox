@@ -1,7 +1,7 @@
 <div class="w-full">
 	<div class="mb-8">
 		<div class="flex items-center gap-3">
-			<div class="w-10 h-10 rounded-md bg-primary-600 flex items-center justify-center">
+			<div class="bg-primary-600 flex h-10 w-10 items-center justify-center rounded-md">
 				<svg
 					width="20"
 					height="20"
@@ -17,11 +17,11 @@
 					<path d="M16 3.13a4 4 0 0 1 0 7.75" />
 				</svg>
 			</div>
-			<h1 class="text-2xl font-semibold text-gray-900 dark:text-gray-100 m-0">Customers</h1>
+			<h1 class="m-0 text-2xl font-semibold text-gray-900 dark:text-gray-100">Customers</h1>
 		</div>
 	</div>
 
-	<div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+	<div class="grid grid-cols-1 items-start gap-8 lg:grid-cols-2">
 		<div class="w-full lg:order-2">
 			<sandbox-customer-form (customerCreated)="customerCreated()" />
 		</div>

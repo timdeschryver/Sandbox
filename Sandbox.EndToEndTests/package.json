@@ -4,7 +4,8 @@
 	"scripts": {
 		"test": "playwright test",
 		"test:ui": "playwright test --ui",
-		"lint": "eslint . --max-warnings 0"
+		"lint": "eslint . --max-warnings 0",
+		"prettier": "prettier"
 	},
 	"type": "module",
 	"devDependencies": {
@@ -15,6 +16,7 @@
 		"eslint": "catalog:eslint",
 		"eslint-config-prettier": "catalog:eslint",
 		"eslint-plugin-playwright": "catalog:eslint",
+		"prettier": "catalog:",
 		"typescript": "catalog:",
 		"typescript-eslint": "catalog:eslint"
 	}

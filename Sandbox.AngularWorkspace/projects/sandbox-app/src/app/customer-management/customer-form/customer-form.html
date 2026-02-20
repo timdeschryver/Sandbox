@@ -1,7 +1,7 @@
 <form novalidate class="w-full" (submit.preventDefault)="onSubmit()">
-	<div class="bg-white dark:bg-slate-950 border border-gray-200 dark:border-slate-800 rounded-lg p-6 shadow-sm">
-		<div class="flex items-center gap-3 mb-6 pb-4 border-b border-gray-200 dark:border-slate-800">
-			<div class="w-8 h-8 rounded-md bg-primary-600 flex items-center justify-center">
+	<div class="rounded-lg border border-gray-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-950">
+		<div class="mb-6 flex items-center gap-3 border-b border-gray-200 pb-4 dark:border-slate-800">
+			<div class="bg-primary-600 flex h-8 w-8 items-center justify-center rounded-md">
 				<svg
 					width="16"
 					height="16"
@@ -17,59 +17,57 @@
 					<line x1="22" y1="11" x2="16" y2="11" />
 				</svg>
 			</div>
-			<h2 class="text-lg font-semibold text-gray-900 dark:text-gray-100 m-0">Create Customer</h2>
+			<h2 class="m-0 text-lg font-semibold text-gray-900 dark:text-gray-100">Create Customer</h2>
 		</div>
 
 		@for (error of customerForm().errors(); track $index) {
-			<sandbox-alert type="error">{{ error.message }}</sandbox-alert>
-		}
-
-		@if (customerForm().touched() && customerForm().errorSummary().length > 0) {
-			<div class="bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-800 rounded-md p-4 mb-6">
-				<div class="flex items-start gap-3">
-					<div class="w-8 h-8 rounded-md bg-red-500 flex items-center justify-center flex-shrink-0">
-						<svg
-							width="16"
-							height="16"
-							viewBox="0 0 24 24"
-							fill="none"
-							stroke="currentColor"
-							stroke-width="2"
-							class="text-white"
-						>
-							<path
-								d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
-							/>
-						</svg>
-					</div>
-					<div class="flex-1">
-						<h3 class="text-sm font-medium text-red-700 dark:text-red-300 m-0 mb-2">
-							Please fix the following errors:
-						</h3>
-						<ul class="list-none m-0 p-0 space-y-2">
-							@for (error of customerForm().errorSummary(); track $index) {
-								<li class="flex items-start gap-2 text-red-700 dark:text-red-300 text-sm">
-									<span class="text-red-500 mt-0.5">•</span>
-									<span>{{ error | validationMessage: true }}</span>
-								</li>
-							}
-						</ul>
-					</div>
+		<sandbox-alert type="error">{{ error.message }}</sandbox-alert>
+		} @if (customerForm().touched() && customerForm().errorSummary().length > 0) {
+		<div class="mb-6 rounded-md border border-red-200 bg-red-50 p-4 dark:border-red-800 dark:bg-red-950/30">
+			<div class="flex items-start gap-3">
+				<div class="flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-red-500">
+					<svg
+						width="16"
+						height="16"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+						class="text-white"
+					>
+						<path
+							d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+						/>
+					</svg>
+				</div>
+				<div class="flex-1">
+					<h3 class="m-0 mb-2 text-sm font-medium text-red-700 dark:text-red-300">
+						Please fix the following errors:
+					</h3>
+					<ul class="m-0 list-none space-y-2 p-0">
+						@for (error of customerForm().errorSummary(); track $index) {
+						<li class="flex items-start gap-2 text-sm text-red-700 dark:text-red-300">
+							<span class="mt-0.5 text-red-500">•</span>
+							<span>{{ error | validationMessage: true }}</span>
+						</li>
+						}
+					</ul>
 				</div>
 			</div>
+		</div>
 		}
 
-		<fieldset class="border border-gray-200 dark:border-slate-800 rounded-md p-4 mb-4 bg-white dark:bg-slate-900">
-			<legend class="text-sm font-medium text-gray-900 dark:text-gray-100 px-2">Customer Information</legend>
-			<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+		<fieldset class="mb-4 rounded-md border border-gray-200 bg-white p-4 dark:border-slate-800 dark:bg-slate-900">
+			<legend class="px-2 text-sm font-medium text-gray-900 dark:text-gray-100">Customer Information</legend>
+			<div class="grid grid-cols-1 gap-4 md:grid-cols-2">
 				<div class="flex flex-col">
 					<label
-						class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+						class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300"
 						[for]="customerForm.firstName().name()"
 						>First Name</label
 					>
 					<input
-						class="w-full px-3 py-2 text-sm font-sans leading-normal text-gray-900 dark:text-gray-100 bg-white dark:bg-slate-900 border border-gray-300 dark:border-slate-700 rounded-md transition-colors hover:border-gray-400 dark:hover:border-slate-600 focus:outline-none focus:border-primary-500 dark:focus:border-primary-500 focus:ring-2 focus:ring-primary-100 dark:focus:ring-primary-950/50 disabled:bg-gray-100 dark:disabled:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-60 placeholder:text-gray-400"
+						class="focus:border-primary-500 dark:focus:border-primary-500 focus:ring-primary-100 dark:focus:ring-primary-950/50 w-full rounded-md border border-gray-300 bg-white px-3 py-2 font-sans text-sm leading-normal text-gray-900 transition-colors placeholder:text-gray-400 hover:border-gray-400 focus:ring-2 focus:outline-none disabled:cursor-not-allowed disabled:bg-gray-100 disabled:opacity-60 dark:border-slate-700 dark:bg-slate-900 dark:text-gray-100 dark:hover:border-slate-600 dark:disabled:bg-slate-800"
 						type="text"
 						placeholder="John"
 						[id]="customerForm.firstName().name()"
@@ -79,12 +77,12 @@
 
 				<div class="flex flex-col">
 					<label
-						class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+						class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300"
 						[for]="customerForm.lastName().name()"
 						>Last Name</label
 					>
 					<input
-						class="w-full px-3 py-2 text-sm font-sans leading-normal text-gray-900 dark:text-gray-100 bg-white dark:bg-slate-900 border border-gray-300 dark:border-slate-700 rounded-md transition-colors hover:border-gray-400 dark:hover:border-slate-600 focus:outline-none focus:border-primary-500 dark:focus:border-primary-500 focus:ring-2 focus:ring-primary-100 dark:focus:ring-primary-950/50 disabled:bg-gray-100 dark:disabled:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-60 placeholder:text-gray-400"
+						class="focus:border-primary-500 dark:focus:border-primary-500 focus:ring-primary-100 dark:focus:ring-primary-950/50 w-full rounded-md border border-gray-300 bg-white px-3 py-2 font-sans text-sm leading-normal text-gray-900 transition-colors placeholder:text-gray-400 hover:border-gray-400 focus:ring-2 focus:outline-none disabled:cursor-not-allowed disabled:bg-gray-100 disabled:opacity-60 dark:border-slate-700 dark:bg-slate-900 dark:text-gray-100 dark:hover:border-slate-600 dark:disabled:bg-slate-800"
 						type="text"
 						placeholder="Doe"
 						[id]="customerForm.lastName().name()"
@@ -95,96 +93,92 @@
 		</fieldset>
 
 		<div
-			class="flex items-center gap-3 p-3 rounded-md mb-4 transition-colors hover:bg-gray-50 dark:hover:bg-slate-900 cursor-pointer"
+			class="mb-4 flex cursor-pointer items-center gap-3 rounded-md p-3 transition-colors hover:bg-gray-50 dark:hover:bg-slate-900"
 		>
 			<input
-				class="w-4 h-4 cursor-pointer rounded border border-gray-300 dark:border-slate-700 transition-colors hover:border-gray-400 dark:hover:border-slate-600 focus:outline-none focus:border-primary-500 dark:focus:border-primary-500 focus:ring-2 focus:ring-primary-100 dark:focus:ring-primary-950/50 accent-primary-600 m-0"
+				class="focus:border-primary-500 dark:focus:border-primary-500 focus:ring-primary-100 dark:focus:ring-primary-950/50 accent-primary-600 m-0 h-4 w-4 cursor-pointer rounded border border-gray-300 transition-colors hover:border-gray-400 focus:ring-2 focus:outline-none dark:border-slate-700 dark:hover:border-slate-600"
 				type="checkbox"
 				id="hasBillingAddress"
 				[formField]="customerForm.hasBillingAddress"
 			/>
 			<label
 				for="hasBillingAddress"
-				class="m-0 text-sm font-medium cursor-pointer select-none text-gray-900 dark:text-gray-100"
+				class="m-0 cursor-pointer text-sm font-medium text-gray-900 select-none dark:text-gray-100"
 				>Add Billing Address</label
 			>
 		</div>
 
 		@if (!customerForm.billingAddress().hidden()) {
-			<fieldset
-				class="border border-gray-200 dark:border-slate-800 rounded-md p-4 mb-4 bg-white dark:bg-slate-900"
-			>
-				<legend class="text-sm font-medium text-gray-900 dark:text-gray-100 px-2">Billing Address</legend>
-				<sandbox-customer-address [address]="customerForm.billingAddress" />
-			</fieldset>
+		<fieldset class="mb-4 rounded-md border border-gray-200 bg-white p-4 dark:border-slate-800 dark:bg-slate-900">
+			<legend class="px-2 text-sm font-medium text-gray-900 dark:text-gray-100">Billing Address</legend>
+			<sandbox-customer-address [address]="customerForm.billingAddress" />
+		</fieldset>
 		}
 
 		<div
-			class="flex items-center gap-3 p-3 rounded-md mb-4 transition-colors hover:bg-gray-50 dark:hover:bg-slate-900 cursor-pointer"
+			class="mb-4 flex cursor-pointer items-center gap-3 rounded-md p-3 transition-colors hover:bg-gray-50 dark:hover:bg-slate-900"
 		>
 			<input
-				class="w-4 h-4 cursor-pointer rounded border border-gray-300 dark:border-slate-700 transition-colors hover:border-gray-400 dark:hover:border-slate-600 focus:outline-none focus:border-primary-500 dark:focus:border-primary-500 focus:ring-2 focus:ring-primary-100 dark:focus:ring-primary-950/50 accent-primary-600 m-0"
+				class="focus:border-primary-500 dark:focus:border-primary-500 focus:ring-primary-100 dark:focus:ring-primary-950/50 accent-primary-600 m-0 h-4 w-4 cursor-pointer rounded border border-gray-300 transition-colors hover:border-gray-400 focus:ring-2 focus:outline-none dark:border-slate-700 dark:hover:border-slate-600"
 				type="checkbox"
 				id="hasShippingAddress"
 				[formField]="customerForm.hasShippingAddress"
 			/>
 			<label
 				for="hasShippingAddress"
-				class="m-0 text-sm font-medium cursor-pointer select-none text-gray-900 dark:text-gray-100"
+				class="m-0 cursor-pointer text-sm font-medium text-gray-900 select-none dark:text-gray-100"
 				>Add Shipping Address</label
 			>
 		</div>
 
 		@if (!customerForm.shippingAddress().hidden()) {
-			<fieldset
-				class="border border-gray-200 dark:border-slate-800 rounded-md p-4 mb-4 bg-white dark:bg-slate-900"
-			>
-				<legend class="text-sm font-medium text-gray-900 dark:text-gray-100 px-2">Shipping Address</legend>
-				<sandbox-customer-address [address]="customerForm.shippingAddress">
-					<div class="flex flex-col">
-						<label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2" for="note"
-							>Note</label
-						>
-						<textarea
-							class="w-full px-3 py-2 text-sm font-sans leading-normal text-gray-900 dark:text-gray-100 bg-white dark:bg-slate-900 border border-gray-300 dark:border-slate-700 rounded-md transition-colors hover:border-gray-400 dark:hover:border-slate-600 focus:outline-none focus:border-primary-500 dark:focus:border-primary-500 focus:ring-2 focus:ring-primary-100 dark:focus:ring-primary-950/50 disabled:bg-gray-100 dark:disabled:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-60 resize-y min-h-32 placeholder:text-gray-400"
-							id="note"
-							placeholder="Add any special delivery instructions..."
-							[formField]="customerForm.shippingAddress.note"
-						></textarea>
-					</div>
-				</sandbox-customer-address>
-			</fieldset>
+		<fieldset class="mb-4 rounded-md border border-gray-200 bg-white p-4 dark:border-slate-800 dark:bg-slate-900">
+			<legend class="px-2 text-sm font-medium text-gray-900 dark:text-gray-100">Shipping Address</legend>
+			<sandbox-customer-address [address]="customerForm.shippingAddress">
+				<div class="flex flex-col">
+					<label class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300" for="note"
+						>Note</label
+					>
+					<textarea
+						class="focus:border-primary-500 dark:focus:border-primary-500 focus:ring-primary-100 dark:focus:ring-primary-950/50 min-h-32 w-full resize-y rounded-md border border-gray-300 bg-white px-3 py-2 font-sans text-sm leading-normal text-gray-900 transition-colors placeholder:text-gray-400 hover:border-gray-400 focus:ring-2 focus:outline-none disabled:cursor-not-allowed disabled:bg-gray-100 disabled:opacity-60 dark:border-slate-700 dark:bg-slate-900 dark:text-gray-100 dark:hover:border-slate-600 dark:disabled:bg-slate-800"
+						id="note"
+						placeholder="Add any special delivery instructions..."
+						[formField]="customerForm.shippingAddress.note"
+					></textarea>
+				</div>
+			</sandbox-customer-address>
+		</fieldset>
 		}
 
-		<div class="flex justify-end pt-6 border-t border-gray-200 dark:border-slate-800 mt-6">
+		<div class="mt-6 flex justify-end border-t border-gray-200 pt-6 dark:border-slate-800">
 			<button
-				class="inline-flex items-center justify-center gap-2 px-4 py-2 text-sm font-medium text-white bg-primary-600 border-0 rounded-md cursor-pointer transition-colors whitespace-nowrap hover:bg-primary-700 focus-visible:outline-2 focus-visible:outline-primary-600 focus-visible:outline-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
+				class="bg-primary-600 hover:bg-primary-700 focus-visible:outline-primary-600 inline-flex cursor-pointer items-center justify-center gap-2 rounded-md border-0 px-4 py-2 text-sm font-medium whitespace-nowrap text-white transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
 				type="submit"
 				[disabled]="customerForm().submitting()"
 			>
 				@if (customerForm().submitting()) {
-					<div
-						class="inline-block w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"
-					></div>
-					<span>Creating...</span>
+				<div
+					class="inline-block h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent"
+				></div>
+				<span>Creating...</span>
 				} @else {
-					<svg
-						xmlns="http://www.w3.org/2000/svg"
-						width="16"
-						height="16"
-						viewBox="0 0 24 24"
-						fill="none"
-						stroke="currentColor"
-						stroke-width="2"
-						stroke-linecap="round"
-						stroke-linejoin="round"
-					>
-						<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
-						<circle cx="9" cy="7" r="4" />
-						<line x1="19" y1="8" x2="19" y2="14" />
-						<line x1="22" y1="11" x2="16" y2="11" />
-					</svg>
-					<span>Create Customer</span>
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					width="16"
+					height="16"
+					viewBox="0 0 24 24"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="2"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+				>
+					<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+					<circle cx="9" cy="7" r="4" />
+					<line x1="19" y1="8" x2="19" y2="14" />
+					<line x1="22" y1="11" x2="16" y2="11" />
+				</svg>
+				<span>Create Customer</span>
 				}
 			</button>
 		</div>

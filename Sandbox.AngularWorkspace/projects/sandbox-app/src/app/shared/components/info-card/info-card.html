@@ -1,12 +1,12 @@
 <div
-	class="bg-white dark:bg-slate-950 border border-gray-200 dark:border-slate-800 rounded-lg p-6 shadow-sm"
+	class="rounded-lg border border-gray-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-950"
 	[attr.data-testid]="testId()"
 >
-	<div class="flex items-center gap-3 mb-4 pb-4 border-b border-gray-200 dark:border-slate-800">
-		<div class="w-10 h-10 rounded-md bg-primary-600 flex items-center justify-center">
+	<div class="mb-4 flex items-center gap-3 border-b border-gray-200 pb-4 dark:border-slate-800">
+		<div class="bg-primary-600 flex h-10 w-10 items-center justify-center rounded-md">
 			<ng-content select="[icon]" />
 		</div>
-		<h2 class="text-lg font-semibold text-gray-900 dark:text-gray-100 m-0 flex-1">{{ title() }}</h2>
+		<h2 class="m-0 flex-1 text-lg font-semibold text-gray-900 dark:text-gray-100">{{ title() }}</h2>
 		<ng-content select="[badge]" />
 	</div>
 	<ng-content />

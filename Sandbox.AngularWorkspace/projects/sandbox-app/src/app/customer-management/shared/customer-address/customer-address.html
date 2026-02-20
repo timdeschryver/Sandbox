@@ -1,9 +1,9 @@
-<div class="flex flex-col mb-4 last:mb-0">
-	<label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2" [for]="address().street().name()"
+<div class="mb-4 flex flex-col last:mb-0">
+	<label class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300" [for]="address().street().name()"
 		>Street</label
 	>
 	<input
-		class="w-full px-3 py-2 text-sm font-sans leading-normal text-gray-900 dark:text-gray-100 bg-white dark:bg-slate-900 border border-gray-300 dark:border-slate-700 rounded-md transition-colors hover:border-gray-400 dark:hover:border-slate-600 focus:outline-none focus:border-primary-500 dark:focus:border-primary-500 focus:ring-2 focus:ring-primary-100 dark:focus:ring-primary-950/50 disabled:bg-gray-100 dark:disabled:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-60 placeholder:text-gray-400"
+		class="focus:border-primary-500 dark:focus:border-primary-500 focus:ring-primary-100 dark:focus:ring-primary-950/50 w-full rounded-md border border-gray-300 bg-white px-3 py-2 font-sans text-sm leading-normal text-gray-900 transition-colors placeholder:text-gray-400 hover:border-gray-400 focus:ring-2 focus:outline-none disabled:cursor-not-allowed disabled:bg-gray-100 disabled:opacity-60 dark:border-slate-700 dark:bg-slate-900 dark:text-gray-100 dark:hover:border-slate-600 dark:disabled:bg-slate-800"
 		type="text"
 		placeholder="123 Main St"
 		[id]="address().street().name()"
@@ -11,12 +11,12 @@
 	/>
 </div>
 
-<div class="flex flex-col mb-4 last:mb-0">
-	<label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2" [for]="address().city().name()"
+<div class="mb-4 flex flex-col last:mb-0">
+	<label class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300" [for]="address().city().name()"
 		>City</label
 	>
 	<input
-		class="w-full px-3 py-2 text-sm font-sans leading-normal text-gray-900 dark:text-gray-100 bg-white dark:bg-slate-900 border border-gray-300 dark:border-slate-700 rounded-md transition-colors hover:border-gray-400 dark:hover:border-slate-600 focus:outline-none focus:border-primary-500 dark:focus:border-primary-500 focus:ring-2 focus:ring-primary-100 dark:focus:ring-primary-950/50 disabled:bg-gray-100 dark:disabled:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-60 placeholder:text-gray-400"
+		class="focus:border-primary-500 dark:focus:border-primary-500 focus:ring-primary-100 dark:focus:ring-primary-950/50 w-full rounded-md border border-gray-300 bg-white px-3 py-2 font-sans text-sm leading-normal text-gray-900 transition-colors placeholder:text-gray-400 hover:border-gray-400 focus:ring-2 focus:outline-none disabled:cursor-not-allowed disabled:bg-gray-100 disabled:opacity-60 dark:border-slate-700 dark:bg-slate-900 dark:text-gray-100 dark:hover:border-slate-600 dark:disabled:bg-slate-800"
 		type="text"
 		placeholder="New York"
 		[id]="address().city().name()"
@@ -24,12 +24,12 @@
 	/>
 </div>
 
-<div class="flex flex-col mb-4 last:mb-0">
-	<label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2" [for]="address().zipCode().name()"
+<div class="mb-4 flex flex-col last:mb-0">
+	<label class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300" [for]="address().zipCode().name()"
 		>Zip Code</label
 	>
 	<input
-		class="w-full px-3 py-2 text-sm font-sans leading-normal text-gray-900 dark:text-gray-100 bg-white dark:bg-slate-900 border border-gray-300 dark:border-slate-700 rounded-md transition-colors hover:border-gray-400 dark:hover:border-slate-600 focus:outline-none focus:border-primary-500 dark:focus:border-primary-500 focus:ring-2 focus:ring-primary-100 dark:focus:ring-primary-950/50 disabled:bg-gray-100 dark:disabled:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-60 placeholder:text-gray-400"
+		class="focus:border-primary-500 dark:focus:border-primary-500 focus:ring-primary-100 dark:focus:ring-primary-950/50 w-full rounded-md border border-gray-300 bg-white px-3 py-2 font-sans text-sm leading-normal text-gray-900 transition-colors placeholder:text-gray-400 hover:border-gray-400 focus:ring-2 focus:outline-none disabled:cursor-not-allowed disabled:bg-gray-100 disabled:opacity-60 dark:border-slate-700 dark:bg-slate-900 dark:text-gray-100 dark:hover:border-slate-600 dark:disabled:bg-slate-800"
 		type="text"
 		placeholder="10001"
 		[id]="address().zipCode().name()"

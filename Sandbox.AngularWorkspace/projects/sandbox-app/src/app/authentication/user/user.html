@@ -1,7 +1,7 @@
 <div class="w-full">
 	<div class="mb-8">
 		<div class="flex items-center gap-3">
-			<div class="w-10 h-10 rounded-md bg-primary-600 flex items-center justify-center">
+			<div class="bg-primary-600 flex h-10 w-10 items-center justify-center rounded-md">
 				<svg
 					width="20"
 					height="20"
@@ -15,7 +15,7 @@
 					<circle cx="12" cy="7" r="4" />
 				</svg>
 			</div>
-			<h1 class="text-2xl font-semibold text-gray-900 dark:text-gray-100 m-0">User Profile</h1>
+			<h1 class="m-0 text-2xl font-semibold text-gray-900 dark:text-gray-100">User Profile</h1>
 		</div>
 	</div>
 
@@ -36,10 +36,12 @@
 			<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
 			<circle cx="12" cy="7" r="4" />
 		</svg>
-		<div class="p-4 bg-gray-50 dark:bg-slate-900 rounded-md border border-gray-200 dark:border-slate-800">
-			<pre class="m-0 p-0 font-mono text-xs text-gray-900 dark:text-gray-100 whitespace-pre-wrap overflow-auto">{{
+		<div class="rounded-md border border-gray-200 bg-gray-50 p-4 dark:border-slate-800 dark:bg-slate-900">
+			<pre class="m-0 overflow-auto p-0 font-mono text-xs whitespace-pre-wrap text-gray-900 dark:text-gray-100">
+{{
 				user() | json
-			}}</pre>
+			}}</pre
+			>
 		</div>
 	</sandbox-info-card>
 </div>

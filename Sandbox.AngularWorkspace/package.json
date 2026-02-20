@@ -13,7 +13,8 @@
 		"start:default": "ng serve $APPLICATION --port $PORT",
 		"build": "ng build sandbox-app",
 		"test": "ng test",
-		"lint": "ng lint"
+		"lint": "ng lint",
+		"prettier": "prettier"
 	},
 	"dependencies": {
 		"@angular/common": "catalog:angular",
@@ -56,6 +57,7 @@
 		"ng-packagr": "catalog:angular",
 		"playwright": "catalog:playwright",
 		"prettier": "catalog:",
+		"prettier-plugin-tailwindcss": "catalog:",
 		"run-script-os": "catalog:",
 		"typescript": "catalog:",
 		"typescript-eslint": "catalog:eslint",
