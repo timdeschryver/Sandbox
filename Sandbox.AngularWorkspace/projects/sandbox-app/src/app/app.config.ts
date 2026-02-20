@@ -9,6 +9,8 @@ import { provideHttpClient, withFetch, withXsrfConfiguration } from '@angular/co
 import { routes } from '@sandbox-app/app.routes';
 import { provideOpenTelemetryInstrumentation } from '@opentelemetry';
 import { provideEventPlugins } from './shared/event-managers';
+import { provideSignalFormsConfig } from '@angular/forms/signals';
+import { NG_STATUS_CLASSES } from '@angular/forms/signals/compat';
 
 export const appConfig: ApplicationConfig = {
 	providers: [
@@ -34,5 +36,8 @@ export const appConfig: ApplicationConfig = {
 		},
 		provideEventPlugins(),
 		provideOpenTelemetryInstrumentation(),
+		provideSignalFormsConfig({
+			classes: NG_STATUS_CLASSES,
+		}),
 	],
 };
