@@ -11,19 +11,19 @@ var keycloakAdminPassword = builder.AddParameter("KeycloakAdminPassword", secret
 var keycloak = builder.AddKeycloak("keycloak", adminUsername: keycloakAdminUsername, adminPassword: keycloakAdminPassword)
     .WithDataVolume()
     .WithOtlpExporter()
-    .WithRealmImport("../config/keycloak/realms");
-openIDConnectSettingsClientSecret.WithParentRelationship(keycloak);
-keycloakAdminUsername.WithParentRelationship(keycloak);
-keycloakAdminPassword.WithParentRelationship(keycloak);
+    .WithRealmImport("../config/keycloak/realms")
+    .WithChildRelationship(openIDConnectSettingsClientSecret)
+    .WithChildRelationship(keycloakAdminUsername)
+    .WithChildRelationship(keycloakAdminPassword);
 
 var minioUser = builder.AddParameter("MinioUser", secret: false);
 var minioPassword = builder.AddParameter("MinioPassword", secret: true);
 
 var minio = builder.AddMinioContainer("minio", minioUser, minioPassword)
     .WithEnvironment("MINIO_PROMETHEUS_AUTH_TYPE", "public")
-    .WithDataVolume();
-minioUser.WithParentRelationship(minio);
-minioPassword.WithParentRelationship(minio);
+    .WithDataVolume()
+    .WithChildRelationship(minioUser)
+    .WithChildRelationship(minioPassword);
 
 var minioBucketCreator = builder
     .AddContainer("minio-bucket-creator", "minio/mc")
@@ -31,8 +31,8 @@ var minioBucketCreator = builder
     .WithEnvironment("MinioUser", minioUser)
     .WithEnvironment("MinioPassword", minioPassword)
     .WithEntrypoint("/bin/sh")
-    .WithArgs("-c", $" /usr/bin/mc alias set myminio http://{minio.Resource.Name}:9000 $MinioUser $MinioPassword; /usr/bin/mc mb myminio/loki; /usr/bin/mc anonymous set public myminio/loki; /usr/bin/mc mb myminio/tempo;  /usr/bin/mc anonymous set public myminio/tempo; exit 0;");
-minioBucketCreator.WithParentRelationship(minio);
+    .WithArgs("-c", $" /usr/bin/mc alias set myminio http://{minio.Resource.Name}:9000 $MinioUser $MinioPassword; /usr/bin/mc mb myminio/loki; /usr/bin/mc anonymous set public myminio/loki; /usr/bin/mc mb myminio/tempo;  /usr/bin/mc anonymous set public myminio/tempo; exit 0;")
+    .WithParentRelationship(minio);
 
 var loki = builder.AddContainer("loki", "grafana/loki")
     .WithBindMount("../config/loki", "/etc/loki", isReadOnly: true)
@@ -94,12 +94,11 @@ var grafana = grafanaContainer
     .WithUrlForEndpoint("http", url =>
     {
         url.DisplayText = "Open Grafana Dashboard";
-    });
-
-loki.WithParentRelationship(grafana);
-tempo.WithParentRelationship(grafana);
-prometheus.WithParentRelationship(grafana);
-blackbox.WithParentRelationship(grafana);
+    })
+    .WithChildRelationship(loki)
+    .WithChildRelationship(tempo)
+    .WithChildRelationship(prometheus)
+    .WithChildRelationship(blackbox);
 
 var openTelemetryCollector = builder.AddOpenTelemetryCollector("../config/otel.yml")
     .WithEnvironment("PROMETHEUS_ENDPOINT", $"{prometheus.GetEndpoint("http")}/api/v1/otlp")
@@ -116,7 +115,9 @@ var database = postgres.AddDatabase("sandbox-db");
 
 var redis = builder.AddRedis("cache")
     .WithDataVolume();
-redis.WithRedisInsight(p => p.WithParentRelationship(redis))
+var redisInsight = redis
+    .WithRedisInsight(p => p.WithParentRelationship(redis));
+var redisCommander = redis
     .WithRedisCommander(p => p.WithParentRelationship(redis));
 
 var migrations = builder.AddProject<Projects.Sandbox_Migrations>("migrations")
@@ -185,15 +186,14 @@ var gateway = builder.AddProject<Projects.Sandbox_Gateway>("gateway")
         url.DisplayLocation = UrlDisplayLocation.DetailsOnly;
         url.DisplayText = "Open Application";
     })
-        .WithUrlForEndpoint("http", url =>
+    .WithUrlForEndpoint("http", url =>
     {
         url.DisplayLocation = UrlDisplayLocation.DetailsOnly;
     })
+    .WithChildRelationship(apiService)
+    .WithChildRelationship(angularApplication)
+    .WithChildRelationship(keycloak)
     .WithExternalHttpEndpoints();
-
-apiService.WithParentRelationship(gateway);
-angularApplication.WithParentRelationship(gateway);
-keycloak.WithParentRelationship(gateway);
 
 if (builder.Environment.IsDevelopment())
 {
@@ -236,4 +236,17 @@ builder.AddDockerComposeEnvironment("Sandbox")
 builder.AddAzureEnvironment();
 #pragma warning restore ASPIREAZURE001 // Type is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
 
-await builder.Build().RunAsync();
+var app = builder.Build();
+
+app.Start();
+
+
+#pragma warning disable CA1303 // Do not pass literals as localized parameters
+Console.WriteLine("--------------");
+Console.WriteLine(gateway.GetEndpoint("http").Url);
+Console.WriteLine(gateway.GetEndpoint("https").Url);
+Console.WriteLine("--------------");
+#pragma warning restore CA1303 // Do not pass literals as localized parameters
+
+
+app.WaitForShutdown();
