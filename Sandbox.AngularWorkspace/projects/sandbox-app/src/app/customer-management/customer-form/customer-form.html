@@ -1,4 +1,4 @@
-<form novalidate class="w-full" (submit.preventDefault)="onSubmit()">
+<form class="w-full" [formRoot]="customerForm">
 	<div class="rounded-lg border border-gray-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-950">
 		<div class="mb-6 flex items-center gap-3 border-b border-gray-200 pb-4 dark:border-slate-800">
 			<div class="bg-primary-600 flex h-8 w-8 items-center justify-center rounded-md">
@@ -20,9 +20,7 @@
 			<h2 class="m-0 text-lg font-semibold text-gray-900 dark:text-gray-100">Create Customer</h2>
 		</div>
 
-		@for (error of customerForm().errors(); track $index) {
-		<sandbox-alert type="error">{{ error.message }}</sandbox-alert>
-		} @if (customerForm().touched() && customerForm().errorSummary().length > 0) {
+		@if (customerForm().touched() && customerForm().errorSummary().length > 0) {
 		<div class="mb-6 rounded-md border border-red-200 bg-red-50 p-4 dark:border-red-800 dark:bg-red-950/30">
 			<div class="flex items-start gap-3">
 				<div class="flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-red-500">
@@ -42,7 +40,7 @@
 				</div>
 				<div class="flex-1">
 					<h3 class="m-0 mb-2 text-sm font-medium text-red-700 dark:text-red-300">
-						Please fix the following errors:
+						Please resolve the following issues before submitting the form:
 					</h3>
 					<ul class="m-0 list-none space-y-2 p-0">
 						@for (error of customerForm().errorSummary(); track $index) {

@@ -1,12 +1,12 @@
 import { type AfterViewInit, Directive, ElementRef, ViewContainerRef, effect, inject } from '@angular/core';
-import { FieldErrors } from './field-errors';
+import { FormFieldMessages } from './form-field-messages';
 import { FormField } from '@angular/forms/signals';
 
 @Directive({
 	// eslint-disable-next-line @angular-eslint/directive-selector
 	selector: '[formField]',
 })
-export class Error implements AfterViewInit {
+export class FormFieldAria implements AfterViewInit {
 	private el = inject(ElementRef);
 	private readonly viewContainerRef = inject(ViewContainerRef);
 	private readonly formField = inject(FormField);
@@ -27,8 +27,8 @@ export class Error implements AfterViewInit {
 	}
 
 	public ngAfterViewInit() {
-		const errorContainer = this.viewContainerRef.createComponent(FieldErrors);
-		errorContainer.setInput('field', this.formField);
-		errorContainer.setInput('describedby', `error-${this.formField.state().name()}`);
+		const messagesContainer = this.viewContainerRef.createComponent(FormFieldMessages);
+		messagesContainer.setInput('field', this.formField);
+		messagesContainer.setInput('describedby', `error-${this.formField.state().name()}`);
 	}
 }

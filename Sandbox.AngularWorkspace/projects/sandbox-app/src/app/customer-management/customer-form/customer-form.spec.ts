@@ -120,7 +120,7 @@ it('displays error message when API request fails', async () => {
 
 	await mockRequest({ title: 'Customer creation failed' }, { status: 500, statusText: 'Bad Request' });
 
-	expect(await screen.findByText('Customer creation failed')).toBeInTheDocument();
+	expect(await screen.findByText(/Customer creation failed/i)).toBeInTheDocument();
 	expect(screen.queryByRole('button', { name: /create customer/i })).toBeEnabled();
 });
 

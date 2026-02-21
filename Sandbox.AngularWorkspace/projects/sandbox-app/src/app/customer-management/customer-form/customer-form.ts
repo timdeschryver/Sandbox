@@ -1,9 +1,8 @@
 import { ChangeDetectionStrategy, Component, inject, output, signal } from '@angular/core';
 import {
 	FormField,
-	type OneOrMany,
+	FormRoot,
 	type ValidationError,
-	type WithOptionalField,
 	applyWhen,
 	form,
 	hidden,
@@ -11,19 +10,16 @@ import {
 	minLength,
 	required,
 	schema,
-	submit,
 } from '@angular/forms/signals';
 import { type Address, type CustomerId } from '@sandbox-app/customer-management/models';
 import { Customers } from '@sandbox-app/customer-management/customer-management';
 import { CustomerAddress } from '@sandbox-app/customer-management/shared/customer-address/customer-address';
-import { HttpErrorResponse } from '@angular/common/http';
-import { type Observable, catchError, firstValueFrom, map, of } from 'rxjs';
 import { formValidation } from '@form-validation';
-import { Alert } from '@sandbox-app/shared/components/alert/alert';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
 	selector: 'sandbox-customer-form',
-	imports: [FormField, CustomerAddress, formValidation, Alert],
+	imports: [FormField, CustomerAddress, formValidation, FormRoot],
 	templateUrl: './customer-form.html',
 	styleUrl: './customer-form.css',
 	changeDetection: ChangeDetectionStrategy.OnPush,
@@ -33,32 +29,28 @@ export class CustomerForm {
 
 	public readonly customerCreated = output<CustomerId>();
 
-	protected readonly customerForm = form(signal<CustomerFormModel>(this.initializeCustomerModel()), (path) => {
-		required(path.firstName);
-		maxLength(path.firstName, 255);
-		required(path.lastName);
-		maxLength(path.lastName, 255);
+	protected readonly customerForm = form(
+		signal<CustomerFormModel>(this.initializeCustomerModel()),
+		(path) => {
+			required(path.firstName);
+			maxLength(path.firstName, 255);
+			required(path.lastName);
+			maxLength(path.lastName, 255);
 
-		hidden(path.billingAddress, (logic) => !logic.valueOf(path.hasBillingAddress));
-		applyWhen(path.billingAddress, (logic) => logic.valueOf(path.hasBillingAddress), addressSchema);
+			hidden(path.billingAddress, (logic) => !logic.valueOf(path.hasBillingAddress));
+			applyWhen(path.billingAddress, (logic) => logic.valueOf(path.hasBillingAddress), addressSchema);
 
-		hidden(path.shippingAddress, (logic) => !logic.valueOf(path.hasShippingAddress));
-		applyWhen(path.shippingAddress, (logic) => logic.valueOf(path.hasShippingAddress), addressSchema);
-		minLength(path.shippingAddress.note, (logic) => {
-			return logic.value() ? 10 : 0;
-		});
-	});
-
-	protected async onSubmit(): Promise<void> {
-		await submit(this.customerForm, async (form) => {
-			if (this.customerForm().invalid()) {
-				return;
-			}
-
-			const formValue = form().value();
-			return await firstValueFrom(
-				this.customersService
-					.createCustomer({
+			hidden(path.shippingAddress, (logic) => !logic.valueOf(path.hasShippingAddress));
+			applyWhen(path.shippingAddress, (logic) => logic.valueOf(path.hasShippingAddress), addressSchema);
+			minLength(path.shippingAddress.note, (logic) => {
+				return logic.value() ? 10 : 0;
+			});
+		},
+		{
+			submission: {
+				action: async (form) => {
+					const formValue = form().value();
+					const customer = {
 						firstName: formValue.firstName,
 						lastName: formValue.lastName,
 						billingAddress: formValue.hasBillingAddress
@@ -76,27 +68,27 @@ export class CustomerForm {
 									note: formValue.shippingAddress.note ? formValue.shippingAddress.note : null,
 								}
 							: null,
-					})
-					.pipe(
-						map((customerId) => {
-							form().reset();
-							form().value.set(this.initializeCustomerModel());
-							this.customerCreated.emit(customerId);
-							return null;
-						}),
-						catchError((error: unknown): Observable<OneOrMany<WithOptionalField<ValidationError>>> => {
-							return of({
-								kind: 'server',
-								message:
-									error instanceof HttpErrorResponse && this.isErrorWithTitle(error.error)
-										? error.error.title
-										: 'An unexpected error occurred, please try again.',
-							});
-						}),
-					),
-			);
-		});
-	}
+					};
+					try {
+						const customerId = await this.customersService.createCustomer(customer);
+						form().value.set(this.initializeCustomerModel());
+						form().reset();
+						this.customerCreated.emit(customerId);
+						return undefined;
+					} catch (error) {
+						const validationError: ValidationError.WithOptionalFieldTree = {
+							kind: 'server',
+							message:
+								error instanceof HttpErrorResponse && this.isErrorWithTitle(error.error)
+									? error.error.title
+									: 'An unexpected error occurred, please try again.',
+						};
+						return validationError;
+					}
+				},
+			},
+		},
+	);
 
 	private isErrorWithTitle(error: unknown): error is { title: string } {
 		return typeof error === 'object' && error !== null && typeof (error as { title: unknown }).title === 'string';

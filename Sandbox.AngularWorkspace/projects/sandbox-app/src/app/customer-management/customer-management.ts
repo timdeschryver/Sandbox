@@ -1,6 +1,6 @@
 import { Injectable, type Signal, inject } from '@angular/core';
 import { HttpClient, type HttpResourceRef, httpResource } from '@angular/common/http';
-import { type Observable } from 'rxjs';
+import { firstValueFrom } from 'rxjs';
 import { parse, parseCollection } from '@sandbox-app/shared/functions';
 import {
 	type CreateCustomerCommand,
@@ -32,7 +32,7 @@ export class Customers {
 		);
 	}
 
-	public createCustomer(customer: CreateCustomerCommand): Observable<CustomerId> {
-		return this.http.post<CustomerId>('/api/customers', customer);
+	public createCustomer(customer: CreateCustomerCommand): Promise<CustomerId> {
+		return firstValueFrom(this.http.post<CustomerId>('/api/customers', customer));
 	}
 }
