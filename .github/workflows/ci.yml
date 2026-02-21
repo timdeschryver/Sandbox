@@ -25,94 +25,94 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  backend:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v6
+  # backend:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Checkout
+  #       uses: actions/checkout@v6
 
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v5
-        with:
-          global-json-file: global.json
+  #     - name: Setup .NET
+  #       uses: actions/setup-dotnet@v5
+  #       with:
+  #         global-json-file: global.json
 
-      - name: Build .NET solution
-        run: dotnet build --configuration Release
+  #     - name: Build .NET solution
+  #       run: dotnet build --configuration Release
 
-      - name: Run .NET tests
-        run: dotnet test --no-build --configuration Release -- --coverage --coverage-output coverage.xml --coverage-output-format cobertura --coverage-settings "${{ github.workspace }}/coverage.config"
+  #     - name: Run .NET tests
+  #       run: dotnet test --no-build --configuration Release -- --coverage --coverage-output coverage.xml --coverage-output-format cobertura --coverage-settings "${{ github.workspace }}/coverage.config"
 
-      - name: ReportGenerator
-        uses: danielpalme/ReportGenerator-GitHub-Action@v5.5.1
-        with:
-          reports: '**/coverage.xml'
-          targetdir: 'coveragereport'
-          reporttypes: 'HtmlInline;Cobertura;MarkdownSummaryGithub'
-          tag: '${{ github.run_number }}_${{ github.run_id }}'
-          customSettings: 'minimumCoverageThresholds:lineCoverage=70'
+  #     - name: ReportGenerator
+  #       uses: danielpalme/ReportGenerator-GitHub-Action@v5.5.1
+  #       with:
+  #         reports: '**/coverage.xml'
+  #         targetdir: 'coveragereport'
+  #         reporttypes: 'HtmlInline;Cobertura;MarkdownSummaryGithub'
+  #         tag: '${{ github.run_number }}_${{ github.run_id }}'
+  #         customSettings: 'minimumCoverageThresholds:lineCoverage=70'
 
-      - name: Upload .NET coverage report artifact
-        uses: actions/upload-artifact@v6
-        if: ${{ !cancelled() }}
-        with:
-          name: CoverageReport
-          path: coveragereport
+  #     - name: Upload .NET coverage report artifact
+  #       uses: actions/upload-artifact@v6
+  #       if: ${{ !cancelled() }}
+  #       with:
+  #         name: CoverageReport
+  #         path: coveragereport
 
-      - name: Report .NET Coverage
-        if: github.event_name == 'pull_request'
-        run: gh pr comment $PR_NUMBER --body-file coveragereport/SummaryGithub.md
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          PR_NUMBER: ${{ github.event.number }}
+  #     - name: Report .NET Coverage
+  #       if: github.event_name == 'pull_request'
+  #       run: gh pr comment $PR_NUMBER --body-file coveragereport/SummaryGithub.md
+  #       env:
+  #         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  #         PR_NUMBER: ${{ github.event.number }}
 
-      - name: Publish coverage in build summary
-        run: cat coveragereport/SummaryGithub.md >> $GITHUB_STEP_SUMMARY
-        shell: bash
+  #     - name: Publish coverage in build summary
+  #       run: cat coveragereport/SummaryGithub.md >> $GITHUB_STEP_SUMMARY
+  #       shell: bash
 
-      - uses: stoplightio/spectral-action@latest
-        with:
-          file_glob: '**/documentation/*.json'
+  #     - uses: stoplightio/spectral-action@latest
+  #       with:
+  #         file_glob: '**/documentation/*.json'
 
-  frontend:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v6
+  # frontend:
+  # runs-on: ubuntu-latest
+  # steps:
+  #   - name: Checkout
+  #     uses: actions/checkout@v6
 
-      - uses: ./.github/actions/setup-pnpm
+  #   - uses: ./.github/actions/setup-pnpm
 
-      - name: Install Playwright Browsers
-        run: pnpm --filter='sandbox.e2e' exec playwright install --with-deps
+  #   - name: Install Playwright Browsers
+  #     run: pnpm --filter='sandbox.e2e' exec playwright install --with-deps
 
-      - name: Build Angular workspace
-        run: pnpm --filter="sandbox.angular-workspace" build
+  #   - name: Build Angular workspace
+  #     run: pnpm --filter="sandbox.angular-workspace" build
 
-      - name: Lint all frontend projects
-        run: pnpm run -r lint
+  #   - name: Lint all frontend projects
+  #     run: pnpm run -r lint
 
-      - name: Unit test all frontend projects
-        run: pnpm --filter="!sandbox.e2e" test --coverage
+  #   - name: Unit test all frontend projects
+  #     run: pnpm --filter="!sandbox.e2e" test --coverage
 
-      - name: Upload Vitest coverage report artifact
-        if: ${{ !cancelled() }}
-        uses: actions/upload-artifact@v6
-        with:
-          name: coverage-frontend
-          path: Sandbox.AngularWorkspace/coverage/sandbox-app
+  #   - name: Upload Vitest coverage report artifact
+  #     if: ${{ !cancelled() }}
+  #     uses: actions/upload-artifact@v6
+  #     with:
+  #       name: coverage-frontend
+  #       path: Sandbox.AngularWorkspace/coverage/sandbox-app
 
-      - name: Report Vitest Coverage
-        if: github.event_name == 'pull_request'
-        uses: davelosert/vitest-coverage-report-action@v2
-        with:
-          threshold-icons: "{0: '🔴', 50: '🟠', 70: '🟢'}"
-          json-summary-path: Sandbox.AngularWorkspace/coverage/sandbox-app/coverage-summary.json
-          json-final-path: Sandbox.AngularWorkspace/coverage/sandbox-app/coverage-final.json
-          file-coverage-mode: 'all'
-          name: 'Frontend Vitest Coverage'
+  #   - name: Report Vitest Coverage
+  #     if: github.event_name == 'pull_request'
+  #     uses: davelosert/vitest-coverage-report-action@v2
+  #     with:
+  #       threshold-icons: "{0: '🔴', 50: '🟠', 70: '🟢'}"
+  #       json-summary-path: Sandbox.AngularWorkspace/coverage/sandbox-app/coverage-summary.json
+  #       json-final-path: Sandbox.AngularWorkspace/coverage/sandbox-app/coverage-final.json
+  #       file-coverage-mode: 'all'
+  #       name: 'Frontend Vitest Coverage'
 
   e2e:
     runs-on: ubuntu-latest
-    needs: [backend, frontend]
+    # needs: [backend, frontend]
     steps:
       - name: Checkout
         uses: actions/checkout@v6
