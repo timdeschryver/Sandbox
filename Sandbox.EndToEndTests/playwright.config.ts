@@ -2,6 +2,7 @@ import { defineConfig, devices } from '@playwright/test';
 import { getConfig } from 'utils/env';
 
 const config = getConfig();
+console.log('Playwright config', config);
 
 /**
  * See https://playwright.dev/docs/test-configuration.
@@ -71,7 +72,7 @@ export default defineConfig({
 		command: 'dotnet run --project ./Sandbox.AppHost',
 		url: config.applicationUrl + '/health',
 		reuseExistingServer: !process.env.CI,
-		timeout: 60000 * 5,
+		timeout: 60000 * 3,
 		ignoreHTTPSErrors: true,
 		stdout: 'pipe',
 		stderr: 'pipe',
