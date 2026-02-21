@@ -180,10 +180,14 @@ var gateway = builder.AddProject<Projects.Sandbox_Gateway>("gateway")
     .WaitFor(angularApplication)
     .WaitFor(openTelemetryCollector)
     .WaitFor(keycloak)
-    .WithUrls(context =>
+    .WithUrlForEndpoint("http", url =>
     {
-        context.Urls.Clear();
-        context.Urls.Add(new() { Url = "/", DisplayText = "Open Application", Endpoint = context.GetEndpoint("https") });
+        url.DisplayLocation = UrlDisplayLocation.DetailsOnly;
+        url.DisplayText = "Open Application";
+    })
+        .WithUrlForEndpoint("http", url =>
+    {
+        url.DisplayLocation = UrlDisplayLocation.DetailsOnly;
     })
     .WithExternalHttpEndpoints();
 
