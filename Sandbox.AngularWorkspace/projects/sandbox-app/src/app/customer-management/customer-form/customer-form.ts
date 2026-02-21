@@ -2,7 +2,6 @@ import { ChangeDetectionStrategy, Component, inject, output, signal } from '@ang
 import {
 	FormField,
 	FormRoot,
-	type ValidationError,
 	applyWhen,
 	form,
 	hidden,
@@ -15,7 +14,7 @@ import { type Address, type CustomerId } from '@sandbox-app/customer-management/
 import { Customers } from '@sandbox-app/customer-management/customer-management';
 import { CustomerAddress } from '@sandbox-app/customer-management/shared/customer-address/customer-address';
 import { formValidation } from '@form-validation';
-import { HttpErrorResponse } from '@angular/common/http';
+import { mapHttpError } from '@sandbox-app/shared/functions/problem-details';
 
 @Component({
 	selector: 'sandbox-customer-form',
@@ -76,23 +75,22 @@ export class CustomerForm {
 						this.customerCreated.emit(customerId);
 						return undefined;
 					} catch (error) {
-						const validationError: ValidationError.WithOptionalFieldTree = {
-							kind: 'server',
-							message:
-								error instanceof HttpErrorResponse && this.isErrorWithTitle(error.error)
-									? error.error.title
-									: 'An unexpected error occurred, please try again.',
-						};
-						return validationError;
+						return mapHttpError(error, {
+							FirstName: form.firstName,
+							LastName: form.lastName,
+							'BillingAddress.Street': form.billingAddress.street,
+							'BillingAddress.City': form.billingAddress.city,
+							'BillingAddress.ZipCode': form.billingAddress.zipCode,
+							'ShippingAddress.Street': form.shippingAddress.street,
+							'ShippingAddress.City': form.shippingAddress.city,
+							'ShippingAddress.ZipCode': form.shippingAddress.zipCode,
+							'ShippingAddress.Note': form.shippingAddress.note,
+						});
 					}
 				},
 			},
 		},
 	);
-
-	private isErrorWithTitle(error: unknown): error is { title: string } {
-		return typeof error === 'object' && error !== null && typeof (error as { title: unknown }).title === 'string';
-	}
 
 	private initializeCustomerModel(): CustomerFormModel {
 		return {
