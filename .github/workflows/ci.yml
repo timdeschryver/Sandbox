@@ -127,6 +127,9 @@ jobs:
       - name: Install Playwright Browsers
         run: pnpm --filter='sandbox.e2e' exec playwright install --with-deps
 
+      - name: Trust .NET dev certs
+        run: dotnet dev-certs https
+
       - name: Install SOPS
         run: |
           curl -Lo sops "https://github.com/getsops/sops/releases/download/v3.9.1/sops-v3.9.1.linux.amd64"

@@ -72,7 +72,7 @@ export default defineConfig({
 		command: 'dotnet run --project ./Sandbox.AppHost',
 		url: config.applicationUrl + '/health',
 		reuseExistingServer: !process.env.CI,
-		timeout: 60000 * 3,
+		timeout: 60000 * 10,
 		ignoreHTTPSErrors: true,
 		stdout: 'pipe',
 		stderr: 'pipe',
