@@ -170,7 +170,7 @@ var apiService = builder.AddProject<Projects.Sandbox_ApiService>("apiservice")
 
 var angularApplication = builder
     .AddJavaScriptApp("angular-frontend", "../Sandbox.AngularWorkspace", runScriptName: "start")
-    .WithPnpm(install: true, installArgs: ["--frozen-lockfile"])
+    .WithPnpm(install: !isCI, installArgs: ["--frozen-lockfile"])
     .WithRunScript("start")
     .WithHttpEndpoint(env: "PORT")
     .WithEnvironment("APPLICATION", "sandbox-app")
