@@ -144,15 +144,6 @@ jobs:
         env:
           SOPS_AGE_KEY: ${{ secrets.SOPS_AGE_KEY }}
 
-      - name: Pre-pull Docker images
-        # Image versions are determined by Aspire.Hosting.* packages in Directory.Packages.props.
-        # Keep these in sync when upgrading Aspire packages.
-        run: |
-          docker pull quay.io/keycloak/keycloak:26.4 &
-          docker pull postgres:17.6 &
-          docker pull redis:8.2 &
-          wait
-
       - name: E2E test frontend projects
         run: pnpm --filter="sandbox.e2e" test
         env:
