@@ -68,7 +68,7 @@ export default defineConfig({
 	/* Run your local dev server before starting the tests */
 	webServer: {
 		cwd: '..',
-		command: 'dotnet run --project ./Sandbox.AppHost',
+		command: `dotnet run --project ./Sandbox.AppHost${process.env.CI ? ' --launch-profile http' : ''}`,
 		url: config.applicationUrl + '/health',
 		reuseExistingServer: !process.env.CI,
 		timeout: 60000 * 10,
