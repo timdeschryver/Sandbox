@@ -127,6 +127,12 @@ jobs:
       - name: Install Playwright Browsers
         run: pnpm --filter='sandbox.e2e' exec playwright install --with-deps
 
+      - name: Trust .NET dev certs
+        run: |
+          dotnet dev-certs https --export-path /tmp/aspire-dev-cert.pem --format pem --no-password
+          sudo cp /tmp/aspire-dev-cert.pem /usr/local/share/ca-certificates/aspire-dev-cert.crt
+          sudo update-ca-certificates
+
       - name: Install SOPS
         run: |
           curl -Lo sops "https://github.com/getsops/sops/releases/download/v3.9.1/sops-v3.9.1.linux.amd64"
