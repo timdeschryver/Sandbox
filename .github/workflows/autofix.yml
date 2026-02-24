@@ -11,6 +11,7 @@ permissions:
 jobs:
   autofix:
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     steps:
       - uses: actions/checkout@v6
 
