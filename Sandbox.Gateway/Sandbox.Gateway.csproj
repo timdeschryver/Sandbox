@@ -7,8 +7,10 @@
 
   <ItemGroup>
     <PackageReference Include="Aspire.Keycloak.Authentication" />
+    <PackageReference Include="Aspire.StackExchange.Redis.DistributedCaching" />
     <PackageReference Include="Duende.AccessTokenManagement.OpenIdConnect" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" />
+    <PackageReference Include="OpenFeature.Hosting" />
     <PackageReference Include="Yarp.ReverseProxy" />
   </ItemGroup>
 

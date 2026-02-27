@@ -1,5 +1,6 @@
 using Sandbox.ApiService;
 using Sandbox.ServiceDefaults;
+using Sandbox.SharedKernel.FeatureFlags;
 using Sandbox.SharedKernel.Modules;
 using Scalar.AspNetCore;
 
@@ -11,6 +12,7 @@ builder.AddAuthentication();
 builder.AddOpenApi();
 builder.AddErrorHandling();
 builder.AddCaching();
+builder.AddFeatureFlags();
 builder.AddWolverine();
 builder.AddModules();
 

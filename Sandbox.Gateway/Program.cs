@@ -1,7 +1,9 @@
 using Duende.AccessTokenManagement.OpenIdConnect;
 using Sandbox.Gateway;
+using Sandbox.Gateway.FeatureFlagsModule;
 using Sandbox.Gateway.UserModule;
 using Sandbox.ServiceDefaults;
+using Sandbox.SharedKernel.FeatureFlags;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,8 +16,9 @@ builder.AddServiceDefaults();
 builder.AddAuthenticationSchemes();
 builder.AddRateLimiting();
 builder.AddReverseProxy();
+builder.AddFeatureFlags();
 
-builder.Services.AddDistributedMemoryCache();
+builder.AddRedisDistributedCache(connectionName: "cache");
 builder.Services.AddOpenIdConnectAccessTokenManagement();
 builder.Services.AddAntiforgery(options =>
 {
@@ -35,7 +38,8 @@ app.UseRateLimiter();
 app.UseAuthorization();
 
 app.MapGroup("bff")
-    .MapUserEndpoints();
+    .MapUserEndpoints()
+    .MapFeatureFlagEndpoints();
 
 app.MapReverseProxy();
 app.MapDefaultEndpoints();

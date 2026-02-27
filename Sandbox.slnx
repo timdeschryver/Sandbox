@@ -10,5 +10,6 @@
   <Project Path="Sandbox.Modules.Billing/Sandbox.Modules.Billing.csproj" />
   <Project Path="Sandbox.Modules.CustomerManagement.Tests/Sandbox.Modules.CustomerManagement.Tests.csproj" />
   <Project Path="Sandbox.ServiceDefaults/Sandbox.ServiceDefaults.csproj" />
+  <Project Path="Sandbox.SharedKernel.Tests/Sandbox.SharedKernel.Tests.csproj" />
   <Project Path="Sandbox.SharedKernel/Sandbox.SharedKernel.csproj" />
 </Solution>
