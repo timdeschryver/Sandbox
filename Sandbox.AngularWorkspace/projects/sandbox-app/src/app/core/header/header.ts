@@ -5,6 +5,7 @@ import { Authentication } from '@sandbox-app/authentication/authentication';
 import { Authenticated } from '@sandbox-app/authentication/authenticated';
 import { Anonymous } from '@sandbox-app/authentication/anonymous';
 import ThemeToggle from '@sandbox-app/core/theme/theme-toggle';
+import { FeatureFlags } from '@sandbox-app/feature-flags/feature-flags';
 
 @Component({
 	selector: 'sandbox-header',
@@ -16,4 +17,5 @@ import ThemeToggle from '@sandbox-app/core/theme/theme-toggle';
 export default class Header {
 	private readonly authenticationService = inject(Authentication);
 	protected readonly user = this.authenticationService.user;
+	protected readonly featureFlags = inject(FeatureFlags);
 }

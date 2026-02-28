@@ -16,6 +16,28 @@
     }
   ],
   "paths": {
+    "/billing": {
+      "get": {
+        "tags": [
+          "Billing"
+        ],
+        "summary": "Get billing overview.",
+        "description": "Get billing overview",
+        "operationId": "GetBillingOverview",
+        "responses": {
+          "200": {
+            "description": "A stub billing overview response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Sandbox.Modules.Billing.Application.GetBillingOverview.Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/customers": {
       "get": {
         "tags": [
@@ -135,6 +157,18 @@
   },
   "components": {
     "schemas": {
+      "Sandbox.Modules.Billing.Application.GetBillingOverview.Response": {
+        "required": [
+          "message"
+        ],
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
       "Sandbox.Modules.CustomerManagement.Application.CreateCustomer.BillingAddress": {
         "required": [
           "street",
@@ -338,6 +372,9 @@
     }
   },
   "tags": [
+    {
+      "name": "Billing"
+    },
     {
       "name": "Customer Management"
     }

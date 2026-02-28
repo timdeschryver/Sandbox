@@ -1,9 +1,11 @@
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
+using Sandbox.Modules.Billing.Application;
 using Sandbox.Modules.Billing.Data;
+using Sandbox.SharedKernel.FeatureFlags;
 using Sandbox.SharedKernel.Modules;
 using Wolverine.Attributes;
 
@@ -27,6 +29,15 @@ public class BillingModule : IModule
     public WebApplication UseModule(WebApplication app)
     {
         ArgumentNullException.ThrowIfNull(app);
+
+        app.MapGroup("billing")
+            .RequireAuthorization()
+            .WithTags("Billing")
+            .MapGet("", GetBillingOverview.Query)
+                .WithName("GetBillingOverview")
+                .WithDescription("Get billing overview")
+                .WithFeatureFlag("billing-enabled");
+
         return app;
     }
 }

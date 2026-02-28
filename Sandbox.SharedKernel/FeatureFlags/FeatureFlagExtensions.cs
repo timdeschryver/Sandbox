@@ -1,8 +1,12 @@
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using OpenFeature;
 using OpenFeature.Contrib.Hooks.Otel;
+using OpenFeature.Hooks;
 using OpenFeature.Providers.Memory;
 
 namespace Sandbox.SharedKernel.FeatureFlags;
@@ -29,7 +33,8 @@ public static class FeatureFlagExtensions
                 contextBuilder.Set("environment", builder.Environment.EnvironmentName);
             });
             featureBuilder.AddHook(new TracingHook());
-            featureBuilder.AddHook(new MetricsHook());
+            featureBuilder.AddHook(new OpenFeature.Hooks.MetricsHook());
+            featureBuilder.AddHook(sp => new LoggingHook(sp.GetRequiredService<ILogger<LoggingHook>>()));
             featureBuilder.AddProvider(_ => new InMemoryProvider(BuildFlags(definitions)));
         });
 
@@ -48,5 +53,14 @@ public static class FeatureFlagExtensions
         }
 
         return flags;
+    }
+
+    /// <summary>
+    /// Adds a <see cref="FeatureFlagEndpointFilter"/> to the route that returns 404 when the flag is disabled.
+    /// </summary>
+    public static RouteHandlerBuilder WithFeatureFlag(this RouteHandlerBuilder builder, string flagKey)
+    {
+        ArgumentNullException.ThrowIfNull(builder);
+        return builder.AddEndpointFilter((context, next) => new FeatureFlagEndpointFilter(flagKey).InvokeAsync(context, next));
     }
 }

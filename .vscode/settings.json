@@ -5,5 +5,13 @@
 	"editor.codeActionsOnSave": {
 		"source.fixAll.eslint": "always"
 	},
-	"eslint.workingDirectories": [{ "mode": "auto" }]
+	"eslint.workingDirectories": [
+		{
+			"mode": "auto"
+		}
+	],
+	"chat.tools.terminal.autoApprove": {
+		"pnpm": true,
+		"dotnet run": true
+	}
 }

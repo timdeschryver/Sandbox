@@ -12,6 +12,7 @@ export class FeatureFlags {
 	}).asReadonly();
 
 	public readonly flags = computed(() => this._flags.value() ?? []);
+	public readonly isLoaded = computed(() => !this._flags.isLoading());
 
 	public isEnabled(flagKey: string): boolean {
 		return this.flags().some((flag) => flag.key === flagKey && flag.enabled);
