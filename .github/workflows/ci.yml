@@ -53,7 +53,7 @@ jobs:
           customSettings: 'minimumCoverageThresholds:lineCoverage=70'
 
       - name: Upload .NET coverage report artifact
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         if: ${{ !cancelled() }}
         with:
           name: CoverageReport
@@ -98,7 +98,7 @@ jobs:
 
       - name: Upload Vitest coverage report artifact
         if: ${{ !cancelled() }}
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: coverage-frontend
           path: Sandbox.AngularWorkspace/coverage/sandbox-app
@@ -158,7 +158,7 @@ jobs:
           DATABASE_URL: ${{ vars.DATABASE_URL }}
 
       - name: Upload E2E Results Artifact
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         if: ${{ !cancelled() }}
         with:
           name: playwright-report
