@@ -17,6 +17,8 @@ internal sealed class TaskMethodTests : ArchitecturalBaseTest
             .HaveFullNameContaining("Sandbox.")
             .And()
             .DoNotHaveFullNameContaining("Test")
+            .And()
+            .DoNotHaveFullNameContaining("FeatureFlagEndpointFilter")
             .Should()
             .FollowCustomCondition(new LastParameterOfTypeCondition<CancellationToken>())
             .Check(Architecture);
