@@ -19,7 +19,7 @@
     "angular-forms": {
       "source": "analogjs/angular-skills",
       "sourceType": "github",
-      "computedHash": "397c738e81f2edbf4702621d0deb782782a1f26fdf31d9f4bd47b7bf6d2187bf"
+      "computedHash": "b6d99388e6efbd7006b0729a0a8bb2346b30214afc1a369a71d31f076c95d6a6"
     },
     "angular-http": {
       "source": "analogjs/angular-skills",
@@ -61,10 +61,10 @@
       "sourceType": "github",
       "computedHash": "9192b5d6be529478a70d1a73f3d4ce83db12c2052c4e6df4accd445f21e906d4"
     },
-    "doc-coauthoring": {
-      "source": "anthropics/skills",
+    "find-skills": {
+      "source": "vercel-labs/skills",
       "sourceType": "github",
-      "computedHash": "62cd7744438ee2aecc986c520bb603988a78ff6aaaf70a471bf4584fe0b78dae"
+      "computedHash": "25872a21881a950edc3db1f3329664d60405d539660ce05b3265db2de06a7dfd"
     },
     "git-commit": {
       "source": "github/awesome-copilot",

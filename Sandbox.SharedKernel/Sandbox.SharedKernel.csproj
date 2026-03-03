@@ -8,9 +8,4 @@
     <PackageReference Include="OpenFeature.Hosting" />
     <PackageReference Include="Vogen" />
   </ItemGroup>
-  <ItemGroup>
-    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
-      <_Parameter1>Sandbox.SharedKernel.Tests</_Parameter1>
-    </AssemblyAttribute>
-  </ItemGroup>
 </Project>
