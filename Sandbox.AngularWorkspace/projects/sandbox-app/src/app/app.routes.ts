@@ -1,6 +1,7 @@
 import { type Routes } from '@angular/router';
 import { authenticatedGuard } from '@sandbox-app/authentication/authenticated-guard';
 import { featureFlagGuard } from '@sandbox-app/feature-flags/feature-flag-guard';
+import { FeatureFlagKeys } from '@sandbox-app/feature-flags/feature-flag-keys';
 
 export const routes: Routes = [
 	{
@@ -14,7 +15,7 @@ export const routes: Routes = [
 			},
 			{
 				path: 'billing',
-				canMatch: [() => featureFlagGuard('billing-enabled')],
+				canMatch: [() => featureFlagGuard(FeatureFlagKeys.billingEnabled)],
 				loadChildren: () => import('@sandbox-app/billing/billing.routes'),
 				title: 'Billing',
 			},

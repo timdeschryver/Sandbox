@@ -36,7 +36,7 @@ public class BillingModule : IModule
             .MapGet("", GetBillingOverview.Query)
                 .WithName("GetBillingOverview")
                 .WithDescription("Get billing overview")
-                .WithFeatureFlag("billing-enabled");
+                .WithFeatureFlag(FeatureFlagKeys.BillingEnabled);
 
         return app;
     }
