@@ -1,0 +1,21 @@
+# Sandbox Application Security Contact Information
+# This file is compliant with RFC 9116 (https://www.rfc-editor.org/rfc/rfc9116.html)
+
+# Contact information for security researchers to report vulnerabilities
+Contact: https://github.com/timdeschryver/Sandbox/security/advisories/new
+Contact: mailto:security@example.com
+
+# Expiration date for this security.txt file (1 year from creation)
+Expires: 2027-03-04T19:31:53.000Z
+
+# Preferred language for security reports
+Preferred-Languages: en
+
+# Link to security policy
+Policy: https://github.com/timdeschryver/Sandbox/security/policy
+
+# Acknowledgments page for security researchers
+Acknowledgments: https://github.com/timdeschryver/Sandbox/security/advisories
+
+# Canonical URI for this file
+Canonical: https://example.com/.well-known/security.txt
