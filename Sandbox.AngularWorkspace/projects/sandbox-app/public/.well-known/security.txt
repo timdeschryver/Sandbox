@@ -3,7 +3,7 @@
 
 # Contact information for security researchers to report vulnerabilities
 Contact: https://github.com/timdeschryver/Sandbox/security/advisories/new
-Contact: mailto:security@example.com
+Contact: mailto:security@timdeschryver.dev
 
 # Expiration date for this security.txt file (1 year from creation)
 Expires: 2027-03-04T19:31:53.000Z
