@@ -1,6 +1,6 @@
 services:
   keycloak:
-    image: 'quay.io/keycloak/keycloak:26.5@sha256:ae8efb0d218d8921334b03a2dbee7069a0b868240691c50a3ffc9f42fabba8b4'
+    image: 'quay.io/keycloak/keycloak:26.5@sha256:a7b0cb7a43a1235a61872883414d3f1d9a3ceac9df6e5907bd12202778a6265c'
     command:
       - 'start'
       - '--import-realm'
@@ -86,7 +86,7 @@ services:
     networks:
       - 'aspire'
   tempo:
-    image: 'grafana/tempo:latest@sha256:79014b1407aaadfc8d56bc5dab2fa37480d9da1aa7410ac18e1b9ae7d9472ac6'
+    image: 'grafana/tempo:latest@sha256:4577c8951dfe859836c3077245f0cef4cccc9e14892ad3664e8636a43e4e1d16'
     command:
       - '--config.file=/etc/tempo/tempo.yml'
       - '--config.expand-env=true'
@@ -114,7 +114,7 @@ services:
     networks:
       - 'aspire'
   prometheus:
-    image: 'prom/prometheus:latest@sha256:1f0f50f06acaceb0f5670d2c8a658a599affe7b0d8e78b898c1035653849a702'
+    image: 'prom/prometheus:latest@sha256:4a61322ac1103a0e3aea2a61ef1718422a48fa046441f299d71e660a3bc71ae9'
     command:
       - '--web.enable-otlp-receiver'
       - '--web.enable-remote-write-receiver'
@@ -169,7 +169,7 @@ services:
     networks:
       - 'aspire'
   otelcollector:
-    image: 'ghcr.io/open-telemetry/opentelemetry-collector-releases/opentelemetry-collector-contrib:latest@sha256:f6e429c1052ab50f85a7afa5f7e32f25931697751622b0e1f453d10f79a1df3c'
+    image: 'ghcr.io/open-telemetry/opentelemetry-collector-releases/opentelemetry-collector-contrib:latest@sha256:e7c92c715f28ff142f3bcaccd4fc5603cf4c71276ef09954a38eb4038500a5a5'
     environment:
       ASPIRE_OTLP_ENDPOINT: '${}'
       ASPIRE_API_KEY: ''
@@ -188,7 +188,7 @@ services:
     networks:
       - 'aspire'
   postgres:
-    image: 'docker.io/library/postgres:18.2@sha256:b6b4d0b75c699a2c94dfc5a94fe09f38630f3b67ab0e1653ede1b7ac8e13c197'
+    image: 'docker.io/library/postgres:18.3@sha256:69e8582b781cb44fa4557b98ed586fe68361e320d9b12f9707494335634f4f3d'
     environment:
       POSTGRES_HOST_AUTH_METHOD: 'scram-sha-256'
       POSTGRES_INITDB_ARGS: '--auth-host=scram-sha-256 --auth-local=scram-sha-256'
@@ -204,7 +204,7 @@ services:
     networks:
       - 'aspire'
   cache:
-    image: 'docker.io/library/redis:8.6@sha256:dc123d5a424cbe44d681822c2a620f3f44bdba240b8a58a0eee0048a285532ed'
+    image: 'docker.io/library/redis:8.6@sha256:1c054d54ecd1597bba52f4304bca5afbc5565ebe614c5b3d7dc5b7f8a0cd768d'
     command:
       - '-c'
       - 'redis-server --requirepass $$REDIS_PASSWORD --save 60 1'
@@ -331,7 +331,7 @@ services:
     networks:
       - 'aspire'
   data-api:
-    image: 'mcr.microsoft.com/azure-databases/data-api-builder:1.7.86-rc@sha256:7b8fdc2d961f9d7fd27a56ade0d0da0ccd1e81c117cd52eb3b151cba938f8b96'
+    image: 'mcr.microsoft.com/azure-databases/data-api-builder:1.7.89-rc@sha256:9bd2aff311502b1bfe7c5970e15bc5c984ee52e6c84334f1301aac6fdb7cb988'
     environment:
       DAB_ENVIRONMENT: 'production'
       ConnectionString: 'Host=postgres;Port=5432;Username=postgres;Password=${POSTGRES_PASSWORD};Database=sandbox-db'
