@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject, output, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, afterNextRender, inject, output, signal } from '@angular/core';
 import {
 	FormField,
 	FormRoot,
@@ -25,8 +25,13 @@ import { mapHttpError } from '@sandbox-app/shared/functions/problem-details';
 })
 export class CustomerForm {
 	private readonly customersService = inject(Customers);
-
 	public readonly customerCreated = output<CustomerId>();
+
+	constructor() {
+		afterNextRender(() => {
+			this.customerForm().focusBoundControl();
+		});
+	}
 
 	protected readonly customerForm = form(
 		signal<CustomerFormModel>(this.initializeCustomerModel()),
@@ -87,6 +92,9 @@ export class CustomerForm {
 							'ShippingAddress.Note': form.shippingAddress.note,
 						});
 					}
+				},
+				onInvalid: (form) => {
+					form().errorSummary()[0]?.fieldTree().focusBoundControl();
 				},
 			},
 		},
