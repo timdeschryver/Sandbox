@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/devcontainers/dotnet:2-10.0@sha256:8f4d2e325d0c07af71374436657b2627eb13f35e974596ec425d71ad49cb0196
-FROM mcr.microsoft.com/devcontainers/typescript-node:4-24-bookworm@sha256:5f21aff86db5eca30decdd418172f7a665eb55d288465d38021baf9c1260b6d6
+FROM mcr.microsoft.com/devcontainers/dotnet:2-10.0@sha256:0c412724a61b030f27d4ca38a876db27a88c09a7c32344013562710f4117aec3
+FROM mcr.microsoft.com/devcontainers/typescript-node:4-24-bookworm@sha256:7958dd7e6fe4242fce6ba4f57b9de561ea82233d5542921b5335d435c2c78791
 
-COPY --from=mcr.microsoft.com/dotnet/nightly/sdk:10.0.103@sha256:79d2f8a9402f4f51f6ce0e919d29e0e23940a5faf894fb528a5c4f43254226e5 /usr/share/dotnet /usr/share/dotnet
+COPY --from=mcr.microsoft.com/dotnet/nightly/sdk:10.0.201@sha256:c8394e955b6f8f1aa4fe8f6a7dcdefada7ed08a78baca40cd8ab23e00417f373 /usr/share/dotnet /usr/share/dotnet
