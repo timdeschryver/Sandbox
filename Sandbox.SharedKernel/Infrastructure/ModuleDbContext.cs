@@ -16,7 +16,7 @@ public abstract class ModuleDbContext(DbContextOptions options, TimeProvider tim
         ArgumentNullException.ThrowIfNull(optionsBuilder);
         base.OnConfiguring(optionsBuilder);
 
-        optionsBuilder.AddInterceptors(new SoftDeleteInterceptor(timeProvider));
+        _ = optionsBuilder.AddInterceptors(new SoftDeleteInterceptor(timeProvider));
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -24,7 +24,7 @@ public abstract class ModuleDbContext(DbContextOptions options, TimeProvider tim
         ArgumentNullException.ThrowIfNull(modelBuilder);
         base.OnModelCreating(modelBuilder);
 
-        modelBuilder.HasDefaultSchema(Schema);
+        _ = modelBuilder.HasDefaultSchema(Schema);
         ConfigureSoftDeleteQueryFilters(modelBuilder);
     }
 
@@ -44,13 +44,13 @@ public abstract class ModuleDbContext(DbContextOptions options, TimeProvider tim
             if (typeof(ISoftDelete).IsAssignableFrom(entityType.ClrType))
             {
                 var method = s_setGlobalQueryForSoftDeleteMethod.MakeGenericMethod(entityType.ClrType);
-                method.Invoke(this, [modelBuilder]);
+                _ = method.Invoke(this, [modelBuilder]);
             }
         }
     }
 
     private static void SetGlobalQueryForSoftDelete<T>(ModelBuilder modelBuilder) where T : class, ISoftDelete
     {
-        modelBuilder.Entity<T>().HasQueryFilter(Constants.SoftDeleteFilter, e => e.DeletedAt == null);
+        _ = modelBuilder.Entity<T>().HasQueryFilter(Constants.SoftDeleteFilter, e => e.DeletedAt == null);
     }
 }

@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -26,19 +25,19 @@ public static class FeatureFlagExtensions
 
         var definitions = builder.Configuration.GetSection(ConfigSection).Get<List<FeatureFlagDefinition>>() ?? [];
 
-        builder.Services.AddOpenFeature(featureBuilder =>
+        _ = builder.Services.AddOpenFeature(featureBuilder =>
         {
-            featureBuilder.AddContext((contextBuilder, sp) =>
+            _ = featureBuilder.AddContext((contextBuilder, sp) =>
             {
-                contextBuilder.Set("environment", builder.Environment.EnvironmentName);
+                _ = contextBuilder.Set("environment", builder.Environment.EnvironmentName);
             });
-            featureBuilder.AddHook(new TracingHook());
-            featureBuilder.AddHook(new OpenFeature.Hooks.MetricsHook());
-            featureBuilder.AddHook(sp => new LoggingHook(sp.GetRequiredService<ILogger<LoggingHook>>()));
-            featureBuilder.AddProvider(_ => new InMemoryProvider(BuildFlags(definitions)));
+            _ = featureBuilder.AddHook(new TracingHook());
+            _ = featureBuilder.AddHook(new OpenFeature.Hooks.MetricsHook());
+            _ = featureBuilder.AddHook(sp => new LoggingHook(sp.GetRequiredService<ILogger<LoggingHook>>()));
+            _ = featureBuilder.AddProvider(_ => new InMemoryProvider(BuildFlags(definitions)));
         });
 
-        builder.Services.AddSingleton<IReadOnlyList<FeatureFlagDefinition>>(definitions);
+        _ = builder.Services.AddSingleton<IReadOnlyList<FeatureFlagDefinition>>(definitions);
 
         return builder;
     }

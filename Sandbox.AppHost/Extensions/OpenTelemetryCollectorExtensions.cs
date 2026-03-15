@@ -13,8 +13,9 @@ internal static class OpenTelemetryCollectorExtensions
     /// Inspired by Martin Thwaites https://github.com/practical-otel/opentelemetry-aspire-collector/tree/main
     /// Inspired by Aspire Samples https://github.com/dotnet/aspire-samples/blob/main/samples/Metrics/MetricsApp.AppHost/OpenTelemetryCollector/OpenTelemetryCollectorResourceBuilderExtensions.cs
     /// </summary>
-    /// <param name="builder"></param>
-    /// <returns></returns>
+    /// <param name="builder">The distributed application builder.</param>
+    /// <param name="otelConfig">The path to the OpenTelemetry Collector configuration file.</param>
+    /// <returns>The configured OpenTelemetry Collector resource builder.</returns>
     public static IResourceBuilder<OpenTelemetryCollectorResource> AddOpenTelemetryCollector(this IDistributedApplicationBuilder builder, string otelConfig)
     {
         var collectorResource = new OpenTelemetryCollectorResource("otelcollector");

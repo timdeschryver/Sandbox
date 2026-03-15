@@ -130,7 +130,7 @@ internal static class Extensions
             {
                 redirectUrl = "/";
             }
-            if (redirectUrl.StartsWith('/'))
+            if (redirectUrl.StartsWith('/', StringComparison.Ordinal))
             {
                 redirectUrl = context.Request.Scheme + "://" + context.Request.Host + context.Request.PathBase + redirectUrl;
             }
