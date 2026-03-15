@@ -128,9 +128,17 @@ jobs:
 
       - uses: ./.github/actions/setup-pnpm
 
-      - name: Install Playwright Browsers
-        timeout-minutes: 2
-        run: pnpm --filter='sandbox.e2e' exec playwright install --with-deps
+      - name: OIDC Login to Azure Public Cloud
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          enable-AzPSSession: true
+
+      # - name: Install Playwright Browsers
+      #   timeout-minutes: 2
+      #   run: pnpm --filter='sandbox.e2e' exec playwright install --with-deps
 
       - name: Trust .NET dev certs
         run: |
@@ -150,8 +158,9 @@ jobs:
           SOPS_AGE_KEY: ${{ secrets.SOPS_AGE_KEY }}
 
       - name: E2E test frontend projects
-        run: pnpm --filter="sandbox.e2e" test
+        run: pnpm --filter="sandbox.e2e" test --config=playwright.service.config.ts
         env:
+          PLAYWRIGHT_SERVICE_URL: ${{ secrets.PLAYWRIGHT_SERVICE_URL }}
           PLAYWRIGHT_USERNAME: ${{ secrets.PLAYWRIGHT_USERNAME }}
           PLAYWRIGHT_PASSWORD: ${{ secrets.PLAYWRIGHT_PASSWORD }}
           APPLICATION_URL: ${{ vars.APPLICATION_URL }}

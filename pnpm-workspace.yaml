@@ -3,6 +3,8 @@ packages:
   - 'Sandbox.EndToEndTests'
 
 catalog:
+  '@azure/identity': '4.13.0'
+  '@azure/playwright': '1.1.2'
   '@stoplight/spectral-cli': '6.15.0'
   '@types/node': '24.10.13'
   'dotenv': '17.3.1'

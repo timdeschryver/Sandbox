@@ -9,6 +9,8 @@
 	},
 	"type": "module",
 	"devDependencies": {
+		"@azure/identity": "catalog:",
+		"@azure/playwright": "catalog:",
 		"@eslint/js": "catalog:eslint",
 		"@playwright/test": "catalog:playwright",
 		"@types/node": "catalog:",
