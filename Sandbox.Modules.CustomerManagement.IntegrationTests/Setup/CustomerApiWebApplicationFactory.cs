@@ -31,15 +31,15 @@ public class CustomerApiWebApplicationFactory : TestWebApplicationFactory<Progra
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
         ArgumentNullException.ThrowIfNull(builder);
-        builder.UseSetting("ConnectionStrings:sandbox-db", Database.Container.GetConnectionString());
-        builder.UseSetting("ConnectionStrings:cache", Cache.Container.GetConnectionString());
+        _ = builder.UseSetting("ConnectionStrings:sandbox-db", Database.Container.GetConnectionString());
+        _ = builder.UseSetting("ConnectionStrings:cache", Cache.Container.GetConnectionString());
 
-        builder.ConfigureServices(services =>
+        _ = builder.ConfigureServices(services =>
         {
-            services.AddAuthentication(defaultScheme: "Test")
+            _ = services.AddAuthentication(defaultScheme: "Test")
                 .AddScheme<AuthenticationSchemeOptions, CustomerApiAuthenticationHandler>("Test", options => { });
 
-            services.AddDbContext<CustomerDbContext>(
+            _ = services.AddDbContext<CustomerDbContext>(
                 options =>
                     options.UseNpgsql(
                         Database.Container.GetConnectionString(),
@@ -53,11 +53,11 @@ public class CustomerApiWebApplicationFactory : TestWebApplicationFactory<Progra
                 d => d.ImplementationType == typeof(HostedFeatureLifecycleService));
             if (openFeatureLifecycle is not null)
             {
-                services.Remove(openFeatureLifecycle);
+                _ = services.Remove(openFeatureLifecycle);
             }
         });
 
-        builder.UseEnvironment("IntegrationTest");
+        _ = builder.UseEnvironment("IntegrationTest");
     }
 
     public static ApiClient CreateApiClient(HttpClient httpClient)

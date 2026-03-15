@@ -12,7 +12,7 @@ public sealed class CustomerTests
     {
         var customer = Customer.Create(CustomerId.New(), FullName.From("John", "Doe"));
 
-        await Assert.That(customer.Name.ToString()).IsEqualTo("John Doe");
+        _ = await Assert.That(customer.Name.ToString()).IsEqualTo("John Doe");
     }
 
     [Test]
@@ -21,11 +21,11 @@ public sealed class CustomerTests
         var customer = Customer.Create(CustomerId.New(), FullName.From("John", "Doe"));
         customer.AddBillingAddress(CustomerBillingAddress.Create(CustomerAddressId.New(), Address.From("456 Elm St", "Los Angeles", "90001")));
 
-        await Assert.That(customer.BillingAddresses)
+        _ = await Assert.That(customer.BillingAddresses)
             .Count()
             .IsEqualTo(1);
 
-        await Assert.That(customer.BillingAddresses)
+        _ = await Assert.That(customer.BillingAddresses)
             .Satisfies(addresses => addresses is not null && addresses.All(a => a.Type == "Billing"));
     }
 
@@ -36,7 +36,7 @@ public sealed class CustomerTests
         customer.AddBillingAddress(CustomerBillingAddress.Create(CustomerAddressId.New(), Address.From("456 Elm St", "Los Angeles", "90001")));
         customer.AddBillingAddress(CustomerBillingAddress.Create(CustomerAddressId.New(), Address.From("456 Elm St", "Los Angeles", "90001")));
 
-        await Assert.That(customer.BillingAddresses.Count).IsEqualTo(1);
+        _ = await Assert.That(customer.BillingAddresses.Count).IsEqualTo(1);
     }
 
     [Test]
@@ -45,11 +45,11 @@ public sealed class CustomerTests
         var customer = Customer.Create(CustomerId.New(), FullName.From("John", "Doe"));
         customer.AddShippingAddress(CustomerShippingAddress.Create(CustomerAddressId.New(), Address.From("456 Elm St", "Los Angeles", "90001"), "Leave at front door"));
 
-        await Assert.That(customer.ShippingAddresses)
+        _ = await Assert.That(customer.ShippingAddresses)
             .Count()
             .IsEqualTo(1);
 
-        await Assert.That(customer.ShippingAddresses)
+        _ = await Assert.That(customer.ShippingAddresses)
             .Satisfies(addresses => addresses is not null && addresses.All(a => a is { Type: "Shipping", Note: "Leave at front door" }));
     }
 
@@ -60,7 +60,7 @@ public sealed class CustomerTests
         customer.AddShippingAddress(CustomerShippingAddress.Create(CustomerAddressId.New(), Address.From("456 Elm St", "Los Angeles", "90001"), "Leave at front door"));
         customer.AddShippingAddress(CustomerShippingAddress.Create(CustomerAddressId.New(), Address.From("456 Elm St", "Los Angeles", "90001"), "Other note"));
 
-        await Assert.That(customer.ShippingAddresses.Count).IsEqualTo(1);
+        _ = await Assert.That(customer.ShippingAddresses.Count).IsEqualTo(1);
     }
 
     [Test]
@@ -71,7 +71,7 @@ public sealed class CustomerTests
 
         (customer as ISoftDelete).Delete(fakeTime);
 
-        await Assert.That((customer as ISoftDelete).IsDeleted).IsTrue();
-        await Assert.That(customer.DeletedAt).IsEqualTo(fakeTime.GetUtcNow());
+        _ = await Assert.That((customer as ISoftDelete).IsDeleted).IsTrue();
+        _ = await Assert.That(customer.DeletedAt).IsEqualTo(fakeTime.GetUtcNow());
     }
 }

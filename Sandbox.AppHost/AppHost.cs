@@ -127,13 +127,13 @@ var migrations = builder.AddProject<Projects.Sandbox_Migrations>("migrations")
 
 if (builder.Environment.IsDevelopment())
 {
-    migrations.WithHttpCommand(path: "/reset-db", displayName: "Reset Database", commandOptions: new HttpCommandOptions
+    _ = migrations.WithHttpCommand(path: "/reset-db", displayName: "Reset Database", commandOptions: new HttpCommandOptions
     {
         IconName = "DatabaseLightning",
         ConfirmationMessage = "Are you sure you want to reset the database?",
     });
 
-    migrations.WithHttpCommand(path: "/reseed-db", displayName: "Reseed Database", commandOptions: new HttpCommandOptions
+    _ = migrations.WithHttpCommand(path: "/reseed-db", displayName: "Reseed Database", commandOptions: new HttpCommandOptions
     {
         IconName = "DatabaseLightning",
         ConfirmationMessage = "Are you sure you want to reseed the database?",
@@ -168,7 +168,7 @@ var angularApplication = builder
     })
     .PublishAsDockerFile(configure: resource =>
     {
-        resource.WithDockerfile("../", stage: "sandbox-app");
+        _ = resource.WithDockerfile("../", stage: "sandbox-app");
     });
 
 var gateway = builder.AddProject<Projects.Sandbox_Gateway>("gateway")

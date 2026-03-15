@@ -11,7 +11,7 @@ public class CustomerDbContext(DbContextOptions<CustomerDbContext> options, Time
     {
         ArgumentNullException.ThrowIfNull(modelBuilder);
 
-        modelBuilder.ApplyConfigurationsFromAssembly(typeof(CustomerDbContext).Assembly);
+        _ = modelBuilder.ApplyConfigurationsFromAssembly(typeof(CustomerDbContext).Assembly);
         base.OnModelCreating(modelBuilder);
     }
 }

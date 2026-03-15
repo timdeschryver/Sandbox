@@ -27,10 +27,10 @@ app.UseSecurityHeaders();
 
 if (app.Environment.IsDevelopment())
 {
-    app.MapOpenApi();
-    app.MapScalarApiReference("api-docs", options =>
+    _ = app.MapOpenApi();
+    _ = app.MapScalarApiReference("api-docs", options =>
     {
-        options.WithTitle("Sandbox API");
+        _ = options.WithTitle("Sandbox API");
     });
 }
 

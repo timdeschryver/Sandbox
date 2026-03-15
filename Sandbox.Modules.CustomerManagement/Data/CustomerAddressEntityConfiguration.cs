@@ -9,21 +9,21 @@ internal class CustomerAddressEntityConfiguration : IEntityTypeConfiguration<Cus
 {
     public void Configure(EntityTypeBuilder<CustomerAddress> builder)
     {
-        builder.ToTable("customeraddresses");
-        builder.HasKey(p => p.Id);
+        _ = builder.ToTable("customeraddresses");
+        _ = builder.HasKey(p => p.Id);
 
-        builder.Property<CustomerId>("CustomerId")
+        _ = builder.Property<CustomerId>("CustomerId")
             .HasVogenConversion()
             .IsRequired();
 
-        builder.ComplexProperty(p => p.Address, o =>
+        _ = builder.ComplexProperty(p => p.Address, o =>
         {
-            o.Property(p => p.Street).HasMaxLength(255);
-            o.Property(p => p.City).HasMaxLength(100);
-            o.Property(p => p.ZipCode).HasMaxLength(20);
+            _ = o.Property(p => p.Street).HasMaxLength(255);
+            _ = o.Property(p => p.City).HasMaxLength(100);
+            _ = o.Property(p => p.ZipCode).HasMaxLength(20);
         });
 
-        builder.HasDiscriminator<string>("AddressType")
+        _ = builder.HasDiscriminator<string>("AddressType")
             .HasValue<CustomerBillingAddress>("Billing")
             .HasValue<CustomerShippingAddress>("Shipping");
     }

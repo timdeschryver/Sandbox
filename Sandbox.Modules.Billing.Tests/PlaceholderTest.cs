@@ -9,6 +9,6 @@ public sealed class PlaceholderTest
     {
         var fakeTime = new FakeTimeProvider(startDateTime: new DateTime(2025, 1, 1));
         fakeTime.Advance(TimeSpan.FromDays(1));
-        await Assert.That(fakeTime.GetLocalNow()).IsEqualTo(new DateTime(2025, 1, 2));
+        _ = await Assert.That(fakeTime.GetLocalNow()).IsEqualTo(new DateTime(2025, 1, 2));
     }
 }
