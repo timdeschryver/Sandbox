@@ -357,6 +357,8 @@ test.describe('Form Validation - Customer Creation', () => {
 		const streetField = page.getByRole('textbox', { name: 'Street' });
 		await expect(streetField).toBeHidden();
 
+		await page.locator('*:focus').blur();
+
 		// Check the checkbox
 		await page.getByRole('checkbox', { name: 'Add Billing Address' }).check();
 
