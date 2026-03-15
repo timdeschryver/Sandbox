@@ -1,10 +1,10 @@
 # Project Architecture Blueprint
 
-Generated: 2026-02-26
+Generated: 2026-03-15
 
 ## 1) Executive Summary
 
-Sandbox is a monorepo that combines an Angular 21 frontend and a .NET 10 backend using a **BFF + modular monolith** architecture, orchestrated by **.NET Aspire**. The runtime topology is:
+Sandbox is a monorepo that combines an Angular 21 frontend and a .NET 11 Preview 2 backend using a **BFF + modular monolith** architecture, orchestrated by **.NET Aspire**. The runtime topology is:
 
 - **Edge/BFF**: `Sandbox.Gateway` (YARP reverse proxy + OIDC + anti-forgery)
 - **Core API**: `Sandbox.ApiService` (modular monolith host)
@@ -20,7 +20,7 @@ The architecture prioritizes security (tokens never exposed to SPA), modular bou
 
 ### Technology Stack
 
-- **Backend**: .NET 10, ASP.NET Core minimal APIs, EF Core, YARP, Wolverine
+- **Backend**: .NET 11 Preview 2, ASP.NET Core minimal APIs, EF Core, YARP, Wolverine
 - **Frontend**: Angular 21 standalone style workspace
 - **Data**: PostgreSQL (module schemas), Redis (distributed cache/backplane)
 - **Security**: Keycloak (OIDC/OAuth2), cookie session at gateway, JWT at API
