@@ -12,7 +12,7 @@ public class BillingDbContext(DbContextOptions<BillingDbContext> options, TimePr
     {
         ArgumentNullException.ThrowIfNull(modelBuilder);
 
-        _ = modelBuilder.ApplyConfigurationsFromAssembly(typeof(BillingDbContext).Assembly);
+        modelBuilder.ApplyConfigurationsFromAssembly(typeof(BillingDbContext).Assembly);
         base.OnModelCreating(modelBuilder);
     }
 }

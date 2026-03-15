@@ -19,7 +19,7 @@ internal static class Extensions
     {
         public WebApplicationBuilder AddAuthentication()
         {
-            _ = builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddKeycloakJwtBearer(
                     serviceName: "keycloak",
                     realm: "sandbox",
@@ -31,13 +31,13 @@ internal static class Extensions
                             options.RequireHttpsMetadata = false;
                         }
                     });
-            _ = builder.Services.AddAuthorization();
+            builder.Services.AddAuthorization();
             return builder;
         }
 
         public WebApplicationBuilder AddOpenApi()
         {
-            _ = builder.Services.AddOpenApi(openApi =>
+            builder.Services.AddOpenApi(openApi =>
             {
                 openApi.CreateSchemaReferenceId = (jsonTypeInfo) =>
                 {
@@ -50,7 +50,7 @@ internal static class Extensions
                     return jsonTypeInfo.Type.FullName.Replace("+", ".", StringComparison.Ordinal);
                 };
 
-                _ = openApi.AddDocumentTransformer((document, _, _) =>
+                openApi.AddDocumentTransformer((document, _, _) =>
                 {
                     document.Servers = [new OpenApiServer { Url = "https://localhost:7333" }];
                     document.Info = new OpenApiInfo
@@ -67,7 +67,7 @@ internal static class Extensions
                     };
                     return Task.CompletedTask;
                 });
-                _ = openApi.AddDocumentTransformer<BearerSecuritySchemeTransformer>();
+                openApi.AddDocumentTransformer<BearerSecuritySchemeTransformer>();
             });
 
             return builder;
@@ -75,8 +75,8 @@ internal static class Extensions
 
         public WebApplicationBuilder AddErrorHandling()
         {
-            _ = builder.Services.AddExceptionHandler<ExceptionHandler>();
-            _ = builder.Services.AddProblemDetails(options =>
+            builder.Services.AddExceptionHandler<ExceptionHandler>();
+            builder.Services.AddProblemDetails(options =>
             {
                 options.CustomizeProblemDetails = context =>
                 {
@@ -89,7 +89,7 @@ internal static class Extensions
         public WebApplicationBuilder AddCaching()
         {
             builder.AddRedisDistributedCache(connectionName: "cache");
-            _ = builder.Services.AddFusionCache()
+            builder.Services.AddFusionCache()
                 .WithOptions(options =>
                 {
                     options.DistributedCacheCircuitBreakerDuration = TimeSpan.FromSeconds(2);
@@ -114,7 +114,7 @@ internal static class Extensions
                     JitterMaxDuration = TimeSpan.FromSeconds(2)
                 });
 
-            _ = builder.Services
+            builder.Services
                 .AddFusionCacheSystemTextJsonSerializer()
                 .AddFusionCacheStackExchangeRedisBackplane(options =>
                 {
@@ -130,8 +130,8 @@ internal static class Extensions
         public WebApplicationBuilder AddWolverine()
         {
 
-            _ = builder.Services.AddResourceSetupOnStartup();
-            _ = builder.Host.UseWolverine(opts =>
+            builder.Services.AddResourceSetupOnStartup();
+            builder.Host.UseWolverine(opts =>
             {
                 // Required to generate the OpenAPI document, otherwise this exception is thrown
                 if (Environment.GetCommandLineArgs().Any(e => e.Contains("GetDocument.Insider", StringComparison.OrdinalIgnoreCase)))
@@ -139,7 +139,7 @@ internal static class Extensions
                     return;
                 }
                 var connectionString = builder.Configuration.GetConnectionString("sandbox-db") ?? throw new InvalidOperationException("Connection string 'sandbox-db' not found.");
-                _ = opts.PersistMessagesWithPostgresql(connectionString, "wolverine");
+                opts.PersistMessagesWithPostgresql(connectionString, "wolverine");
                 opts.UseEntityFrameworkCoreTransactions();
                 opts.MultipleHandlerBehavior = MultipleHandlerBehavior.Separated;
                 opts.Durability.MessageIdentity = MessageIdentity.IdAndDestination;
@@ -151,7 +151,7 @@ internal static class Extensions
 
         public WebApplicationBuilder AddSecurity()
         {
-            _ = builder.Services.AddSecurityHeaderPolicies()
+            builder.Services.AddSecurityHeaderPolicies()
                 .SetPolicySelector(ctx => GetApiHeaderPolicyCollection(builder.Environment.IsDevelopment()));
             return builder;
         }
@@ -174,24 +174,24 @@ internal static class Extensions
             .RemoveServerHeader()
             .AddPermissionsPolicyWithDefaultSecureDirectives();
 
-        _ = s_headerApiPolicy.AddContentSecurityPolicy(builder =>
+        s_headerApiPolicy.AddContentSecurityPolicy(builder =>
         {
-            _ = builder.AddObjectSrc().None();
-            _ = builder.AddBlockAllMixedContent();
-            _ = builder.AddImgSrc().None();
-            _ = builder.AddFormAction().None();
-            _ = builder.AddFontSrc().None();
-            _ = builder.AddStyleSrc().None();
-            _ = builder.AddScriptSrc().None();
-            _ = builder.AddScriptSrcElem().None();
-            _ = builder.AddBaseUri().Self();
-            _ = builder.AddFrameAncestors().None();
-            _ = builder.AddCustomDirective("require-trusted-types-for", "'script'");
+            builder.AddObjectSrc().None();
+            builder.AddBlockAllMixedContent();
+            builder.AddImgSrc().None();
+            builder.AddFormAction().None();
+            builder.AddFontSrc().None();
+            builder.AddStyleSrc().None();
+            builder.AddScriptSrc().None();
+            builder.AddScriptSrcElem().None();
+            builder.AddBaseUri().Self();
+            builder.AddFrameAncestors().None();
+            builder.AddCustomDirective("require-trusted-types-for", "'script'");
         });
 
         if (!isDev)
         {
-            _ = s_headerApiPolicy.AddStrictTransportSecurityMaxAgeIncludeSubDomainsAndPreload();
+            s_headerApiPolicy.AddStrictTransportSecurityMaxAgeIncludeSubDomainsAndPreload();
         }
 
         return s_headerApiPolicy;

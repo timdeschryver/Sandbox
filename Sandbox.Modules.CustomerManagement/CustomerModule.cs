@@ -20,20 +20,20 @@ public class CustomerManagementModule : IModule
     {
         ArgumentNullException.ThrowIfNull(builder);
 
-        _ = builder.Services.AddValidation();
-        _ = builder.Services.ConfigureHttpJsonOptions(options =>
+        builder.Services.AddValidation();
+        builder.Services.ConfigureHttpJsonOptions(options =>
         {
             options.SerializerOptions.UnmappedMemberHandling = JsonUnmappedMemberHandling.Disallow;
         });
 
-        _ = builder.Services.AddDbContext<CustomerDbContext>(opt =>
+        builder.Services.AddDbContext<CustomerDbContext>(opt =>
         {
-            _ = opt.UseNpgsql(builder.Configuration.GetConnectionString("sandbox-db"));
+            opt.UseNpgsql(builder.Configuration.GetConnectionString("sandbox-db"));
         });
 
-        _ = builder.Services.AddTransient(sp => sp.GetRequiredService<CustomerDbContext>().Set<Customer>().AsNoTracking());
+        builder.Services.AddTransient(sp => sp.GetRequiredService<CustomerDbContext>().Set<Customer>().AsNoTracking());
 
-        _ = builder.Services.AddFusionCache("Customers")
+        builder.Services.AddFusionCache("Customers")
             .TryWithAutoSetup()
             .WithCacheKeyPrefixByCacheName()
             .AsKeyedHybridCacheByCacheName();
@@ -47,16 +47,16 @@ public class CustomerManagementModule : IModule
         var group = app.MapGroup("customers")
             .RequireAuthorization()
             .WithTags("Customer Management");
-        _ = group.MapGet("", GetCustomers.Query)
+        group.MapGet("", GetCustomers.Query)
             .WithName("GetCustomers")
             .WithDescription("Get all customers");
-        _ = group.MapGet("{customerId}", GetCustomer.Query)
+        group.MapGet("{customerId}", GetCustomer.Query)
             .WithName("GetCustomer")
             .WithDescription("Get a customer by ID");
-        _ = group.MapPost("", CreateCustomer.Handle)
+        group.MapPost("", CreateCustomer.Handle)
             .WithName("CreateCustomer")
             .WithDescription("Create a new customer");
-        _ = group.MapDelete("{customerId}", DeleteCustomer.Handle)
+        group.MapDelete("{customerId}", DeleteCustomer.Handle)
             .WithName("DeleteCustomer")
             .WithDescription("Delete a customer by ID");
         return app;

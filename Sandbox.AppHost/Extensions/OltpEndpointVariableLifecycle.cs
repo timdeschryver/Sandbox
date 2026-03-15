@@ -42,7 +42,7 @@ internal sealed partial class OltpEndpointVariableLifecycle(ILogger<OltpEndpoint
 
     public Task SubscribeAsync(IDistributedApplicationEventing eventing, DistributedApplicationExecutionContext executionContext, CancellationToken cancellationToken)
     {
-        _ = eventing.Subscribe<BeforeStartEvent>(OnBeforeStartAsync);
+        eventing.Subscribe<BeforeStartEvent>(OnBeforeStartAsync);
         return Task.CompletedTask;
     }
 

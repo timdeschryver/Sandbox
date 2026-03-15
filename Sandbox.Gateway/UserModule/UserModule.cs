@@ -9,7 +9,7 @@ internal static partial class UserModule
 {
     internal static IEndpointRouteBuilder MapUserEndpoints(this IEndpointRouteBuilder builder)
     {
-        _ = builder.MapGet("user", (ClaimsPrincipal principal) =>
+        builder.MapGet("user", (ClaimsPrincipal principal) =>
         {
             var user = principal switch
             {
@@ -29,7 +29,7 @@ internal static partial class UserModule
             return TypedResults.Ok(user);
         });
 
-        _ = builder.MapGet("login", (string? returnUrl, string? claimsChallenge, HttpContext context) =>
+        builder.MapGet("login", (string? returnUrl, string? claimsChallenge, HttpContext context) =>
         {
             var properties = new AuthenticationProperties
             {
@@ -45,7 +45,7 @@ internal static partial class UserModule
             return TypedResults.Challenge(properties);
         });
 
-        _ = builder.MapGet("logout", (string? redirectUrl, HttpContext context) =>
+        builder.MapGet("logout", (string? redirectUrl, HttpContext context) =>
         {
             var properties = new AuthenticationProperties
             {

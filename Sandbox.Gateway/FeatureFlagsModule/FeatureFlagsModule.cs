@@ -7,7 +7,7 @@ internal static class FeatureFlagsModule
 {
     internal static IEndpointRouteBuilder MapFeatureFlagEndpoints(this IEndpointRouteBuilder builder)
     {
-        _ = builder.MapGet("feature-flags", ([FromServices] IReadOnlyList<FeatureFlagDefinition> definitions) =>
+        builder.MapGet("feature-flags", ([FromServices] IReadOnlyList<FeatureFlagDefinition> definitions) =>
         {
             IReadOnlyList<FeatureFlag> flags = definitions
                 .Where(d => d.FrontendVisible)

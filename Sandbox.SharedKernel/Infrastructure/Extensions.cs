@@ -18,7 +18,7 @@ internal static class Extensions
         {
             if (IsVogenValueObject(type) && TryGetEfValueConverter(type, out var efCoreConverterType))
             {
-                _ = configurationBuilder
+                configurationBuilder
                     .Properties(type)
                     .HaveConversion(efCoreConverterType);
             }

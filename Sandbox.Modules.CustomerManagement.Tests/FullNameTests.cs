@@ -12,9 +12,9 @@ public sealed class FullNameTests
     [DisplayName("Test with: $firstName $lastName")]
     public async Task FullName_throws_exception_when_name_is_null_or_empty(string? firstName, string? lastName)
     {
-        _ = await Assert.That(() =>
+        await Assert.That(() =>
         {
-            _ = FullName.From(firstName, lastName);
+            FullName.From(firstName, lastName);
         }).Throws<ArgumentException>();
     }
 
@@ -23,7 +23,7 @@ public sealed class FullNameTests
     {
         var fullName = FullName.From("Alice", "Smith");
 
-        _ = await Assert.That(fullName)
+        await Assert.That(fullName)
             .Member(s => s.FirstName, firstName => firstName.IsEqualTo("Alice"))
             .And.Member(s => s.LastName, lastName => lastName.IsEqualTo("Smith"));
     }

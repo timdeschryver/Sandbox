@@ -18,9 +18,9 @@ public class BillingModule : IModule
     {
         ArgumentNullException.ThrowIfNull(builder);
 
-        _ = builder.Services.AddDbContext<BillingDbContext>(opt =>
+        builder.Services.AddDbContext<BillingDbContext>(opt =>
         {
-            _ = opt.UseNpgsql(builder.Configuration.GetConnectionString("sandbox-db"));
+            opt.UseNpgsql(builder.Configuration.GetConnectionString("sandbox-db"));
         });
 
         return builder;
@@ -30,7 +30,7 @@ public class BillingModule : IModule
     {
         ArgumentNullException.ThrowIfNull(app);
 
-        _ = app.MapGroup("billing")
+        app.MapGroup("billing")
             .RequireAuthorization()
             .WithTags("Billing")
             .MapGet("", GetBillingOverview.Query)

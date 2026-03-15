@@ -15,7 +15,7 @@ internal static partial class CommandResourceBuilderExtensions
             IsHighlighted = true,
         };
 
-        _ = builder.WithCommand(
+        builder.WithCommand(
             name: "repeat-playwright-tests",
             displayName: "Repeat Playwright Tests",
             executeCommand: async (context) =>

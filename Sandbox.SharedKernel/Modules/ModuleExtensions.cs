@@ -11,7 +11,7 @@ public static class ModuleExtensions
     {
         foreach (var module in s_modules)
         {
-            _ = module.AddModule(services);
+            module.AddModule(services);
         }
 
         return services;
@@ -21,7 +21,7 @@ public static class ModuleExtensions
     {
         foreach (var module in s_modules)
         {
-            _ = module.UseModule(app);
+            module.UseModule(app);
         }
 
         return app;

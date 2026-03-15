@@ -16,11 +16,11 @@ internal static class Extensions
     {
         public IHostApplicationBuilder AddReverseProxy()
         {
-            _ = builder.Services.AddSingleton<AddBearerTokenToHeadersTransform>();
-            _ = builder.Services.AddSingleton<AddAntiforgeryTokenResponseTransform>();
-            _ = builder.Services.AddSingleton<ValidateAntiforgeryTokenRequestTransform>();
+            builder.Services.AddSingleton<AddBearerTokenToHeadersTransform>();
+            builder.Services.AddSingleton<AddAntiforgeryTokenResponseTransform>();
+            builder.Services.AddSingleton<ValidateAntiforgeryTokenRequestTransform>();
 
-            _ = builder.Services
+            builder.Services
                 .AddReverseProxy()
                 .LoadFromConfig(builder.Configuration.GetSection("ReverseProxy"))
                 .AddTransforms(builderContext =>
@@ -41,7 +41,7 @@ internal static class Extensions
 
         public IHostApplicationBuilder AddAuthenticationSchemes()
         {
-            _ = builder.Services.AddAuthentication(options =>
+            builder.Services.AddAuthentication(options =>
                 {
                     options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
                     options.DefaultChallengeScheme = OpenIdConnectDefaults.AuthenticationScheme;
@@ -85,7 +85,7 @@ internal static class Extensions
                         }
                     });
 
-            _ = builder.Services
+            builder.Services
                 .AddAuthorizationBuilder()
                 .SetDefaultPolicy(new AuthorizationPolicyBuilder(CookieAuthenticationDefaults.AuthenticationScheme)
                     .RequireAuthenticatedUser()
@@ -96,9 +96,9 @@ internal static class Extensions
 
         public IHostApplicationBuilder AddRateLimiting()
         {
-            _ = builder.Services.AddRateLimiter(options =>
+            builder.Services.AddRateLimiter(options =>
             {
-                _ = options.AddPolicy("user-or-ip", httpContext =>
+                options.AddPolicy("user-or-ip", httpContext =>
                 {
                     var partitionKey = httpContext.User.Identity?.IsAuthenticated == true
                         ? httpContext.User.FindFirstValue("name") ?? "anonymous"

@@ -33,7 +33,7 @@ public static class DeleteCustomer
             return TypedResults.NotFound();
         }
 
-        _ = outbox.DbContext.Remove(customer);
+        outbox.DbContext.Remove(customer);
         await outbox.PublishAsync(new CustomerDeleted(customer.Id));
         await outbox.SaveChangesAndFlushMessagesAsync(cancellationToken);
 

@@ -25,19 +25,19 @@ public static class FeatureFlagExtensions
 
         var definitions = builder.Configuration.GetSection(ConfigSection).Get<List<FeatureFlagDefinition>>() ?? [];
 
-        _ = builder.Services.AddOpenFeature(featureBuilder =>
+        builder.Services.AddOpenFeature(featureBuilder =>
         {
-            _ = featureBuilder.AddContext((contextBuilder, sp) =>
+            featureBuilder.AddContext((contextBuilder, sp) =>
             {
-                _ = contextBuilder.Set("environment", builder.Environment.EnvironmentName);
+                contextBuilder.Set("environment", builder.Environment.EnvironmentName);
             });
-            _ = featureBuilder.AddHook(new TracingHook());
-            _ = featureBuilder.AddHook(new OpenFeature.Hooks.MetricsHook());
-            _ = featureBuilder.AddHook(sp => new LoggingHook(sp.GetRequiredService<ILogger<LoggingHook>>()));
-            _ = featureBuilder.AddProvider(_ => new InMemoryProvider(BuildFlags(definitions)));
+            featureBuilder.AddHook(new TracingHook());
+            featureBuilder.AddHook(new OpenFeature.Hooks.MetricsHook());
+            featureBuilder.AddHook(sp => new LoggingHook(sp.GetRequiredService<ILogger<LoggingHook>>()));
+            featureBuilder.AddProvider(_ => new InMemoryProvider(BuildFlags(definitions)));
         });
 
-        _ = builder.Services.AddSingleton<IReadOnlyList<FeatureFlagDefinition>>(definitions);
+        builder.Services.AddSingleton<IReadOnlyList<FeatureFlagDefinition>>(definitions);
 
         return builder;
     }

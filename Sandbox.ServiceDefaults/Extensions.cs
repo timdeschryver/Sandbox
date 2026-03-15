@@ -20,19 +20,19 @@ public static class Extensions
 
     public static TBuilder AddServiceDefaults<TBuilder>(this TBuilder builder) where TBuilder : IHostApplicationBuilder
     {
-        _ = builder.ConfigureOpenTelemetry();
+        builder.ConfigureOpenTelemetry();
 
-        _ = builder.AddDefaultHealthChecks();
+        builder.AddDefaultHealthChecks();
 
-        _ = builder.Services.AddServiceDiscovery();
+        builder.Services.AddServiceDiscovery();
 
-        _ = builder.Services.ConfigureHttpClientDefaults(http =>
+        builder.Services.ConfigureHttpClientDefaults(http =>
         {
             // Turn on resilience by default
-            _ = http.AddStandardResilienceHandler();
+            http.AddStandardResilienceHandler();
 
             // Turn on service discovery by default
-            _ = http.AddServiceDiscovery();
+            http.AddServiceDiscovery();
         });
 
         // Uncomment the following to restrict the allowed schemes for service discovery.
@@ -46,22 +46,22 @@ public static class Extensions
 
     public static TBuilder ConfigureOpenTelemetry<TBuilder>(this TBuilder builder) where TBuilder : IHostApplicationBuilder
     {
-        _ = builder.Logging.AddOpenTelemetry(logging =>
+        builder.Logging.AddOpenTelemetry(logging =>
         {
             logging.IncludeFormattedMessage = true;
             logging.IncludeScopes = true;
         });
 
-        _ = builder.Services.AddOpenTelemetry()
+        builder.Services.AddOpenTelemetry()
             .WithMetrics(metrics =>
             {
-                _ = metrics.AddAspNetCoreInstrumentation()
+                metrics.AddAspNetCoreInstrumentation()
                     .AddHttpClientInstrumentation()
                     .AddRuntimeInstrumentation();
             })
             .WithTracing(tracing =>
             {
-                _ = tracing.AddSource(builder.Environment.ApplicationName)
+                tracing.AddSource(builder.Environment.ApplicationName)
                     .AddAspNetCoreInstrumentation(tracing =>
                         // Exclude health check requests from tracing
                         tracing.Filter = context =>
@@ -73,7 +73,7 @@ public static class Extensions
                     .AddHttpClientInstrumentation();
             });
 
-        _ = builder.AddOpenTelemetryExporters();
+        builder.AddOpenTelemetryExporters();
 
         return builder;
     }
@@ -84,7 +84,7 @@ public static class Extensions
 
         if (useOtlpExporter)
         {
-            _ = builder.Services.AddOpenTelemetry().UseOtlpExporter();
+            builder.Services.AddOpenTelemetry().UseOtlpExporter();
         }
 
         // Uncomment the following lines to enable the Azure Monitor exporter (requires the Azure.Monitor.OpenTelemetry.AspNetCore package)
@@ -99,7 +99,7 @@ public static class Extensions
 
     public static TBuilder AddDefaultHealthChecks<TBuilder>(this TBuilder builder) where TBuilder : IHostApplicationBuilder
     {
-        _ = builder.Services.AddHealthChecks()
+        builder.Services.AddHealthChecks()
             // Add a default liveness check to ensure app is responsive
             .AddCheck("self", () => HealthCheckResult.Healthy(), ["live"]);
 
@@ -115,10 +115,10 @@ public static class Extensions
         if (app.Environment.IsDevelopment())
         {
             // All health checks must pass for app to be considered ready to accept traffic after starting
-            _ = app.MapHealthChecks(HealthEndpointPath);
+            app.MapHealthChecks(HealthEndpointPath);
 
             // Only health checks tagged with the "live" tag must pass for app to be considered alive
-            _ = app.MapHealthChecks(AlivenessEndpointPath, new HealthCheckOptions
+            app.MapHealthChecks(AlivenessEndpointPath, new HealthCheckOptions
             {
                 Predicate = r => r.Tags.Contains("live")
             });

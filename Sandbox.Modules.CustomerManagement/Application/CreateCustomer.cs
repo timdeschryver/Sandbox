@@ -43,7 +43,7 @@ public static class CreateCustomer
             customer.AddShippingAddress(CustomerShippingAddress.Create(CustomerAddressId.New(), shippingAddress, request.ShippingAddress.Note ?? string.Empty));
         }
 
-        _ = await outbox.DbContext.AddAsync(customer, cancellationToken);
+        await outbox.DbContext.AddAsync(customer, cancellationToken);
         await outbox.PublishAsync(new CustomerCreated(customer.Id, customer.Name.FirstName, customer.Name.LastName));
         await outbox.SaveChangesAndFlushMessagesAsync(cancellationToken);
 

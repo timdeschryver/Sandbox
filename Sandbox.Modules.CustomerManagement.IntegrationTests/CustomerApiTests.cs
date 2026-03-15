@@ -38,7 +38,7 @@ public class CustomerApiTests : WebApplicationTest<CustomerApiWebApplicationFact
             }
         });
 
-        _ = await Assert.That(response).IsNotNull();
+        await Assert.That(response).IsNotNull();
     }
 
     [Test]
@@ -54,7 +54,7 @@ public class CustomerApiTests : WebApplicationTest<CustomerApiWebApplicationFact
             ShippingAddress = null
         });
 
-        _ = await Assert.That(response).IsNotNull();
+        await Assert.That(response).IsNotNull();
     }
 
     [Test]
@@ -64,7 +64,7 @@ public class CustomerApiTests : WebApplicationTest<CustomerApiWebApplicationFact
 
         try
         {
-            _ = await apiClient.Customers.PostAsync(new ApiServiceSDK.Models.Modules.CustomerManagement.Application.CreateCustomer.Request()
+            await apiClient.Customers.PostAsync(new ApiServiceSDK.Models.Modules.CustomerManagement.Application.CreateCustomer.Request()
             {
                 FirstName = "A",
                 LastName = "B",
@@ -76,7 +76,7 @@ public class CustomerApiTests : WebApplicationTest<CustomerApiWebApplicationFact
         }
         catch (Microsoft.Kiota.Abstractions.ApiException ex)
         {
-            _ = await Assert.That(ex.ResponseStatusCode).IsEqualTo(StatusCodes.Status400BadRequest);
+            await Assert.That(ex.ResponseStatusCode).IsEqualTo(StatusCodes.Status400BadRequest);
         }
     }
 
@@ -95,10 +95,10 @@ public class CustomerApiTests : WebApplicationTest<CustomerApiWebApplicationFact
         };
 
         var response = await client.PostAsJsonAsync("/customers", request);
-        _ = await Assert.That(response.StatusCode).IsEqualTo(HttpStatusCode.BadRequest);
+        await Assert.That(response.StatusCode).IsEqualTo(HttpStatusCode.BadRequest);
 
         var problemDetails = await response.Content.ReadFromJsonAsync<ProblemDetails>();
-        _ = await Assert.That(problemDetails).IsNotNull();
+        await Assert.That(problemDetails).IsNotNull();
     }
 
     [Test]
@@ -106,14 +106,14 @@ public class CustomerApiTests : WebApplicationTest<CustomerApiWebApplicationFact
     {
         var apiClient = CustomerApiWebApplicationFactory.CreateApiClient(Factory.CreateClient());
 
-        _ = await apiClient.Customers.PostAsync(new ApiServiceSDK.Models.Modules.CustomerManagement.Application.CreateCustomer.Request()
+        await apiClient.Customers.PostAsync(new ApiServiceSDK.Models.Modules.CustomerManagement.Application.CreateCustomer.Request()
         {
             FirstName = "Test",
             LastName = "User",
             BillingAddress = null,
             ShippingAddress = null
         });
-        _ = await apiClient.Customers.PostAsync(new ApiServiceSDK.Models.Modules.CustomerManagement.Application.CreateCustomer.Request()
+        await apiClient.Customers.PostAsync(new ApiServiceSDK.Models.Modules.CustomerManagement.Application.CreateCustomer.Request()
         {
             FirstName = "Test 2",
             LastName = "User 2",
@@ -122,10 +122,10 @@ public class CustomerApiTests : WebApplicationTest<CustomerApiWebApplicationFact
         });
 
         var customers = await apiClient.Customers.GetAsync();
-        _ = await Assert.That(customers).IsNotNull();
-        _ = await Assert.That(customers!.Count).IsGreaterThanOrEqualTo(2);
+        await Assert.That(customers).IsNotNull();
+        await Assert.That(customers!.Count).IsGreaterThanOrEqualTo(2);
 
-        _ = await Verify(customers.OrderBy(c => c.FirstName).ThenBy(c => c.LastName));
+        await Verify(customers.OrderBy(c => c.FirstName).ThenBy(c => c.LastName));
     }
 
     [Test]
@@ -151,13 +151,13 @@ public class CustomerApiTests : WebApplicationTest<CustomerApiWebApplicationFact
         var customerId = (string)createResponse!.GetType().GetField("_value", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)!.GetValue(createResponse)!;
 
         var customer = await apiClient.Customers[customerId!.ToString()].GetAsync();
-        _ = await Assert.That(customer).IsNotNull();
-        _ = await Assert.That(customer!.FirstName).IsEqualTo("Individual");
-        _ = await Assert.That(customer.LastName).IsEqualTo("Customer");
-        _ = await Assert.That(customer.BillingAddresses?.Count).IsEqualTo(1);
-        _ = await Assert.That(customer.ShippingAddresses?.Count).IsEqualTo(0);
+        await Assert.That(customer).IsNotNull();
+        await Assert.That(customer!.FirstName).IsEqualTo("Individual");
+        await Assert.That(customer.LastName).IsEqualTo("Customer");
+        await Assert.That(customer.BillingAddresses?.Count).IsEqualTo(1);
+        await Assert.That(customer.ShippingAddresses?.Count).IsEqualTo(0);
 
-        _ = await Verify(customer);
+        await Verify(customer);
     }
 
     [Test]
@@ -169,12 +169,12 @@ public class CustomerApiTests : WebApplicationTest<CustomerApiWebApplicationFact
 
         try
         {
-            _ = await apiClient.Customers[nonExistentId.ToString()].GetAsync();
+            await apiClient.Customers[nonExistentId.ToString()].GetAsync();
             Assert.Fail("Expected ApiException was not thrown");
         }
         catch (Microsoft.Kiota.Abstractions.ApiException ex)
         {
-            _ = await Assert.That(ex.ResponseStatusCode).IsEqualTo(StatusCodes.Status404NotFound);
+            await Assert.That(ex.ResponseStatusCode).IsEqualTo(StatusCodes.Status404NotFound);
         }
     }
 
@@ -193,18 +193,18 @@ public class CustomerApiTests : WebApplicationTest<CustomerApiWebApplicationFact
         var customerId = (string)createResponse!.GetType().GetField("_value", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)!.GetValue(createResponse)!;
 
         var customer = await apiClient.Customers[customerId!.ToString()].GetAsync();
-        _ = await Assert.That(customer).IsNotNull();
+        await Assert.That(customer).IsNotNull();
 
         await apiClient.Customers[customerId.ToString()].DeleteAsync();
 
         try
         {
-            _ = await apiClient.Customers[customerId.ToString()].GetAsync();
+            await apiClient.Customers[customerId.ToString()].GetAsync();
             Assert.Fail("Expected ApiException was not thrown");
         }
         catch (Microsoft.Kiota.Abstractions.ApiException ex)
         {
-            _ = await Assert.That(ex.ResponseStatusCode).IsEqualTo(StatusCodes.Status404NotFound);
+            await Assert.That(ex.ResponseStatusCode).IsEqualTo(StatusCodes.Status404NotFound);
         }
     }
 }
