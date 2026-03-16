@@ -485,6 +485,6 @@ test.describe('Security - Cookie-Based Authentication', () => {
 			}
 		});
 
-		expect(consoleErrors.length).toBe(0);
+		expect(consoleErrors).toHaveLength(0);
 	});
 });
