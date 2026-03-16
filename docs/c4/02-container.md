@@ -9,8 +9,8 @@ C4Container
   System_Boundary(sandbox, "Sandbox Platform") {
     Container(angular, "Sandbox.AngularWorkspace", "Angular 21", "Browser UI")
     Container(gateway, "Sandbox.Gateway", "ASP.NET Core + YARP", "BFF gateway, auth and reverse proxy")
-    Container(api, "Sandbox.ApiService", ".NET 10", "Modular monolith API hosting domain modules")
-    Container(migrations, "Sandbox.Migrations", ".NET 10", "Applies EF Core migrations and DB bootstrap")
+    Container(api, "Sandbox.ApiService", ".NET 11 Preview 2", "Modular monolith API hosting domain modules")
+    Container(migrations, "Sandbox.Migrations", ".NET 11 Preview 2", "Applies EF Core migrations and DB bootstrap")
     ContainerDb(postgres, "PostgreSQL", "PostgreSQL", "Persistent module data in separate schemas")
     ContainerDb(redis, "Redis", "Redis", "Distributed cache and FusionCache backplane")
     Container(identity, "Keycloak", "Keycloak", "OIDC identity provider")

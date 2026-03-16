@@ -166,6 +166,11 @@ dotnet_diagnostic.CS1591.severity = none
 # CA1515: Consider making public types internal
 dotnet_diagnostic.CA1515.severity = none
 
+# IDE0058: Expression value is never used
+dotnet_diagnostic.IDE0058.severity = none
+# IDE0022: Use expression body for methods
+dotnet_diagnostic.IDE0022.severity = none
+
 # Xml files
 [*.{csproj,builds,slnx,xml,props,targets,config,nuspec}]
 indent_size = 2

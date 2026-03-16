@@ -11,8 +11,8 @@ C4Deployment
   Deployment_Node(localHost, "Developer Host", "Windows/macOS/Linux") {
     Deployment_Node(aspire, "Sandbox.AppHost", ".NET Aspire") {
       Container(gateway, "Sandbox.Gateway", "ASP.NET Core + YARP", "BFF edge and reverse proxy")
-      Container(api, "Sandbox.ApiService", ".NET 10", "Modular monolith API")
-      Container(migrations, "Sandbox.Migrations", ".NET 10", "Migration and bootstrap worker")
+      Container(api, "Sandbox.ApiService", ".NET 11 Preview 2", "Modular monolith API")
+      Container(migrations, "Sandbox.Migrations", ".NET 11 Preview 2", "Migration and bootstrap worker")
     }
 
     Deployment_Node(infra, "Infrastructure Containers", "Docker") {
