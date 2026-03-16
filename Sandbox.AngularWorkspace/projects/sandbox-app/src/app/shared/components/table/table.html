@@ -29,7 +29,7 @@
 						</svg>
 					</button>
 				</th>
-				<ng-container *ngTemplateOutlet="headerTemplate()!" />
+				<ng-container *ngTemplateOutlet="headerTemplate()" />
 			</tr>
 		</thead>
 		}
@@ -52,7 +52,7 @@
 				<td class="w-16 px-6 py-4"></td>
 				<ng-container
 					*ngTemplateOutlet="
-								bodyTemplate()!;
+								bodyTemplate();
 								context: {
 									$implicit: row,
 									value: row,
@@ -132,7 +132,7 @@
 		@if (footerTemplate()) {
 		<tfoot>
 			<tr>
-				<ng-container *ngTemplateOutlet="footerTemplate()!" />
+				<ng-container *ngTemplateOutlet="footerTemplate()" />
 			</tr>
 		</tfoot>
 		}
