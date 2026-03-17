@@ -1,10 +1,11 @@
 import { expect, it } from 'vitest';
 import { HttpTestingController } from '@angular/common/http/testing';
-import { render, screen } from '@testing-library/angular';
+import { render, screen } from '@testing-library/angular/zoneless';
 import { type CustomerOverviewResponse } from '@sandbox-app/customer-management/models';
 import CustomersOverview from './customers-overview';
 import { TestBed } from '@angular/core/testing';
 import { stripUtilAttributes } from '@sandbox-app/test/test-utils';
+import { provideRouter } from '@angular/router';
 
 it('renders the component with customers table', async () => {
 	const mockCustomers: CustomerOverviewResponse[] = [
@@ -25,7 +26,7 @@ it('renders the component with customers table', async () => {
 
 async function setup() {
 	const { fixture, container } = await render(CustomersOverview, {
-		removeAngularAttributes: true,
+		providers: [provideRouter([])],
 	});
 
 	const httpMock = TestBed.inject(HttpTestingController);

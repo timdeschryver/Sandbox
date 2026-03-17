@@ -1,6 +1,6 @@
 import { expect, test } from 'vitest';
 import { inputBinding } from '@angular/core';
-import { render } from '@testing-library/angular';
+import { render } from '@testing-library/angular/zoneless';
 import { Alert, type AlertType } from './alert';
 
 test.each([

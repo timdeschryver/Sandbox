@@ -1,14 +1,11 @@
 import { expect, it } from 'vitest';
-import { render, screen } from '@testing-library/angular';
-import { Alert } from '@sandbox-app/shared/components/alert/alert';
+import { render, screen } from '@testing-library/angular/zoneless';
 import { HttpTestingController } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import BillingOverview from './billing-overview';
 
 it('displays loading state', async () => {
-	await render(BillingOverview, {
-		imports: [Alert],
-	});
+	await render(BillingOverview);
 	expect(await screen.findByText('Loading billing data...')).toBeInTheDocument();
 });
 
@@ -31,9 +28,7 @@ it('displays error alert', async () => {
 });
 
 async function setup() {
-	const { fixture } = await render(BillingOverview, {
-		imports: [Alert],
-	});
+	const { fixture } = await render(BillingOverview);
 	const httpMock = TestBed.inject(HttpTestingController);
 	return { fixture, httpMock };
 }

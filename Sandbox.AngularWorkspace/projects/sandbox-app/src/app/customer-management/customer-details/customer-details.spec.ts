@@ -1,13 +1,14 @@
 import { expect, it } from 'vitest';
 import { HttpTestingController } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
-import { render, screen } from '@testing-library/angular';
+import { render, screen } from '@testing-library/angular/zoneless';
 import userEvent from '@testing-library/user-event';
 import { type CustomerDetailsResponse } from '@sandbox-app/customer-management/models';
 import CustomerDetails from './customer-details';
 import { generateUuid } from '@sandbox-app/shared/functions';
 import { inputBinding, signal } from '@angular/core';
 import { stripUtilAttributes } from '@sandbox-app/test/test-utils';
+import { provideRouter } from '@angular/router';
 
 it('renders customer details when data is loaded', async () => {
 	const { mockRequest } = await setup();
@@ -74,6 +75,7 @@ async function setup() {
 	const customerId = signal(generateUuid());
 	const { fixture } = await render(CustomerDetails, {
 		bindings: [inputBinding('customerId', customerId)],
+		providers: [provideRouter([])],
 	});
 	const httpMock = TestBed.inject(HttpTestingController);
 	return {

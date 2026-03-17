@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/angular';
+import { render, screen } from '@testing-library/angular/zoneless';
 import { expect, it } from 'vitest';
 import ThemeToggle from './theme-toggle';
 import userEvent from '@testing-library/user-event';

@@ -1,5 +1,5 @@
 import { expect, it } from 'vitest';
-import { render, screen } from '@testing-library/angular';
+import { render, screen } from '@testing-library/angular/zoneless';
 import { provideRouter } from '@angular/router';
 import { signal } from '@angular/core';
 import Header from './header';
@@ -30,12 +30,14 @@ it('has working navigation links', async () => {
 	expect(userLink).toHaveAttribute('href', '/user');
 });
 
-function setup(user: { isAuthenticated: boolean; name: string | null }) {
+async function setup(user: { isAuthenticated: boolean; name: string | null }) {
 	const mockAuthService = {
 		user: signal(user),
 	};
 
-	return render(Header, {
+	const screen = await render(Header, {
 		providers: [provideRouter([]), { provide: Authentication, useValue: mockAuthService }],
 	});
+
+	return screen;
 }

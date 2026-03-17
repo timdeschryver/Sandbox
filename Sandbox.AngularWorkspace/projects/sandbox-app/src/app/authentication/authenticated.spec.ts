@@ -1,6 +1,6 @@
 import { expect, it } from 'vitest';
 import { Authenticated } from './authenticated';
-import { render, screen } from '@testing-library/angular';
+import { render, screen } from '@testing-library/angular/zoneless';
 import { HttpTestingController } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 

@@ -21,6 +21,7 @@ yarn-error.log
 
 # Vitest
 __screenshots__/
+.vitest-attachments/
 
 # Playwright
 test-results/

@@ -1,7 +1,7 @@
 import { expect, it, vi } from 'vitest';
 import { HttpTestingController } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
-import { render, screen } from '@testing-library/angular';
+import { render, screen } from '@testing-library/angular/zoneless';
 import userEvent from '@testing-library/user-event';
 import { type CreateCustomerCommand } from '@sandbox-app/customer-management/models';
 import { CustomerForm } from './customer-form';

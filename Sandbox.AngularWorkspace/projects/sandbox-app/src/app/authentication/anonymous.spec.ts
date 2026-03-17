@@ -1,5 +1,5 @@
 import { expect, it } from 'vitest';
-import { render, screen } from '@testing-library/angular';
+import { render, screen } from '@testing-library/angular/zoneless';
 import { TestBed } from '@angular/core/testing';
 import { Anonymous } from './anonymous';
 import { HttpTestingController } from '@angular/common/http/testing';
