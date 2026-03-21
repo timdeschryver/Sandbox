@@ -8,7 +8,7 @@ catalog:
   '@stoplight/spectral-cli': '6.15.0'
   '@types/node': '24.12.0'
   'dotenv': '17.3.1'
-  'jsdom': '28.1.0'
+  'jsdom': '29.0.0'
   'prettier': '3.8.1'
   'prettier-plugin-tailwindcss': '0.7.2'
   'run-script-os': '1.1.6'
@@ -48,10 +48,10 @@ catalogs:
   eslint:
     '@eslint/js': '10.0.1'
     'eslint': '10.0.3'
-    'angular-eslint': '21.3.0'
+    'angular-eslint': '21.3.1'
     'eslint-config-prettier': '10.1.8'
-    'eslint-plugin-playwright': '2.9.0'
-    'typescript-eslint': '8.57.0'
+    'eslint-plugin-playwright': '2.10.1'
+    'typescript-eslint': '8.57.1'
 
   playwright:
     '@playwright/test': '1.58.2'
