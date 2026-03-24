@@ -11,10 +11,6 @@ on:
   workflow_dispatch:
   merge_group:
 
-run-name: Deploy to ${{ inputs.deploy_target }} by @${{ github.actor }}
-
-# Set up permissions
-# https://learn.microsoft.com/en-us/azure/developer/github/connect-from-azure?tabs=azure-portal%2Clinux#set-up-azure-login-with-openid-connect-authentication
 permissions:
   id-token: write
   contents: read
@@ -27,7 +23,7 @@ concurrency:
 jobs:
   backend:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 10
     steps:
       - name: Checkout
         uses: actions/checkout@v6
@@ -76,7 +72,7 @@ jobs:
 
   frontend:
     runs-on: ubuntu-latest
-    timeout-minutes: 4
+    timeout-minutes: 10
     steps:
       - name: Checkout
         uses: actions/checkout@v6
@@ -136,10 +132,6 @@ jobs:
           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
           enable-AzPSSession: true
 
-      # - name: Install Playwright Browsers
-      #   timeout-minutes: 2
-      #   run: pnpm --filter='sandbox.e2e' exec playwright install --with-deps
-
       - name: Trust .NET dev certs
         run: |
           dotnet dev-certs https --export-path /tmp/aspire-dev-cert.pem --format pem --no-password
@@ -172,55 +164,3 @@ jobs:
         with:
           name: playwright-report
           path: ./Sandbox.EndToEndTests/playwright-report/
-
-  release:
-    runs-on: ubuntu-latest
-    timeout-minutes: 10
-    needs: [backend, frontend, e2e]
-    if: github.ref == 'refs/heads/main'
-    env:
-      AZURE_CLIENT_ID: ${{ vars.AZURE_CLIENT_ID }}
-      AZURE_TENANT_ID: ${{ vars.AZURE_TENANT_ID }}
-      AZURE_SUBSCRIPTION_ID: ${{ vars.AZURE_SUBSCRIPTION_ID }}
-      AZURE_ENV_NAME: ${{ vars.AZURE_ENV_NAME }}
-      AZURE_LOCATION: ${{ vars.AZURE_LOCATION }}
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v6
-
-      - uses: ./.github/actions/setup-pnpm
-
-      - name: Install azd
-        uses: Azure/setup-azd@v2
-
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v5
-        with:
-          global-json-file: global.json
-
-      - name: Log in with Azure (Federated Credentials)
-        run: |
-          azd auth login `
-            --client-id "$Env:AZURE_CLIENT_ID" `
-            --federated-credential-provider "github" `
-            --tenant-id "$Env:AZURE_TENANT_ID"
-        shell: pwsh
-
-      - name: Install SOPS
-        run: |
-          curl -Lo sops "https://github.com/getsops/sops/releases/download/v3.9.1/sops-v3.9.1.linux.amd64"
-          chmod +x sops
-          sudo mv sops /usr/local/bin/
-
-      - name: Decrypt appsettings
-        run: sops --decrypt "config/appsettings.encrypted.json" > "Sandbox.AppHost/appsettings.json"
-        env:
-          SOPS_AGE_KEY: ${{ secrets.SOPS_AGE_KEY }}
-
-      # - name: Provision Infrastructure
-      #   run: azd provision --no-prompt
-      #   env:
-      #     AZD_INITIAL_ENVIRONMENT_CONFIG: ${{ secrets.AZD_INITIAL_ENVIRONMENT_CONFIG }}
-
-      # - name: Deploy Application
-      #   run: azd deploy --no-prompt
