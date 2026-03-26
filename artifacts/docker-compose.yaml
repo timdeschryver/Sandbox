@@ -1,6 +1,6 @@
 services:
   keycloak:
-    image: 'quay.io/keycloak/keycloak:26.5@sha256:a7b0cb7a43a1235a61872883414d3f1d9a3ceac9df6e5907bd12202778a6265c'
+    image: 'quay.io/keycloak/keycloak:26.5@sha256:8d44614c74798322c4e07fbe0ecb15cfbb5879d69b484628555f58ade06f0d8c'
     command:
       - 'start'
       - '--import-realm'
@@ -60,7 +60,7 @@ services:
     networks:
       - 'aspire'
   loki:
-    image: 'grafana/loki:latest@sha256:3c8fd3570dd9219951a60d3f919c7f31923d10baee578b77bc26c4a0b32d092d'
+    image: 'grafana/loki:latest@sha256:c316b7c7589a5eeca843b6926c7446149d18300b79ac8538dc4ae063bc478da2'
     command:
       - '--config.file=/etc/loki/loki.yml'
       - '--config.expand-env=true'
@@ -86,7 +86,7 @@ services:
     networks:
       - 'aspire'
   tempo:
-    image: 'grafana/tempo:latest@sha256:58e1f9f93f9602d09d606a639f705bca428ff5af283ebda89402e4d49440ad54'
+    image: 'grafana/tempo:latest@sha256:a181745c53ba73b6beaf2dda6505f2c16260947bfcf3563641ee669d01a16913'
     command:
       - '--config.file=/etc/tempo/tempo.yml'
       - '--config.expand-env=true'
@@ -143,7 +143,7 @@ services:
     networks:
       - 'aspire'
   grafana:
-    image: 'grafana/grafana:latest@sha256:e932bd6ed0e026595b08483cd0141e5103e1ab7ff8604839ff899b8dc54cabcb'
+    image: 'grafana/grafana:latest@sha256:83749231c3835e390a3144e5e940203e42b9589761f20ef3169c716e734ad505'
     environment:
       PROMETHEUS_ENDPOINT: 'http://prometheus:9090'
       LOKI_ENDPOINT: 'http://loki:3100'
@@ -169,7 +169,7 @@ services:
     networks:
       - 'aspire'
   otelcollector:
-    image: 'ghcr.io/open-telemetry/opentelemetry-collector-releases/opentelemetry-collector-contrib:latest@sha256:e7c92c715f28ff142f3bcaccd4fc5603cf4c71276ef09954a38eb4038500a5a5'
+    image: 'ghcr.io/open-telemetry/opentelemetry-collector-releases/opentelemetry-collector-contrib:latest@sha256:8164eab2e6bca9c9b0837a8d2f118a6618489008a839db7f9d6510e66be3923c'
     environment:
       ASPIRE_OTLP_ENDPOINT: '${}'
       ASPIRE_API_KEY: ''
@@ -188,7 +188,7 @@ services:
     networks:
       - 'aspire'
   postgres:
-    image: 'docker.io/library/postgres:18.3@sha256:98f32d2e093deea07127bcc373f89729b77ff3486511cc77224c530e63a41f0e'
+    image: 'docker.io/library/postgres:18.3@sha256:a9abf4275f9e99bff8e6aed712b3b7dfec9cac1341bba01c1ffdfce9ff9fc34a'
     environment:
       POSTGRES_HOST_AUTH_METHOD: 'scram-sha-256'
       POSTGRES_INITDB_ARGS: '--auth-host=scram-sha-256 --auth-local=scram-sha-256'
@@ -204,7 +204,7 @@ services:
     networks:
       - 'aspire'
   cache:
-    image: 'docker.io/library/redis:8.6@sha256:a019c005570189bb038155c1dfb1a269b59b83f9ceee22fd5f42de205ac19c06'
+    image: 'docker.io/library/redis:8.6@sha256:009cc37796fbdbe1b631b4cc0582bed167e5e403ed8bcd06f77eb6cb5aeb6f93'
     command:
       - '-c'
       - 'redis-server --requirepass $$REDIS_PASSWORD --save 60 1'

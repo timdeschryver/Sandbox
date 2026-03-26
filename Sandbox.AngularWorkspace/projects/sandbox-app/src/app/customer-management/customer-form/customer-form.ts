@@ -34,7 +34,7 @@ export class CustomerForm {
 	}
 
 	protected readonly customerForm = form(
-		signal<CustomerFormModel>(this.initializeCustomerModel()),
+		signal(this.initializeCustomerModel()),
 		(path) => {
 			required(path.firstName);
 			maxLength(path.firstName, 255);
