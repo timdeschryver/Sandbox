@@ -1,8 +1,8 @@
 {
-  "descriptionHash": "0757B39E3FDEADEE4D9345E927580697C6FF9234ED8C3E1B1CE2DD29B9F175E81DDC6E43F5D4E967FC2945FA0E6E259E994706C6B4D43D7239494D78EC668505",
+  "descriptionHash": "636C5F7CDA4EFD4BFF176ABD8F77AD0D161EE023A8F89745FF5DD5F3FB234726A86556357E5F5B291461932B6F8AEE62823AB6B78FF02931C68140FC1C768E37",
   "descriptionLocation": "../../docs/openapi/Sandbox.ApiService.json",
   "lockFileVersion": "1.0.0",
-  "kiotaVersion": "1.29.0",
+  "kiotaVersion": "1.31.1",
   "clientClassName": "ApiClient",
   "typeAccessModifier": "Public",
   "clientNamespaceName": "ApiServiceSDK",

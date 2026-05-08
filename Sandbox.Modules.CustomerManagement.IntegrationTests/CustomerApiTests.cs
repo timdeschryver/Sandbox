@@ -2,11 +2,10 @@ using System.Net;
 using Microsoft.AspNetCore.Mvc;
 using Sandbox.Modules.CustomerManagement.IntegrationTests.Setup;
 using Sandbox.SharedKernel.StronglyTypedIds;
-using TUnit.AspNetCore;
 
 namespace Sandbox.Modules.CustomerManagement.IntegrationTests;
 
-public class CustomerApiTests : WebApplicationTest<CustomerApiWebApplicationFactory, Program>
+public class CustomerApiTests : CustomerApiIntegrationTest
 {
     [Test]
     public async Task CreateCustomer_WithValidData_Returns_CreatedResponse()

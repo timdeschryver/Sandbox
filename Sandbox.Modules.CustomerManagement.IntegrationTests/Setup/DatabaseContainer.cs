@@ -1,10 +1,9 @@
-extern alias migrations;
 using Testcontainers.PostgreSql;
 using TUnit.Core.Interfaces;
 
 namespace Sandbox.Modules.CustomerManagement.IntegrationTests.Setup;
 
-public class DatabaseContainer : IAsyncInitializer, IAsyncDisposable
+public sealed class DatabaseContainer : IAsyncInitializer, IAsyncDisposable
 {
     public PostgreSqlContainer Container { get; } = new PostgreSqlBuilder("postgres:17.6")
         .Build();

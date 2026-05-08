@@ -6,6 +6,9 @@
     <PackageReference Include="OpenFeature" />
     <PackageReference Include="OpenFeature.Contrib.Hooks.Otel" />
     <PackageReference Include="OpenFeature.Hosting" />
+    <PackageReference Include="OpenTelemetry" />
+    <PackageReference Include="OpenTelemetry.Api" />
+    <PackageReference Include="OpenTelemetry.Extensions.Hosting" />
     <PackageReference Include="Vogen" />
   </ItemGroup>
 </Project>

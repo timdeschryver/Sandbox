@@ -1,10 +1,9 @@
-extern alias migrations;
 using Testcontainers.Redis;
 using TUnit.Core.Interfaces;
 
 namespace Sandbox.Modules.CustomerManagement.IntegrationTests.Setup;
 
-public class CacheContainer : IAsyncInitializer, IAsyncDisposable
+public sealed class CacheContainer : IAsyncInitializer, IAsyncDisposable
 {
     public RedisContainer Container { get; } = new RedisBuilder("redis:7.0").Build();
 

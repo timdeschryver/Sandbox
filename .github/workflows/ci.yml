@@ -23,7 +23,7 @@ concurrency:
 jobs:
   backend:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 5
     steps:
       - name: Checkout
         uses: actions/checkout@v6
@@ -37,7 +37,14 @@ jobs:
         run: dotnet build --configuration Release
 
       - name: Run .NET tests
-        run: dotnet test --no-build --configuration Release -- --coverage --coverage-output coverage.xml --coverage-output-format cobertura --coverage-settings "${{ github.workspace }}/coverage.config"
+        env:
+          TUNIT_GITHUB_REPORTER_STYLE: collapsible
+        run: >
+          dotnet test --no-build --configuration Release --
+          --coverage
+          --coverage-output coverage.xml
+          --coverage-output-format cobertura
+          --coverage-settings "${{ github.workspace }}/coverage.config"
 
       - name: ReportGenerator
         uses: danielpalme/ReportGenerator-GitHub-Action@v5.5.4
@@ -72,7 +79,7 @@ jobs:
 
   frontend:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 5
     steps:
       - name: Checkout
         uses: actions/checkout@v6

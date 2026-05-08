@@ -9,6 +9,7 @@ obj/
 packages/
 .vs/
 CoverageReport/
+*.lscache
 
 # Angular
 node_modules/
@@ -26,6 +27,10 @@ __screenshots__/
 # Playwright
 test-results/
 .playwright-cli/
+
+# TUnit
+
+TestResults/
 
 # IDE
 # JetBrains
