@@ -23,9 +23,7 @@ it('displays error alert', async () => {
 	await mockRequest({ message: 'Error occurred' }, { status: 500, statusText: 'Server Error' });
 
 	expect(
-		screen.getByText(
-			/Failed to load billing overview: Http failure response for \/api\/billing: 500 Server Error/,
-		),
+		screen.getByText(/Failed to load billing overview: Http failure response for \/api\/billing: 500 Server Error/),
 	).toBeInTheDocument();
 });
 
