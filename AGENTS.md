@@ -229,9 +229,8 @@ sequenceDiagram
 ### Test
 
 - **Run all .NET tests**: `dotnet test`
-- **Run Angular tests**: `pnpm --filter="sandbox.angular-workspace" test --watch=false --reporters=dot`
+- **Run Angular tests**: `pnpm --filter="sandbox.angular-workspace" test --watch=false`
 - **Run End-to-end tests**: `pnpm --filter="sandbox.e2e" test --reporter=dot`
-- **Run all frontend tests**: `pnpm run -r test`
 
 ### Styling
 

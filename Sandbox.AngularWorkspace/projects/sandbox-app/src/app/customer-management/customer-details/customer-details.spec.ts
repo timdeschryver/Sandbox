@@ -84,7 +84,6 @@ async function setup() {
 			request.flush(response, opts);
 
 			await fixture.whenStable();
-			fixture.detectChanges();
 
 			return request;
 		},

@@ -1,110 +1,77 @@
 {
   "version": 1,
   "skills": {
-    "angular-component": {
-      "source": "analogjs/angular-skills",
+    "angular-developer": {
+      "source": "angular/skills",
       "sourceType": "github",
-      "computedHash": "9d2fb6fbec5a8a9fd029e125194ba749b717b1fefef1cf5cd6f7a67d5b7bc364"
-    },
-    "angular-di": {
-      "source": "analogjs/angular-skills",
-      "sourceType": "github",
-      "computedHash": "b7e4fa9c9cc06eba5b2057cc0da024a015fa0af301c3654f34a5c3ec9160d7c6"
-    },
-    "angular-directives": {
-      "source": "analogjs/angular-skills",
-      "sourceType": "github",
-      "computedHash": "a96e63582eb4350cd6bfe0fbdad2585d999f3ed567c05fd2f99544769977a2e3"
-    },
-    "angular-forms": {
-      "source": "analogjs/angular-skills",
-      "sourceType": "github",
-      "computedHash": "b6d99388e6efbd7006b0729a0a8bb2346b30214afc1a369a71d31f076c95d6a6"
-    },
-    "angular-http": {
-      "source": "analogjs/angular-skills",
-      "sourceType": "github",
-      "computedHash": "251aab8c4417ee6fc22187eaf9a88ae1a08613d201b65d1d0ec48ba4807f53eb"
-    },
-    "angular-routing": {
-      "source": "analogjs/angular-skills",
-      "sourceType": "github",
-      "computedHash": "cd02400200c70c1c8544ac6deb589269275fd33a7d6b93728bf8127cc2f0c71e"
-    },
-    "angular-signals": {
-      "source": "analogjs/angular-skills",
-      "sourceType": "github",
-      "computedHash": "3c81e0d5622c38ba42699895c50b3363130f2c2c6f74faf3402302e40f6ccbb9"
-    },
-    "angular-testing": {
-      "source": "analogjs/angular-skills",
-      "sourceType": "github",
-      "computedHash": "f0afa362dccf84f959eaec0572324a1a212765c0e90c1c2bf9c05b6f87a0d165"
-    },
-    "angular-tooling": {
-      "source": "analogjs/angular-skills",
-      "sourceType": "github",
-      "computedHash": "137551a64038adda469b5313224950bb4be432cb76252144b56ed7173eb3c95d"
+      "skillPath": ".agents/skills/angular-developer/SKILL.md",
+      "computedHash": "28eb592b92e5a24c4e3a1c0229a854069f0b8c49bed7b8d2bf6b852812dbe214"
     },
     "architecture-blueprint-generator": {
       "source": "github/awesome-copilot",
       "sourceType": "github",
+      "skillPath": ".agents/skills/architecture-blueprint-generator/SKILL.md",
       "computedHash": "9b20f13d1d96ba1c2550e1ce535f932e943c42939d3fae906a9e0d6c1bfb471a"
-    },
-    "aspire": {
-      "source": "github/awesome-copilot",
-      "sourceType": "github",
-      "computedHash": "aa502e4ff4c9cb28baa2c9ebd14b48fe7ed572fd291a9e24cda5226654413903"
     },
     "c4-architecture": {
       "source": "softaworks/agent-toolkit",
       "sourceType": "github",
-      "computedHash": "9192b5d6be529478a70d1a73f3d4ce83db12c2052c4e6df4accd445f21e906d4"
+      "skillPath": ".agents/skills/c4-architecture/SKILL.md",
+      "computedHash": "f35f57420c35f2e8413e1e22934ca3950cae8286499f6fbe978cff604c35cfcd"
     },
     "find-skills": {
       "source": "vercel-labs/skills",
       "sourceType": "github",
-      "computedHash": "25872a21881a950edc3db1f3329664d60405d539660ce05b3265db2de06a7dfd"
+      "skillPath": ".agents/skills/find-skills/SKILL.md",
+      "computedHash": "9e1c8b3103f92fa8092568a44fe64858de7c5c9dc65ce4bea8f168080e889cfd"
     },
     "git-commit": {
       "source": "github/awesome-copilot",
       "sourceType": "github",
+      "skillPath": ".agents/skills/git-commit/SKILL.md",
       "computedHash": "2607fc60629b82b257136dd2a7a373f0a4466c0b49df7746d845d59313c99b21"
     },
     "github-issues": {
       "source": "github/awesome-copilot",
       "sourceType": "github",
-      "computedHash": "8d31978128b593461c2b8e73eb517526b67dafe71a833773774fe4cc1cbdec05"
+      "skillPath": ".agents/skills/github-issues/SKILL.md",
+      "computedHash": "3a752d99ddc3178f443fe242d490800398b2b42030a9d221b298b9486d90cc87"
     },
     "mermaid-diagrams": {
       "source": "softaworks/agent-toolkit",
       "sourceType": "github",
-      "computedHash": "b6c206a3cab0333a1d3d3cf27114099d0d5f25eb07d86c8f12472b7aa7d59a4c"
+      "skillPath": ".agents/skills/mermaid-diagrams/SKILL.md",
+      "computedHash": "6d36e69adad781f106a2fb4b19ebc22bf0c211babdc0d1ae5822fa65abb48bd8"
     },
     "my-pull-requests": {
       "source": "github/awesome-copilot",
       "sourceType": "github",
+      "skillPath": ".agents/skills/my-pull-requests/SKILL.md",
       "computedHash": "79d5b3c35f5358322bf650f86afbdbf00bb6304ee8464fb424e91b461e3fd412"
     },
     "nuget-manager": {
       "source": "github/awesome-copilot",
       "sourceType": "github",
+      "skillPath": ".agents/skills/nuget-manager/SKILL.md",
       "computedHash": "9081279ef0313a18766c8f03422de9ef31765212d31b13a513e66f39427b4e38"
     },
     "playwright-cli": {
       "source": "microsoft/playwright-cli",
       "sourceType": "github",
-      "computedHash": "d0c9769e2df40ba1f51660294e6833566cec8a0f8c6a6ef5eb922afe3f573ef6"
+      "skillPath": ".agents/skills/playwright-cli/SKILL.md",
+      "computedHash": "84495cfda62b6c012afc4cc34a0c35bfc7923ba35983b8c04ce4cace0f35a5d8"
     },
     "pnpm": {
       "source": "antfu/skills",
       "sourceType": "github",
-      "computedHash": "d473204df25defd08a7d47b55c6d124b41ebde440b774995952b65223d0d8d6f"
+      "skillPath": ".agents/skills/pnpm/SKILL.md",
+      "computedHash": "318f9fca2441a3e06fedc336e195dd18be5dbe901064e4fa71b76b40b096ab3a"
     },
     "vitest": {
       "source": "antfu/skills",
       "sourceType": "github",
-      "computedHash": "0efd9cf8c56aada060d418d009cfe621a7915d0c73a958fe611985bc0c2fa4b8"
+      "skillPath": ".agents/skills/vitest/SKILL.md",
+      "computedHash": "669c7275f7e1379b06b2bcfa593603aead4c983b951c7e8edbc09640aa38d0a1"
     }
   }
 }

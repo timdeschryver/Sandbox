@@ -30,7 +30,6 @@ async function setup() {
 			request.flush(response);
 
 			await fixture.whenStable();
-			fixture.detectChanges();
 
 			return response;
 		},

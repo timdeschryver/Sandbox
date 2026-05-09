@@ -1,0 +1,31 @@
+{
+	"mcpServers": {
+		"aspire": {
+			"type": "stdio",
+			"command": "aspire",
+			"args": ["agent", "mcp"]
+		},
+		"playwright": {
+			"type": "stdio",
+			"command": "npx",
+			"args": ["-y", "@playwright/mcp@latest"]
+		},
+		"data-api-builder": {
+			"type": "http",
+			"url": "http://localhost:5000/mcp"
+		},
+		"github": {
+			"type": "http",
+			"url": "https://api.githubcopilot.com/mcp/"
+		},
+		"microsoft.docs.mcp": {
+			"type": "http",
+			"url": "https://learn.microsoft.com/api/mcp"
+		},
+		"angular-cli": {
+			"command": "npx",
+			"args": ["-y", "@angular/cli", "mcp"],
+			"cwd": "${workspaceFolder}/Sandbox.AngularWorkspace"
+		}
+	}
+}

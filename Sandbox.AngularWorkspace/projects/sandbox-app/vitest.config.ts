@@ -6,6 +6,8 @@ import { playwright } from '@vitest/browser-playwright';
 
 export default defineConfig({
 	test: {
+		silent: 'passed-only',
+		reporters: process.env['GITHUB_ACTIONS'] === 'true' ? ['dot', 'github-actions'] : ['agent'],
 		browser: {
 			enabled: true,
 			provider: playwright(),

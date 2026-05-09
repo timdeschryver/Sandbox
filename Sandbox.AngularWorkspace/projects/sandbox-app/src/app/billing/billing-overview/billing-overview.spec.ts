@@ -10,18 +10,20 @@ it('displays loading state', async () => {
 });
 
 it('displays billing overview message', async () => {
-	const { httpMock } = await setup();
-	const request = httpMock.expectOne('/api/billing');
-	request.flush({ message: 'Test message' });
-	expect(await screen.findByText('Test message')).toBeInTheDocument();
+	const { mockRequest } = await setup();
+
+	await mockRequest({ message: 'Test message' });
+
+	expect(screen.getByText('Test message')).toBeInTheDocument();
 });
 
 it('displays error alert', async () => {
-	const { httpMock } = await setup();
-	const request = httpMock.expectOne('/api/billing');
-	request.flush({ message: 'Error occurred' }, { status: 500, statusText: 'Server Error' });
+	const { mockRequest } = await setup();
+
+	await mockRequest({ message: 'Error occurred' }, { status: 500, statusText: 'Server Error' });
+
 	expect(
-		await screen.findByText(
+		screen.getByText(
 			/Failed to load billing overview: Http failure response for \/api\/billing: 500 Server Error/,
 		),
 	).toBeInTheDocument();
@@ -30,5 +32,15 @@ it('displays error alert', async () => {
 async function setup() {
 	const { fixture } = await render(BillingOverview);
 	const httpMock = TestBed.inject(HttpTestingController);
-	return { fixture, httpMock };
+
+	return {
+		mockRequest: async (response: object, opts?: object) => {
+			const request = httpMock.expectOne('/api/billing');
+			request.flush(response, opts);
+
+			await fixture.whenStable();
+
+			return request;
+		},
+	};
 }

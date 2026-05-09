@@ -106,8 +106,10 @@ it('submits form with complete data when valid', async () => {
 
 	expect(onSubmittedSpy).toHaveBeenCalled();
 
-	expect(screen.queryByLabelText(/first name/i)).toHaveValue('');
-	expect(screen.queryByLabelText(/last name/i)).toHaveValue('');
+	await vi.waitFor(() => {
+		expect(screen.getByLabelText(/first name/i)).toHaveValue('');
+		expect(screen.getByLabelText(/last name/i)).toHaveValue('');
+	});
 });
 
 it('displays error message when API request fails', async () => {
@@ -143,7 +145,6 @@ async function setup() {
 			request.flush(response, opts);
 
 			await fixture.whenStable();
-			fixture.detectChanges();
 
 			return request;
 		},

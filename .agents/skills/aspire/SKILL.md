@@ -1,231 +1,106 @@
 ---
 name: aspire
-description: 'Aspire skill covering the Aspire CLI, AppHost orchestration, service discovery, integrations, MCP server, VS Code extension, Dev Containers, GitHub Codespaces, templates, dashboard, and deployment. Use when the user asks to create, run, debug, configure, deploy, or troubleshoot an Aspire distributed application.'
+description: "Orchestrates Aspire distributed applications using the Aspire CLI for running, debugging, and managing distributed apps. USE FOR: aspire start, aspire stop, start aspire app, aspire describe, list aspire integrations, debug aspire issues, view aspire logs, add aspire resource, aspire dashboard, update aspire apphost. DO NOT USE FOR: non-Aspire .NET apps (use dotnet CLI), container-only deployments (use docker/podman), Azure deployment after local testing (use azure-deploy skill). INVOKES: Aspire CLI commands (aspire start, aspire describe, aspire otel logs, aspire docs search, aspire add), bash. FOR SINGLE OPERATIONS: Use Aspire CLI commands directly for quick resource status or doc lookups."
 ---
 
-# Aspire — Polyglot Distributed-App Orchestration
+# Aspire Skill
 
-Aspire is a **code-first, polyglot toolchain** for building observable, production-ready distributed applications. It orchestrates containers, executables, and cloud resources from a single AppHost project — regardless of whether the workloads are C#, Python, JavaScript/TypeScript, Go, Java, Rust, Bun, Deno, or PowerShell.
+This repository uses Aspire to orchestrate its distributed application. Resources are defined in the AppHost project (`apphost.cs` or `apphost.ts`).
 
-> **Mental model:** The AppHost is a *conductor* — it doesn't play the instruments, it tells every service when to start, how to find each other, and watches for problems.
+## CLI command reference
 
-Detailed reference material lives in the `references/` folder — load on demand.
-
----
-
-## References
-
-| Reference | When to load |
+| Task | Command |
 |---|---|
-| [CLI Reference](references/cli-reference.md) | Command flags, options, or detailed usage |
-| [MCP Server](references/mcp-server.md) | Setting up MCP for AI assistants, available tools |
-| [Integrations Catalog](references/integrations-catalog.md) | Discovering integrations via MCP tools, wiring patterns |
-| [Polyglot APIs](references/polyglot-apis.md) | Method signatures, chaining options, language-specific patterns |
-| [Architecture](references/architecture.md) | DCP internals, resource model, service discovery, networking, telemetry |
-| [Dashboard](references/dashboard.md) | Dashboard features, standalone mode, GenAI Visualizer |
-| [Deployment](references/deployment.md) | Docker, Kubernetes, Azure Container Apps, App Service |
-| [Testing](references/testing.md) | Integration tests against the AppHost |
-| [Troubleshooting](references/troubleshooting.md) | Diagnostic codes, common errors, and fixes |
+| Start the app | `aspire start` |
+| Start isolated (worktrees) | `aspire start --isolated` |
+| Restart the app | `aspire start` (stops previous automatically) |
+| Wait for resource healthy | `aspire wait <resource>` |
+| Stop the app | `aspire stop` |
+| List resources | `aspire describe` or `aspire resources` |
+| Run resource command | `aspire resource <resource> <command>` |
+| Start/stop/restart resource | `aspire resource <resource> start|stop|restart` |
+| Rebuild a .NET project resource | `aspire resource <resource> rebuild` |
+| View console logs | `aspire logs [resource]` |
+| View structured logs | `aspire otel logs [resource]` |
+| View traces | `aspire otel traces [resource]` |
+| Logs for a trace | `aspire otel logs --trace-id <id>` |
+| Add an integration | `aspire add` |
+| List running AppHosts | `aspire ps` |
+| Update AppHost packages | `aspire update` |
+| Search docs | `aspire docs search <query>` |
+| Get doc page | `aspire docs get <slug>` |
+| List doc pages | `aspire docs list` |
+| Environment diagnostics | `aspire doctor` |
+| List resource MCP tools | `aspire mcp tools` |
+| Call resource MCP tool | `aspire mcp call <resource> <tool> --input <json>` |
 
----
+Most commands support `--format Json` for machine-readable output. Use `--apphost <path>` to target a specific AppHost.
 
-## 1. Researching Aspire Documentation
+## Key workflows
 
-The Aspire team ships an **MCP server** that provides documentation tools directly inside your AI assistant. See [MCP Server](references/mcp-server.md) for setup details.
+### Running in agent environments
 
-### Aspire CLI 13.2+ (recommended — has built-in docs search)
-
-If running Aspire CLI **13.2 or later** (`aspire --version`), the MCP server includes docs search tools:
-
-| Tool | Description |
-|---|---|
-| `list_docs` | Lists all available documentation from aspire.dev |
-| `search_docs` | Performs weighted lexical search across indexed documentation |
-| `get_doc` | Retrieves a specific document by its slug |
-
-These tools were added in [PR #14028](https://github.com/dotnet/aspire/pull/14028). To update: `aspire update --self --channel daily`.
-
-For more on this approach, see David Pine's post: https://davidpine.dev/posts/aspire-docs-mcp-tools/
-
-### Aspire CLI 13.1 (integration tools only)
-
-On 13.1, the MCP server provides integration lookup but **not** docs search:
-
-| Tool | Description |
-|---|---|
-| `list_integrations` | Lists available Aspire hosting integrations |
-| `get_integration_docs` | Gets documentation for a specific integration package |
-
-For general docs queries on 13.1, use **Context7** as your primary source (see below).
-
-### Fallback: Context7
-
-Use **Context7** (`mcp_context7`) when the Aspire MCP docs tools are unavailable (13.1) or the MCP server isn't running:
-
-**Step 1 — Resolve the library ID** (one-time per session):
-
-Call `mcp_context7_resolve-library-id` with `libraryName: ".NET Aspire"`.
-
-| Rank | Library ID | Use when |
-|---|---|---|
-| 1 | `/microsoft/aspire.dev` | Primary source. Guides, integrations, CLI reference, deployment. |
-| 2 | `/dotnet/aspire` | API internals, source-level implementation details. |
-| 3 | `/communitytoolkit/aspire` | Non-Microsoft polyglot integrations (Go, Java, Node.js, Ollama). |
-
-**Step 2 — Query docs:**
-
-```
-libraryId: "/microsoft/aspire.dev", query: "Python integration AddPythonApp service discovery"
-libraryId: "/communitytoolkit/aspire", query: "Golang Java Node.js community integrations"
-```
-
-### Fallback: GitHub search (when Context7 is also unavailable)
-
-Search the official docs repo on GitHub:
-- **Docs repo:** `microsoft/aspire.dev` — path: `src/frontend/src/content/docs/`
-- **Source repo:** `dotnet/aspire`
-- **Samples repo:** `dotnet/aspire-samples`
-- **Community integrations:** `CommunityToolkit/Aspire`
-
----
-
-## 2. Prerequisites & Install
-
-| Requirement | Details |
-|---|---|
-| **.NET SDK** | 10.0+ (required even for non-.NET workloads — the AppHost is .NET) |
-| **Container runtime** | Docker Desktop, Podman, or Rancher Desktop |
-| **IDE (optional)** | VS Code + C# Dev Kit, Visual Studio 2022, JetBrains Rider |
+Use `aspire start` to run the AppHost in the background. When working in a git worktree, use `--isolated` to avoid port conflicts and to prevent sharing user secrets or other local state with other running instances:
 
 ```bash
-# Linux / macOS
-curl -sSL https://aspire.dev/install.sh | bash
-
-# Windows PowerShell
-irm https://aspire.dev/install.ps1 | iex
-
-# Verify
-aspire --version
-
-# Install templates
-dotnet new install Aspire.ProjectTemplates
+aspire start --isolated
 ```
 
----
+Use `aspire wait <resource>` to block until a resource is healthy before interacting with it:
 
-## 3. Project Templates
-
-| Template | Command | Description |
-|---|---|---|
-| **aspire-starter** | `aspire new aspire-starter` | ASP.NET Core/Blazor starter + AppHost + tests |
-| **aspire-ts-cs-starter** | `aspire new aspire-ts-cs-starter` | ASP.NET Core/React starter + AppHost |
-| **aspire-py-starter** | `aspire new aspire-py-starter` | FastAPI/React starter + AppHost |
-| **aspire-apphost-singlefile** | `aspire new aspire-apphost-singlefile` | Empty single-file AppHost |
-
----
-
-## 4. AppHost Quick Start (Polyglot)
-
-The AppHost orchestrates all services. Non-.NET workloads run as containers or executables.
-
-```csharp
-var builder = DistributedApplication.CreateBuilder(args);
-
-// Infrastructure
-var redis = builder.AddRedis("cache");
-var postgres = builder.AddPostgres("pg").AddDatabase("catalog");
-
-// .NET API
-var api = builder.AddProject<Projects.CatalogApi>("api")
-    .WithReference(postgres).WithReference(redis);
-
-// Python ML service
-var ml = builder.AddPythonApp("ml-service", "../ml-service", "main.py")
-    .WithHttpEndpoint(targetPort: 8000).WithReference(redis);
-
-// React frontend (Vite)
-var web = builder.AddViteApp("web", "../frontend")
-    .WithHttpEndpoint(targetPort: 5173).WithReference(api);
-
-// Go worker
-var worker = builder.AddGolangApp("worker", "../go-worker")
-    .WithReference(redis);
-
-builder.Build().Run();
+```bash
+aspire start --isolated
+aspire wait myapi
 ```
 
-For complete API signatures, see [Polyglot APIs](references/polyglot-apis.md).
+### Applying code changes
 
----
+Choose the right action based on what changed:
 
-## 5. Core Concepts (Summary)
-
-| Concept | Key point |
-|---|---|
-| **Run vs Publish** | `aspire run` = local dev (DCP engine). `aspire publish` = generate deployment manifests. |
-| **Service discovery** | Automatic via env vars: `ConnectionStrings__<name>`, `services__<name>__http__0` |
-| **Resource lifecycle** | DAG ordering — dependencies start first. `.WaitFor()` gates on health checks. |
-| **Resource types** | `ProjectResource`, `ContainerResource`, `ExecutableResource`, `ParameterResource` |
-| **Integrations** | 144+ across 13 categories. Hosting package (AppHost) + Client package (service). |
-| **Dashboard** | Real-time logs, traces, metrics, GenAI visualizer. Runs automatically with `aspire run`. |
-| **MCP Server** | AI assistants can query running apps and search docs via CLI (STDIO). |
-| **Testing** | `Aspire.Hosting.Testing` — spin up full AppHost in xUnit/MSTest/NUnit. |
-| **Deployment** | Docker, Kubernetes, Azure Container Apps, Azure App Service. |
-
----
-
-## 6. CLI Quick Reference
-
-Valid commands in Aspire CLI 13.1:
-
-| Command | Description | Status |
+| What changed | Action | Why |
 |---|---|---|
-| `aspire new <template>` | Create from template | Stable |
-| `aspire init` | Initialize in existing project | Stable |
-| `aspire run` | Start all resources locally | Stable |
-| `aspire add <integration>` | Add an integration | Stable |
-| `aspire publish` | Generate deployment manifests | Preview |
-| `aspire config` | Manage configuration settings | Stable |
-| `aspire cache` | Manage disk cache | Stable |
-| `aspire deploy` | Deploy to defined targets | Preview |
-| `aspire do <step>` | Execute a pipeline step | Preview |
-| `aspire update` | Update integrations (or `--self` for CLI) | Preview |
-| `aspire mcp init` | Configure MCP for AI assistants | Stable |
-| `aspire mcp start` | Start the MCP server | Stable |
+| AppHost project (`apphost.cs`/`apphost.ts`) | `aspire start` | Resource graph changed; full restart required |
+| Compiled .NET project resource | `aspire resource <name> rebuild` | Rebuilds and restarts only that resource |
+| Interpreted resource (JavaScript, Python) | Typically nothing — most run with file watchers | Restart the resource if no watch mode is configured |
 
-Full command reference with flags: [CLI Reference](references/cli-reference.md).
+**Never restart the entire AppHost just because a single resource changed.** Use `aspire resource <name> rebuild` for .NET project resources — it coordinates stop, build, and restart for just that resource. Use `aspire describe --format Json` to check which commands a resource supports.
 
----
+### Debugging issues
 
-## 7. Common Patterns
+Before making code changes, inspect the app state:
 
-### Adding a new service
+1. `aspire describe` — check resource status
+2. `aspire otel logs <resource>` — view structured logs
+3. `aspire logs <resource>` — view console output
+4. `aspire otel traces <resource>` — view distributed traces
 
-1. Create your service directory (any language)
-2. Add to AppHost: `Add*App()` or `AddProject<T>()`
-3. Wire dependencies: `.WithReference()`
-4. Gate on health: `.WaitFor()` if needed
-5. Run: `aspire run`
+### Adding integrations
 
-### Migrating from Docker Compose
+Use `aspire docs search` to find integration documentation, then `aspire docs get` to read the full guide. Use `aspire add` to add the integration package to the AppHost.
 
-1. `aspire new aspire-apphost-singlefile` (empty AppHost)
-2. Replace each `docker-compose` service with an Aspire resource
-3. `depends_on` → `.WithReference()` + `.WaitFor()`
-4. `ports` → `.WithHttpEndpoint()`
-5. `environment` → `.WithEnvironment()` or `.WithReference()`
+After adding an integration, restart the app with `aspire start` for the new resource to take effect.
 
----
+### Using resource MCP tools
 
-## 8. Key URLs
+Some resources expose MCP tools (e.g. `WithPostgresMcp()` adds SQL query tools). Discover and call them via CLI:
 
-| Resource | URL |
-|---|---|
-| **Documentation** | https://aspire.dev |
-| **Runtime repo** | https://github.com/dotnet/aspire |
-| **Docs repo** | https://github.com/microsoft/aspire.dev |
-| **Samples** | https://github.com/dotnet/aspire-samples |
-| **Community Toolkit** | https://github.com/CommunityToolkit/Aspire |
-| **Dashboard image** | `mcr.microsoft.com/dotnet/aspire-dashboard` |
-| **Discord** | https://aka.ms/aspire/discord |
-| **Reddit** | https://www.reddit.com/r/aspiredotdev/ |
+```bash
+aspire mcp tools                                              # list available tools
+aspire mcp tools --format Json                                # includes input schemas
+aspire mcp call <resource> <tool> --input '{"key":"value"}'   # invoke a tool
+```
+
+## Important rules
+
+- **Always start the app first** (`aspire start`) before making changes to verify the starting state.
+- **To restart, just run `aspire start` again** — it automatically stops the previous instance. NEVER use `aspire stop` then `aspire run`. NEVER use `aspire run` at all.
+- **Only restart the AppHost when AppHost code changes.** For .NET project resources, use `aspire resource <name> rebuild` instead.
+- Use `--isolated` when working in a worktree.
+- **Avoid persistent containers** early in development to prevent state management issues.
+- **Never install the Aspire workload** — it is obsolete.
+- **For Aspire API reference and documentation, prefer `aspire docs search <query>` and `aspire docs get <slug>`** over searching NuGet package caches or XML doc files. The CLI provides up-to-date content from aspire.dev.
+- Prefer `aspire.dev` and `learn.microsoft.com/microsoft/aspire` for official documentation.
+
+## Playwright CLI
+
+If configured, use Playwright CLI for functional testing of resources. Get endpoints via `aspire describe`. Run `playwright-cli --help` for available commands.
