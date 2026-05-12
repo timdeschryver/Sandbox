@@ -1,0 +1,17 @@
+{
+	"$schema": "https://flagd.dev/schema/v0/flags.json",
+	"flags": {
+		"billing-enabled": {
+			"metadata": {
+				"lastReviewed": "2025-05-12",
+				"owner": "billing-team"
+			},
+			"state": "ENABLED",
+			"variants": {
+				"on": true,
+				"off": false
+			},
+			"defaultVariant": "on"
+		}
+	}
+}

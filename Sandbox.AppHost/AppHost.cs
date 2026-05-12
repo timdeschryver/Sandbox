@@ -119,6 +119,10 @@ var redis = builder.AddRedis("cache")
 redis.WithRedisInsight(p => p.WithParentRelationship(redis))
     .WithRedisCommander(p => p.WithParentRelationship(redis));
 
+var flagd = builder.AddFlagd("flagd")
+    .WithImageTag("v0.15.5")
+    .WithBindFileSync(fileSource: "../config/flagd", filename: "flagd.json");
+
 var migrations = builder.AddProject<Projects.Sandbox_Migrations>("migrations")
     .WithReference(database)
     .WithReference(redis)
@@ -145,11 +149,12 @@ var apiService = builder.AddProject<Projects.Sandbox_ApiService>("apiservice")
     .WithReference(database)
     .WithReference(keycloak)
     .WithReference(redis)
-    .WithConfigurationSection(builder.Configuration, "FeatureFlags")
+    .WithReference(flagd)
     .WaitFor(database)
     .WaitFor(migrations)
     .WaitFor(keycloak)
     .WaitFor(redis)
+    .WaitFor(flagd)
     .WithUrls(context =>
     {
         context.Urls.Clear();
@@ -177,13 +182,14 @@ var gateway = builder.AddProject<Projects.Sandbox_Gateway>("gateway")
     .WithReference(redis)
     .WithReference(openTelemetryCollector.Resource.HTTPEndpoint)
     .WithReference(keycloak)
+    .WithReference(flagd)
     .WithEnvironment("OpenIDConnectSettings__ClientSecret", openIDConnectSettingsClientSecret)
-    .WithConfigurationSection(builder.Configuration, "FeatureFlags")
     .WaitFor(apiService)
     .WaitFor(angularApplication)
     .WaitFor(openTelemetryCollector)
     .WaitFor(keycloak)
     .WaitFor(redis)
+    .WaitFor(flagd)
     .WithUrls(context =>
     {
         context.Urls.Clear();
@@ -194,6 +200,7 @@ var gateway = builder.AddProject<Projects.Sandbox_Gateway>("gateway")
 apiService.WithParentRelationship(gateway);
 angularApplication.WithParentRelationship(gateway);
 keycloak.WithParentRelationship(gateway);
+flagd.WithParentRelationship(gateway);
 
 if (builder.Environment.IsDevelopment())
 {
@@ -232,8 +239,11 @@ var dabServer = builder
 builder.AddDockerComposeEnvironment("Sandbox")
     .WithDashboard(false);
 
+if (builder.ExecutionContext.IsPublishMode)
+{
 #pragma warning disable ASPIREAZURE001 // Type is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
-builder.AddAzureEnvironment();
+    builder.AddAzureEnvironment();
 #pragma warning restore ASPIREAZURE001 // Type is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
+}
 
 await builder.Build().RunAsync();

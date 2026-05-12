@@ -335,32 +335,36 @@ erDiagram
 Use feature flags to:
 
 - **Gate entire modules**: Enable/disable a domain module (e.g., `billing-enabled`) across both backend endpoints and frontend routes without deploying new code.
-- **Gradual rollouts**: Ship a feature to production but keep it off until ready, then enable via config with no redeployment.
-- **Safe cleanup**: A flag with `Enabled: true` that has been stable can be removed. A flag introduced recently is still needed.
+- **Gradual rollouts**: Ship a feature to production but keep it off until ready, then enable it through flagd without redeploying application code.
+- **Safe cleanup**: A flag that has been enabled and stable can be removed. A flag introduced recently is still needed.
 
 ### Why This Approach
 
-- **OpenFeature standard**: The backend uses the [OpenFeature](https://openfeature.dev/) SDK (`OpenFeature.Contrib.Providers.InMemory`) so the provider can be swapped (e.g., to LaunchDarkly) without changing application code.
-- **Server-side authority**: Flags are resolved on the backend. The frontend only receives flags marked `FrontendVisible: true` via the BFF endpoint, preventing exposure of internal flags.
+- **OpenFeature standard**: The backend uses the [OpenFeature](https://openfeature.dev/) SDK with the flagd provider, so the provider can be swapped later without changing application code.
+- **Server-side authority**: Flags are resolved on the backend. The frontend receives values for known `FeatureFlagKeys` via the BFF endpoint, while flag values are managed by flagd.
 - **Observability built-in**: `TracingHook`, `MetricsHook`, and `LoggingHook` are registered automatically so every flag evaluation is traced, measured, and logged.
+- **Aspire-managed flag server**: `Sandbox.AppHost` hosts flagd and passes its connection string to API and Gateway resources.
 
 ### How Feature Flags Work
 
-**Configuration** — Flags are defined in `Sandbox.AppHost/appsettings.json` under the `FeatureFlags` array:
+**Configuration** — Flag values are defined in `config/flagd/flagd.json` and synchronized into the Aspire-managed flagd container:
 
 ```json
 {
-  "FeatureFlags": [
-    {
-      "Key": "billing-enabled",
-      "Enabled": true,
-      "FrontendVisible": true,
-      "Description": "Controls whether the billing module is accessible",
-      "DateIntroduced": "2026-02-26"
+  "flags": {
+    "billing-enabled": {
+      "state": "ENABLED",
+      "variants": {
+        "on": true,
+        "off": false
+      },
+      "defaultVariant": "on"
     }
-  ]
+  }
 }
 ```
+
+Known feature flag keys live in `Sandbox.SharedKernel.FeatureFlags.FeatureFlagKeys`.
 
 **Backend — gating an endpoint** — Call `.WithFeatureFlag("flag-key")` on any minimal-API route. The `FeatureFlagEndpointFilter` returns `404` when the flag is disabled:
 
@@ -369,7 +373,7 @@ app.MapGet("/billing/invoices", ...)
    .WithFeatureFlag("billing-enabled");
 ```
 
-**Backend — setup** — Call `builder.AddFeatureFlags()` once in each service (`ApiService`, `Gateway`) startup. This reads the config, registers OpenFeature with the in-memory provider, and wires up all observability hooks.
+**Backend — setup** — Call `builder.AddFeatureFlags()` once in each service (`ApiService`, `Gateway`) startup. This registers OpenFeature with the flagd provider, uses the Aspire-provided `flagd` connection string when available, and wires up all observability hooks.
 
 **Frontend — checking a flag** — Inject the `FeatureFlags` service and call `isEnabled(flagKey)`. The service fetches the flag list from `/bff/feature-flags` on startup:
 
@@ -390,11 +394,13 @@ featureFlags.isEnabled('billing-enabled'); // boolean
 
 **Full flow summary:**
 
-1. Flags are read from `appsettings.json` at startup into an in-memory OpenFeature provider.
-2. Gateway exposes `GET /bff/feature-flags` returning only `FrontendVisible` flags.
-3. Angular `FeatureFlags` service fetches this list and makes it available as signals.
-4. Backend routes use `WithFeatureFlag` to return 404 for disabled flags.
-5. Frontend routes use `featureFlagGuard` to redirect away when a flag is off.
+1. `Sandbox.AppHost` starts flagd and syncs `config/flagd/flagd.json` into the container.
+2. API and Gateway receive the `flagd` connection string through Aspire resource references.
+3. Backend routes use OpenFeature with the flagd provider to evaluate flags.
+4. Gateway exposes `GET /bff/feature-flags` returning flags listed in `FeatureFlagKeys`, with values evaluated from flagd.
+5. Angular `FeatureFlags` service fetches this list and makes it available as signals.
+6. Backend routes use `WithFeatureFlag` to return 404 for disabled flags.
+7. Frontend routes use `featureFlagGuard` to redirect away when a flag is off.
 
 ## Security
 

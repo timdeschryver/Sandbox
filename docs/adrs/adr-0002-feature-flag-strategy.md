@@ -22,14 +22,14 @@ The application needs a runtime feature-flag system that works consistently acro
 
 ## Decision
 
-Use OpenFeature as the vendor-neutral abstraction layer for feature flag evaluation across the entire stack. Phase 1 implements global environment-level toggles backed by a configuration provider (appsettings.json), with the abstraction designed to support provider swaps (Redis-backed, managed services) in later phases without changing call sites.
+Use OpenFeature as the vendor-neutral abstraction layer for feature flag evaluation across the entire stack. The current implementation uses flagd as the OpenFeature provider, with flag values synchronized from `config/flagd/flagd.json` by the Aspire AppHost.
 
 Design principles for this decision:
 
 - **PRN-001**: Flag evaluation uses OpenFeature directly via `IFeatureClient` at call sites that need runtime checks, with shared flag configuration contracts in SharedKernel.
 - **PRN-002**: Backend is the source of truth for business/security enforcement; frontend flags are informational and control UX presentation only.
 - **PRN-003**: If the flag provider is unavailable, evaluation returns configured defaults and emits diagnostics — no hard failures.
-- **PRN-004**: Only flags explicitly marked as `FrontendVisible` are exposed via the BFF endpoint; operational/internal flags are never leaked.
+- **PRN-004**: The BFF endpoint exposes the known application flags listed in `FeatureFlagKeys`, with values resolved from flagd.
 - **PRN-005**: Flag evaluation outcomes are observable via OpenTelemetry tracing and metrics hooks.
 
 ## Consequences
@@ -39,13 +39,13 @@ Design principles for this decision:
 - **POS-001**: OpenFeature prevents vendor lock-in; providers can be swapped without changing application code.
 - **POS-002**: Consistent flag evaluation semantics across API, Gateway, and frontend reduces drift and bugs.
 - **POS-003**: Fail-safe defaults ensure flag provider outages do not cascade into application failures.
-- **POS-004**: Separation of frontend-visible vs internal flags prevents accidental exposure of operational controls.
+- **POS-004**: Centralizing known keys in `FeatureFlagKeys` keeps API, Gateway, and frontend flag usage aligned with the flagd configuration.
 
 ### Negative
 
 - **NEG-001**: Introduces a new abstraction layer and dependency (OpenFeature SDK) that the team must understand.
-- **NEG-002**: The `InMemoryProvider` is populated once at startup from appsettings; flag changes require a process restart (no live reload).
-- **NEG-003**: No per-user or percentage-based targeting in phase 1; these require a richer provider.
+- **NEG-002**: Local development now depends on a flagd container when running the full Aspire app.
+- **NEG-003**: Known application keys remain code-owned and must be kept in sync with `config/flagd/flagd.json`.
 
 ## Alternatives Considered
 
@@ -66,12 +66,12 @@ Design principles for this decision:
 
 ## Implementation Notes
 
-- **IMP-001**: Shared contract (`FeatureFlag`, `FeatureFlagDefinition`) lives in `Sandbox.SharedKernel.FeatureFlags`.
-- **IMP-002**: `FeatureFlagExtensions.AddFeatureFlags()` reads the `FeatureFlags` array from appsettings at startup and feeds it into OpenFeature's built-in `InMemoryProvider`.
-- **IMP-003**: `FeatureFlagExtensions.AddFeatureFlags()` registers OpenFeature with `TracingHook` + `MetricsHook` (OTel), the `InMemoryProvider` populated from config, and exposes `IReadOnlyList<FeatureFlagDefinition>` as a singleton for BFF use.
-- **IMP-004**: Gateway exposes `GET /bff/feature-flags` returning only `FrontendVisible` flags with typed response.
+- **IMP-001**: Shared feature-flag contracts (`FeatureFlag`, `FeatureFlagKeys`) live in `Sandbox.SharedKernel.FeatureFlags`.
+- **IMP-002**: `Sandbox.AppHost` starts a flagd resource with `config/flagd/flagd.json` synchronized by `WithBindFileSync()` and passes the `flagd` connection string to API and Gateway through Aspire resource references.
+- **IMP-003**: `FeatureFlagExtensions.AddFeatureFlags()` registers OpenFeature with `TracingHook` + `MetricsHook` (OTel) and the flagd provider, using the Aspire `flagd` connection string when present.
+- **IMP-004**: Gateway exposes `GET /bff/feature-flags` returning `FeatureFlagKeys.All` with typed response values evaluated from flagd.
 - **IMP-005**: Angular `FeatureFlags` service uses `httpResource()` with Zod schema validation for type-safe flag consumption.
-- **IMP-006**: Phase 2 evolution path: swap `InMemoryProvider` for a Redis-backed or managed provider without changing module call sites.
+- **IMP-006**: Future evolution path: swap flagd for another OpenFeature provider without changing module call sites.
 
 ## References
 
@@ -79,3 +79,4 @@ Design principles for this decision:
 - **REF-002**: External documentation: [OpenFeature specification](https://openfeature.dev/).
 - **REF-003**: External documentation: [OpenFeature .NET SDK](https://github.com/open-feature/dotnet-sdk).
 - **REF-004**: Standards or frameworks referenced: [CNCF OpenFeature](https://www.cncf.io/projects/openfeature/).
+- **REF-005**: External documentation: [Aspire flagd integration](https://aspire.dev/integrations/devtools/flagd/flagd-get-started/).
