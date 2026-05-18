@@ -8,8 +8,8 @@ export class TableBodyTemplate<T> {
 	public readonly sandboxTableBody = input.required<HttpResourceRef<T[] | undefined>>();
 	static ngTemplateContextGuard<TContext>(
 		_dir: TableBodyTemplate<TContext>,
-		ctx: unknown,
-	): ctx is {
+		_ctx: unknown,
+	): _ctx is {
 		$implicit: TContext;
 		value: TContext;
 		index: number;

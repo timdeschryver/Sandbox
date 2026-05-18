@@ -1,6 +1,6 @@
 services:
   keycloak:
-    image: 'quay.io/keycloak/keycloak:26.5@sha256:a7b0cb7a43a1235a61872883414d3f1d9a3ceac9df6e5907bd12202778a6265c'
+    image: 'quay.io/keycloak/keycloak:26.6@sha256:dea26401d06341095cc4ea9d66896200b55de5ca1daa1d2fcbe58493afa6e0ad'
     command:
       - 'start'
       - '--import-realm'
@@ -60,7 +60,7 @@ services:
     networks:
       - 'aspire'
   loki:
-    image: 'grafana/loki:latest@sha256:3c8fd3570dd9219951a60d3f919c7f31923d10baee578b77bc26c4a0b32d092d'
+    image: 'grafana/loki:latest@sha256:191d4fdfb7264f16989f0a57f320872620a5a7c2ceeec6229212c4190ec49b86'
     command:
       - '--config.file=/etc/loki/loki.yml'
       - '--config.expand-env=true'
@@ -86,7 +86,7 @@ services:
     networks:
       - 'aspire'
   tempo:
-    image: 'grafana/tempo:latest@sha256:58e1f9f93f9602d09d606a639f705bca428ff5af283ebda89402e4d49440ad54'
+    image: 'grafana/tempo:latest@sha256:2513658c41faa9197dc7373599bb6119eb27bcb4232cc83779e2bc87cbc34299'
     command:
       - '--config.file=/etc/tempo/tempo.yml'
       - '--config.expand-env=true'
@@ -114,7 +114,7 @@ services:
     networks:
       - 'aspire'
   prometheus:
-    image: 'prom/prometheus:latest@sha256:4a61322ac1103a0e3aea2a61ef1718422a48fa046441f299d71e660a3bc71ae9'
+    image: 'prom/prometheus:latest@sha256:e4254400b85610324913f0dc4acf92603d9984e7519414c5a12811aa6146acc3'
     command:
       - '--web.enable-otlp-receiver'
       - '--web.enable-remote-write-receiver'
@@ -143,7 +143,7 @@ services:
     networks:
       - 'aspire'
   grafana:
-    image: 'grafana/grafana:latest@sha256:e932bd6ed0e026595b08483cd0141e5103e1ab7ff8604839ff899b8dc54cabcb'
+    image: 'grafana/grafana:latest@sha256:2d1f9ae67c1778d33e291d4c3c759cd8b650e67491f02533499eb950e075eeb5'
     environment:
       PROMETHEUS_ENDPOINT: 'http://prometheus:9090'
       LOKI_ENDPOINT: 'http://loki:3100'
@@ -169,7 +169,7 @@ services:
     networks:
       - 'aspire'
   otelcollector:
-    image: 'ghcr.io/open-telemetry/opentelemetry-collector-releases/opentelemetry-collector-contrib:latest@sha256:e7c92c715f28ff142f3bcaccd4fc5603cf4c71276ef09954a38eb4038500a5a5'
+    image: 'ghcr.io/open-telemetry/opentelemetry-collector-releases/opentelemetry-collector-contrib:latest@sha256:f41d7995565df3733b7568702073a9c490792f9c6ac60684fe6a4da21a313f8d'
     environment:
       ASPIRE_OTLP_ENDPOINT: '${}'
       ASPIRE_API_KEY: ''
@@ -188,7 +188,7 @@ services:
     networks:
       - 'aspire'
   postgres:
-    image: 'docker.io/library/postgres:18.3@sha256:98f32d2e093deea07127bcc373f89729b77ff3486511cc77224c530e63a41f0e'
+    image: 'docker.io/library/postgres:18.4@sha256:f7ce845ee6873dd84be93c9828fe0d1fab0f9707dc9ac569694657398b290bce'
     environment:
       POSTGRES_HOST_AUTH_METHOD: 'scram-sha-256'
       POSTGRES_INITDB_ARGS: '--auth-host=scram-sha-256 --auth-local=scram-sha-256'
@@ -204,7 +204,7 @@ services:
     networks:
       - 'aspire'
   cache:
-    image: 'docker.io/library/redis:8.6@sha256:a019c005570189bb038155c1dfb1a269b59b83f9ceee22fd5f42de205ac19c06'
+    image: 'docker.io/library/redis:8.6@sha256:0c341492924cad6f5483f9133e43bd6c51ecdecbcadfac5b51657393b6a7936c'
     command:
       - '-c'
       - 'redis-server --requirepass $$REDIS_PASSWORD --save 60 1'
@@ -331,7 +331,7 @@ services:
     networks:
       - 'aspire'
   data-api:
-    image: 'mcr.microsoft.com/azure-databases/data-api-builder:2.0.0-rc@sha256:6ba13bedd9c56d3d79c96378d064d5990552de3e2262a7a43727188af7b16627'
+    image: 'mcr.microsoft.com/azure-databases/data-api-builder:2.0.1-rc@sha256:836ef329d053f87992737a2f30df1c6bf7bd69d9877f0c746f95a33d79342395'
     environment:
       DAB_ENVIRONMENT: 'production'
       ConnectionString: 'Host=postgres;Port=5432;Username=postgres;Password=${POSTGRES_PASSWORD};Database=sandbox-db'
