@@ -10,5 +10,8 @@
 	},
 	"devDependencies": {
 		"@stoplight/spectral-cli": "catalog:"
+	},
+	"pnpm": {
+		"onlyBuiltDependencies": ["@parcel/watcher", "esbuild", "lmdb", "msgpackr-extract"]
 	}
 }

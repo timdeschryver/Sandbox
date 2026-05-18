@@ -2,6 +2,12 @@ packages:
   - 'Sandbox.AngularWorkspace'
   - 'Sandbox.EndToEndTests'
 
+allowBuilds:
+  '@parcel/watcher': true
+  esbuild: true
+  lmdb: true
+  msgpackr-extract: true
+
 catalog:
   '@azure/identity': '4.13.1'
   '@azure/playwright': '1.1.5'
