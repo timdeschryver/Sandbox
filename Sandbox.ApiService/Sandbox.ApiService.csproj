@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <PackageReference Include="Aspire.Keycloak.Authentication" />
+    <PackageReference Include="WolverineFx.RuntimeCompilation" />
     <PackageReference Include="Aspire.StackExchange.Redis" />
     <PackageReference Include="Aspire.StackExchange.Redis.DistributedCaching" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" />

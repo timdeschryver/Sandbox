@@ -61,6 +61,7 @@
     <PackageVersion Include="WolverineFx" Version="6.0.0" />
     <PackageVersion Include="WolverineFx.EntityFrameworkCore" Version="6.0.0" />
     <PackageVersion Include="WolverineFx.Postgresql" Version="6.0.0" />
+    <PackageVersion Include="WolverineFx.RuntimeCompilation" Version="6.0.0" />
     <PackageVersion Include="Yarp.ReverseProxy" Version="2.3.0" />
     <PackageVersion Include="ZiggyCreatures.FusionCache" Version="2.6.0" />
     <PackageVersion Include="ZiggyCreatures.FusionCache.Backplane.StackExchangeRedis" Version="2.6.0" />
