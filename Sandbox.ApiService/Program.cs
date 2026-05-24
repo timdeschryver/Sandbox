@@ -20,7 +20,8 @@ var app = builder.Build();
 
 app.UseStatusCodePages();
 app.UseExceptionHandler(
-    new ExceptionHandlerOptions {
+    new ExceptionHandlerOptions
+    {
         SuppressDiagnosticsCallback = context => context.Exception is BadHttpRequestException
     }
 );
