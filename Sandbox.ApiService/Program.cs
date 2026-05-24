@@ -19,7 +19,11 @@ builder.AddModules();
 var app = builder.Build();
 
 app.UseStatusCodePages();
-app.UseExceptionHandler();
+app.UseExceptionHandler(
+    new ExceptionHandlerOptions {
+        SuppressDiagnosticsCallback = context => context.Exception is BadHttpRequestException
+    }
+);
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseModules();
