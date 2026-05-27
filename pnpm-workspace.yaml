@@ -26,15 +26,15 @@ catalog:
 
 catalogs:
   angular:
-    '@angular/build': '21.2.11'
-    '@angular/cli': '21.2.11'
-    '@angular/common': '21.2.13'
-    '@angular/compiler': '21.2.13'
-    '@angular/compiler-cli': '21.2.13'
-    '@angular/core': '21.2.13'
-    '@angular/forms': '21.2.13'
-    '@angular/platform-browser': '21.2.13'
-    '@angular/router': '21.2.13'
+    '@angular/build': '21.2.12'
+    '@angular/cli': '21.2.12'
+    '@angular/common': '21.2.14'
+    '@angular/compiler': '21.2.14'
+    '@angular/compiler-cli': '21.2.14'
+    '@angular/core': '21.2.14'
+    '@angular/forms': '21.2.14'
+    '@angular/platform-browser': '21.2.14'
+    '@angular/router': '21.2.14'
     'ng-packagr': '21.2.3'
 
   opentelemetry:
@@ -48,7 +48,7 @@ catalogs:
     '@opentelemetry/semantic-conventions': '1.41.1'
 
   testing-library:
-    '@testing-library/angular': '19.2.1'
+    '@testing-library/angular': '19.3.0'
     '@testing-library/jest-dom': '6.9.1'
     '@testing-library/user-event': '14.6.1'
 
