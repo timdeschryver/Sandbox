@@ -86,7 +86,7 @@ services:
     networks:
       - 'aspire'
   tempo:
-    image: 'grafana/tempo:latest@sha256:bba98c012e75d0885de2520c9076ac26f44ed01d83c469ad8ff6b0e9033359bb'
+    image: 'grafana/tempo:latest@sha256:af2b26adab98eac6570203363b71d590bc40e2b5dbc5a148de3223fd6825965d'
     command:
       - '--config.file=/etc/tempo/tempo.yml'
       - '--config.expand-env=true'
@@ -114,7 +114,7 @@ services:
     networks:
       - 'aspire'
   prometheus:
-    image: 'prom/prometheus:latest@sha256:e4254400b85610324913f0dc4acf92603d9984e7519414c5a12811aa6146acc3'
+    image: 'prom/prometheus:latest@sha256:69f5241418838263316593f7274a304b095c40bcf22e57272865da91bd60a8ac'
     command:
       - '--web.enable-otlp-receiver'
       - '--web.enable-remote-write-receiver'
@@ -204,7 +204,7 @@ services:
     networks:
       - 'aspire'
   cache:
-    image: 'docker.io/library/redis:8.8@sha256:25e102bdf0bd1ea1f5840ce8873275ba12dc544740a1c9bda9fc71001f5c7190'
+    image: 'docker.io/library/redis:8.8@sha256:aa049e689e141a4358ad1d4562dc49c88a89fbab711fd8fcc33f684c80b26301'
     command:
       - '-c'
       - 'redis-server --requirepass $$REDIS_PASSWORD --save 60 1'
@@ -331,7 +331,7 @@ services:
     networks:
       - 'aspire'
   data-api:
-    image: 'mcr.microsoft.com/azure-databases/data-api-builder:2.0.1-rc@sha256:836ef329d053f87992737a2f30df1c6bf7bd69d9877f0c746f95a33d79342395'
+    image: 'mcr.microsoft.com/azure-databases/data-api-builder:2.0.7-rc@sha256:e652074bb588267b1199aa638e3894bd6b164e7d4c86352cd719020e577ada7c'
     environment:
       DAB_ENVIRONMENT: 'production'
       ConnectionString: 'Host=postgres;Port=5432;Username=postgres;Password=${POSTGRES_PASSWORD};Database=sandbox-db'
