@@ -3,31 +3,31 @@
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
   </PropertyGroup>
   <ItemGroup>
-    <PackageVersion Include="Aspire.Hosting.Azure" Version="13.3.5" />
-    <PackageVersion Include="Aspire.Hosting.Docker" Version="13.3.5" />
-    <PackageVersion Include="Aspire.Hosting.Keycloak" Version="13.3.0-preview.1.26256.5" />
-    <PackageVersion Include="Aspire.Hosting.JavaScript" Version="13.3.5" />
-    <PackageVersion Include="Aspire.Hosting.PostgreSQL" Version="13.3.5" />
-    <PackageVersion Include="Aspire.Hosting.Redis" Version="13.3.5" />
-    <PackageVersion Include="Aspire.Keycloak.Authentication" Version="13.3.0-preview.1.26256.5" />
-    <PackageVersion Include="Aspire.Npgsql.EntityFrameworkCore.PostgreSQL" Version="13.3.5" />
-    <PackageVersion Include="Aspire.StackExchange.Redis" Version="13.3.5" />
-    <PackageVersion Include="Aspire.StackExchange.Redis.DistributedCaching" Version="13.3.5" />
+    <PackageVersion Include="Aspire.Hosting.Azure" Version="13.4.6" />
+    <PackageVersion Include="Aspire.Hosting.Docker" Version="13.4.6" />
+    <PackageVersion Include="Aspire.Hosting.Keycloak" Version="13.4.6-preview.1.26319.6" />
+    <PackageVersion Include="Aspire.Hosting.JavaScript" Version="13.4.6" />
+    <PackageVersion Include="Aspire.Hosting.PostgreSQL" Version="13.4.6" />
+    <PackageVersion Include="Aspire.Hosting.Redis" Version="13.4.6" />
+    <PackageVersion Include="Aspire.Keycloak.Authentication" Version="13.4.6-preview.1.26319.6" />
+    <PackageVersion Include="Aspire.Npgsql.EntityFrameworkCore.PostgreSQL" Version="13.4.6" />
+    <PackageVersion Include="Aspire.StackExchange.Redis" Version="13.4.6" />
+    <PackageVersion Include="Aspire.StackExchange.Redis.DistributedCaching" Version="13.4.6" />
     <PackageVersion Include="CommunityToolkit.Aspire.Hosting.Azure.DataApiBuilder" Version="13.3.0" />
     <PackageVersion Include="CommunityToolkit.Aspire.Hosting.Flagd" Version="13.3.0" />
     <PackageVersion Include="CommunityToolkit.Aspire.Hosting.Minio" Version="13.3.0" />
     <PackageVersion Include="Duende.AccessTokenManagement.OpenIdConnect" Version="4.2.0" />
-    <PackageVersion Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="11.0.0-preview.4.26230.115" />
-    <PackageVersion Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="11.0.0-preview.4.26230.115" />
-    <PackageVersion Include="Microsoft.AspNetCore.OpenApi" Version="11.0.0-preview.4.26230.115" />
-    <PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="11.0.0-preview.4.26230.115" />
-    <PackageVersion Include="Microsoft.Extensions.ApiDescription.Server" Version="11.0.0-preview.4.26230.115">
+    <PackageVersion Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="11.0.0-preview.5.26302.115" />
+    <PackageVersion Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="11.0.0-preview.5.26302.115" />
+    <PackageVersion Include="Microsoft.AspNetCore.OpenApi" Version="11.0.0-preview.5.26302.115" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="11.0.0-preview.5.26302.115" />
+    <PackageVersion Include="Microsoft.Extensions.ApiDescription.Server" Version="11.0.0-preview.5.26302.115">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageVersion>
     <PackageVersion Include="Microsoft.CodeAnalysis.Workspaces.MSBuild" Version="5.3.0" />
     <PackageVersion Include="Microsoft.Extensions.Caching.Hybrid" Version="10.6.0" />
-    <PackageVersion Include="Microsoft.Extensions.Hosting" Version="11.0.0-preview.4.26230.115" />
+    <PackageVersion Include="Microsoft.Extensions.Hosting" Version="11.0.0-preview.5.26302.115" />
     <PackageVersion Include="Microsoft.Extensions.Http.Resilience" Version="10.6.0" />
     <PackageVersion Include="Microsoft.Extensions.ServiceDiscovery" Version="10.6.0" />
     <PackageVersion Include="Microsoft.Extensions.ServiceDiscovery.Yarp" Version="10.6.0" />
@@ -35,7 +35,7 @@
     <PackageVersion Include="Microsoft.Kiota.Bundle" Version="2.0.0" />
     <PackageVersion Include="Microsoft.Testing.Extensions.CodeCoverage" Version="18.7.0" />
     <PackageVersion Include="Microsoft.Testing.Extensions.TrxReport" Version="2.2.3" />
-    <PackageVersion Include="Microsoft.AspNetCore.Mvc.Testing" Version="11.0.0-preview.4.26230.115" />
+    <PackageVersion Include="Microsoft.AspNetCore.Mvc.Testing" Version="11.0.0-preview.5.26302.115" />
     <PackageVersion Include="NetEscapades.AspNetCore.SecurityHeaders" Version="1.3.1" />
     <PackageVersion Include="OpenFeature" Version="2.13.0" />
     <PackageVersion Include="OpenFeature.Contrib.Hooks.Otel" Version="0.2.1" />
