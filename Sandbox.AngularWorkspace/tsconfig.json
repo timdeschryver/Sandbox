@@ -16,11 +16,10 @@
 		"target": "ES2022",
 		"module": "preserve",
 		"moduleResolution": "bundler",
-		"baseUrl": "./",
 		"paths": {
-			"@sandbox-app/*": ["projects/sandbox-app/src/app/*"],
-			"@opentelemetry": ["projects/opentelemetry-lib/src/public-api"],
-			"@form-validation": ["projects/form-validation-lib/src/public-api"]
+			"@sandbox-app/*": ["./projects/sandbox-app/src/app/*"],
+			"@opentelemetry": ["./projects/opentelemetry-lib/src/public-api"],
+			"@form-validation": ["./projects/form-validation-lib/src/public-api"]
 		}
 	},
 	"angularCompilerOptions": {

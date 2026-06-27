@@ -41,10 +41,10 @@ export class CustomerForm {
 			required(path.lastName);
 			maxLength(path.lastName, 255);
 
-			hidden(path.billingAddress, (logic) => !logic.valueOf(path.hasBillingAddress));
+			hidden(path.billingAddress, { when: (logic) => !logic.valueOf(path.hasBillingAddress) });
 			applyWhen(path.billingAddress, (logic) => logic.valueOf(path.hasBillingAddress), addressSchema);
 
-			hidden(path.shippingAddress, (logic) => !logic.valueOf(path.hasShippingAddress));
+			hidden(path.shippingAddress, { when: (logic) => !logic.valueOf(path.hasShippingAddress) });
 			applyWhen(path.shippingAddress, (logic) => logic.valueOf(path.hasShippingAddress), addressSchema);
 			minLength(path.shippingAddress.note, (logic) => {
 				return logic.value() ? 10 : 0;

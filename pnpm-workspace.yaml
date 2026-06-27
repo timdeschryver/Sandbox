@@ -21,21 +21,22 @@ catalog:
   'run-script-os': '1.1.6'
   'rxjs': '~7.8.2'
   'tslib': '2.8.1'
-  'typescript': '5.9.3'
+  'typescript': '6.0.3'
+  'zone.js': '~0.16.0'
   'zod': '4.4.3'
 
 catalogs:
   angular:
-    '@angular/build': '21.2.13'
-    '@angular/cli': '21.2.13'
-    '@angular/common': '21.2.15'
-    '@angular/compiler': '21.2.15'
-    '@angular/compiler-cli': '21.2.15'
-    '@angular/core': '21.2.15'
-    '@angular/forms': '21.2.15'
-    '@angular/platform-browser': '21.2.15'
-    '@angular/router': '21.2.15'
-    'ng-packagr': '21.2.3'
+    '@angular/build': '22.0.4'
+    '@angular/cli': '22.0.4'
+    '@angular/common': '22.0.4'
+    '@angular/compiler': '22.0.4'
+    '@angular/compiler-cli': '22.0.4'
+    '@angular/core': '22.0.4'
+    '@angular/forms': '22.0.4'
+    '@angular/platform-browser': '22.0.4'
+    '@angular/router': '22.0.4'
+    'ng-packagr': '22.0.0'
 
   opentelemetry:
     '@opentelemetry/auto-instrumentations-web': '0.63.0'
@@ -55,7 +56,7 @@ catalogs:
   eslint:
     '@eslint/js': '10.0.1'
     'eslint': '10.4.0'
-    'angular-eslint': '21.4.0'
+    'angular-eslint': '22.0.0'
     'eslint-config-prettier': '10.1.8'
     'eslint-plugin-playwright': '2.10.4'
     'typescript-eslint': '8.60.0'
