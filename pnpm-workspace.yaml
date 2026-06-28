@@ -70,7 +70,7 @@ catalogs:
     'tailwindcss': '4.3.0'
 
   vitest:
-    '@vitest/browser': '4.1.7'
+    '@vitest/browser': '4.1.8'
     '@vitest/browser-playwright': '4.1.7'
     '@vitest/coverage-v8': '4.1.7'
     '@vitest/ui': '4.1.7'
