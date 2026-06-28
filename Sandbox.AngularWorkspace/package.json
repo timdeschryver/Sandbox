@@ -36,6 +36,7 @@
 		"rxjs": "catalog:",
 		"tailwindcss": "catalog:tailwindcss",
 		"tslib": "catalog:",
+		"zone.js": "catalog:",
 		"zod": "catalog:"
 	},
 	"devDependencies": {
