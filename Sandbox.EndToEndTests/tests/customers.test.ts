@@ -4,7 +4,7 @@ test('creates a new customer and can open details', { tag: '@customer-management
 	await page.goto('/customers');
 
 	const firstName = 'George';
-	const lastName = 'Costanza';
+	const lastName = `Costanza-${Date.now()}`;
 
 	const firstNameTextbox = page.getByRole('textbox', { name: 'First Name' });
 	const lastNameTextbox = page.getByRole('textbox', { name: 'Last Name' });
@@ -34,19 +34,19 @@ test('creates a new customer and can open details', { tag: '@customer-management
 
 		await customerDetailsLink.click();
 
-		await expect(page.getByRole('heading', { name: /George Costanza/i })).toBeVisible();
+		await expect(page.getByRole('heading', { name: new RegExp(`${firstName} ${lastName}`, 'i') })).toBeVisible();
 		expect(page.url()).toMatch(/\/customers\/[\w-]+/i);
 
 		await expect(page.locator('main')).toMatchAriaSnapshot(`
 - main:
-  - heading "George Costanza" [level=1]
+  - heading "${firstName} ${lastName}" [level=1]
   - link "Back to Overview":
     - /url: /customers
     - img
     - text: Back to Overview
   - img
   - heading "Personal Information" [level=2]
-  - text: Full Name George Costanza
+  - text: Full Name ${firstName} ${lastName}
   - img
   - heading "Billing Addresses" [level=2]
   - text: 1 Street b street City b city Zip Code b zip`);

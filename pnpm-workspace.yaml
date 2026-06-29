@@ -10,12 +10,12 @@ allowBuilds:
 
 catalog:
   '@azure/identity': '4.13.1'
-  '@azure/playwright': '1.1.5'
+  '@azure/playwright': '1.1.6'
   '@stoplight/spectral-cli': '6.16.0'
-  '@types/node': '24.12.4'
+  '@types/node': '24.13.2'
   'dotenv': '17.4.2'
   'jsdom': '29.1.1'
-  'prettier': '3.8.3'
+  'prettier': '3.8.4'
   'prettier-plugin-tailwindcss': '0.8.0'
   'postcss': '8.5.15'
   'run-script-os': '1.1.6'
@@ -39,39 +39,39 @@ catalogs:
     'ng-packagr': '22.0.0'
 
   opentelemetry:
-    '@opentelemetry/auto-instrumentations-web': '0.63.0'
-    '@opentelemetry/context-zone': '2.7.1'
-    '@opentelemetry/exporter-trace-otlp-proto': '0.218.0'
-    '@opentelemetry/instrumentation': '0.218.0'
-    '@opentelemetry/resources': '2.7.1'
-    '@opentelemetry/sdk-trace-base': '2.7.1'
-    '@opentelemetry/sdk-trace-web': '2.7.1'
+    '@opentelemetry/auto-instrumentations-web': '0.64.0'
+    '@opentelemetry/context-zone': '2.8.0'
+    '@opentelemetry/exporter-trace-otlp-proto': '0.219.0'
+    '@opentelemetry/instrumentation': '0.219.0'
+    '@opentelemetry/resources': '2.8.0'
+    '@opentelemetry/sdk-trace-base': '2.8.0'
+    '@opentelemetry/sdk-trace-web': '2.8.0'
     '@opentelemetry/semantic-conventions': '1.41.1'
 
   testing-library:
-    '@testing-library/angular': '19.3.0'
+    '@testing-library/angular': '19.4.1'
     '@testing-library/jest-dom': '6.9.1'
     '@testing-library/user-event': '14.6.1'
 
   eslint:
     '@eslint/js': '10.0.1'
-    'eslint': '10.4.0'
+    'eslint': '10.5.0'
     'angular-eslint': '22.0.0'
     'eslint-config-prettier': '10.1.8'
     'eslint-plugin-playwright': '2.10.4'
-    'typescript-eslint': '8.60.0'
+    'typescript-eslint': '8.62.0'
 
   playwright:
-    '@playwright/test': '1.60.0'
-    'playwright': '1.60.0'
+    '@playwright/test': '1.61.1'
+    'playwright': '1.61.1'
 
   tailwindcss:
-    '@tailwindcss/postcss': '4.3.0'
-    'tailwindcss': '4.3.0'
+    '@tailwindcss/postcss': '4.3.1'
+    'tailwindcss': '4.3.1'
 
   vitest:
-    '@vitest/browser': '4.1.8'
-    '@vitest/browser-playwright': '4.1.7'
-    '@vitest/coverage-v8': '4.1.7'
-    '@vitest/ui': '4.1.7'
-    'vitest': '4.1.7'
+    '@vitest/browser': '4.1.9'
+    '@vitest/browser-playwright': '4.1.9'
+    '@vitest/coverage-v8': '4.1.9'
+    '@vitest/ui': '4.1.9'
+    'vitest': '4.1.9'
