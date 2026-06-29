@@ -15,7 +15,7 @@ catalog:
   '@types/node': '24.13.2'
   'dotenv': '17.4.2'
   'jsdom': '29.1.1'
-  'prettier': '3.8.4'
+  'prettier': '3.8.5'
   'prettier-plugin-tailwindcss': '0.8.0'
   'postcss': '8.5.15'
   'run-script-os': '1.1.6'
@@ -55,7 +55,7 @@ catalogs:
 
   eslint:
     '@eslint/js': '10.0.1'
-    'eslint': '10.5.0'
+    'eslint': '10.6.0'
     'angular-eslint': '22.0.0'
     'eslint-config-prettier': '10.1.8'
     'eslint-plugin-playwright': '2.10.4'
