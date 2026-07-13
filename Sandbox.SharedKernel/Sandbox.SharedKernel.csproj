@@ -3,6 +3,7 @@
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Aspire.Npgsql.EntityFrameworkCore.PostgreSQL" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" />
+    <PackageReference Include="Microsoft.OpenApi" />
     <PackageReference Include="OpenFeature" />
     <PackageReference Include="OpenFeature.Contrib.Hooks.Otel" />
     <PackageReference Include="OpenFeature.Hosting" />
