@@ -1,5 +1,5 @@
 {
-  "openapi": "3.1.2",
+  "openapi": "3.2.0",
   "info": {
     "title": "Sandbox API Reference",
     "description": "This is a sample API for the Sandbox project.",
