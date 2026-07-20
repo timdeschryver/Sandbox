@@ -1,6 +1,6 @@
 {
 	"recommendations": [
-    "microsoft-aspire.aspire-vscode",
+		"microsoft-aspire.aspire-vscode",
 
 		// Angular development
 		"angular.ng-template",
@@ -15,6 +15,7 @@
 		"ms-playwright.playwright",
 
 		// Formatting and linting
+		"oxc.oxc-vscode",
 		"esbenp.prettier-vscode",
 		"dbaeumer.vscode-eslint",
 		"editorconfig.editorconfig",

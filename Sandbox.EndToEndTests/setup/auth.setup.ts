@@ -1,5 +1,7 @@
-import { expect, test } from '@playwright/test';
 import * as fs from 'node:fs';
+
+import { expect, test } from '@playwright/test';
+
 import { getConfig } from '../utils/env';
 
 const storageState = '.state/auth-state.json';
@@ -8,7 +10,7 @@ test('authenticate user', async ({ page }) => {
 	// Load and validate configuration
 	const config = getConfig();
 
-	// eslint-disable-next-line playwright/no-skipped-test
+	// oxlint-disable-next-line playwright/no-skipped-test
 	test.skip(
 		isRecentlyAuthenticated(storageState),
 		'Skipping authentication test because user is already authenticated',

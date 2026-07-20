@@ -1,11 +1,12 @@
-import { expect, it } from 'vitest';
 import { HttpTestingController } from '@angular/common/http/testing';
-import { render, screen } from '@testing-library/angular/zoneless';
-import { type CustomerOverviewResponse } from '@sandbox-app/customer-management/models';
-import CustomersOverview from './customers-overview';
 import { TestBed } from '@angular/core/testing';
-import { stripUtilAttributes } from '@sandbox-app/test/test-utils';
 import { provideRouter } from '@angular/router';
+import { type CustomerOverviewResponse } from '@sandbox-app/customer-management/models';
+import { stripUtilAttributes } from '@sandbox-app/test/test-utils';
+import { render, screen } from '@testing-library/angular/zoneless';
+import { expect, it } from 'vitest';
+
+import CustomersOverview from './customers-overview';
 
 it('renders the component with customers table', async () => {
 	const mockCustomers: CustomerOverviewResponse[] = [

@@ -8,7 +8,17 @@
 		"node": ">=22",
 		"pnpm": ">=10"
 	},
+	"scripts": {
+		"format": "oxfmt .github/workflows/autofix.yml .vscode .oxfmtrc.json .oxlintrc.json package.json pnpm-workspace.yaml && pnpm -r format",
+		"format:check": "oxfmt --check .github/workflows/autofix.yml .vscode .oxfmtrc.json .oxlintrc.json package.json pnpm-workspace.yaml && pnpm -r format:check",
+		"lint": "pnpm -r lint",
+		"lint:fix": "pnpm -r lint:fix"
+	},
 	"devDependencies": {
-		"@stoplight/spectral-cli": "catalog:"
+		"@stoplight/spectral-cli": "catalog:",
+		"eslint-plugin-playwright": "catalog:eslint",
+		"oxfmt": "catalog:",
+		"oxlint": "catalog:",
+		"oxlint-tsgolint": "catalog:"
 	}
 }

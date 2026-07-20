@@ -1,7 +1,8 @@
-import { expect, it } from 'vitest';
-import { render, screen } from '@testing-library/angular/zoneless';
 import { HttpTestingController } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
+import { render, screen } from '@testing-library/angular/zoneless';
+import { expect, it } from 'vitest';
+
 import BillingOverview from './billing-overview';
 
 it('displays loading state', async () => {

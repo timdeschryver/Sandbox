@@ -1,8 +1,9 @@
-import { defineConfig } from '@playwright/test';
-import { createAzurePlaywrightConfig, ServiceOS } from '@azure/playwright';
 import { DefaultAzureCredential } from '@azure/identity';
-import config from './playwright.config';
+import { createAzurePlaywrightConfig, ServiceOS } from '@azure/playwright';
+import { defineConfig } from '@playwright/test';
 import dotenv from 'dotenv';
+
+import config from './playwright.config';
 
 dotenv.config();
 

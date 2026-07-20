@@ -1,5 +1,5 @@
-import { defineConfig } from 'vitest/config';
 import { playwright } from '@vitest/browser-playwright';
+import { defineConfig } from 'vitest/config';
 
 // Note: https://angular.dev/guide/testing#advanced-vitest-configuration
 // IMPORTANT: While using a custom configuration enables advanced options, the Angular team does not provide support for the contents of the configuration file or for any third-party plugins. The CLI will also override certain properties (test.projects, test.include) to ensure proper integration.

@@ -1,12 +1,12 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { NgOptimizedImage } from '@angular/common';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
-import { Authentication } from '@sandbox-app/authentication/authentication';
-import { Authenticated } from '@sandbox-app/authentication/authenticated';
 import { Anonymous } from '@sandbox-app/authentication/anonymous';
+import { Authenticated } from '@sandbox-app/authentication/authenticated';
+import { Authentication } from '@sandbox-app/authentication/authentication';
 import ThemeToggle from '@sandbox-app/core/theme/theme-toggle';
-import { FeatureFlags } from '@sandbox-app/feature-flags/feature-flags';
 import { FeatureFlagKeys } from '@sandbox-app/feature-flags/feature-flag-keys';
+import { FeatureFlags } from '@sandbox-app/feature-flags/feature-flags';
 
 @Component({
 	selector: 'sandbox-header',

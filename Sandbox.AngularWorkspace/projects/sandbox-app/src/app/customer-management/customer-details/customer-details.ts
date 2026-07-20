@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component, inject, input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Customers } from '@sandbox-app/customer-management/customer-management';
-import { stronglyTypedIdAttribute } from '@sandbox-app/shared/functions';
 import { CustomerId } from '@sandbox-app/customer-management/models';
 import { InfoCard } from '@sandbox-app/shared/components/info-card/info-card';
+import { stronglyTypedIdAttribute } from '@sandbox-app/shared/functions';
 
 @Component({
 	selector: 'sandbox-customer-details',

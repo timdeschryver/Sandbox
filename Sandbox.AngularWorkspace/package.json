@@ -12,9 +12,11 @@
 		"start:win32": "ng serve %APPLICATION% --port %PORT%",
 		"start:default": "ng serve $APPLICATION --port $PORT",
 		"build": "ng build sandbox-app",
+		"format": "oxfmt . && prettier \"projects/*/src/app/**/*.html\" --write --parser angular",
+		"format:check": "oxfmt --check . && prettier \"projects/*/src/app/**/*.html\" --check --parser angular",
 		"test": "ng test",
-		"lint": "ng lint",
-		"prettier": "prettier"
+		"lint": "oxlint --type-aware . && ng lint",
+		"lint:fix": "oxlint --type-aware --fix . && ng lint --fix"
 	},
 	"dependencies": {
 		"@angular/common": "catalog:angular",
@@ -43,7 +45,6 @@
 		"@angular/build": "catalog:angular",
 		"@angular/cli": "catalog:angular",
 		"@angular/compiler-cli": "catalog:angular",
-		"@eslint/js": "catalog:eslint",
 		"@testing-library/angular": "catalog:testing-library",
 		"@testing-library/jest-dom": "catalog:testing-library",
 		"@testing-library/user-event": "catalog:testing-library",
@@ -54,7 +55,6 @@
 		"@vitest/ui": "catalog:vitest",
 		"angular-eslint": "catalog:eslint",
 		"eslint": "catalog:eslint",
-		"eslint-config-prettier": "catalog:eslint",
 		"jsdom": "catalog:",
 		"ng-packagr": "catalog:angular",
 		"playwright": "catalog:playwright",
@@ -62,7 +62,6 @@
 		"prettier-plugin-tailwindcss": "catalog:",
 		"run-script-os": "catalog:",
 		"typescript": "catalog:",
-		"typescript-eslint": "catalog:eslint",
 		"vitest": "catalog:vitest"
 	}
 }

@@ -1,5 +1,5 @@
-import { Directive, input } from '@angular/core';
 import { type HttpResourceRef } from '@angular/common/http';
+import { Directive, input } from '@angular/core';
 
 @Directive({
 	selector: 'ng-template[sandboxTableBody]',

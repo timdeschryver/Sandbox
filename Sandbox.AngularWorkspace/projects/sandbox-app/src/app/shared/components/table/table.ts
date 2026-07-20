@@ -1,6 +1,6 @@
-import { ChangeDetectionStrategy, Component, TemplateRef, contentChild, input } from '@angular/core';
-import { type HttpResourceRef } from '@angular/common/http';
 import { NgTemplateOutlet } from '@angular/common';
+import { type HttpResourceRef } from '@angular/common/http';
+import { ChangeDetectionStrategy, Component, TemplateRef, contentChild, input } from '@angular/core';
 import { TableBodyTemplate } from '@sandbox-app/shared/components/table/table-body-template';
 
 @Component({

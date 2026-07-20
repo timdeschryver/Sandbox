@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { Customers } from '@sandbox-app/customer-management/customer-management';
 import { CustomerForm } from '@sandbox-app/customer-management/customer-form/customer-form';
+import { Customers } from '@sandbox-app/customer-management/customer-management';
 import { CustomersList } from '@sandbox-app/customer-management/customers-list/customers-list';
 
 @Component({

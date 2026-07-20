@@ -1,4 +1,5 @@
 import * as z from 'zod/mini';
+
 import { CustomerId } from './strongly-typed-ids.model';
 
 export const CustomerOverviewResponse = z.strictObject({

@@ -2,24 +2,20 @@
 	"name": "sandbox.e2e",
 	"version": "0.0.0",
 	"scripts": {
+		"format": "oxfmt .",
+		"format:check": "oxfmt --check .",
+		"lint": "oxlint --deny-warnings .",
+		"lint:fix": "oxlint --deny-warnings --fix .",
 		"test": "playwright test",
-		"test:ui": "playwright test --ui",
-		"lint": "eslint . --max-warnings 0",
-		"prettier": "prettier"
+		"test:ui": "playwright test --ui"
 	},
 	"type": "module",
 	"devDependencies": {
 		"@azure/identity": "catalog:",
 		"@azure/playwright": "catalog:",
-		"@eslint/js": "catalog:eslint",
 		"@playwright/test": "catalog:playwright",
 		"@types/node": "catalog:",
 		"dotenv": "catalog:",
-		"eslint": "catalog:eslint",
-		"eslint-config-prettier": "catalog:eslint",
-		"eslint-plugin-playwright": "catalog:eslint",
-		"prettier": "catalog:",
-		"typescript": "catalog:",
-		"typescript-eslint": "catalog:eslint"
+		"typescript": "catalog:"
 	}
 }

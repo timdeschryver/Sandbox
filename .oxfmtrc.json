@@ -1,0 +1,25 @@
+{
+	"$schema": "./node_modules/oxfmt/configuration_schema.json",
+	"ignorePatterns": [
+		"**/.angular/**",
+		"**/build/**",
+		"**/coverage/**",
+		"**/dist/**",
+		"**/node_modules/**",
+		"**/playwright-report/**",
+		"**/test-results/**",
+		"**/documentation/*.json",
+		"Sandbox.AngularWorkspace/projects/*/src/app/**/*.html"
+	],
+	"printWidth": 120,
+	"singleQuote": true,
+	"sortImports": {
+		"sortSideEffects": false
+	},
+	"sortPackageJson": false,
+	"sortTailwindcss": {
+		"stylesheet": "./Sandbox.AngularWorkspace/projects/sandbox-app/src/styles.css"
+	},
+	"trailingComma": "all",
+	"useTabs": true
+}

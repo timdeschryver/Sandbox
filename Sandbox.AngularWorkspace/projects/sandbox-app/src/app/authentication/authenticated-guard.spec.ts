@@ -1,8 +1,9 @@
-import { expect, it, vi } from 'vitest';
 import { signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { type ActivatedRouteSnapshot, type GuardResult, type RouterStateSnapshot } from '@angular/router';
 import { type Observable, firstValueFrom } from 'rxjs';
+import { expect, it, vi } from 'vitest';
+
 import { authenticatedGuard } from './authenticated-guard';
 import { Authentication } from './authentication';
 

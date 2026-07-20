@@ -1,4 +1,5 @@
 import { expect, test } from '@playwright/test';
+
 import { getConfig } from '../utils/env';
 
 test('reseed database', async ({}) => {

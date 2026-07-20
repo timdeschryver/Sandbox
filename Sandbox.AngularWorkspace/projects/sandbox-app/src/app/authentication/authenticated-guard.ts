@@ -1,9 +1,9 @@
 import { inject } from '@angular/core';
+import { toObservable } from '@angular/core/rxjs-interop';
 import { type ActivatedRouteSnapshot, type CanActivateFn, type RouterStateSnapshot } from '@angular/router';
 import { Authentication } from '@sandbox-app/authentication/authentication';
-import { toObservable } from '@angular/core/rxjs-interop';
-import { map } from 'rxjs';
 import { filterNullish } from '@sandbox-app/shared/operators';
+import { map } from 'rxjs';
 
 export const authenticatedGuard: CanActivateFn = (_next: ActivatedRouteSnapshot, state: RouterStateSnapshot) => {
 	const authenticationService = inject(Authentication);
