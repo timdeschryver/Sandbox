@@ -17,7 +17,7 @@ import { FeatureFlagKeys } from '@sandbox-app/feature-flags/feature-flag-keys';
 })
 export default class Header {
 	private readonly authenticationService = inject(Authentication);
-	protected readonly user = this.authenticationService.user;
 	protected readonly featureFlags = inject(FeatureFlags);
+	protected readonly user = this.authenticationService.user;
 	protected readonly FeatureFlagKeys = FeatureFlagKeys;
 }
