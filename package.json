@@ -2,17 +2,17 @@
 	"private": true,
 	"name": "sandbox",
 	"packageManager": "pnpm@11.13.1",
-	"module": "true",
+	"type": "module",
 	"license": "MIT",
 	"engines": {
 		"node": ">=22",
 		"pnpm": ">=10"
 	},
 	"scripts": {
-		"format": "oxfmt .github/workflows/autofix.yml .vscode .oxfmtrc.json .oxlintrc.json package.json pnpm-workspace.yaml && pnpm -r format",
-		"format:check": "oxfmt --check .github/workflows/autofix.yml .vscode .oxfmtrc.json .oxlintrc.json package.json pnpm-workspace.yaml && pnpm -r format:check",
-		"lint": "pnpm -r lint",
-		"lint:fix": "pnpm -r lint:fix"
+		"format": "oxfmt .github/workflows/autofix.yml .vscode .oxfmtrc.json oxlint.config.ts package.json pnpm-workspace.yaml && pnpm --loglevel=error -r format",
+		"format:check": "oxfmt --list-different .github/workflows/autofix.yml .vscode .oxfmtrc.json oxlint.config.ts package.json pnpm-workspace.yaml && pnpm --loglevel=error -r format:check",
+		"lint": "pnpm --loglevel=error -r lint",
+		"lint:fix": "pnpm --loglevel=error -r lint:fix"
 	},
 	"devDependencies": {
 		"@stoplight/spectral-cli": "catalog:",

@@ -7,7 +7,7 @@ import { defineConfig } from 'vitest/config';
 export default defineConfig({
 	test: {
 		silent: 'passed-only',
-		reporters: process.env['GITHUB_ACTIONS'] === 'true' ? ['dot', 'github-actions'] : ['agent'],
+		reporters: process.env['GITHUB_ACTIONS'] === 'true' ? ['agent', 'github-actions'] : ['agent'],
 		browser: {
 			enabled: true,
 			provider: playwright(),

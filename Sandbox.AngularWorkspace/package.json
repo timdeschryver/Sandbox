@@ -11,12 +11,12 @@
 		"start": "run-script-os",
 		"start:win32": "ng serve %APPLICATION% --port %PORT%",
 		"start:default": "ng serve $APPLICATION --port $PORT",
-		"build": "ng build sandbox-app",
-		"format": "oxfmt . && prettier \"projects/*/src/app/**/*.html\" --write --parser angular",
-		"format:check": "oxfmt --check . && prettier \"projects/*/src/app/**/*.html\" --check --parser angular",
-		"test": "ng test",
-		"lint": "oxlint --type-aware . && ng lint",
-		"lint:fix": "oxlint --type-aware --fix . && ng lint --fix"
+		"build": "ng build sandbox-app --progress=false",
+		"format": "oxfmt . && prettier \"projects/*/src/app/**/*.html\" --write --log-level silent --parser angular",
+		"format:check": "oxfmt --list-different . && prettier \"projects/*/src/app/**/*.html\" --list-different --parser angular",
+		"test": "ng test --progress=false --quiet",
+		"lint": "oxlint --format=agent --type-aware . && eslint \"projects/**/*.{ts,html}\" --quiet",
+		"lint:fix": "oxlint --format=agent --type-aware --fix . && eslint \"projects/**/*.{ts,html}\" --fix --quiet"
 	},
 	"dependencies": {
 		"@angular/common": "catalog:angular",

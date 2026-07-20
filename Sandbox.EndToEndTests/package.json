@@ -3,9 +3,9 @@
 	"version": "0.0.0",
 	"scripts": {
 		"format": "oxfmt .",
-		"format:check": "oxfmt --check .",
-		"lint": "oxlint --deny-warnings .",
-		"lint:fix": "oxlint --deny-warnings --fix .",
+		"format:check": "oxfmt --list-different .",
+		"lint": "oxlint --deny-warnings --format=agent .",
+		"lint:fix": "oxlint --deny-warnings --format=agent --fix .",
 		"test": "playwright test",
 		"test:ui": "playwright test --ui"
 	},
