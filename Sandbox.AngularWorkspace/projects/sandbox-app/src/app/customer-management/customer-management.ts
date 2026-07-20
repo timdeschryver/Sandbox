@@ -1,5 +1,5 @@
 import { HttpClient, type HttpResourceRef, httpResource } from '@angular/common/http';
-import { Injectable, type Signal, inject } from '@angular/core';
+import { Service, type Signal, inject } from '@angular/core';
 import {
 	type CreateCustomerCommand,
 	CustomerDetailsResponse,
@@ -9,9 +9,7 @@ import {
 import { parse, parseCollection } from '@sandbox-app/shared/functions';
 import { firstValueFrom } from 'rxjs';
 
-@Injectable({
-	providedIn: 'root',
-})
+@Service()
 export class Customers {
 	private http = inject(HttpClient);
 

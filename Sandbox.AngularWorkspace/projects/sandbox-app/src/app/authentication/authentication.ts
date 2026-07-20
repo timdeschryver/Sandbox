@@ -1,11 +1,9 @@
 import { httpResource } from '@angular/common/http';
-import { DOCUMENT, Injectable, computed, inject } from '@angular/core';
+import { DOCUMENT, Service, computed, inject } from '@angular/core';
 import { User } from '@sandbox-app/authentication/user';
 import { parse } from '@sandbox-app/shared/functions';
 
-@Injectable({
-	providedIn: 'root',
-})
+@Service()
 export class Authentication {
 	private document = inject(DOCUMENT);
 
