@@ -8,5 +8,4 @@ import { RouterLink } from '@angular/router';
 	styleUrl: './not-found.css',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-// oxlint-disable-next-line typescript/no-extraneous-class
 export default class NotFound {}

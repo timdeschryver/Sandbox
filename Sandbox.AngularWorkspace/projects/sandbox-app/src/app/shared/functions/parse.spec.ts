@@ -1,4 +1,3 @@
-/* oxlint-disable typescript/no-unsafe-assignment, typescript/no-explicit-any, typescript/no-unsafe-member-access, no-empty-function */
 import { expect, it, vi } from 'vitest';
 import * as z from 'zod/mini';
 

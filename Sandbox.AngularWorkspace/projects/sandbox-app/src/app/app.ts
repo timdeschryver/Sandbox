@@ -10,5 +10,4 @@ import Header from './core/header/header';
 	styleUrl: './app.css',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-// oxlint-disable-next-line typescript/no-extraneous-class
 export class App {}
