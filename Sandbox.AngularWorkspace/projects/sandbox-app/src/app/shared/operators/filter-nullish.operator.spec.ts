@@ -1,5 +1,6 @@
-import { expect, it } from 'vitest';
 import { of } from 'rxjs';
+import { expect, it } from 'vitest';
+
 import { filterNullish } from './filter-nullish.operator';
 
 it('filters out null values', () => {

@@ -1,9 +1,10 @@
-import { expect, it } from 'vitest';
-import { render, screen } from '@testing-library/angular/zoneless';
-import { provideRouter } from '@angular/router';
 import { signal } from '@angular/core';
-import Header from './header';
+import { provideRouter } from '@angular/router';
 import { Authentication } from '@sandbox-app/authentication/authentication';
+import { render, screen } from '@testing-library/angular/zoneless';
+import { expect, it } from 'vitest';
+
+import Header from './header';
 
 it('renders anonymous header when user is not authenticated', async () => {
 	await setup({ isAuthenticated: false, name: null });

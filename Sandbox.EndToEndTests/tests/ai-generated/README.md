@@ -10,10 +10,10 @@ Before running authenticated tests, ensure you have:
 
 1. **Valid Credentials**: Copy `.env.example` to `.env` and verify credentials:
 
-    ```bash
-    cp .env.example .env
-    # Edit .env and ensure PLAYWRIGHT_USERNAME and PLAYWRIGHT_PASSWORD are correct
-    ```
+   ```bash
+   cp .env.example .env
+   # Edit .env and ensure PLAYWRIGHT_USERNAME and PLAYWRIGHT_PASSWORD are correct
+   ```
 
 2. **Keycloak User**: The test user must exist in Keycloak Sandbox realm with the credentials specified in `.env`
 
@@ -279,25 +279,25 @@ Authenticated tests are now included in `authenticated.test.ts`! 🎉
 
 1. **Create .env file** with valid credentials:
 
-    ```bash
-    cp .env.example .env
-    ```
+   ```bash
+   cp .env.example .env
+   ```
 
 2. **Verify credentials** in `.env`:
 
-    ```env
-    APPLICATION_URL=https://localhost:7263
-    DATABASE_URL=https://localhost:7479
-    PLAYWRIGHT_USERNAME=testuser
-    PLAYWRIGHT_PASSWORD=password123
-    ```
+   ```env
+   APPLICATION_URL=https://localhost:7263
+   DATABASE_URL=https://localhost:7479
+   PLAYWRIGHT_USERNAME=testuser
+   PLAYWRIGHT_PASSWORD=password123
+   ```
 
 3. **Ensure Keycloak user exists** in Sandbox realm with the credentials above
 
 4. **Run authenticated tests**:
-    ```bash
-    pnpm --filter="sandbox.e2e" test ai-generated/authenticated
-    ```
+   ```bash
+   pnpm --filter="sandbox.e2e" test ai-generated/authenticated
+   ```
 
 ### What's Tested
 

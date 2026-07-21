@@ -1,9 +1,14 @@
 {
 	"dotnet.defaultSolution": "Sandbox.slnx",
 	"dotnet.unitTests.runSettingsPath": ".runsettings",
+	"editor.defaultFormatter": "oxc.oxc-vscode",
 	"editor.formatOnSave": true,
 	"editor.codeActionsOnSave": {
-		"source.fixAll.eslint": "always"
+		"source.fixAll.eslint": "always",
+		"source.fixAll.oxc": "always"
+	},
+	"[html]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
 	},
 	"eslint.workingDirectories": [
 		{

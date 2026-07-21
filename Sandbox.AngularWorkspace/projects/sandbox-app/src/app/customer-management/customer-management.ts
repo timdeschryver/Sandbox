@@ -1,13 +1,13 @@
-import { Service, type Signal, inject } from '@angular/core';
 import { HttpClient, type HttpResourceRef, httpResource } from '@angular/common/http';
-import { firstValueFrom } from 'rxjs';
-import { parse, parseCollection } from '@sandbox-app/shared/functions';
+import { Service, type Signal, inject } from '@angular/core';
 import {
 	type CreateCustomerCommand,
 	CustomerDetailsResponse,
 	type CustomerId,
 	CustomerOverviewResponse,
 } from '@sandbox-app/customer-management/models';
+import { parse, parseCollection } from '@sandbox-app/shared/functions';
+import { firstValueFrom } from 'rxjs';
 
 @Service()
 export class Customers {

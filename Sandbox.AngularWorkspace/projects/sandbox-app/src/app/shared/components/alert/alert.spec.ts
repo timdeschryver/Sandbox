@@ -1,6 +1,7 @@
-import { expect, test } from 'vitest';
 import { inputBinding } from '@angular/core';
 import { render } from '@testing-library/angular/zoneless';
+import { expect, test } from 'vitest';
+
 import { Alert } from './alert';
 
 test.each([

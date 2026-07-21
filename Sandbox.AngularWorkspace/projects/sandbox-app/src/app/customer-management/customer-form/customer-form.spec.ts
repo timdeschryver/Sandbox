@@ -1,12 +1,13 @@
-import { expect, it, vi } from 'vitest';
 import { HttpTestingController } from '@angular/common/http/testing';
+import { outputBinding } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
+import { type CreateCustomerCommand } from '@sandbox-app/customer-management/models';
+import { provideEventPlugins } from '@sandbox-app/shared/event-managers';
 import { render, screen } from '@testing-library/angular/zoneless';
 import userEvent from '@testing-library/user-event';
-import { type CreateCustomerCommand } from '@sandbox-app/customer-management/models';
+import { expect, it, vi } from 'vitest';
+
 import { CustomerForm } from './customer-form';
-import { outputBinding } from '@angular/core';
-import { provideEventPlugins } from '@sandbox-app/shared/event-managers';
 
 it('renders form with initial empty values', async () => {
 	await setup();

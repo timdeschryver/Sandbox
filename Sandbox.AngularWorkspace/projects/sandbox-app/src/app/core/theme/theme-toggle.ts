@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+
 import { ThemeService } from './theme.service';
 
 @Component({

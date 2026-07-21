@@ -1,9 +1,10 @@
-import { expect, it, vi } from 'vitest';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { render, screen } from '@testing-library/angular/zoneless';
 import userEvent from '@testing-library/user-event';
-import { PreventDefaultEventPlugin } from './prevent-default-event.plugin';
+import { expect, it, vi } from 'vitest';
+
 import { provideEventPlugins } from '.';
+import { PreventDefaultEventPlugin } from './prevent-default-event.plugin';
 
 @Component({
 	selector: 'sandbox-test',

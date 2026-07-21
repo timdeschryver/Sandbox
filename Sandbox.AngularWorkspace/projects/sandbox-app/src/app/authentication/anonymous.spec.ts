@@ -1,8 +1,9 @@
-import { expect, it } from 'vitest';
-import { render, screen } from '@testing-library/angular/zoneless';
-import { TestBed } from '@angular/core/testing';
-import { Anonymous } from './anonymous';
 import { HttpTestingController } from '@angular/common/http/testing';
+import { TestBed } from '@angular/core/testing';
+import { render, screen } from '@testing-library/angular/zoneless';
+import { expect, it } from 'vitest';
+
+import { Anonymous } from './anonymous';
 
 it('displays content when the user is unauthenticated', async () => {
 	const { mockRequest } = await setup();

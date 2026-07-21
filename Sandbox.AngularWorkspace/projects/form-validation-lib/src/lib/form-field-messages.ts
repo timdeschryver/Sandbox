@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
-import { FormFieldValidationMessage } from './form-field-validation-error';
 import { type FormField } from '@angular/forms/signals';
+
+import { FormFieldValidationMessage } from './form-field-validation-error';
 
 @Component({
 	selector: 'form-validation-form-field-messages',

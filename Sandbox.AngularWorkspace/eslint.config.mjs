@@ -1,20 +1,11 @@
-// @ts-check
-import eslint from '@eslint/js';
-import tseslint from 'typescript-eslint';
 import angular from 'angular-eslint';
-import eslintConfigPrettier from 'eslint-config-prettier';
+import { defineConfig } from 'eslint/config';
 
-export default tseslint.config(
+export default defineConfig(
 	{ ignores: ['dist', '**/coverage'] },
 	{
 		files: ['**/*.ts'],
-		extends: [
-			eslint.configs.recommended,
-			...tseslint.configs.strictTypeChecked,
-			...tseslint.configs.stylistic,
-			...angular.configs.tsAll,
-			eslintConfigPrettier,
-		],
+		extends: [...angular.configs.tsAll],
 		processor: angular.processInlineTemplates,
 		languageOptions: {
 			parserOptions: {
@@ -23,35 +14,6 @@ export default tseslint.config(
 			},
 		},
 		rules: {
-			'@typescript-eslint/no-unused-vars': [
-				'error',
-				{
-					argsIgnorePattern: '^_',
-					varsIgnorePattern: '^_',
-					caughtErrorsIgnorePattern: '^_',
-				},
-			],
-			'no-restricted-imports': [
-				'error',
-				{
-					patterns: [
-						{ group: ['..*'], message: "Relative imports are not allowed, use the '@' path instead." },
-					],
-				},
-			],
-			'sort-imports': [
-				'error',
-				{
-					ignoreDeclarationSort: true,
-				},
-			],
-			'@typescript-eslint/no-deprecated': 'error',
-			'@typescript-eslint/consistent-type-imports': [
-				'error',
-				{
-					fixStyle: 'inline-type-imports',
-				},
-			],
 			'@angular-eslint/no-experimental': 'off',
 			'@angular-eslint/no-developer-preview': 'off',
 			'@angular-eslint/component-class-suffix': 'off',
@@ -66,7 +28,7 @@ export default tseslint.config(
 	},
 	{
 		files: ['**/*.html'],
-		extends: [...angular.configs.templateAll, ...angular.configs.templateAccessibility, eslintConfigPrettier],
+		extends: [...angular.configs.templateAll, ...angular.configs.templateAccessibility],
 		rules: {
 			// i18n is not used in this project
 			'@angular-eslint/template/i18n': 'off',

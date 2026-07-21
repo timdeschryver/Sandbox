@@ -1,8 +1,8 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-empty-function */
+import { numberAttribute } from '@angular/core';
 import { expect, it, vi } from 'vitest';
 import * as z from 'zod/mini';
+
 import { stronglyTypedIdAttribute } from './strongly-typed-id-attribute';
-import { numberAttribute } from '@angular/core';
 
 it('transforms and validates valid input', () => {
 	const idSchema = z.number();

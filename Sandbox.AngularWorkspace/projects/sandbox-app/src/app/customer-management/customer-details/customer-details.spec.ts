@@ -1,14 +1,15 @@
-import { expect, it } from 'vitest';
 import { HttpTestingController } from '@angular/common/http/testing';
+import { inputBinding, signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
+import { type CustomerDetailsResponse } from '@sandbox-app/customer-management/models';
+import { generateUuid } from '@sandbox-app/shared/functions';
+import { stripUtilAttributes } from '@sandbox-app/test/test-utils';
 import { render, screen } from '@testing-library/angular/zoneless';
 import userEvent from '@testing-library/user-event';
-import { type CustomerDetailsResponse } from '@sandbox-app/customer-management/models';
+import { expect, it } from 'vitest';
+
 import CustomerDetails from './customer-details';
-import { generateUuid } from '@sandbox-app/shared/functions';
-import { inputBinding, signal } from '@angular/core';
-import { stripUtilAttributes } from '@sandbox-app/test/test-utils';
-import { provideRouter } from '@angular/router';
 
 it('renders customer details when data is loaded', async () => {
 	const { mockRequest } = await setup();

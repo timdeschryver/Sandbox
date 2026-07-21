@@ -16,6 +16,9 @@ catalog:
   '@types/node': '24.13.3'
   'dotenv': '17.4.2'
   'jsdom': '29.1.1'
+  'oxfmt': '0.59.0'
+  'oxlint': '1.74.0'
+  'oxlint-tsgolint': '0.25.0'
   'prettier': '3.9.5'
   'prettier-plugin-tailwindcss': '0.8.1'
   'postcss': '8.5.19'
@@ -55,12 +58,9 @@ catalogs:
     '@testing-library/user-event': '14.6.1'
 
   eslint:
-    '@eslint/js': '10.0.1'
     'eslint': '10.7.0'
     'angular-eslint': '22.1.0'
-    'eslint-config-prettier': '10.1.8'
     'eslint-plugin-playwright': '2.10.5'
-    'typescript-eslint': '8.64.0'
 
   playwright:
     '@playwright/test': '1.61.1'

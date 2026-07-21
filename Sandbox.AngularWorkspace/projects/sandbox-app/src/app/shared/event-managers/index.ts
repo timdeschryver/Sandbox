@@ -1,6 +1,7 @@
 import type { Provider } from '@angular/core';
-import { PreventDefaultEventPlugin } from './prevent-default-event.plugin';
 import { EVENT_MANAGER_PLUGINS } from '@angular/platform-browser';
+
+import { PreventDefaultEventPlugin } from './prevent-default-event.plugin';
 
 const EVENT_PLUGINS: Provider[] = [PreventDefaultEventPlugin].map((plugin) => {
 	return {

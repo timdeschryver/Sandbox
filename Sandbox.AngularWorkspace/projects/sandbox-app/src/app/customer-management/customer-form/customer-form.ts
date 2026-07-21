@@ -10,10 +10,10 @@ import {
 	required,
 	schema,
 } from '@angular/forms/signals';
-import { type Address, type CustomerId } from '@sandbox-app/customer-management/models';
-import { Customers } from '@sandbox-app/customer-management/customer-management';
-import { CustomerAddress } from '@sandbox-app/customer-management/shared/customer-address/customer-address';
 import { formValidation } from '@form-validation';
+import { Customers } from '@sandbox-app/customer-management/customer-management';
+import { type Address, type CustomerId } from '@sandbox-app/customer-management/models';
+import { CustomerAddress } from '@sandbox-app/customer-management/shared/customer-address/customer-address';
 import { mapHttpError } from '@sandbox-app/shared/functions/problem-details';
 
 @Component({

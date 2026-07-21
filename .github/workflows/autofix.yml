@@ -23,10 +23,10 @@ jobs:
       - uses: ./.github/actions/setup-pnpm
 
       - name: Fix Frontend lint issues
-        run: pnpm -r lint --fix
+        run: pnpm lint:fix
 
       - name: Format Frontend code
-        run: pnpm -r prettier . --write
+        run: pnpm format
 
       - name: Format Backend code
         run: dotnet format --severity info

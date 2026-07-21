@@ -1,6 +1,7 @@
 import { Pipe, type PipeTransform, inject } from '@angular/core';
-import { VALIDATION_MESSAGES, defaultValidationMessages } from './form-field-validation-messages.token';
 import type { ValidationError } from '@angular/forms/signals';
+
+import { VALIDATION_MESSAGES, defaultValidationMessages } from './form-field-validation-messages.token';
 
 @Pipe({
 	name: 'validationMessage',
