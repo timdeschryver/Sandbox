@@ -51,13 +51,13 @@
     <PackageVersion Include="OpenTelemetry.Instrumentation.AspNetCore" Version="1.17.0" />
     <PackageVersion Include="OpenTelemetry.Instrumentation.Http" Version="1.17.0" />
     <PackageVersion Include="OpenTelemetry.Instrumentation.Runtime" Version="1.17.0" />
-    <PackageVersion Include="Scalar.AspNetCore" Version="2.16.15" />
+    <PackageVersion Include="Scalar.AspNetCore" Version="2.16.16" />
     <PackageVersion Include="Testcontainers.Redis" Version="4.13.0" />
-    <PackageVersion Include="TUnit.AspNetCore" Version="1.61.15" />
-    <PackageVersion Include="Verify.TUnit" Version="31.25.0" />
+    <PackageVersion Include="TUnit.AspNetCore" Version="1.61.23" />
+    <PackageVersion Include="Verify.TUnit" Version="31.27.0" />
     <PackageVersion Include="Vogen" Version="8.0.6" />
     <PackageVersion Include="TngTech.ArchUnitNET" Version="0.13.3" />
-    <PackageVersion Include="TUnit" Version="1.61.15" />
+    <PackageVersion Include="TUnit" Version="1.61.23" />
     <PackageVersion Include="WolverineFx" Version="6.21.0" />
     <PackageVersion Include="WolverineFx.EntityFrameworkCore" Version="6.21.0" />
     <PackageVersion Include="WolverineFx.Postgresql" Version="6.21.0" />
