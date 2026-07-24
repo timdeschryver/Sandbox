@@ -12,16 +12,16 @@ allowBuilds:
 catalog:
   '@azure/identity': '4.13.1'
   '@azure/playwright': '1.1.6'
-  '@stoplight/spectral-cli': '6.16.1'
+  '@stoplight/spectral-cli': '6.16.2'
   '@types/node': '24.13.3'
   'dotenv': '17.4.2'
   'jsdom': '29.1.1'
   'oxfmt': '0.59.0'
   'oxlint': '1.74.0'
   'oxlint-tsgolint': '0.25.0'
-  'prettier': '3.9.5'
+  'prettier': '3.9.6'
   'prettier-plugin-tailwindcss': '0.8.1'
-  'postcss': '8.5.19'
+  'postcss': '8.5.20'
   'run-script-os': '1.1.6'
   'rxjs': '~7.8.2'
   'tslib': '2.8.1'
@@ -54,7 +54,7 @@ catalogs:
 
   testing-library:
     '@testing-library/angular': '19.4.1'
-    '@testing-library/jest-dom': '6.9.1'
+    '@testing-library/jest-dom': '7.0.0'
     '@testing-library/user-event': '14.6.1'
 
   eslint:
