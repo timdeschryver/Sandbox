@@ -1,6 +1,6 @@
 services:
   keycloak:
-    image: 'quay.io/keycloak/keycloak:26.7@sha256:2eb3cd316835c990e69e26ade292ffa78f6fb0db7d5fc6377463c162e1979ac0'
+    image: 'quay.io/keycloak/keycloak:26.7@sha256:0f198be292568439d700cdbfb893e69a6009bb43a94a06a945b1d3d506c76b13'
     command:
       - 'start'
       - '--import-realm'
@@ -60,7 +60,7 @@ services:
     networks:
       - 'aspire'
   loki:
-    image: 'grafana/loki:latest@sha256:70b9f699fc9bb868b62f1cfd4f787dfa50242f1fd92e6089787d5d7daea75fe8'
+    image: 'grafana/loki:latest@sha256:87f0a067673756a3cede1bcbf0c74875f7df9b09fddb53e399d0c576f756cfcc'
     command:
       - '--config.file=/etc/loki/loki.yml'
       - '--config.expand-env=true'
@@ -169,7 +169,7 @@ services:
     networks:
       - 'aspire'
   otelcollector:
-    image: 'ghcr.io/open-telemetry/opentelemetry-collector-releases/opentelemetry-collector-contrib:latest@sha256:125bdbeb7590cc1952c5b3430ecf14063568980c2c93d5b38676cc0446ed8108'
+    image: 'ghcr.io/open-telemetry/opentelemetry-collector-releases/opentelemetry-collector-contrib:latest@sha256:f2f01157055a9b2aab9df7118e1f1c9abf345e99b23bc7a2bc791db374a7d0f6'
     environment:
       ASPIRE_OTLP_ENDPOINT: '${}'
       ASPIRE_API_KEY: ''

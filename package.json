@@ -1,7 +1,7 @@
 {
 	"private": true,
 	"name": "sandbox",
-	"packageManager": "pnpm@11.15.0",
+	"packageManager": "pnpm@11.15.1",
 	"type": "module",
 	"license": "MIT",
 	"engines": {
