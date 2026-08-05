@@ -1,6 +1,6 @@
 services:
   keycloak:
-    image: 'quay.io/keycloak/keycloak:26.7@sha256:2eb3cd316835c990e69e26ade292ffa78f6fb0db7d5fc6377463c162e1979ac0'
+    image: 'quay.io/keycloak/keycloak:26.7@sha256:0f198be292568439d700cdbfb893e69a6009bb43a94a06a945b1d3d506c76b13'
     command:
       - 'start'
       - '--import-realm'
@@ -60,7 +60,7 @@ services:
     networks:
       - 'aspire'
   loki:
-    image: 'grafana/loki:latest@sha256:70b9f699fc9bb868b62f1cfd4f787dfa50242f1fd92e6089787d5d7daea75fe8'
+    image: 'grafana/loki:latest@sha256:f968164e718f9cbe9f5b0f967f3bb6f9cad5d95cf7ffcaf968cce06c941aed62'
     command:
       - '--config.file=/etc/loki/loki.yml'
       - '--config.expand-env=true'
@@ -114,7 +114,7 @@ services:
     networks:
       - 'aspire'
   prometheus:
-    image: 'prom/prometheus:latest@sha256:3c42b892cf723fa54d2f262c37a0e1f80aa8c8ddb1da7b9b0df9455a35a7f893'
+    image: 'prom/prometheus:latest@sha256:508729e0e2d18e11fd742a5a5ca70e557b940a93948c3c95fd0123a6fd538b69'
     command:
       - '--web.enable-otlp-receiver'
       - '--web.enable-remote-write-receiver'
@@ -143,7 +143,7 @@ services:
     networks:
       - 'aspire'
   grafana:
-    image: 'grafana/grafana:latest@sha256:1c1bd67c54c5fcf6e759897852b5a584191bd6796e8d328a5ace457799801261'
+    image: 'grafana/grafana:latest@sha256:d177053ab62253815f130d81504f77063baf5fd4ca93299d6048453bd31e047a'
     environment:
       PROMETHEUS_ENDPOINT: 'http://prometheus:9090'
       LOKI_ENDPOINT: 'http://loki:3100'
@@ -169,7 +169,7 @@ services:
     networks:
       - 'aspire'
   otelcollector:
-    image: 'ghcr.io/open-telemetry/opentelemetry-collector-releases/opentelemetry-collector-contrib:latest@sha256:125bdbeb7590cc1952c5b3430ecf14063568980c2c93d5b38676cc0446ed8108'
+    image: 'ghcr.io/open-telemetry/opentelemetry-collector-releases/opentelemetry-collector-contrib:latest@sha256:c5918f78992ee73b0d6f0e599423ac5ec52dd5d9726733114d6eca53d5a32ed5'
     environment:
       ASPIRE_OTLP_ENDPOINT: '${}'
       ASPIRE_API_KEY: ''
@@ -188,7 +188,7 @@ services:
     networks:
       - 'aspire'
   postgres:
-    image: 'docker.io/library/postgres:18.4@sha256:3a82e1f56c8f0f5616a11103ac3d47e632c3938698946a7ad26da0df1334744a'
+    image: 'docker.io/library/postgres:18.4@sha256:d129b9577d274bb96cbd44d902bdeb1b935c89247d161241e9154cba64e13df4'
     environment:
       POSTGRES_HOST_AUTH_METHOD: 'scram-sha-256'
       POSTGRES_INITDB_ARGS: '--auth-host=scram-sha-256 --auth-local=scram-sha-256'
@@ -204,7 +204,7 @@ services:
     networks:
       - 'aspire'
   cache:
-    image: 'docker.io/library/redis:8.8@sha256:234c902a2db49461a129e2d4aeff85b28cf20187ed274a67f6e50995fa713c7b'
+    image: 'docker.io/library/redis:8.10@sha256:39353c6a2f310da333374e1290c91805d15a85def073b5090f58e4ac646d284c'
     command:
       - '-c'
       - 'redis-server --requirepass $$REDIS_PASSWORD --save 60 1'
