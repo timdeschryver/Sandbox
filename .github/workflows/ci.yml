@@ -87,7 +87,7 @@ jobs:
       - uses: ./.github/actions/setup-pnpm
 
       - name: Install Playwright Browsers
-        timeout-minutes: 2
+        timeout-minutes: 10
         run: pnpm --filter='sandbox.e2e' exec playwright install --with-deps
 
       - name: Build Angular workspace
