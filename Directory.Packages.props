@@ -3,16 +3,16 @@
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
   </PropertyGroup>
   <ItemGroup>
-    <PackageVersion Include="Aspire.Hosting.Azure" Version="13.4.6" />
-    <PackageVersion Include="Aspire.Hosting.Docker" Version="13.4.6" />
-    <PackageVersion Include="Aspire.Hosting.Keycloak" Version="13.4.6-preview.1.26319.6" />
-    <PackageVersion Include="Aspire.Hosting.JavaScript" Version="13.4.6" />
-    <PackageVersion Include="Aspire.Hosting.PostgreSQL" Version="13.4.6" />
-    <PackageVersion Include="Aspire.Hosting.Redis" Version="13.4.6" />
-    <PackageVersion Include="Aspire.Keycloak.Authentication" Version="13.4.6-preview.1.26319.6" />
-    <PackageVersion Include="Aspire.Npgsql.EntityFrameworkCore.PostgreSQL" Version="13.4.6" />
-    <PackageVersion Include="Aspire.StackExchange.Redis" Version="13.4.6" />
-    <PackageVersion Include="Aspire.StackExchange.Redis.DistributedCaching" Version="13.4.6" />
+    <PackageVersion Include="Aspire.Hosting.Azure" Version="13.5.0" />
+    <PackageVersion Include="Aspire.Hosting.Docker" Version="13.5.0" />
+    <PackageVersion Include="Aspire.Hosting.Keycloak" Version="13.5.0-preview.1.26417.10" />
+    <PackageVersion Include="Aspire.Hosting.JavaScript" Version="13.5.0" />
+    <PackageVersion Include="Aspire.Hosting.PostgreSQL" Version="13.5.0" />
+    <PackageVersion Include="Aspire.Hosting.Redis" Version="13.5.0" />
+    <PackageVersion Include="Aspire.Keycloak.Authentication" Version="13.5.0-preview.1.26417.10" />
+    <PackageVersion Include="Aspire.Npgsql.EntityFrameworkCore.PostgreSQL" Version="13.5.0" />
+    <PackageVersion Include="Aspire.StackExchange.Redis" Version="13.5.0" />
+    <PackageVersion Include="Aspire.StackExchange.Redis.DistributedCaching" Version="13.5.0" />
     <PackageVersion Include="CommunityToolkit.Aspire.Hosting.Azure.DataApiBuilder" Version="13.4.0" />
     <PackageVersion Include="CommunityToolkit.Aspire.Hosting.Flagd" Version="13.4.0" />
     <PackageVersion Include="CommunityToolkit.Aspire.Hosting.Minio" Version="13.4.0" />
