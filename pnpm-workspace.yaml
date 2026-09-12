@@ -9,11 +9,6 @@ allowBuilds:
   lmdb: true
   msgpackr-extract: true
 
-overrides:
-  '@angular-devkit/architect': '0.2201.5'
-  '@angular-devkit/core': '22.1.5'
-  '@angular-devkit/schematics': '22.1.5'
-
 catalog:
   '@azure/identity': '4.13.2'
   '@azure/playwright': '1.1.6'

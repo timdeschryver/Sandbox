@@ -38,10 +38,13 @@
 		"rxjs": "catalog:",
 		"tailwindcss": "catalog:tailwindcss",
 		"tslib": "catalog:",
-		"zone.js": "catalog:",
-		"zod": "catalog:"
+		"zod": "catalog:",
+		"zone.js": "catalog:"
 	},
 	"devDependencies": {
+		"@angular-devkit/architect": "0.2201.5",
+		"@angular-devkit/core": "22.1.5",
+		"@angular-devkit/schematics": "22.1.5",
 		"@angular/build": "catalog:angular",
 		"@angular/cli": "catalog:angular",
 		"@angular/compiler-cli": "catalog:angular",
