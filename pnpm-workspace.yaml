@@ -10,9 +10,9 @@ allowBuilds:
   msgpackr-extract: true
 
 overrides:
-  '@angular-devkit/architect': '0.2201.7'
-  '@angular-devkit/core': '22.1.7'
-  '@angular-devkit/schematics': '22.1.7'
+  '@angular-devkit/architect': '0.2201.5'
+  '@angular-devkit/core': '22.1.5'
+  '@angular-devkit/schematics': '22.1.5'
 
 catalog:
   '@azure/identity': '4.13.2'
@@ -36,8 +36,8 @@ catalog:
 
 catalogs:
   angular:
-    '@angular/build': '22.1.7'
-    '@angular/cli': '22.1.7'
+    '@angular/build': '22.1.5'
+    '@angular/cli': '22.1.5'
     '@angular/common': '22.1.5'
     '@angular/compiler': '22.1.5'
     '@angular/compiler-cli': '22.1.5'
