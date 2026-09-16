@@ -3,16 +3,16 @@
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
   </PropertyGroup>
   <ItemGroup>
-    <PackageVersion Include="Aspire.Hosting.Azure" Version="13.5.3" />
-    <PackageVersion Include="Aspire.Hosting.Docker" Version="13.5.3" />
+    <PackageVersion Include="Aspire.Hosting.Azure" Version="13.5.4" />
+    <PackageVersion Include="Aspire.Hosting.Docker" Version="13.5.4" />
     <PackageVersion Include="Aspire.Hosting.Keycloak" Version="13.5.0-preview.1.26417.10" />
-    <PackageVersion Include="Aspire.Hosting.JavaScript" Version="13.5.3" />
-    <PackageVersion Include="Aspire.Hosting.PostgreSQL" Version="13.5.3" />
-    <PackageVersion Include="Aspire.Hosting.Redis" Version="13.5.3" />
+    <PackageVersion Include="Aspire.Hosting.JavaScript" Version="13.5.4" />
+    <PackageVersion Include="Aspire.Hosting.PostgreSQL" Version="13.5.4" />
+    <PackageVersion Include="Aspire.Hosting.Redis" Version="13.5.4" />
     <PackageVersion Include="Aspire.Keycloak.Authentication" Version="13.5.0-preview.1.26417.10" />
-    <PackageVersion Include="Aspire.Npgsql.EntityFrameworkCore.PostgreSQL" Version="13.5.3" />
-    <PackageVersion Include="Aspire.StackExchange.Redis" Version="13.5.3" />
-    <PackageVersion Include="Aspire.StackExchange.Redis.DistributedCaching" Version="13.5.3" />
+    <PackageVersion Include="Aspire.Npgsql.EntityFrameworkCore.PostgreSQL" Version="13.5.4" />
+    <PackageVersion Include="Aspire.StackExchange.Redis" Version="13.5.4" />
+    <PackageVersion Include="Aspire.StackExchange.Redis.DistributedCaching" Version="13.5.4" />
     <PackageVersion Include="CommunityToolkit.Aspire.Hosting.Azure.DataApiBuilder" Version="13.5.0" />
     <PackageVersion Include="CommunityToolkit.Aspire.Hosting.Flagd" Version="13.5.0" />
     <PackageVersion Include="CommunityToolkit.Aspire.Hosting.Minio" Version="13.5.0" />
@@ -52,21 +52,21 @@
     <PackageVersion Include="OpenTelemetry.Instrumentation.AspNetCore" Version="1.18.0" />
     <PackageVersion Include="OpenTelemetry.Instrumentation.Http" Version="1.18.0" />
     <PackageVersion Include="OpenTelemetry.Instrumentation.Runtime" Version="1.18.0" />
-    <PackageVersion Include="Scalar.AspNetCore" Version="2.17.3" />
+    <PackageVersion Include="Scalar.AspNetCore" Version="2.17.4" />
     <PackageVersion Include="Testcontainers.Redis" Version="4.15.0" />
-    <PackageVersion Include="TUnit.AspNetCore" Version="1.67.0" />
-    <PackageVersion Include="Verify.TUnit" Version="31.28.0" />
+    <PackageVersion Include="TUnit.AspNetCore" Version="1.68.4" />
+    <PackageVersion Include="Verify.TUnit" Version="33.0.2" />
     <PackageVersion Include="Vogen" Version="8.0.6" />
     <PackageVersion Include="TngTech.ArchUnitNET" Version="0.13.4" />
-    <PackageVersion Include="TUnit" Version="1.67.0" />
-    <PackageVersion Include="WolverineFx" Version="6.36.0" />
-    <PackageVersion Include="WolverineFx.EntityFrameworkCore" Version="6.36.0" />
-    <PackageVersion Include="WolverineFx.Postgresql" Version="6.36.0" />
-    <PackageVersion Include="WolverineFx.RuntimeCompilation" Version="6.36.0" />
+    <PackageVersion Include="TUnit" Version="1.68.4" />
+    <PackageVersion Include="WolverineFx" Version="6.38.0" />
+    <PackageVersion Include="WolverineFx.EntityFrameworkCore" Version="6.38.0" />
+    <PackageVersion Include="WolverineFx.Postgresql" Version="6.38.0" />
+    <PackageVersion Include="WolverineFx.RuntimeCompilation" Version="6.38.0" />
     <PackageVersion Include="Yarp.ReverseProxy" Version="2.3.0" />
-    <PackageVersion Include="ZiggyCreatures.FusionCache" Version="2.6.0" />
-    <PackageVersion Include="ZiggyCreatures.FusionCache.Backplane.StackExchangeRedis" Version="2.6.0" />
-    <PackageVersion Include="ZiggyCreatures.FusionCache.OpenTelemetry" Version="2.6.0" />
-    <PackageVersion Include="ZiggyCreatures.FusionCache.Serialization.SystemTextJson" Version="2.6.0" />
+    <PackageVersion Include="ZiggyCreatures.FusionCache" Version="2.8.0" />
+    <PackageVersion Include="ZiggyCreatures.FusionCache.Backplane.StackExchangeRedis" Version="2.8.0" />
+    <PackageVersion Include="ZiggyCreatures.FusionCache.OpenTelemetry" Version="2.8.0" />
+    <PackageVersion Include="ZiggyCreatures.FusionCache.Serialization.SystemTextJson" Version="2.8.0" />
   </ItemGroup>
 </Project>
