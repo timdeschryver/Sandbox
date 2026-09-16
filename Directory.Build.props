@@ -14,13 +14,6 @@
         <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
     </PropertyGroup>
 
-    <!--
-      Verify (33+) enforces a maintenance-fee check at build time (SponsorCheck SC021).
-      This repository is a non-revenue, MIT-licensed open source project, so it claims the
-      publisher-defined OpenSource exemption. The exemption is time-bounded (max 12 months)
-      and must be renewed before the "Until" month passes.
-      See https://github.com/VerifyTests/Verify/blob/main/docs/maintenance-fee.md
-    -->
     <PropertyGroup>
         <Verify_SponsorshipExemption>OpenSource</Verify_SponsorshipExemption>
         <Verify_SponsorshipExemptionUntil>2027-09</Verify_SponsorshipExemptionUntil>
