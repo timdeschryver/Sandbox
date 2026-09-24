@@ -13,13 +13,13 @@ catalog:
   '@azure/identity': '4.13.3'
   '@azure/playwright': '1.1.6'
   '@stoplight/spectral-cli': '6.16.3'
-  '@types/node': '24.13.4'
-  'dotenv': '17.4.2'
-  'jsdom': '30.0.1'
+  '@types/node': '24.13.6'
+  'dotenv': '18.0.1'
+  'jsdom': '30.1.0'
   'oxfmt': '0.68.0'
   'oxlint': '1.83.0'
-  'oxlint-tsgolint': '7.0.2001'
-  'prettier': '3.9.6'
+  'oxlint-tsgolint': '7.0.2002'
+  'prettier': '3.9.8'
   'prettier-plugin-tailwindcss': '0.8.1'
   'postcss': '8.5.28'
   'run-script-os': '1.1.6'
@@ -33,13 +33,13 @@ catalogs:
   angular:
     '@angular/build': '22.1.8'
     '@angular/cli': '22.1.8'
-    '@angular/common': '22.1.6'
-    '@angular/compiler': '22.1.6'
-    '@angular/compiler-cli': '22.1.6'
-    '@angular/core': '22.1.6'
-    '@angular/forms': '22.1.6'
-    '@angular/platform-browser': '22.1.6'
-    '@angular/router': '22.1.6'
+    '@angular/common': '22.1.7'
+    '@angular/compiler': '22.1.7'
+    '@angular/compiler-cli': '22.1.7'
+    '@angular/core': '22.1.7'
+    '@angular/forms': '22.1.7'
+    '@angular/platform-browser': '22.1.7'
+    '@angular/router': '22.1.7'
     'ng-packagr': '22.1.1'
 
   opentelemetry:
@@ -58,7 +58,7 @@ catalogs:
     '@testing-library/user-event': '14.6.7'
 
   eslint:
-    'eslint': '10.10.0'
+    'eslint': '10.11.0'
     'angular-eslint': '22.5.0'
     'eslint-plugin-playwright': '2.12.0'
 
