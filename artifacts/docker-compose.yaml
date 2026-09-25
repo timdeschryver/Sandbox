@@ -114,7 +114,7 @@ services:
     networks:
       - 'aspire'
   prometheus:
-    image: 'prom/prometheus:latest@sha256:5ce7540c3c00ef4ab0c9d2c995c6a5b9c421f44b4a115d97a2c7af3b1c21cbb0'
+    image: 'prom/prometheus:latest@sha256:efd719c99d83b060d9daefdcf00360461adf279f45ef5391f8d111892118753e'
     command:
       - '--web.enable-otlp-receiver'
       - '--web.enable-remote-write-receiver'
@@ -188,7 +188,7 @@ services:
     networks:
       - 'aspire'
   postgres:
-    image: 'docker.io/library/postgres:18.6@sha256:86c951e05bf56c93d95d397747fb8820ac76cc3bedb78f43abd83eedbe3666ae'
+    image: 'docker.io/library/postgres:18.6@sha256:5a5a84b19854a9ffaa54082c166ff4ec27473a361e496e5ea167f298f2da9722'
     environment:
       POSTGRES_HOST_AUTH_METHOD: 'scram-sha-256'
       POSTGRES_INITDB_ARGS: '--auth-host=scram-sha-256 --auth-local=scram-sha-256'
