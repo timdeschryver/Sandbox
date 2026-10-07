@@ -2,7 +2,7 @@
 	"extends": "./tsconfig.json",
 	"compilerOptions": {
 		"outDir": "./out-tsc/spec",
-		"types": []
+		"types": ["@vitest/browser/matchers"]
 	},
-	"include": ["src/**/*.ts", "src/test-setup.ts"]
+	"include": ["src/**/*.ts"]
 }

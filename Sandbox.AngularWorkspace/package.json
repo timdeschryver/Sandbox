@@ -49,7 +49,6 @@
 		"@angular/cli": "catalog:angular",
 		"@angular/compiler-cli": "catalog:angular",
 		"@testing-library/angular": "catalog:testing-library",
-		"@testing-library/jest-dom": "catalog:testing-library",
 		"@testing-library/user-event": "catalog:testing-library",
 		"@types/node": "catalog:",
 		"@vitest/browser": "catalog:vitest",
