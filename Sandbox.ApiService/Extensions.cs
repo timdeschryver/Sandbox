@@ -13,8 +13,6 @@ namespace Sandbox.ApiService;
 
 internal static class Extensions
 {
-    private static HeaderPolicyCollection? s_headerApiPolicy;
-
     extension(WebApplicationBuilder builder)
     {
         public WebApplicationBuilder AddAuthentication()
@@ -152,19 +150,14 @@ internal static class Extensions
         public WebApplicationBuilder AddSecurity()
         {
             builder.Services.AddSecurityHeaderPolicies()
-                .SetPolicySelector(ctx => GetApiHeaderPolicyCollection(builder.Environment.IsDevelopment()));
+                .SetDefaultPolicy(CreateApiHeaderPolicyCollection(builder.Environment.IsDevelopment()));
             return builder;
         }
     }
 
-    internal static HeaderPolicyCollection GetApiHeaderPolicyCollection(bool isDev)
+    private static HeaderPolicyCollection CreateApiHeaderPolicyCollection(bool isDev)
     {
-        if (s_headerApiPolicy is not null)
-        {
-            return s_headerApiPolicy;
-        }
-
-        s_headerApiPolicy = new HeaderPolicyCollection()
+        var policy = new HeaderPolicyCollection()
             .AddFrameOptionsDeny()
             .AddContentTypeOptionsNoSniff()
             .AddReferrerPolicyStrictOriginWhenCrossOrigin()
@@ -174,7 +167,7 @@ internal static class Extensions
             .RemoveServerHeader()
             .AddPermissionsPolicyWithDefaultSecureDirectives();
 
-        s_headerApiPolicy.AddContentSecurityPolicy(builder =>
+        policy.AddContentSecurityPolicy(builder =>
         {
             builder.AddObjectSrc().None();
             builder.AddBlockAllMixedContent();
@@ -191,10 +184,10 @@ internal static class Extensions
 
         if (!isDev)
         {
-            s_headerApiPolicy.AddStrictTransportSecurityMaxAgeIncludeSubDomainsAndPreload();
+            policy.AddStrictTransportSecurityMaxAgeIncludeSubDomainsAndPreload();
         }
 
-        return s_headerApiPolicy;
+        return policy;
     }
 
     public static OpenApiOptions CustomSchemaIds(this OpenApiOptions config,
