@@ -1,5 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
   <PropertyGroup>
+    <!-- This test host does not serve static assets from its referenced web projects. -->
+    <StaticWebAssetsEnabled>false</StaticWebAssetsEnabled>
     <NoWarn>CA1707;</NoWarn>
   </PropertyGroup>
 

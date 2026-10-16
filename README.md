@@ -82,7 +82,7 @@ graph TD
 
 ## Prerequisites
 
-- [.NET 11 RC 1 SDK](https://dotnet.microsoft.com/en-us/download) (the repository is pinned to `11.0.100-rc.1.26425.128` in `global.json`)
+- [.NET 11 RC 2 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/11.0) (the repository is pinned to `11.0.100-rc.2.26504.105` in `global.json`)
 - [`pnpm`](https://pnpm.io/)
 - Containerization tool ([podman](https://podman.io/), [docker](https://www.docker.com/products/docker-desktop/), etc)
 
