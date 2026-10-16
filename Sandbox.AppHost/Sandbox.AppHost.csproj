@@ -23,5 +23,6 @@
     <PackageReference Include="CommunityToolkit.Aspire.Hosting.Azure.DataApiBuilder" />
     <PackageReference Include="CommunityToolkit.Aspire.Hosting.Flagd" />
     <PackageReference Include="CommunityToolkit.Aspire.Hosting.Minio" />
+    <PackageReference Include="MessagePack" />
   </ItemGroup>
 </Project>
