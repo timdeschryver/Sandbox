@@ -157,9 +157,7 @@ jobs:
           SOPS_AGE_KEY: ${{ secrets.SOPS_AGE_KEY }}
 
       - name: E2E test frontend projects
-        run: |
-          dotnet restore
-          pnpm --filter="sandbox.e2e" test --config=playwright.service.config.ts
+        run: pnpm --filter="sandbox.e2e" test --config=playwright.service.config.ts
         env:
           PLAYWRIGHT_SERVICE_URL: ${{ secrets.PLAYWRIGHT_SERVICE_URL }}
           PLAYWRIGHT_USERNAME: ${{ secrets.PLAYWRIGHT_USERNAME }}
