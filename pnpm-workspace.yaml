@@ -14,7 +14,7 @@ catalog:
   '@azure/playwright': '1.1.6'
   '@stoplight/spectral-cli': '6.17.0'
   '@types/node': '24.19.2'
-  'dotenv': '18.0.7'
+  'dotenv': '18.0.8'
   'jsdom': '30.1.2'
   'oxfmt': '0.73.0'
   'oxlint': '1.88.0'
@@ -62,8 +62,8 @@ catalogs:
     'eslint-plugin-playwright': '2.12.1'
 
   playwright:
-    '@playwright/test': '1.64.0'
-    'playwright': '1.64.0'
+    '@playwright/test': '1.64.1'
+    'playwright': '1.64.1'
 
   tailwindcss:
     '@tailwindcss/postcss': '4.3.3'
