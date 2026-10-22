@@ -204,7 +204,7 @@ services:
     networks:
       - 'aspire'
   cache:
-    image: 'docker.io/library/redis:8.10@sha256:5c02d7c0f8d75af45958c0294a8004f2e14b42df98a1103e3a669aa7ec787be6'
+    image: 'docker.io/library/redis:8.10@sha256:97ec88159e6d7cfb5ddef9015386087d58a912de80112f06ebdfa78fa5989901'
     command:
       - '-c'
       - 'redis-server --requirepass $$REDIS_PASSWORD --save 60 1'
