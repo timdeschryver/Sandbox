@@ -1,4 +1,4 @@
-<Project Sdk="Aspire.AppHost.Sdk/13.6.2">
+<Project Sdk="Aspire.AppHost.Sdk/13.6.5">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -24,5 +24,6 @@
     <PackageReference Include="CommunityToolkit.Aspire.Hosting.Flagd" />
     <PackageReference Include="CommunityToolkit.Aspire.Hosting.Minio" />
     <PackageReference Include="MessagePack" />
+    <PackageReference Include="System.Formats.Cbor" />
   </ItemGroup>
 </Project>

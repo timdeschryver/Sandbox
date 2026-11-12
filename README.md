@@ -82,7 +82,7 @@ graph TD
 
 ## Prerequisites
 
-- [.NET 11 RC 2 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/11.0) (the repository is pinned to `11.0.100-rc.2.26504.105` in `global.json`)
+- [.NET 11 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/11.0) (the repository is pinned to `11.0.100` in `global.json`)
 - [`pnpm`](https://pnpm.io/)
 - Containerization tool ([podman](https://podman.io/), [docker](https://www.docker.com/products/docker-desktop/), etc)
 
@@ -125,12 +125,6 @@ Clone the project and run the `dotnet run` command in the root folder to start t
 
 ```bash
 dotnet run --project ./Sandbox.AppHost
-```
-
-If you want to build the full solution explicitly while the repo is on .NET 11 Preview 5, use:
-
-```bash
-dotnet build ./Sandbox.slnx -m:1
 ```
 
 ## Result
