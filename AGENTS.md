@@ -212,7 +212,7 @@ sequenceDiagram
 
 ### Technologies
 
-- **Backend**: .NET 10, Entity Framework Core, YARP, Vogen, TUnit, ArchUnitNET.
+- **Backend**: .NET 11, Entity Framework Core, YARP, Vogen, TUnit, ArchUnitNET.
 - **Frontend**: Angular 21, TypeScript, no UI-library, Angular Testing Library, Vitest, Playwright.
 
 ## Core Commands
