@@ -12,7 +12,7 @@
     <PackageVersion Include="Aspire.Hosting.PostgreSQL" Version="17.0.0" />
     <PackageVersion Include="Aspire.Hosting.Redis" Version="17.0.0" />
     <PackageVersion Include="Aspire.Keycloak.Authentication" Version="17.0.0-preview.1.26567.5" />
-    <PackageVersion Include="Aspire.Npgsql.EntityFrameworkCore.PostgreSQL" Version="13.6.5" />
+    <PackageVersion Include="Aspire.Npgsql.EntityFrameworkCore.PostgreSQL" Version="17.0.0-preview.1.26567.5" />
     <PackageVersion Include="Aspire.StackExchange.Redis" Version="17.0.0" />
     <PackageVersion Include="Aspire.StackExchange.Redis.DistributedCaching" Version="17.0.0" />
     <PackageVersion Include="CommunityToolkit.Aspire.Hosting.Azure.DataApiBuilder" Version="17.0.0" />
