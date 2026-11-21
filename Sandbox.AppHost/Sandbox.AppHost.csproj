@@ -1,4 +1,4 @@
-<Project Sdk="Aspire.AppHost.Sdk/13.6.5">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -7,15 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Sandbox.Gateway\Sandbox.Gateway.csproj" />
-    <ProjectReference Include="..\Sandbox.ApiService\Sandbox.ApiService.csproj" />
-    <ProjectReference Include="..\Sandbox.Migrations\Sandbox.Migrations.csproj" />
-    <ProjectReference Include="..\Sandbox.SharedKernel\Sandbox.SharedKernel.csproj" IsAspireProjectResource="false" />
+    <ProjectReference Include="..\Sandbox.SharedKernel\Sandbox.SharedKernel.csproj" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Aspire.Hosting.AppHost" />
     <PackageReference Include="Aspire.Hosting.Azure" />
     <PackageReference Include="Aspire.Hosting.Docker" />
+    <PackageReference Include="Aspire.Hosting.Dotnet" />
     <PackageReference Include="Aspire.Hosting.Keycloak" />
     <PackageReference Include="Aspire.Hosting.JavaScript" />
     <PackageReference Include="Aspire.Hosting.PostgreSQL" />

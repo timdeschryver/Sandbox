@@ -123,7 +123,7 @@ var flagd = builder.AddFlagd("flagd")
     .WithImageTag("v0.15.5")
     .WithBindFileSync(fileSource: "../config/flagd", filename: "flagd.json");
 
-var migrations = builder.AddProject<Projects.Sandbox_Migrations>("migrations")
+var migrations = builder.AddDotnetProject("migrations", "../Sandbox.Migrations/Sandbox.Migrations.csproj")
     .WithReference(database)
     .WithReference(redis)
     .WaitFor(database)
@@ -144,7 +144,7 @@ if (builder.Environment.IsDevelopment())
     });
 }
 
-var apiService = builder.AddProject<Projects.Sandbox_ApiService>("apiservice")
+var apiService = builder.AddDotnetProject("apiservice", "../Sandbox.ApiService/Sandbox.ApiService.csproj")
     .WithHttpHealthCheck("/health")
     .WithReference(database)
     .WithReference(keycloak)
@@ -176,7 +176,7 @@ var angularApplication = builder
         resource.WithDockerfile("../", stage: "sandbox-app");
     });
 
-var gateway = builder.AddProject<Projects.Sandbox_Gateway>("gateway")
+var gateway = builder.AddDotnetProject("gateway", "../Sandbox.Gateway/Sandbox.Gateway.csproj")
     .WithReference(apiService)
     .WithReference(angularApplication)
     .WithReference(redis)
@@ -241,9 +241,7 @@ builder.AddDockerComposeEnvironment("Sandbox")
 
 if (builder.ExecutionContext.IsPublishMode)
 {
-#pragma warning disable ASPIREAZURE001 // Type is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
     builder.AddAzureEnvironment();
-#pragma warning restore ASPIREAZURE001 // Type is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
 }
 
 await builder.Build().RunAsync();
