@@ -1,3 +1,4 @@
+using Aspire.Hosting.Dotnet;
 using Aspire.Hosting.Eventing;
 using Aspire.Hosting.Lifecycle;
 using Microsoft.Extensions.Logging;
@@ -24,7 +25,7 @@ internal sealed partial class OltpEndpointVariableLifecycle(ILogger<OltpEndpoint
             return Task.CompletedTask;
         }
 
-        foreach (var resource in @event.Model.GetProjectResources())
+        foreach (var resource in @event.Model.Resources.OfType<DotnetProjectResource>())
         {
             resource.Annotations.Add(new EnvironmentCallbackAnnotation(context =>
             {
